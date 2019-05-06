@@ -26,9 +26,11 @@ Route::get('/', function () {
 });
 
 Route::get('/login', function () {
-  return view('login', [
-    'tasks' => Task::orderBy('created_at', 'asc')->get()
-  ]);
+  return view('login');
+});
+
+Route::get('/home', function () {
+  return view('home');
 });
 
 Route::get('/tasks', function () {
