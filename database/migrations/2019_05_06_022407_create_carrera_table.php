@@ -19,7 +19,7 @@ class CreateCarreraTable extends Migration
         $table->integer('id_escuela');
         $table->timestamps();
         $table->softDeletes();
-      });
+      }); 
     }
 
     /**

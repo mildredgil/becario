@@ -25,7 +25,7 @@ class CreateEstudianteTable extends Migration
         $table->integer('tipo_beca');
         $table->string('contrasena');
         $table->string('email');
-        $table->rememberToken();
+        $table->rememberToken(); 
         $table->timestamps();
         $table->softDeletes();
       });
