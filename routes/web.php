@@ -30,6 +30,10 @@ Route::get('/login', function () {
   return view('login');
 });
 
+Route::get('/homeColaborador', function () {
+    return view('homeColaborador');
+  });
+
 Route::get('/home', function () {
   $estudiante = Estudiante::where('id', 1)->with("carrera")->get();
   dd($estudiante);
