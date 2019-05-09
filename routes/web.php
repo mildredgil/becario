@@ -29,6 +29,10 @@ Route::get('/login', function () {
   return view('login');
 });
 
+Route::get('/homeColaborador', function () {
+    return view('homeColaborador');
+  });
+
 Route::get('/home', function () {
   return view('home');
 });
