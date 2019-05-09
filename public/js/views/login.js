@@ -8442,8 +8442,7 @@ var Login = function Login(_ref) {
   var onChangePassword = function onChangePassword(event) {
     setInputPassword(event.target.value);
   };
-  console.log(classes);
-  console.log("hello");
+
   return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
     __WEBPACK_IMPORTED_MODULE_4__material_ui_core_styles__["MuiThemeProvider"],
     { theme: __WEBPACK_IMPORTED_MODULE_5__theme__["a" /* default */] },
