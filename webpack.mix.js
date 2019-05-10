@@ -10,4 +10,5 @@ const { mix } = require('laravel-mix');
  | file for the application as well as bundling up all the JS files.
  |
  */
-mix.react('resources/assets/js/views/login.jsx', 'public/js/views');
+mix.react('resources/assets/js/views/login.jsx', 'public/js/views')
+    .react('resources/assets/js/views/homeColaboradores.jsx', 'public/js/views');
