@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 433);
+/******/ 	return __webpack_require__(__webpack_require__.s = 435);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -69782,14 +69782,16 @@ var _default = (0, _withTheme.default)()(Zoom);
 exports.default = _default;
 
 /***/ }),
-/* 433 */
+/* 433 */,
+/* 434 */,
+/* 435 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(434);
+module.exports = __webpack_require__(436);
 
 
 /***/ }),
-/* 434 */
+/* 436 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -69798,13 +69800,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__material_ui_core_TextField__ = __webpack_require__(133);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__material_ui_core_TextField___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__material_ui_core_TextField__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__material_ui_core_styles__ = __webpack_require__(41);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__material_ui_core_styles___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__material_ui_core_styles__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__material_ui_core_Button__ = __webpack_require__(43);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__material_ui_core_Button___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__material_ui_core_Button__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__material_ui_core_styles__ = __webpack_require__(41);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__material_ui_core_styles___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__material_ui_core_styles__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__theme__ = __webpack_require__(251);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__theme__ = __webpack_require__(251);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__material_ui_core_Menu__ = __webpack_require__(134);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__material_ui_core_Menu___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_Menu__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__material_ui_core_MenuItem__ = __webpack_require__(78);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__material_ui_core_MenuItem___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__material_ui_core_MenuItem__);
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -69817,101 +69821,78 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-var Login = function Login(_ref) {
+
+var NavBar = function NavBar(_ref) {
   var classes = _ref.classes;
 
-  var _React$useState = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(''),
+  var _React$useState = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(null),
       _React$useState2 = _slicedToArray(_React$useState, 2),
-      inputName = _React$useState2[0],
-      setInputName = _React$useState2[1];
+      anchorEl = _React$useState2[0],
+      setAnchorEl = _React$useState2[1];
 
-  var _React$useState3 = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(''),
-      _React$useState4 = _slicedToArray(_React$useState3, 2),
-      inputPassword = _React$useState4[0],
-      setInputPassword = _React$useState4[1];
-
-  var onChangeName = function onChangeName(event) {
-    setInputName(event.target.value);
+  var handleClick = function handleClick(event) {
+    setAnchorEl(event.currentTarget);
   };
 
-  var onChangePassword = function onChangePassword(event) {
-    setInputPassword(event.target.value);
+  var handleClose = function handleClose() {
+    setAnchorEl(null);
   };
 
   return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-    __WEBPACK_IMPORTED_MODULE_4__material_ui_core_styles__["MuiThemeProvider"],
-    { theme: __WEBPACK_IMPORTED_MODULE_5__theme__["a" /* default */] },
+    __WEBPACK_IMPORTED_MODULE_2__material_ui_core_styles__["MuiThemeProvider"],
+    { theme: __WEBPACK_IMPORTED_MODULE_4__theme__["a" /* default */] },
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-      'div',
-      { className: 'container row' },
+      'nav',
+      { 'class': 'navbar navbar-default ' + classes.navContainer },
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
-        { className: 'modal col s12 m4 offset-m2 ' + classes.modalWrapper },
+        { 'class': classes.containerExtended },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'div',
-          { className: 'row' },
+          { 'class': 'row valign-wrapper' },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
-            { className: 'col s12' },
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              'label',
-              { className: classes.labelHeader },
-              'Bienvenido al sistema de Asignaci\xF3n Becaria.'
-            ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              'label',
-              { className: classes.labelText },
-              'En esta plataforma encontrar\xE1s con qui\xE9n realizar\xE1s tu servicio becario este Verano 2019.'
-            )
-          )
-        ),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          'div',
-          { className: 'row no-margin' },
+            { 'class': 'col s8 white-text ' + classes.nav },
+            'Asignaci\xF3n Becaria'
+          ),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
-            { className: 'col s12 center-align' },
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__material_ui_core_TextField___default.a, {
-              fullWidth: true,
-              id: 'username',
-              label: 'Matricula de Alumno:',
-              value: inputName,
-              onChange: onChangeName,
-              margin: 'normal',
-              variant: 'outlined'
-            })
-          )
-        ),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          'div',
-          { className: 'row' },
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'div',
-            { className: 'col s12 center-align' },
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__material_ui_core_TextField___default.a, {
-              fullWidth: true,
-              id: 'password',
-              label: 'Contrase\xF1a:',
-              value: inputPassword,
-              onChange: onChangePassword,
-              margin: 'normal',
-              variant: 'outlined'
-            })
-          )
-        ),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          'div',
-          { className: 'row no-margin' },
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'div',
-            { className: 'col s12' },
+            { 'class': 'col s1 offset-s2 white-text nav center-align ' + classes.nav },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               __WEBPACK_IMPORTED_MODULE_3__material_ui_core_Button___default.a,
-              { fullWidth: true, variant: 'contained', color: 'primary', href: '/home' },
-              'Iniciar Sesi\xF3n'
+              {
+                'aria-owns': anchorEl ? 'simple-menu' : undefined,
+                'aria-haspopup': 'true',
+                onClick: handleClick,
+                classes: { root: classes.padding }
+              },
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'i',
+                { 'class': 'material-icons white-text' },
+                'home'
+              )
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              __WEBPACK_IMPORTED_MODULE_5__material_ui_core_Menu___default.a,
+              {
+                id: 'simple-menu',
+                anchorEl: anchorEl,
+                open: Boolean(anchorEl),
+                onClose: handleClose
+              },
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                __WEBPACK_IMPORTED_MODULE_6__material_ui_core_MenuItem___default.a,
+                { onClick: handleClose },
+                'Perfil'
+              ),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                __WEBPACK_IMPORTED_MODULE_6__material_ui_core_MenuItem___default.a,
+                { onClick: handleClose },
+                'Cerrar Sesi\xF3n'
+              )
             )
-          )
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { 'class': classes.logo, src: '/img/tec-logo-letras.png' })
         )
       )
     )
@@ -69920,31 +69901,43 @@ var Login = function Login(_ref) {
 
 var maxWidth = 1000;
 
-var styles = function styles(theme) {
+var styles = function styles() {
   return _defineProperty({
-
-    modalWrapper: {
-      padding: "25px !Important"
+    navContainer: {
+      background: ' linear-gradient(80.19deg, #47c5ff 0%, #1467ff 100%)',
+      margin: '0px'
     },
-
-    labelHeader: {
-      fontSize: '18px',
-      color: '#000',
-      textAlign: 'center'
+    nav: {
+      fontSize: '24px',
+      fontFamily: 'Nunito',
+      letterSpacing: '12px',
+      textTransform: 'uppercase',
+      fontWeight: 'lighter,'
     },
-
-    labelText: {
-      fontSize: '14px',
-      color: '#000'
+    containerExtended: {
+      width: '90%',
+      margin: '0 auto'
+    },
+    icon: {
+      cursor: 'pointer'
+    },
+    //  backgroundColor: '#46c2ff75',
+    padding: {
+      padding: '0px'
+    },
+    logo: {
+      width: '60px',
+      position: 'absolute',
+      right: '10px'
     }
 
   }, '@media (max-width: ' + maxWidth + 'px)', {});
 };
 
-var _Login = Object(__WEBPACK_IMPORTED_MODULE_4__material_ui_core_styles__["withStyles"])(styles)(Login);
+var _NavBar = Object(__WEBPACK_IMPORTED_MODULE_2__material_ui_core_styles__["withStyles"])(styles)(NavBar);
 
-if (document.getElementById('login-modal')) {
-  __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(_Login, null), document.getElementById('login-modal'));
+if (document.getElementById('nav')) {
+  __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(_NavBar, null), document.getElementById('nav'));
 }
 
 /***/ })
