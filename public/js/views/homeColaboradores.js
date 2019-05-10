@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 433);
+/******/ 	return __webpack_require__(__webpack_require__.s = 440);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -69782,14 +69782,21 @@ var _default = (0, _withTheme.default)()(Zoom);
 exports.default = _default;
 
 /***/ }),
-/* 433 */
+/* 433 */,
+/* 434 */,
+/* 435 */,
+/* 436 */,
+/* 437 */,
+/* 438 */,
+/* 439 */,
+/* 440 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(434);
+module.exports = __webpack_require__(441);
 
 
 /***/ }),
-/* 434 */
+/* 441 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -69800,11 +69807,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__material_ui_core_TextField__ = __webpack_require__(139);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__material_ui_core_TextField___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__material_ui_core_TextField__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__material_ui_core_Button__ = __webpack_require__(47);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__material_ui_core_Button___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__material_ui_core_Button__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__material_ui_core_styles__ = __webpack_require__(39);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__material_ui_core_styles___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__material_ui_core_styles__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__theme__ = __webpack_require__(226);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__material_ui_core_Modal__ = __webpack_require__(52);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__material_ui_core_Modal___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__material_ui_core_Modal__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__material_ui_core_Button__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__material_ui_core_Button___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__material_ui_core_Button__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__theme__ = __webpack_require__(226);
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -69817,134 +69826,160 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-var Login = function Login(_ref) {
-  var classes = _ref.classes;
 
-  var _React$useState = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(''),
-      _React$useState2 = _slicedToArray(_React$useState, 2),
-      inputName = _React$useState2[0],
-      setInputName = _React$useState2[1];
+var homeColaboradores = function homeColaboradores(_ref) {
+	var classes = _ref.classes;
 
-  var _React$useState3 = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(''),
-      _React$useState4 = _slicedToArray(_React$useState3, 2),
-      inputPassword = _React$useState4[0],
-      setInputPassword = _React$useState4[1];
+	var _React$useState = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(false),
+	    _React$useState2 = _slicedToArray(_React$useState, 2),
+	    open = _React$useState2[0],
+	    setOpen = _React$useState2[1];
 
-  var onChangeName = function onChangeName(event) {
-    setInputName(event.target.value);
-  };
+	var handleOpen = function handleOpen() {
+		setOpen(true);
+	};
 
-  var onChangePassword = function onChangePassword(event) {
-    setInputPassword(event.target.value);
-  };
+	var handleClose = function handleClose() {
+		setOpen(false);
+	};
 
-  return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-    __WEBPACK_IMPORTED_MODULE_4__material_ui_core_styles__["MuiThemeProvider"],
-    { theme: __WEBPACK_IMPORTED_MODULE_5__theme__["a" /* default */] },
-    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-      'div',
-      { className: 'container row' },
-      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        'div',
-        { className: 'modal col s12 m4 offset-m2 ' + classes.modalWrapper },
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          'div',
-          { className: 'row' },
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'div',
-            { className: 'col s12' },
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              'label',
-              { className: classes.labelHeader },
-              'Bienvenido al sistema de Asignaci\xF3n Becaria.'
-            ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              'label',
-              { className: classes.labelText },
-              'En esta plataforma encontrar\xE1s con qui\xE9n realizar\xE1s tu servicio becario este Verano 2019.'
-            )
-          )
-        ),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          'div',
-          { className: 'row no-margin' },
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'div',
-            { className: 'col s12 center-align' },
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__material_ui_core_TextField___default.a, {
-              fullWidth: true,
-              id: 'username',
-              label: 'Matricula de Alumno:',
-              value: inputName,
-              onChange: onChangeName,
-              margin: 'normal',
-              variant: 'outlined'
-            })
-          )
-        ),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          'div',
-          { className: 'row' },
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'div',
-            { className: 'col s12 center-align' },
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__material_ui_core_TextField___default.a, {
-              fullWidth: true,
-              id: 'password',
-              label: 'Contrase\xF1a:',
-              value: inputPassword,
-              onChange: onChangePassword,
-              margin: 'normal',
-              variant: 'outlined'
-            })
-          )
-        ),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          'div',
-          { className: 'row no-margin' },
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'div',
-            { className: 'col s12' },
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              __WEBPACK_IMPORTED_MODULE_3__material_ui_core_Button___default.a,
-              { fullWidth: true, variant: 'contained', color: 'primary', href: '/homeEstudiante' },
-              'Iniciar Sesi\xF3n'
-            )
-          )
-        )
-      )
-    )
-  );
+	return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+		__WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__["MuiThemeProvider"],
+		{ theme: __WEBPACK_IMPORTED_MODULE_6__theme__["a" /* default */] },
+		__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+			__WEBPACK_IMPORTED_MODULE_4__material_ui_core_Button___default.a,
+			{ onClick: handleOpen },
+			'Open Modal'
+		),
+		__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+			__WEBPACK_IMPORTED_MODULE_3__material_ui_core_Modal___default.a,
+			{
+				open: open,
+				onClose: handleClose,
+				classes: { root: classes.modalRoot }
+			},
+			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+				'div',
+				{ className: 'container ' + classes.containerWidth },
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+					'div',
+					{ className: 'card' },
+					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+						'div',
+						{ className: 'row' },
+						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+							'div',
+							{ className: 'col s12' },
+							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+								'div',
+								{ className: 'row' },
+								__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+									'div',
+									{ className: 'col s12' },
+									__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+										'label',
+										{ className: classes.labelHeader },
+										'Perfil.'
+									),
+									__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
+									__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
+									__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+										'div',
+										{ className: 'col s6' },
+										__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+											'div',
+											{ className: 'row' },
+											__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+												'label',
+												{ className: classes.labelText },
+												'Nombre'
+											)
+										),
+										__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+											'div',
+											{ className: 'row' },
+											__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+												'label',
+												{ className: classes.labelText },
+												'Departamento'
+											)
+										),
+										__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+											'div',
+											{ className: 'row' },
+											__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+												'label',
+												{ className: classes.labelText },
+												'Mail'
+											)
+										)
+									),
+									__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+										'div',
+										{ className: 'col s6' },
+										__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+											'div',
+											{ className: 'row' },
+											__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+												'label',
+												{ className: classes.labelText },
+												'Oficina'
+											)
+										),
+										__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+											'div',
+											{ className: 'row' },
+											__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+												'label',
+												{ className: classes.labelText },
+												'Telefono'
+											)
+										)
+									)
+								)
+							)
+						)
+					)
+				)
+			)
+		)
+	);
 };
 
 var maxWidth = 1000;
 
 var styles = function styles(theme) {
-  return _defineProperty({
+	return _defineProperty({
 
-    modalWrapper: {
-      padding: "25px !Important"
-    },
+		modalWrapper: {
+			padding: "25px !Important"
+		},
 
-    labelHeader: {
-      fontSize: '18px',
-      color: '#000',
-      textAlign: 'center'
-    },
+		modalRoot: {
+			top: '20%'
+		},
 
-    labelText: {
-      fontSize: '14px',
-      color: '#000'
-    }
+		labelHeader: {
+			fontSize: '18px',
+			color: '#000',
+			textAlign: 'center'
+		},
 
-  }, '@media (max-width: ' + maxWidth + 'px)', {});
+		labelText: {
+			fontSize: '14px',
+			color: '#000'
+		},
+		containerWidth: {
+			maxWidth: 450
+		}
+
+	}, '@media (max-width: ' + maxWidth + 'px)', {});
 };
 
-var _Login = Object(__WEBPACK_IMPORTED_MODULE_4__material_ui_core_styles__["withStyles"])(styles)(Login);
+var _homeColaboradores = Object(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__["withStyles"])(styles)(homeColaboradores);
 
-if (document.getElementById('login-modal')) {
-  __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(_Login, null), document.getElementById('login-modal'));
+if (document.getElementById('homeColaborador')) {
+	__WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(_homeColaboradores, null), document.getElementById('homeColaborador'));
 }
 
 /***/ })

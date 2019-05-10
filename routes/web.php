@@ -33,13 +33,12 @@ Route::get('/login', function () {
 
 Route::get('/homeColaborador', function () {
     return view('homeColaborador');
-  });
+});
 
-Route::get('/home', function () {
+Route::get('/homeEstudiante', function () {
   $estudiante = Estudiante::where('id', 1)->with("carrera")->first();
-  $departamento = Departamento::where('id', 1)->first();
-  dd($departamento);
-  return view('home', [
+  
+  return view('homeEstudiante', [
     'estudiante' => $estudiante
   ]);
 });
