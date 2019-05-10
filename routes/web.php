@@ -13,6 +13,7 @@
 
 use App\Task;
 use App\Estudiante;
+use App\Departamento;
 use Illuminate\Http\Request;
 
 /**
@@ -32,12 +33,12 @@ Route::get('/login', function () {
 
 Route::get('/homeColaborador', function () {
     return view('homeColaborador');
-  });
+});
 
-Route::get('/home', function () {
-  $estudiante = Estudiante::where('id', 1)->with("carrera")->get();
-  dd($estudiante);
-  return view('home', [
+Route::get('/homeEstudiante', function () {
+  $estudiante = Estudiante::where('id', 1)->with("carrera")->first();
+  
+  return view('homeEstudiante', [
     'estudiante' => $estudiante
   ]);
 });

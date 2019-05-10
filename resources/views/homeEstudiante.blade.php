@@ -5,5 +5,5 @@
 @endsection
 
 @section('js')
-<script src="{{ asset('/js/views/home.js') }}"></script>
+<script src="{{ asset('/js/views/homeEstudiante.js') }}"></script>
 @endsection

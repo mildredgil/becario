@@ -17,9 +17,6 @@
         body {
             font-family: 'Nunito';
         }
-        .fa-btn {
-            margin-right: 6px;
-        }
         .nav{
           font-size: 24px;
           font-family: Nunito;
@@ -53,27 +50,11 @@
     @yield('css')
   </head>
   <body id="app-layout">
-    <nav class="navbar navbar-default nav-container">
-      <div class="container-extended"> 
-        <div class="row valign-wrapper">
-          <div class="col s8 white-text nav">
-            Asignación Becaria
-          </div>  
-          <div class="col s1 white-text nav offset-s2 center-align">
-            <i class="material-icons icon">calendar_today</i>
-          </div>  
-          <div class="col s1 white-text nav center-align">
-            <i class="material-icons icon active">home</i>
-          </div>  
-          <img class="logo" src="{{asset('/img/tec-logo-letras.png')}}"/>
-        </div>
-      </div>
-    </nav>
-    <div id="header"></div>
-    
+    <div id="nav"></div>            
     @yield('content')
 
     <script src="{{ asset('/js/materialize.min.js') }}"></script>
+    <script src="{{ asset('/js/views/navbarLogged.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     
     @yield('js')
