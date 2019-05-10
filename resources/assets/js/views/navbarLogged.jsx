@@ -16,6 +16,7 @@ const NavBar = ({classes}) => {
 
   const handleClose = () => {
     setAnchorEl(null);
+    window.location.replace("/login");
   };
 
   return (

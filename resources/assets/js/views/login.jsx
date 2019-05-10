@@ -61,7 +61,7 @@ const Login = ({classes}) => {
           </div>
           <div className="row no-margin">
             <div className="col s12">
-              <Button fullWidth variant="contained"  color="primary" href="/home">
+              <Button fullWidth variant="contained"  color="primary" href="/homeEstudiante">
                 Iniciar Sesión
               </Button>
             </div>

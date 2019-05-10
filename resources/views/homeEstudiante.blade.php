@@ -1,7 +1,7 @@
 @extends('layouts.app-logged')
 
 @section('content')    
-  <div id="login-modal"></div>   
+  <div id="content"></div>   
 @endsection
 
 @section('js')

@@ -12,6 +12,7 @@
     <!-- Styles -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="{{ asset('/css/materialize.min.css') }}" rel='stylesheet' type='text/css'>
+    <link href="{{ asset('/css/global.css') }}" rel='stylesheet' type='text/css'>
     <link rel="icon" href="{{ asset('img/tec-favicon.png') }}" sizes="32x32">
     <style>
         body {
