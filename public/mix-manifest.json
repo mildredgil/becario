@@ -2,5 +2,6 @@
   "/mix.js": "/mix.js",
   "/js/app.js": "/js/app.js",
   "/js/login.js": "/js/login.js",
-  "/js/views/login.js": "/js/views/login.js"
+  "/js/views/login.js": "/js/views/login.js",
+  "/js/views/reglamentoModal.js": "/js/views/reglamentoModal.js"
 }
