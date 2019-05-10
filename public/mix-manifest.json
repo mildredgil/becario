@@ -4,5 +4,6 @@
   "/js/login.js": "/js/login.js",
   "/js/views/login.js": "/js/views/login.js",
   "/js/views/navbarLogged.js": "/js/views/navbarLogged.js",
+  "/js/views/homeColaboradores.js": "/js/views/homeColaboradores.js",
   "/js/views/homeEstudiante.js": "/js/views/homeEstudiante.js"
 }
