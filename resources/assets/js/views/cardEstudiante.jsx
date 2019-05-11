@@ -146,6 +146,10 @@ const styles = theme => ({
     fontSize: '20px'
   },
 
+  containerWidth: {
+		maxWidth: '40%',
+	},
+
   [`@media (max-width: ${maxWidth}px)`]: {
    
   }

@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 444);
+/******/ 	return __webpack_require__(__webpack_require__.s = 445);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -69828,18 +69828,18 @@ exports.default = _default;
 /* unused harmony export NotificationIcon */
 /* unused harmony export PadlockIcon */
 /* unused harmony export PeopleIcon */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return PersonIcon; });
-/* unused harmony export PersonEditIcon */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return PhoneIcon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return PersonIcon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return PersonEditIcon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return PhoneIcon; });
 /* unused harmony export PlusIcon */
 /* unused harmony export PowerIcon */
 /* unused harmony export PriceDArrowIcon */
 /* unused harmony export PriceUArrowIcon */
 /* unused harmony export PublicIcon */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return RightArrowIcon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return RightArrowIcon; });
 /* unused harmony export RFullArrowIcon */
 /* unused harmony export SadIcon */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return SchoolIcon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return SchoolIcon; });
 /* unused harmony export SearchIcon */
 /* unused harmony export ShoppingIcon */
 /* unused harmony export TwitterIcon */
@@ -70261,14 +70261,15 @@ var WebIcon = function WebIcon(props) {
 /* 441 */,
 /* 442 */,
 /* 443 */,
-/* 444 */
+/* 444 */,
+/* 445 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(445);
+module.exports = __webpack_require__(446);
 
 
 /***/ }),
-/* 445 */
+/* 446 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -70286,10 +70287,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__theme__ = __webpack_require__(133);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__cardEstudiante__ = __webpack_require__(446);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__cardEstudiante__ = __webpack_require__(447);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_prop_types__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_prop_types__);
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -70509,7 +70513,7 @@ var styles = function styles(theme) {
 
 		labelText: {
 			paddingBottom: '0px!Important',
-			marginTop: '0px!Important',
+			//marginLeft: '10px!Important',
 			marginBottom: '0px!Important',
 			borderBottom: '0px!Important',
 			fontSize: '14px!Important',
@@ -70530,7 +70534,7 @@ if (document.getElementById('homeColaborador')) {
 }
 
 /***/ }),
-/* 446 */
+/* 447 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -70583,7 +70587,7 @@ var CardEstudiante = function CardEstudiante(_ref) {
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
             { className: 'col s6 valign-wrapper' },
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__icons__["f" /* PersonIcon */], { className: classes.iconLabel }),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__icons__["g" /* PersonIcon */], { className: classes.iconLabel }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'label',
               null,
@@ -70629,7 +70633,7 @@ var CardEstudiante = function CardEstudiante(_ref) {
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
             { className: 'col s6 valign-wrapper' },
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__icons__["i" /* SchoolIcon */], { className: classes.iconSchool }),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__icons__["j" /* SchoolIcon */], { className: classes.iconSchool }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'label',
               null,
@@ -70704,7 +70708,7 @@ var CardEstudiante = function CardEstudiante(_ref) {
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
             { className: 'col s6 valign-wrapper' },
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__icons__["g" /* PhoneIcon */], { className: classes.iconLabel }),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__icons__["h" /* PhoneIcon */], { className: classes.iconLabel }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'label',
               null,
@@ -70817,6 +70821,10 @@ var styles = function styles(theme) {
 
     status: {
       fontSize: '20px'
+    },
+
+    containerWidth: {
+      maxWidth: '40%'
     }
 
   }, '@media (max-width: ' + maxWidth + 'px)', {});

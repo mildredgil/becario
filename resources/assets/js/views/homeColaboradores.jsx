@@ -7,6 +7,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import defaultTheme from '../theme';
 import CardEstudiante from './cardEstudiante';
+import PropTypes from 'prop-types';
 
 const homeColaboradores = ({ classes }) => {
 	const [open, setOpen] = React.useState(false);
@@ -144,7 +145,7 @@ const styles = theme => ({
 
 	labelText: {
 		paddingBottom: '0px!Important',
-		marginTop: '0px!Important',
+		//marginLeft: '10px!Important',
 		marginBottom: '0px!Important',
 		borderBottom: '0px!Important',
 		fontSize: '14px!Important',

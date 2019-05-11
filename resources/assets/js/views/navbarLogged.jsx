@@ -7,6 +7,8 @@ import defaultTheme from '../theme';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import PerfilColaboradores from './perfilColaboradores';
+import PerfilEstudiantes from './perfilEstudiante';
+
 
 const NavBar = ({classes}) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -60,7 +62,7 @@ const NavBar = ({classes}) => {
           </div>
         </div>
       </nav>
-      <PerfilColaboradores  open={open} handleClose={handleClosePerfil} />
+      <PerfilEstudiantes  open={open} handleClose={handleClosePerfil} />
     </MuiThemeProvider>
   );
 }

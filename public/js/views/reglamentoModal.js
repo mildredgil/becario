@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 447);
+/******/ 	return __webpack_require__(__webpack_require__.s = 448);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -69828,18 +69828,18 @@ exports.default = _default;
 /* unused harmony export NotificationIcon */
 /* unused harmony export PadlockIcon */
 /* unused harmony export PeopleIcon */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return PersonIcon; });
-/* unused harmony export PersonEditIcon */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return PhoneIcon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return PersonIcon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return PersonEditIcon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return PhoneIcon; });
 /* unused harmony export PlusIcon */
 /* unused harmony export PowerIcon */
 /* unused harmony export PriceDArrowIcon */
 /* unused harmony export PriceUArrowIcon */
 /* unused harmony export PublicIcon */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return RightArrowIcon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return RightArrowIcon; });
 /* unused harmony export RFullArrowIcon */
 /* unused harmony export SadIcon */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return SchoolIcon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return SchoolIcon; });
 /* unused harmony export SearchIcon */
 /* unused harmony export ShoppingIcon */
 /* unused harmony export TwitterIcon */
@@ -70481,7 +70481,8 @@ var styles = function styles(theme) {
 /* 444 */,
 /* 445 */,
 /* 446 */,
-/* 447 */
+/* 447 */,
+/* 448 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(434);
