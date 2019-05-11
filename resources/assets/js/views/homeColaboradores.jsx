@@ -27,46 +27,51 @@ const homeColaboradores = ({classes}) => {
         classes={{ root: classes.modalRoot }}
 			>
 				<div className={`container ${classes.containerWidth}`}>
-					<div className="card">
-						<div className="row">
+					<div className="card px-2 py-2">
+						<div className="row margin-0">
 							<div className={`col s12`}>
-								<div className="row">
-									<div className="col s12">
-										<label className={classes.labelHeader}>
-												Perfil.
-										</label>
-										<br></br>
-										<br></br>
-										<div className="col s6">
-											<div className="row">
-												<label className={classes.labelText}>
-													Nombre
-												</label>
-											</div>
-											<div className="row">
-												<label className={classes.labelText}>
-													Departamento
-												</label>
-											</div>
-											<div className="row">
-												<label className={classes.labelText}>
-													Mail
-												</label>
-											</div>
-										</div>
-										<div className="col s6">
-											<div className="row">
-												<label className={classes.labelText}>
-													Oficina
-												</label>
-											</div>
-											<div className="row">
-												<label className={classes.labelText}>
-													Telefono
-												</label>
-											</div>
-										</div>
-									</div>
+								<label className={`${classes.title} blue-tec`}>Perfil</label>
+							</div>
+							<div className="row mb-4 mt-0">
+								<div className="col s6">
+									<label>Nombre:</label>
+								</div>
+								<div className="col s6">
+									<label>Departamento:</label>
+								</div>
+							</div>
+							<div className="row mb-4 mt-0">
+								<div className="col s6">
+									<label className={classes.labelText}>Lorena Gomez</label>
+								</div>
+								<div className="col s6">
+									<label className={classes.labelText}>Ciencias Computacionales</label>
+								</div>
+							</div>
+							<div className="row mb-4 mt-0">
+								<div className="col s6">
+									<label>Oficina:</label>
+								</div>
+								<div className="col s6">
+									<label >Correo Electrónico:</label>
+								</div>
+							</div>
+							<div className="row mb-4 mt-0">
+								<div className="col s6">
+									<label className={classes.labelText}>Cetec torre sur 301</label>
+								</div>
+								<div className="col s6">
+									<label className={classes.labelText}>lorena.gomez@tec.mx</label>
+								</div>
+							</div>
+							<div className="row mb-4 mt-0">
+								<div className="col s6">
+									<label>Teléfono:</label>
+								</div>
+							</div>
+							<div className="row mb-4 mt-0">
+								<div className="col s6">
+									<label className={classes.labelText}>52818181818</label>
 								</div>
 							</div>
 						</div>
@@ -89,16 +94,15 @@ const styles = theme => ({
     top: '20%',
   },
 
-  labelHeader: {
-    fontSize: '18px',
-    color: '#000',
-    textAlign: 'center',
+  title: {
+    fontSize: '30px'
   },
 
   labelText: {
     fontSize: '14px',
     color: '#000',
 	},
+
 	containerWidth: {
     maxWidth: 450,
   },
