@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 437);
+/******/ 	return __webpack_require__(__webpack_require__.s = 438);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -2323,6 +2323,75 @@ exports['default'] = StyleRule;
 "use strict";
 
 
+var _interopRequireDefault = __webpack_require__(0);
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "createGenerateClassName", {
+  enumerable: true,
+  get: function get() {
+    return _createGenerateClassName.default;
+  }
+});
+Object.defineProperty(exports, "createMuiTheme", {
+  enumerable: true,
+  get: function get() {
+    return _createMuiTheme.default;
+  }
+});
+Object.defineProperty(exports, "jssPreset", {
+  enumerable: true,
+  get: function get() {
+    return _jssPreset.default;
+  }
+});
+Object.defineProperty(exports, "MuiThemeProvider", {
+  enumerable: true,
+  get: function get() {
+    return _MuiThemeProvider.default;
+  }
+});
+Object.defineProperty(exports, "createStyles", {
+  enumerable: true,
+  get: function get() {
+    return _createStyles.default;
+  }
+});
+Object.defineProperty(exports, "withStyles", {
+  enumerable: true,
+  get: function get() {
+    return _withStyles.default;
+  }
+});
+Object.defineProperty(exports, "withTheme", {
+  enumerable: true,
+  get: function get() {
+    return _withTheme.default;
+  }
+});
+
+var _createGenerateClassName = _interopRequireDefault(__webpack_require__(93));
+
+var _createMuiTheme = _interopRequireDefault(__webpack_require__(63));
+
+var _jssPreset = _interopRequireDefault(__webpack_require__(86));
+
+var _MuiThemeProvider = _interopRequireDefault(__webpack_require__(203));
+
+var _createStyles = _interopRequireDefault(__webpack_require__(205));
+
+var _withStyles = _interopRequireDefault(__webpack_require__(5));
+
+var _withTheme = _interopRequireDefault(__webpack_require__(28));
+
+/***/ }),
+/* 36 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
 exports.__esModule = true;
 exports.default = exports.EXITING = exports.ENTERED = exports.ENTERING = exports.EXITED = exports.UNMOUNTED = void 0;
 
@@ -2932,7 +3001,7 @@ var _default = (0, _reactLifecyclesCompat.polyfill)(Transition);
 exports.default = _default;
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2959,75 +3028,6 @@ function getTransitionProps(props, options) {
     delay: style.transitionDelay
   };
 }
-
-/***/ }),
-/* 37 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(0);
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-Object.defineProperty(exports, "createGenerateClassName", {
-  enumerable: true,
-  get: function get() {
-    return _createGenerateClassName.default;
-  }
-});
-Object.defineProperty(exports, "createMuiTheme", {
-  enumerable: true,
-  get: function get() {
-    return _createMuiTheme.default;
-  }
-});
-Object.defineProperty(exports, "jssPreset", {
-  enumerable: true,
-  get: function get() {
-    return _jssPreset.default;
-  }
-});
-Object.defineProperty(exports, "MuiThemeProvider", {
-  enumerable: true,
-  get: function get() {
-    return _MuiThemeProvider.default;
-  }
-});
-Object.defineProperty(exports, "createStyles", {
-  enumerable: true,
-  get: function get() {
-    return _createStyles.default;
-  }
-});
-Object.defineProperty(exports, "withStyles", {
-  enumerable: true,
-  get: function get() {
-    return _withStyles.default;
-  }
-});
-Object.defineProperty(exports, "withTheme", {
-  enumerable: true,
-  get: function get() {
-    return _withTheme.default;
-  }
-});
-
-var _createGenerateClassName = _interopRequireDefault(__webpack_require__(93));
-
-var _createMuiTheme = _interopRequireDefault(__webpack_require__(63));
-
-var _jssPreset = _interopRequireDefault(__webpack_require__(86));
-
-var _MuiThemeProvider = _interopRequireDefault(__webpack_require__(203));
-
-var _createStyles = _interopRequireDefault(__webpack_require__(205));
-
-var _withStyles = _interopRequireDefault(__webpack_require__(5));
-
-var _withTheme = _interopRequireDefault(__webpack_require__(28));
 
 /***/ }),
 /* 38 */
@@ -3460,17 +3460,14 @@ var _interopRequireDefault = __webpack_require__(0);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+Object.defineProperty(exports, "default", {
+  enumerable: true,
+  get: function get() {
+    return _Button.default;
+  }
+});
 
-var _react = _interopRequireDefault(__webpack_require__(1));
-
-/**
- * @ignore - internal component.
- */
-var Tablelvl2Context = _react.default.createContext();
-
-var _default = Tablelvl2Context;
-exports.default = _default;
+var _Button = _interopRequireDefault(__webpack_require__(243));
 
 /***/ }),
 /* 44 */
@@ -3484,14 +3481,17 @@ var _interopRequireDefault = __webpack_require__(0);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-Object.defineProperty(exports, "default", {
-  enumerable: true,
-  get: function get() {
-    return _Button.default;
-  }
-});
+exports.default = void 0;
 
-var _Button = _interopRequireDefault(__webpack_require__(243));
+var _react = _interopRequireDefault(__webpack_require__(1));
+
+/**
+ * @ignore - internal component.
+ */
+var Tablelvl2Context = _react.default.createContext();
+
+var _default = Tablelvl2Context;
+exports.default = _default;
 
 /***/ }),
 /* 45 */
@@ -39837,7 +39837,7 @@ var _propTypes = _interopRequireDefault(__webpack_require__(2));
 
 var _classnames = _interopRequireDefault(__webpack_require__(6));
 
-var _styles = __webpack_require__(37);
+var _styles = __webpack_require__(35);
 
 var _helpers = __webpack_require__(15);
 
@@ -43884,13 +43884,13 @@ var _react = _interopRequireDefault(__webpack_require__(1));
 
 var _propTypes = _interopRequireDefault(__webpack_require__(2));
 
-var _Transition = _interopRequireDefault(__webpack_require__(35));
+var _Transition = _interopRequireDefault(__webpack_require__(36));
 
 var _transitions = __webpack_require__(24);
 
 var _withTheme = _interopRequireDefault(__webpack_require__(28));
 
-var _utils = __webpack_require__(36);
+var _utils = __webpack_require__(37);
 
 // @inheritedComponent Transition
 var styles = {
@@ -44099,11 +44099,11 @@ var _react = _interopRequireDefault(__webpack_require__(1));
 
 var _propTypes = _interopRequireDefault(__webpack_require__(2));
 
-var _Transition = _interopRequireDefault(__webpack_require__(35));
+var _Transition = _interopRequireDefault(__webpack_require__(36));
 
 var _withTheme = _interopRequireDefault(__webpack_require__(28));
 
-var _utils = __webpack_require__(36);
+var _utils = __webpack_require__(37);
 
 // @inheritedComponent Transition
 function getScale(value) {
@@ -47198,7 +47198,7 @@ var _propTypes = _interopRequireDefault(__webpack_require__(2));
 
 var _classnames = _interopRequireDefault(__webpack_require__(6));
 
-var _Transition = _interopRequireDefault(__webpack_require__(35));
+var _Transition = _interopRequireDefault(__webpack_require__(36));
 
 /**
  * @ignore - internal component.
@@ -47394,7 +47394,7 @@ var BUTTON_HOVER_COLOR = '#47c5ff';
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__colors__ = __webpack_require__(254);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__colors___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__colors__);
 /* unused harmony reexport colors */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__styles__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__styles__ = __webpack_require__(35);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__styles___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__styles__);
 /* unused harmony reexport createGenerateClassName */
 /* harmony reexport (binding) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_1__styles__, "createMuiTheme")) __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_1__styles__["createMuiTheme"]; });
@@ -47421,7 +47421,7 @@ var BUTTON_HOVER_COLOR = '#47c5ff';
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__BottomNavigationAction__ = __webpack_require__(277);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__BottomNavigationAction___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__BottomNavigationAction__);
 /* unused harmony reexport BottomNavigationAction */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__Button__ = __webpack_require__(44);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__Button__ = __webpack_require__(43);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__Button___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__Button__);
 /* unused harmony reexport Button */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__ButtonBase__ = __webpack_require__(19);
@@ -49576,7 +49576,7 @@ var _withStyles = _interopRequireDefault(__webpack_require__(5));
 
 var _reactHelpers = __webpack_require__(20);
 
-__webpack_require__(44);
+__webpack_require__(43);
 
 // So we don't have any override priority issue.
 var styles = {
@@ -52075,7 +52075,7 @@ var _classnames = _interopRequireDefault(__webpack_require__(6));
 
 var _propTypes = _interopRequireDefault(__webpack_require__(2));
 
-var _Transition = _interopRequireDefault(__webpack_require__(35));
+var _Transition = _interopRequireDefault(__webpack_require__(36));
 
 var _utils = __webpack_require__(8);
 
@@ -52083,7 +52083,7 @@ var _withStyles = _interopRequireDefault(__webpack_require__(5));
 
 var _transitions = __webpack_require__(24);
 
-var _utils2 = __webpack_require__(36);
+var _utils2 = __webpack_require__(37);
 
 // @inheritedComponent Transition
 var styles = function styles(theme) {
@@ -52421,7 +52421,7 @@ var _react = _interopRequireDefault(__webpack_require__(1));
 
 var _propTypes = _interopRequireDefault(__webpack_require__(2));
 
-var _styles = __webpack_require__(37);
+var _styles = __webpack_require__(35);
 
 var _utils = __webpack_require__(8);
 
@@ -53017,7 +53017,7 @@ var _withStyles = _interopRequireDefault(__webpack_require__(5));
 
 var _reactHelpers = __webpack_require__(20);
 
-__webpack_require__(44);
+__webpack_require__(43);
 
 // So we don't have any override priority issue.
 var styles = {
@@ -53594,7 +53594,7 @@ var _reactEventListener = _interopRequireDefault(__webpack_require__(25));
 
 var _debounce = _interopRequireDefault(__webpack_require__(29));
 
-var _Transition = _interopRequireDefault(__webpack_require__(35));
+var _Transition = _interopRequireDefault(__webpack_require__(36));
 
 var _ownerWindow = _interopRequireDefault(__webpack_require__(54));
 
@@ -53602,7 +53602,7 @@ var _withTheme = _interopRequireDefault(__webpack_require__(28));
 
 var _transitions = __webpack_require__(24);
 
-var _utils = __webpack_require__(36);
+var _utils = __webpack_require__(37);
 
 // @inheritedComponent Transition
 // < 1kb payload overhead when lodash/debounce is > 3kb.
@@ -54233,7 +54233,7 @@ var _withStyles = _interopRequireDefault(__webpack_require__(5));
 
 var _reactHelpers = __webpack_require__(20);
 
-__webpack_require__(44);
+__webpack_require__(43);
 
 // So we don't have any override priority issue.
 var styles = {
@@ -64884,7 +64884,7 @@ var _transitions = __webpack_require__(24);
 
 var _withTheme = _interopRequireDefault(__webpack_require__(28));
 
-var _utils = __webpack_require__(36);
+var _utils = __webpack_require__(37);
 
 var _NoSsr = _interopRequireDefault(__webpack_require__(71));
 
@@ -66377,7 +66377,7 @@ var _utils = __webpack_require__(8);
 
 var _withStyles = _interopRequireDefault(__webpack_require__(5));
 
-var _Tablelvl2Context = _interopRequireDefault(__webpack_require__(43));
+var _Tablelvl2Context = _interopRequireDefault(__webpack_require__(44));
 
 var styles = {
   /* Styles applied to the root element. */
@@ -66473,7 +66473,7 @@ var _colorManipulator = __webpack_require__(27);
 
 var _TableContext = _interopRequireDefault(__webpack_require__(127));
 
-var _Tablelvl2Context = _interopRequireDefault(__webpack_require__(43));
+var _Tablelvl2Context = _interopRequireDefault(__webpack_require__(44));
 
 var styles = function styles(theme) {
   return {
@@ -66730,7 +66730,7 @@ var _utils = __webpack_require__(8);
 
 var _withStyles = _interopRequireDefault(__webpack_require__(5));
 
-var _Tablelvl2Context = _interopRequireDefault(__webpack_require__(43));
+var _Tablelvl2Context = _interopRequireDefault(__webpack_require__(44));
 
 var styles = {
   /* Styles applied to the root element. */
@@ -66837,7 +66837,7 @@ var _utils = __webpack_require__(8);
 
 var _withStyles = _interopRequireDefault(__webpack_require__(5));
 
-var _Tablelvl2Context = _interopRequireDefault(__webpack_require__(43));
+var _Tablelvl2Context = _interopRequireDefault(__webpack_require__(44));
 
 var styles = {
   /* Styles applied to the root element. */
@@ -67551,7 +67551,7 @@ var _utils = __webpack_require__(8);
 
 var _withStyles = _interopRequireDefault(__webpack_require__(5));
 
-var _Tablelvl2Context = _interopRequireDefault(__webpack_require__(43));
+var _Tablelvl2Context = _interopRequireDefault(__webpack_require__(44));
 
 var styles = function styles(theme) {
   return {
@@ -69631,13 +69631,13 @@ var _react = _interopRequireDefault(__webpack_require__(1));
 
 var _propTypes = _interopRequireDefault(__webpack_require__(2));
 
-var _Transition = _interopRequireDefault(__webpack_require__(35));
+var _Transition = _interopRequireDefault(__webpack_require__(36));
 
 var _transitions = __webpack_require__(24);
 
 var _withTheme = _interopRequireDefault(__webpack_require__(28));
 
-var _utils = __webpack_require__(36);
+var _utils = __webpack_require__(37);
 
 // @inheritedComponent Transition
 var styles = {
@@ -69782,18 +69782,221 @@ var _default = (0, _withTheme.default)()(Zoom);
 exports.default = _default;
 
 /***/ }),
-/* 433 */,
+/* 433 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__material_ui_core_Modal__ = __webpack_require__(45);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__material_ui_core_Modal___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__material_ui_core_Modal__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__material_ui_core_Button__ = __webpack_require__(43);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__material_ui_core_Button___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__material_ui_core_Button__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__material_ui_core_styles__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__material_ui_core_styles___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__material_ui_core_styles__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__theme__ = __webpack_require__(134);
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+
+
+
+
+var ReglamentoModal = function ReglamentoModal(_ref) {
+  var classes = _ref.classes;
+
+  var _React$useState = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(false),
+      _React$useState2 = _slicedToArray(_React$useState, 2),
+      open = _React$useState2[0],
+      setOpen = _React$useState2[1];
+
+  var handleOpen = function handleOpen() {
+    setOpen(true);
+  };
+
+  var handleClose = function handleClose() {
+    setOpen(false);
+  };
+
+  return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+    __WEBPACK_IMPORTED_MODULE_3__material_ui_core_styles__["MuiThemeProvider"],
+    { theme: __WEBPACK_IMPORTED_MODULE_4__theme__["a" /* default */] },
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      __WEBPACK_IMPORTED_MODULE_2__material_ui_core_Button___default.a,
+      { onClick: handleOpen },
+      'Open Modal'
+    ),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      __WEBPACK_IMPORTED_MODULE_1__material_ui_core_Modal___default.a,
+      {
+        open: open,
+        onClose: handleClose,
+        classes: { root: classes.modalRoot }
+      },
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'div',
+        { className: 'container ' + classes.containerWidth },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'div',
+          { className: 'card px-2 py-2' },
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'div',
+            { className: 'row' },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'div',
+              { className: 'col s12 center-align' },
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'label',
+                { className: classes.title },
+                'Reglamento Servicio Becario'
+              )
+            )
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'div',
+            { className: 'row' },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'div',
+              { className: 'col s12 center-align' },
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                __WEBPACK_IMPORTED_MODULE_2__material_ui_core_Button___default.a,
+                { variant: 'contained', href: '#contained-buttons', className: classes.button },
+                'Descarga PDF'
+              )
+            )
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'div',
+            { className: 'row' },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'div',
+              { className: 'col s12' },
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'label',
+                { className: classes.subTitle },
+                'Antes de empezar:'
+              )
+            )
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'div',
+            { className: 'row' },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'div',
+              { className: 'col s12' },
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'ul',
+                { className: classes.list },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  'li',
+                  { className: classes.list },
+                  'Conocer el Reglamento y las sanciones aplicadas en caso de no seguirlo'
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  'li',
+                  { className: classes.list },
+                  'Revisar peri\xF3dicamente el correo institucional'
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  'li',
+                  { className: classes.list },
+                  'Revisar la asignaci\xF3n o reasiignaci\xF3n y reportarse con la persona indicada'
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  'li',
+                  { className: classes.list },
+                  'Intercambiar datos y negociar horarios de trabajo'
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  'li',
+                  { className: classes.list },
+                  'Cumplir con la asignaci\xF3n durante todo el semestre'
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  'li',
+                  { className: classes.list },
+                  'Solicitar ser evaluado y enviar la evaluaci\xF3n a Direcci\xF3n de Becas en fecha'
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  'li',
+                  { className: classes.list },
+                  'Verificar que el reporte y el desempe\xF1o real coincidan'
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  'li',
+                  { className: classes.list },
+                  'Reportar a la Direcci\xF3n de Becas y Apoyo'
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  'li',
+                  { className: classes.list },
+                  'Actualizar la informaci\xF3n para que el solicitante pueda contactarte'
+                )
+              )
+            )
+          )
+        )
+      )
+    )
+  );
+};
+
+var maxWidth = 1000;
+
+var styles = function styles(theme) {
+  var _ref2;
+
+  return _ref2 = {
+    title: {
+      fontSize: '25px',
+      color: '#000'
+    }
+
+  }, _defineProperty(_ref2, 'title', {
+    fontSize: '25px',
+    color: '#000'
+  }), _defineProperty(_ref2, 'list', {
+    paddingLeft: '40px !important',
+    listStyleType: 'initial !important'
+  }), _defineProperty(_ref2, 'subTitle', {
+    fontSize: '15px',
+    color: '#000'
+  }), _defineProperty(_ref2, 'modalWrapper', {
+    padding: "25px !Important"
+  }), _defineProperty(_ref2, 'modalRoot', {
+    top: '20%'
+  }), _defineProperty(_ref2, 'labelHeader', {
+    fontSize: '18px',
+    color: '#000',
+    textAlign: 'center'
+  }), _defineProperty(_ref2, 'labelText', {
+    fontSize: '14px',
+    color: '#000'
+  }), _defineProperty(_ref2, 'containerWidth', {
+    maxWidth: 450
+  }), _defineProperty(_ref2, '@media (max-width: ' + maxWidth + 'px)', {}), _ref2;
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(__WEBPACK_IMPORTED_MODULE_3__material_ui_core_styles__["withStyles"])(styles)(ReglamentoModal));
+
+/***/ }),
 /* 434 */,
 /* 435 */,
 /* 436 */,
-/* 437 */
+/* 437 */,
+/* 438 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(438);
+module.exports = __webpack_require__(439);
 
 
 /***/ }),
-/* 438 */
+/* 439 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -69802,12 +70005,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__cardColaborador__ = __webpack_require__(439);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__itemPeriodo__ = __webpack_require__(440);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__material_ui_core_styles__ = __webpack_require__(37);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__material_ui_core_styles___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__material_ui_core_styles__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__theme__ = __webpack_require__(134);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__cardColaborador__ = __webpack_require__(440);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__itemPeriodo__ = __webpack_require__(441);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__reglamentoModal__ = __webpack_require__(433);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__theme__ = __webpack_require__(134);
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -69822,8 +70027,8 @@ var Home = function Home(_ref) {
 
 
   return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-    __WEBPACK_IMPORTED_MODULE_4__material_ui_core_styles__["MuiThemeProvider"],
-    { theme: __WEBPACK_IMPORTED_MODULE_5__theme__["a" /* default */] },
+    __WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__["MuiThemeProvider"],
+    { theme: __WEBPACK_IMPORTED_MODULE_6__theme__["a" /* default */] },
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       'div',
       { className: 'container' },
@@ -69856,7 +70061,8 @@ var Home = function Home(_ref) {
           )
         )
       )
-    )
+    ),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__reglamentoModal__["default"], null)
   );
 };
 
@@ -69876,20 +70082,20 @@ var styles = function styles(theme) {
   }, '@media (max-width: ' + maxWidth + 'px)', {});
 };
 
-var _Home = Object(__WEBPACK_IMPORTED_MODULE_4__material_ui_core_styles__["withStyles"])(styles)(Home);
+var _Home = Object(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__["withStyles"])(styles)(Home);
 
 if (document.getElementById('content')) {
   __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(_Home, null), document.getElementById('content'));
 }
 
 /***/ }),
-/* 439 */
+/* 440 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__material_ui_core_styles__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__material_ui_core_styles__ = __webpack_require__(35);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__material_ui_core_styles___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__material_ui_core_styles__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__theme__ = __webpack_require__(134);
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -70079,15 +70285,15 @@ var styles = function styles(theme) {
 /* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_1__material_ui_core_styles__["withStyles"])(styles)(CardColaborador));
 
 /***/ }),
-/* 440 */
+/* 441 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__material_ui_core_styles__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__material_ui_core_styles__ = __webpack_require__(35);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__material_ui_core_styles___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__material_ui_core_styles__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__icons__ = __webpack_require__(441);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__icons__ = __webpack_require__(442);
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
@@ -70100,30 +70306,26 @@ var ItemPeriodo = function ItemPeriodo(_ref) {
 
   return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
     'div',
-    { className: '' },
+    { className: 'row valign-wrapper py-2 mb-0' },
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       'div',
-      { className: 'row valign-wrapper py-2 mb-0' },
+      { className: 'col s10 center-align' },
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        'div',
-        { className: 'col s10 center-align' },
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          'label',
-          { className: classes.periodo + ' blue-tec' },
-          'Verano 2019'
-        ),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          'label',
-          { className: classes.colab },
-          'Lorena G\xF3mez'
-        )
+        'label',
+        { className: classes.periodo + ' blue-tec' },
+        'Verano 2019'
       ),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        'div',
-        { className: 'col s2' },
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__icons__["a" /* RightArrowIcon */], { className: classes.icon })
+        'label',
+        { className: classes.colab },
+        'Lorena G\xF3mez'
       )
+    ),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      'div',
+      { className: 'col s2' },
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__icons__["a" /* RightArrowIcon */], { className: classes.icon })
     )
   );
 };
@@ -70153,7 +70355,7 @@ var styles = function styles(theme) {
 /* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_1__material_ui_core_styles__["withStyles"])(styles)(ItemPeriodo));
 
 /***/ }),
-/* 441 */
+/* 442 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
