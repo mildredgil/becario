@@ -6,9 +6,15 @@ import { MuiThemeProvider } from '@material-ui/core/styles';
 import defaultTheme from '../theme';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import PerfilColaboradores from './perfilColaboradores';
+import PerfilEstudiantes from './perfilEstudiante';
+
+import ReglamentoModal from './reglamentoModal';
 
 const NavBar = ({classes}) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [open, setOpen] = React.useState(false);
+  const [openReglamento, setOpenReglamento] = React.useState(false);
 
   const handleClick = event => {
     setAnchorEl(event.currentTarget);
@@ -17,7 +23,23 @@ const NavBar = ({classes}) => {
   const handleClose = () => {
     setAnchorEl(null);
     window.location.replace("/login");
+  }; 
+
+  const handleOpenPerfil = () => {
+		setOpen(true);
+	};
+
+	const handleClosePerfil = () => {
+		setOpen(false);
   };
+  
+  const handleOpenReglamento = () => {
+		setOpenReglamento(true);
+	};
+
+	const handleCloseReglamento = () => {
+		setOpenReglamento(false);
+	};
 
   return (
     <MuiThemeProvider theme={defaultTheme}>
@@ -42,7 +64,8 @@ const NavBar = ({classes}) => {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>Perfil</MenuItem>
+                <MenuItem onClick={handleOpenPerfil}>Perfil</MenuItem>
+                <MenuItem onClick={handleOpenReglamento}>Reglamento</MenuItem>
                 <MenuItem onClick={handleClose}>Cerrar Sesión</MenuItem>
               </Menu>
             </div>  
@@ -50,6 +73,9 @@ const NavBar = ({classes}) => {
           </div>
         </div>
       </nav>
+      <PerfilEstudiantes  open={open} handleClose={handleClosePerfil} />
+      <PerfilColaboradores  open={open} handleClose={handleClosePerfil} />
+      <ReglamentoModal open={openReglamento} handleClose={handleCloseReglamento} />
     </MuiThemeProvider>
   );
 }

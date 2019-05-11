@@ -6,24 +6,12 @@ import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import defaultTheme from '../theme';
-import CardEstudiante from './cardEstudiante';
-import PropTypes from 'prop-types';
 
-const homeColaboradores = ({ classes }) => {
-	const [open, setOpen] = React.useState(false);
-
-	const handleOpen = () => {
-		setOpen(true);
-	};
-
-	const handleClose = () => {
-		setOpen(false);
-	};
+const PerfilColaboradores = ({ classes, open, handleClose }) => {
+	
 
 	return (
 		<MuiThemeProvider theme={defaultTheme}>
-			<CardEstudiante/>
-			<Button onClick={handleOpen}>Open Modal</Button>
 			<Modal
 				open={open}
 				onClose={handleClose}
@@ -145,7 +133,7 @@ const styles = theme => ({
 
 	labelText: {
 		paddingBottom: '0px!Important',
-		//marginLeft: '10px!Important',
+		marginTop: '0px!Important',
 		marginBottom: '0px!Important',
 		borderBottom: '0px!Important',
 		fontSize: '14px!Important',
@@ -161,8 +149,4 @@ const styles = theme => ({
 	}
 });
 
-const _homeColaboradores = withStyles(styles)(homeColaboradores);
-
-if (document.getElementById('homeColaborador')) {
-	ReactDOM.render(<_homeColaboradores />, document.getElementById('homeColaborador'));
-}
+export default withStyles(styles)(PerfilColaboradores);
