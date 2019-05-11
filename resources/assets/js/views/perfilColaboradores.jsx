@@ -7,20 +7,11 @@ import { withStyles } from '@material-ui/core/styles';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import defaultTheme from '../theme';
 
-const homeColaboradores = ({ classes }) => {
-	const [open, setOpen] = React.useState(false);
-
-	const handleOpen = () => {
-		setOpen(true);
-	};
-
-	const handleClose = () => {
-		setOpen(false);
-	};
+const PerfilColaboradores = ({ classes, open, handleClose }) => {
+	
 
 	return (
 		<MuiThemeProvider theme={defaultTheme}>
-			<Button onClick={handleOpen}>Open Modal</Button>
 			<Modal
 				open={open}
 				onClose={handleClose}
@@ -158,8 +149,4 @@ const styles = theme => ({
 	}
 });
 
-const _homeColaboradores = withStyles(styles)(homeColaboradores);
-
-if (document.getElementById('homeColaborador')) {
-	ReactDOM.render(<_homeColaboradores />, document.getElementById('homeColaborador'));
-}
+export default withStyles(styles)(PerfilColaboradores);
