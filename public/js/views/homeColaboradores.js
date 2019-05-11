@@ -69864,79 +69864,130 @@ var homeColaboradores = function homeColaboradores(_ref) {
 				{ className: 'container ' + classes.containerWidth },
 				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 					'div',
-					{ className: 'card' },
+					{ className: 'card px-2 py-2' },
 					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 						'div',
-						{ className: 'row' },
+						{ className: 'row margin-0' },
 						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 							'div',
 							{ className: 'col s12' },
 							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+								'label',
+								{ className: classes.title + ' blue-tec' },
+								'Perfil'
+							)
+						),
+						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+							'div',
+							{ className: 'row mb-4 mt-0' },
+							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 								'div',
-								{ className: 'row' },
+								{ className: 'col s6' },
 								__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-									'div',
-									{ className: 'col s12' },
-									__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-										'label',
-										{ className: classes.labelHeader },
-										'Perfil.'
-									),
-									__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
-									__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
-									__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-										'div',
-										{ className: 'col s6' },
-										__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-											'div',
-											{ className: 'row' },
-											__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-												'label',
-												{ className: classes.labelText },
-												'Nombre'
-											)
-										),
-										__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-											'div',
-											{ className: 'row' },
-											__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-												'label',
-												{ className: classes.labelText },
-												'Departamento'
-											)
-										),
-										__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-											'div',
-											{ className: 'row' },
-											__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-												'label',
-												{ className: classes.labelText },
-												'Mail'
-											)
-										)
-									),
-									__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-										'div',
-										{ className: 'col s6' },
-										__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-											'div',
-											{ className: 'row' },
-											__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-												'label',
-												{ className: classes.labelText },
-												'Oficina'
-											)
-										),
-										__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-											'div',
-											{ className: 'row' },
-											__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-												'label',
-												{ className: classes.labelText },
-												'Telefono'
-											)
-										)
-									)
+									'label',
+									null,
+									'Nombre:'
+								)
+							),
+							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+								'div',
+								{ className: 'col s6' },
+								__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+									'label',
+									null,
+									'Departamento:'
+								)
+							)
+						),
+						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+							'div',
+							{ className: 'row mb-4 mt-0' },
+							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+								'div',
+								{ className: 'col s6' },
+								__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+									'label',
+									{ className: classes.labelText },
+									'Lorena Gomez'
+								)
+							),
+							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+								'div',
+								{ className: 'col s6' },
+								__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+									'label',
+									{ className: classes.labelText },
+									'Ciencias Computacionales'
+								)
+							)
+						),
+						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+							'div',
+							{ className: 'row mb-4 mt-0' },
+							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+								'div',
+								{ className: 'col s6' },
+								__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+									'label',
+									null,
+									'Oficina:'
+								)
+							),
+							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+								'div',
+								{ className: 'col s6' },
+								__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+									'label',
+									null,
+									'Correo Electr\xF3nico:'
+								)
+							)
+						),
+						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+							'div',
+							{ className: 'row mb-4 mt-0' },
+							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+								'div',
+								{ className: 'col s6' },
+								__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+									'label',
+									{ className: classes.labelText },
+									'Cetec torre sur 301'
+								)
+							),
+							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+								'div',
+								{ className: 'col s6' },
+								__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+									'label',
+									{ className: classes.labelText },
+									'lorena.gomez@tec.mx'
+								)
+							)
+						),
+						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+							'div',
+							{ className: 'row mb-4 mt-0' },
+							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+								'div',
+								{ className: 'col s6' },
+								__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+									'label',
+									null,
+									'Tel\xE9fono:'
+								)
+							)
+						),
+						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+							'div',
+							{ className: 'row mb-4 mt-0' },
+							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+								'div',
+								{ className: 'col s6' },
+								__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+									'label',
+									{ className: classes.labelText },
+									'52818181818'
 								)
 							)
 						)
@@ -69960,16 +70011,15 @@ var styles = function styles(theme) {
 			top: '20%'
 		},
 
-		labelHeader: {
-			fontSize: '18px',
-			color: '#000',
-			textAlign: 'center'
+		title: {
+			fontSize: '30px'
 		},
 
 		labelText: {
 			fontSize: '14px',
 			color: '#000'
 		},
+
 		containerWidth: {
 			maxWidth: 450
 		}
