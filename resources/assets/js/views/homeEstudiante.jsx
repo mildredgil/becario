@@ -13,18 +13,22 @@ const Home = ({classes}) => {
     <MuiThemeProvider theme={defaultTheme}>
       <div className="container">
         <div className={`row ${classes.marginTop40}`}>
+          <div className={`col s12 blue-tec mb-2 ${classes.titleHistory}`}>
+          Historial | Agosto-Diciembre 2019
+          </div>
           <div className="col s4">
-            <div className={`row ${classes.paddingRight20}`}>
+            <div className={`row mb-0 ${classes.paddingRight20}`}>
               <div className="col s12 card my-0">
                 <ItemPeriodo/>
                 <ItemPeriodo/>
                 <ItemPeriodo/>
                 <ItemPeriodo/>
+                <ItemPeriodo/>  
               </div>
             </div>
           </div>
           <div className="col s8">
-            <div className="row">
+            <div className="row mb-0">
               <CardColaborador/>
             </div>
           </div>
@@ -40,11 +44,15 @@ const maxWidth = 1000;
 const styles = theme => ({
 
   marginTop40: {
-    marginTop: '45px'
+    marginTop: '25px'
   },
 
   paddingRight20: {
     paddingRight: '20px',
+  },
+
+  titleHistory: {
+    fontSize: '30px',
   },
 
   [`@media (max-width: ${maxWidth}px)`]: {

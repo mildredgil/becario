@@ -13,17 +13,17 @@
   .user-student:hover{
     cursor: pointer;
     font-size: 70px;
-    color: #2b75dd;
+    color: #223f93;
   }
   .user-professor:hover{
     cursor: pointer;
     font-size: 70px;
-    color: #2b75dd;
+    color: #223f93;
   }
   .user-hover{
     cursor: pointer;
     font-size: 70px;
-    color: #2b75dd;
+    color: #223f93;
     fill:#fff;
   }
   .user-wrapper{
