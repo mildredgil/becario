@@ -8430,7 +8430,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
 
     MuiFormLabel: {
-      focused: {
+      '&$focused': {
         color: __WEBPACK_IMPORTED_MODULE_0__colors__["b" /* FOCUSED_INPUT_COLOR */] + ' !important'
       }
     },
@@ -70480,6 +70480,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__ = __webpack_require__(37);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__theme__ = __webpack_require__(134);
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
@@ -70493,9 +70495,55 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 var Home = function Home(_ref) {
   var classes = _ref.classes,
-      estudiante = _ref.estudiante;
+      estudiante_html = _ref.estudiante_html;
 
-  console.log(estudiante);
+  var _React$useState = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(false),
+      _React$useState2 = _slicedToArray(_React$useState, 2),
+      estudiante = _React$useState2[0],
+      setEstudiante = _React$useState2[1];
+
+  var _React$useState3 = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(false),
+      _React$useState4 = _slicedToArray(_React$useState3, 2),
+      selectedAsignacion = _React$useState4[0],
+      setSelectedAsignacion = _React$useState4[1];
+
+  var _React$useState5 = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState([]),
+      _React$useState6 = _slicedToArray(_React$useState5, 2),
+      asignaciones = _React$useState6[0],
+      setAsignaciones = _React$useState6[1];
+
+  var _React$useState7 = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(0),
+      _React$useState8 = _slicedToArray(_React$useState7, 2),
+      indexSelected = _React$useState8[0],
+      setIndexSelected = _React$useState8[1];
+
+  __WEBPACK_IMPORTED_MODULE_0_react___default.a.useEffect(function () {
+
+    if (estudiante_html != null) {
+      setEstudiante(estudiante_html);
+      var _asignaciones = asignaciones;
+
+      estudiante_html.solicitudes_becarias.map(function (asignacion) {
+        _asignaciones.push(asignacion);
+      });
+
+      setAsignaciones(_asignaciones);
+    }
+  }, [estudiante_html]);
+
+  __WEBPACK_IMPORTED_MODULE_0_react___default.a.useEffect(function () {
+    if (asignaciones.length > 0) {
+      setSelectedAsignacion(asignaciones[0]);
+    }
+  }, [asignaciones]);
+
+  console.log(selectedAsignacion);
+
+  var selectAsignacion = function selectAsignacion(index) {
+    setSelectedAsignacion(asignaciones[index]);
+    setIndexSelected(index);
+  };
+
   return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
     __WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__["MuiThemeProvider"],
     { theme: __WEBPACK_IMPORTED_MODULE_6__theme__["a" /* default */] },
@@ -70519,14 +70567,18 @@ var Home = function Home(_ref) {
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'div',
               { className: classes.itemsWrapper + ' col s12 card my-0' },
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__itemPeriodo__["a" /* default */], null),
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__itemPeriodo__["a" /* default */], null),
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__itemPeriodo__["a" /* default */], null),
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__itemPeriodo__["a" /* default */], null),
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__itemPeriodo__["a" /* default */], null),
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__itemPeriodo__["a" /* default */], null),
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__itemPeriodo__["a" /* default */], null),
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__itemPeriodo__["a" /* default */], null)
+              estudiante && estudiante.solicitudes_becarias.map(function (asignacion, index) {
+                if (index == indexSelected) {
+                  console.log(true, index);
+                  return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__itemPeriodo__["a" /* default */], { isSelected: true, handleClick: function handleClick(e) {
+                      return selectAsignacion(index);
+                    }, key: index, asignacion: asignacion });
+                } else {
+                  return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__itemPeriodo__["a" /* default */], { isSelected: false, handleClick: function handleClick(e) {
+                      return selectAsignacion(index);
+                    }, key: index, asignacion: asignacion });
+                }
+              })
             )
           )
         ),
@@ -70536,7 +70588,7 @@ var Home = function Home(_ref) {
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
             { className: 'row mb-0' },
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__cardColaborador__["a" /* default */], null)
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__cardColaborador__["a" /* default */], { asignacion: selectedAsignacion })
           )
         )
       )
@@ -70583,7 +70635,7 @@ if (document.getElementById('content')) {
     estudiante = null;
   }
 
-  __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(_Home, { estudiante: estudiante_obj }), document.getElementById('content'));
+  __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(_Home, { estudiante_html: estudiante_obj }), document.getElementById('content'));
 }
 
 /***/ }),
@@ -70609,8 +70661,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 var CardColaborador = function CardColaborador(_ref) {
-  var classes = _ref.classes;
+  var classes = _ref.classes,
+      asignacion = _ref.asignacion;
 
+  var evaluacion = ['Pendiente', 'Satisfactorio', 'Insatisfactorio'];
+
+  if (asignacion == false) {
+    return null;
+  }
 
   return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
     __WEBPACK_IMPORTED_MODULE_1__material_ui_core_styles__["MuiThemeProvider"],
@@ -70667,7 +70725,7 @@ var CardColaborador = function CardColaborador(_ref) {
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'label',
               { className: classes.labelText },
-              'Lorena Gomez'
+              asignacion.colaborador.nombre_completo
             )
           ),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -70676,7 +70734,7 @@ var CardColaborador = function CardColaborador(_ref) {
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'label',
               { className: classes.labelText },
-              'Ciencias Computacionales'
+              asignacion.colaborador.departamento.nombre_departamento
             )
           )
         ),
@@ -70713,7 +70771,7 @@ var CardColaborador = function CardColaborador(_ref) {
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'label',
               { className: classes.labelText },
-              'Cetec torre sur 301'
+              asignacion.colaborador.oficina
             )
           ),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -70722,7 +70780,7 @@ var CardColaborador = function CardColaborador(_ref) {
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'label',
               { className: classes.labelText },
-              'lorena.gomez@tec.mx'
+              asignacion.colaborador.email
             )
           )
         ),
@@ -70749,7 +70807,7 @@ var CardColaborador = function CardColaborador(_ref) {
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'label',
               { className: classes.labelText },
-              '52818181818'
+              asignacion.colaborador.celular
             )
           )
         )
@@ -70769,7 +70827,7 @@ var CardColaborador = function CardColaborador(_ref) {
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'label',
             { className: classes.status + ' blue-tec' },
-            ' Satisfactorio'
+            evaluacion[asignacion.evaluacion]
           )
         ),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -70777,7 +70835,7 @@ var CardColaborador = function CardColaborador(_ref) {
           { className: 'col s8 right-align py-3' },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             __WEBPACK_IMPORTED_MODULE_3__material_ui_core_Button___default.a,
-            { variant: 'contained', color: 'primary', href: 'mailto:A00820397@itesm.mx' },
+            { variant: 'contained', color: 'primary', href: "mailto:" + asignacion.colaborador.email },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__icons__["a" /* EmailIcon */], { className: 'white-text ' + classes.icon }),
             'Enviar Correo'
           )
@@ -70847,8 +70905,6 @@ var styles = function styles(theme) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__material_ui_core_styles__ = __webpack_require__(37);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__material_ui_core_styles___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__material_ui_core_styles__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__icons__ = __webpack_require__(434);
-var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
-
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
@@ -70856,40 +70912,73 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 var ItemPeriodo = function ItemPeriodo(_ref) {
-  var classes = _ref.classes;
+  var classes = _ref.classes,
+      asignacion = _ref.asignacion,
+      isSelected = _ref.isSelected,
+      handleClick = _ref.handleClick;
 
-  var _React$useState = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(false),
-      _React$useState2 = _slicedToArray(_React$useState, 2),
-      selected = _React$useState2[0],
-      setSelected = _React$useState2[1];
+  var evaluacion = ['Pendiente', 'Satisfactoria', 'Insatisfactoria'];
+  var new_periodo = ['Invierno', 'Febrero-Junio', 'Verano', 'Agosto-Diciembre'];
+  var old_periodo = ['', 'Enero-Mayo', 'Verano', 'Agosto-Diciembre'];
 
-  var onSelect = function onSelect() {
-    setSelected(true);
-  };
+  var periodo = '';
+
+  var _date = asignacion.fecha_asignacion;
+  var date = new Date(_date);
+  var year = date.getFullYear();
+  var month = date.getMonth();
+  var periodo_string = '';
+
+  if (year >= 2020) {
+    periodo = new_periodo;
+
+    if (month == 0) {
+      periodo_string = periodo[0];
+    } else if (month == 1) {
+      periodo_string = periodo[1];
+    } else if (month == 6) {
+      periodo_string = periodo[2];
+    } else {
+      periodo_string = periodo[3];
+    }
+  } else {
+    periodo = old_periodo;
+    if (month == 0) {
+      periodo_string = periodo[1];
+    } else if (month == 5) {
+      periodo_string = periodo[2];
+    } else {
+      periodo_string = periodo[3];
+    }
+  }
 
   return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
     'div',
-    { onClick: onSelect, className: (selected ? classes.selected : classes.itemWrapper) + ' row valign-wrapper py-2 px-2 mb-0' },
+    { onClick: handleClick, className: (isSelected ? classes.selected : classes.itemWrapper) + ' row valign-wrapper py-2 px-2 mb-0' },
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       'div',
       { className: 'col s10' },
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'label',
         { className: classes.periodo + ' blue-tec' },
-        'Verano 2019'
+        periodo_string,
+        ' ',
+        year
       ),
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'label',
-        { className: classes.colab + ' blue-tec-dark' },
+        { className: classes.colab + ' truncate blue-tec-dark' },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__icons__["c" /* PersonIcon */], { className: classes.iconLabel }),
-        'Lorena G\xF3mez | Evaluaci\xF3n: Pendiente'
+        asignacion.colaborador.nombre_completo,
+        ' | Evaluaci\xF3n: ',
+        evaluacion[asignacion.evaluacion]
       )
     ),
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       'div',
       { className: 'col s2' },
-      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__icons__["e" /* RightArrowIcon */], { className: 'hide ' + classes.icon + ' ' + (selected ? classes.itemIcon : '') + ' ' })
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__icons__["e" /* RightArrowIcon */], { className: 'hide ' + classes.icon + ' ' + (isSelected ? classes.itemIcon : '') + ' ' })
     )
   );
 };
@@ -70935,9 +71024,7 @@ var styles = function styles(theme) {
     },
 
     colab: {
-      fontSize: '12px',
-      display: 'flex',
-      alignItems: 'center'
+      fontSize: '12px'
     }
 
   }, '@media (max-width: ' + maxWidth + 'px)', {});

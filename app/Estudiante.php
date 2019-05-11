@@ -15,6 +15,7 @@ class Estudiante extends Model {
   const LIDERAZGO     = 5;
   const CULTURAL      = 6;
   const LIDERMANANA   = 7;
+  
   const ASIGNADO      = 1;
   const NO_ASIGNADO   = 0;
   
@@ -22,7 +23,7 @@ class Estudiante extends Model {
     return $this->belongsTo('App\Carrera', 'id_carrera');
   }
 
-  public function solicitudes() {
-    return $this->HasMany('App\Solicitud_Becaria');
+  public function solicitudesBecarias() {
+    return $this->hasMany('App\Solicitud_Becaria', 'id_estudiante')->orderBy('fecha_asignacion', 'desc');
   }
 }

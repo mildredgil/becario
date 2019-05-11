@@ -7,8 +7,40 @@ import { withStyles } from '@material-ui/core/styles';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import defaultTheme from '../theme';
 
-const Home = ({classes, estudiante}) => {
-    console.log(estudiante);
+const Home = ({classes, estudiante_html}) => {
+  const [estudiante, setEstudiante] = React.useState(false);
+  const [selectedAsignacion, setSelectedAsignacion] = React.useState(false);
+  const [asignaciones, setAsignaciones] = React.useState([]);
+  const [indexSelected, setIndexSelected] = React.useState(0);
+  
+  React.useEffect(()=> {
+    
+    if(estudiante_html != null){
+      setEstudiante(estudiante_html);
+      let _asignaciones = asignaciones;
+
+      estudiante_html.solicitudes_becarias.map(function(asignacion) {
+        _asignaciones.push(asignacion);  
+      });
+
+      setAsignaciones(_asignaciones);
+    }
+    
+  }, [estudiante_html]);
+
+  React.useEffect(()=> {
+    if(asignaciones.length > 0) {
+      setSelectedAsignacion(asignaciones[0]);
+    }
+  }, [asignaciones]);
+
+  console.log(selectedAsignacion);
+
+  const selectAsignacion = (index) => {
+    setSelectedAsignacion(asignaciones[index]);
+    setIndexSelected(index);
+  }
+
   return (
     <MuiThemeProvider theme={defaultTheme}>
       <div className="container">
@@ -19,20 +51,27 @@ const Home = ({classes, estudiante}) => {
           <div className="col s4">
             <div className={`row mb-0 ${classes.paddingRight20}`}>
               <div className={`${classes.itemsWrapper} col s12 card my-0`}>
-                <ItemPeriodo/>
-                <ItemPeriodo/>
-                <ItemPeriodo/>
-                <ItemPeriodo/>
-                <ItemPeriodo/>
-                <ItemPeriodo/>
-                <ItemPeriodo/>  
-                <ItemPeriodo/>
+              {
+                estudiante && 
+                estudiante.solicitudes_becarias.map((asignacion, index) => {
+                  if(index == indexSelected) {
+                    console.log(true, index);
+                    return (
+                      <ItemPeriodo isSelected={true} handleClick={(e) => selectAsignacion(index)} key={index} asignacion={asignacion}/>
+                    )   
+                  } else {
+                    return (
+                      <ItemPeriodo isSelected={false} handleClick={(e) => selectAsignacion(index)} key={index} asignacion={asignacion}/>
+                    )   
+                  }                  
+                })
+              }
               </div>
             </div>
           </div>
           <div className="col s8">
             <div className="row mb-0">
-              <CardColaborador/>
+              <CardColaborador asignacion={selectedAsignacion}/>
             </div>
           </div>
         </div>
@@ -81,5 +120,5 @@ if (document.getElementById('content')) {
     estudiante = null;
   }
 
-  ReactDOM.render(<_Home estudiante={estudiante_obj}/>, document.getElementById('content'));
+  ReactDOM.render(<_Home estudiante_html={estudiante_obj}/>, document.getElementById('content'));
 }

@@ -8430,7 +8430,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
 
     MuiFormLabel: {
-      focused: {
+      '&$focused': {
         color: __WEBPACK_IMPORTED_MODULE_0__colors__["b" /* FOCUSED_INPUT_COLOR */] + ' !important'
       }
     },
