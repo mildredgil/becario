@@ -37,10 +37,6 @@
     cursor: pointer;
     background-color: #fdfffa9c;
   }
-  body{
-    background-image:url("{{ asset('img/teccampus.jpg') }}");
-    background-size:auto;
-  }
 </style>
 @endsection
 

@@ -51,7 +51,8 @@ const Login = ({classes}) => {
               <TextField
                 fullWidth
                 id="password"
-                label="Contraseña:" 
+                label="Contraseña:"
+                type="password" 
                 value={inputPassword}
                 onChange={onChangePassword}
                 margin="normal"
