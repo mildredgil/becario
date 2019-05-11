@@ -69902,6 +69902,7 @@ var Login = function Login(_ref) {
               fullWidth: true,
               id: 'password',
               label: 'Contrase\xF1a:',
+              type: 'password',
               value: inputPassword,
               onChange: onChangePassword,
               margin: 'normal',
