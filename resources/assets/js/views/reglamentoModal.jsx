@@ -1,68 +1,122 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
+import React, { Component } from 'react';
 import Modal from '@material-ui/core/Modal';
 import Button from '@material-ui/core/Button';
+import { withStyles } from '@material-ui/core/styles';
+import { MuiThemeProvider } from '@material-ui/core/styles';
+import defaultTheme from '../theme';
+
+const ReglamentoModal = ({classes}) => {
+  const [open, setOpen]  = React.useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+  
+  return (
+    <MuiThemeProvider theme={defaultTheme}>
+			<Button onClick={handleOpen}>Open Modal</Button>
+			<Modal
+				open={open}
+        onClose={handleClose}
+        classes={{ root: classes.modalRoot }}
+			>
+				<div className={`container ${classes.containerWidth}`}>
+					<div className="card px-2 py-2">
+            <div className="row">
+              <div className="col s12 center-align">
+                <label className={classes.title}>
+                  Reglamento Servicio Becario
+                </label>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col s12 center-align">
+                <Button variant="contained" href="#contained-buttons" className={classes.button}>
+                 Descarga PDF
+                </Button>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col s12">
+                <label className={classes.subTitle}>
+                  Antes de empezar:
+                </label>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col s12">
+                <ul className={classes.list}>
+                  <li className={classes.list}>Conocer el Reglamento y las sanciones aplicadas en caso de no seguirlo</li>
+                  <li className={classes.list}>Revisar periódicamente el correo institucional</li>
+                  <li className={classes.list}>Revisar la asignación o reasiignación y reportarse con la persona indicada</li>
+                  <li className={classes.list}>Intercambiar datos y negociar horarios de trabajo</li>
+                  <li className={classes.list}>Cumplir con la asignación durante todo el semestre</li>
+                  <li className={classes.list}>Solicitar ser evaluado y enviar la evaluación a Dirección de Becas en fecha</li>
+                  <li className={classes.list}>Verificar que el reporte y el desempeño real coincidan</li>
+                  <li className={classes.list}>Reportar a la Dirección de Becas y Apoyo</li>
+                  <li className={classes.list}>Actualizar la información para que el solicitante pueda contactarte</li>
+                </ul> 
+              </div>
+            </div>
+					</div>
+				</div>
+			</Modal>
+    </MuiThemeProvider>
+  );
+}
+
+const maxWidth = 1000;
 
 const styles = theme => ({
-  paper: {
-    position: 'absolute',
-    width: theme.spacing.unit * 50,
-    backgroundColor: theme.palette.background.paper,
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing.unit * 4,
-    outline: 'none',
+  title:{
+    fontSize: '25px',
+    color: '#000',
   },
+
+  title:{
+    fontSize: '25px',
+    color: '#000',
+  },
+
+  list:{
+    paddingLeft: '40px !important',
+    listStyleType: 'initial !important',
+  },
+
+  subTitle:{
+    fontSize: '15px',
+    color: '#000',
+  },
+
+  modalWrapper: {
+    padding: "25px !Important"
+  },
+
+  modalRoot: {
+    top: '20%',
+  },
+
+  labelHeader: {
+    fontSize: '18px',
+    color: '#000',
+    textAlign: 'center',
+  },
+
+  labelText: {
+    fontSize: '14px',
+    color: '#000',
+	},
+	containerWidth: {
+    maxWidth: 450,
+  },
+
+  [`@media (max-width: ${maxWidth}px)`]: {
+   
+  }
 });
 
-const SimpleModal = ({classes}) =>{
-    const [modal, setModal] = React.useState('');
-
-
-  handleOpen = () => {
-    setModal( true );
-  };
-
-  handleClose = () => {
-    setModal( false );
-  };
-
-    return (
-      <div>
-        <Typography gutterBottom>Click to get the full Modal experience!</Typography>
-        <Button onClick={handleOpen}>Open Modal</Button>
-        <Modal
-          aria-labelledby="simple-modal-title"
-          aria-describedby="simple-modal-description"
-          open={modal}
-          onClose={handleClose}
-        >
-          <div className={classes.paper}>
-            <Typography variant="h6" id="modal-title">
-              Text in a modal
-            </Typography>
-            <Typography variant="subtitle1" id="simple-modal-description">
-              Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-            </Typography>
-            <SimpleModalWrapped />
-          </div>
-        </Modal>
-      </div>
-    );
-}
-
-
-SimpleModal.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-// We need an intermediary variable for handling the recursive nesting.
-const SimpleModalWrapped = withStyles(styles)(SimpleModal);
-
-//export default SimpleModalWrapped;
-const _modal = withStyles(styles)(SimpleModal);
-
-if (document.getElementById('modal')) {
-  ReactDOM.render(<_modal/>, document.getElementById('modal'));
-}
+export default withStyles(styles)(ReglamentoModal);

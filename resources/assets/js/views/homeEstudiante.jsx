@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import CardColaborador from './cardColaborador';
+import ReglamentoModal from './reglamentoModal';
 import { withStyles } from '@material-ui/core/styles';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import defaultTheme from '../theme';
@@ -22,6 +23,7 @@ const Home = ({classes}) => {
           </div>
         </div>
       </div>
+      <ReglamentoModal/>
     </MuiThemeProvider>
   );
 }
