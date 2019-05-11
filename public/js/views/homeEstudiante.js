@@ -70266,8 +70266,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__material_ui_core_styles___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__material_ui_core_styles__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__theme__ = __webpack_require__(133);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__icons__ = __webpack_require__(433);
-var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
-
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
@@ -70279,29 +70277,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 var ReglamentoModal = function ReglamentoModal(_ref) {
-  var classes = _ref.classes;
+  var classes = _ref.classes,
+      open = _ref.open,
+      handleClose = _ref.handleClose;
 
-  var _React$useState = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(false),
-      _React$useState2 = _slicedToArray(_React$useState, 2),
-      open = _React$useState2[0],
-      setOpen = _React$useState2[1];
-
-  var handleOpen = function handleOpen() {
-    setOpen(true);
-  };
-
-  var handleClose = function handleClose() {
-    setOpen(false);
-  };
 
   return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
     __WEBPACK_IMPORTED_MODULE_3__material_ui_core_styles__["MuiThemeProvider"],
     { theme: __WEBPACK_IMPORTED_MODULE_4__theme__["a" /* default */] },
-    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-      __WEBPACK_IMPORTED_MODULE_2__material_ui_core_Button___default.a,
-      { onClick: handleOpen },
-      'Open Modal'
-    ),
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       __WEBPACK_IMPORTED_MODULE_1__material_ui_core_Modal___default.a,
       {
@@ -70314,7 +70297,8 @@ var ReglamentoModal = function ReglamentoModal(_ref) {
         { className: 'container ' + classes.containerWidth },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'div',
-          { className: 'card ' + classes.pxThick + ' py-2' },
+          { className: 'card ' + classes.pxThick + ' py-4' },
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__icons__["a" /* CloseIcon */], { onClick: handleClose, className: classes.closeIcon }),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
             { className: 'row' },
@@ -70330,7 +70314,7 @@ var ReglamentoModal = function ReglamentoModal(_ref) {
           ),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
-            { className: 'row' },
+            { className: 'row mb-0' },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'div',
               { className: 'col s12 ' },
@@ -70440,8 +70424,7 @@ var styles = function styles(theme) {
     //paddingLeft: '40px !important',
     listStyleType: 'initial !important'
   }), _defineProperty(_ref2, 'pxThick', {
-    paddingLeft: '40px',
-    paddingRight: '40px'
+    padding: '40px'
   }), _defineProperty(_ref2, 'iconLabel', {
     fontSize: '20px',
     marginRight: '0.5rem'
@@ -70461,6 +70444,13 @@ var styles = function styles(theme) {
   }), _defineProperty(_ref2, 'labelText', {
     fontSize: '14px',
     color: '#000'
+  }), _defineProperty(_ref2, 'closeIcon', {
+    cursor: 'pointer',
+    color: 'black',
+    position: 'absolute',
+    right: '10px',
+    top: '12px',
+    fontSize: '18px'
   }), _defineProperty(_ref2, 'containerWidth', {
     maxWidth: '40%'
   }), _defineProperty(_ref2, '@media (max-width: ' + maxWidth + 'px)', {}), _ref2;
