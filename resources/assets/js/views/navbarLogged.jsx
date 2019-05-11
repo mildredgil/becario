@@ -58,7 +58,7 @@ const maxWidth = 1000;
 
 const styles = () => ({
   navContainer: {
-    background:' linear-gradient(80.19deg, #47c5ff 0%, #1467ff 100%)',
+    background:' linear-gradient(80.19deg, #101010 0%, #223f93 100%)',
     margin:'0px',
   },
   nav:{

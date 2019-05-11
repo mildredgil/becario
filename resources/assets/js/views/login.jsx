@@ -20,8 +20,8 @@ const Login = ({classes}) => {
   
   return (
     <MuiThemeProvider theme={defaultTheme}>
-      <div className="container row">
-        <div className={`modal col s12 m4 offset-m2 ${classes.modalWrapper}`}>
+      <div className="row">
+        <div className={`modal col s12 m4 offset-m4 ${classes.modalWrapper}`}>
           <div className="row">
             <div className="col s12">
               <label className={classes.labelHeader}>
@@ -36,6 +36,7 @@ const Login = ({classes}) => {
           <div className="row no-margin">
             <div className="col s12 center-align">
               <TextField
+                classes={{focused:classes.colorFocused}}
                 fullWidth
                 id="username"
                 label="Matricula de Alumno:" 
@@ -49,6 +50,7 @@ const Login = ({classes}) => {
           <div className="row">
             <div className="col s12 center-align">
               <TextField
+                classes={{focused:classes.colorFocused}}
                 fullWidth
                 id="password"
                 label="Contraseña:" 
@@ -75,6 +77,9 @@ const Login = ({classes}) => {
 const maxWidth = 1000;
 
 const styles = theme => ({
+  colorFocused: {
+    borderColor: '#223f93'
+  },
 
   modalWrapper: {
     padding: "25px !Important"
