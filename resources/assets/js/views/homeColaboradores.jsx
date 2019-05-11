@@ -6,6 +6,7 @@ import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import defaultTheme from '../theme';
+import CardEstudiante from './cardEstudiante';
 
 const homeColaboradores = ({ classes }) => {
 	const [open, setOpen] = React.useState(false);
@@ -20,6 +21,7 @@ const homeColaboradores = ({ classes }) => {
 
 	return (
 		<MuiThemeProvider theme={defaultTheme}>
+			<CardEstudiante/>
 			<Button onClick={handleOpen}>Open Modal</Button>
 			<Modal
 				open={open}
