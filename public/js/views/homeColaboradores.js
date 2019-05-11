@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 443);
+/******/ 	return __webpack_require__(__webpack_require__.s = 444);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -70260,14 +70260,15 @@ var WebIcon = function WebIcon(props) {
 /* 440 */,
 /* 441 */,
 /* 442 */,
-/* 443 */
+/* 443 */,
+/* 444 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(444);
+module.exports = __webpack_require__(445);
 
 
 /***/ }),
-/* 444 */
+/* 445 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -70285,7 +70286,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__theme__ = __webpack_require__(133);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__cardEstudiante__ = __webpack_require__(445);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__cardEstudiante__ = __webpack_require__(446);
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -70337,7 +70338,7 @@ var homeColaboradores = function homeColaboradores(_ref) {
 				{ className: 'container ' + classes.containerWidth },
 				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 					'div',
-					{ className: 'card px-2 py-2' },
+					{ className: 'card px-5 py-3' },
 					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 						'div',
 						{ className: 'row margin-0' },
@@ -70361,7 +70362,7 @@ var homeColaboradores = function homeColaboradores(_ref) {
 						),
 						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 							'div',
-							{ className: 'col s6' },
+							{ className: 'col s6 mb-0 mt-4' },
 							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 								'label',
 								null,
@@ -70374,12 +70375,12 @@ var homeColaboradores = function homeColaboradores(_ref) {
 							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__material_ui_core_TextField___default.a, {
 								fullWidth: true,
 								id: 'outlined-bare',
-								classes: { marginNormal: classes.labelText },
+								classes: { root: classes.labelText },
 								defaultValue: 'Lorena Gomez',
 								InputProps: {
-									readOnly: true
+									readOnly: true,
+									disabled: true
 								},
-								margin: 'normal',
 								variant: 'outlined'
 							})
 						),
@@ -70389,18 +70390,18 @@ var homeColaboradores = function homeColaboradores(_ref) {
 							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__material_ui_core_TextField___default.a, {
 								fullWidth: true,
 								id: 'outlined-bare',
-								classes: { fullWidth: classes.labelText },
+								classes: { root: classes.labelText },
 								defaultValue: 'Ciencias Computacionales',
 								InputProps: {
-									readOnly: true
+									readOnly: true,
+									disabled: true
 								},
-								margin: 'normal',
 								variant: 'outlined'
 							})
 						),
 						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 							'div',
-							{ className: 'col s6' },
+							{ className: 'col s6 mb-0 mt-4' },
 							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 								'label',
 								null,
@@ -70409,7 +70410,7 @@ var homeColaboradores = function homeColaboradores(_ref) {
 						),
 						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 							'div',
-							{ className: 'col s6' },
+							{ className: 'col s6 mb-0 mt-4' },
 							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 								'label',
 								null,
@@ -70424,7 +70425,6 @@ var homeColaboradores = function homeColaboradores(_ref) {
 								id: 'outlined-bare',
 								classes: { root: classes.labelText },
 								defaultValue: 'Cetec torre sur 301',
-								margin: 'normal',
 								variant: 'outlined'
 							})
 						),
@@ -70434,18 +70434,18 @@ var homeColaboradores = function homeColaboradores(_ref) {
 							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__material_ui_core_TextField___default.a, {
 								fullWidth: true,
 								id: 'outlined-bare',
-								className: classes.labelText,
+								classes: { root: classes.labelText },
 								defaultValue: 'lorena.gomez@tec.mx',
 								InputProps: {
-									readOnly: true
+									readOnly: true,
+									disabled: true
 								},
-								margin: 'normal',
 								variant: 'outlined'
 							})
 						),
 						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 							'div',
-							{ className: 'col s6' },
+							{ className: 'col s6 mb-0 mt-4' },
 							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 								'label',
 								null,
@@ -70455,7 +70455,7 @@ var homeColaboradores = function homeColaboradores(_ref) {
 					),
 					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 						'div',
-						{ className: 'row' },
+						{ className: 'row no-margin' },
 						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 							'div',
 							{ className: 'col s6' },
@@ -70464,9 +70464,24 @@ var homeColaboradores = function homeColaboradores(_ref) {
 								id: 'outlined-bare',
 								classes: { root: classes.labelText },
 								defaultValue: '52818181818',
-								margin: 'normal',
 								variant: 'outlined'
 							})
+						)
+					),
+					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+						'div',
+						{ className: 'row center-align' },
+						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+							'div',
+							{ className: 'col s12 mb-0 mt-4' },
+							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+								__WEBPACK_IMPORTED_MODULE_4__material_ui_core_Button___default.a,
+								{
+									variant: 'contained',
+									color: 'primary',
+									href: '/homeColaborador' },
+								'Guardar'
+							)
 						)
 					)
 				)
@@ -70493,8 +70508,6 @@ var styles = function styles(theme) {
 		},
 
 		labelText: {
-			marginLeft: '10px!Important',
-			marginRight: '10px!Important',
 			paddingBottom: '0px!Important',
 			marginTop: '0px!Important',
 			marginBottom: '0px!Important',
@@ -70504,7 +70517,7 @@ var styles = function styles(theme) {
 		},
 
 		containerWidth: {
-			maxWidth: 450
+			maxWidth: '40%'
 		}
 
 	}, '@media (max-width: ' + maxWidth + 'px)', {});
@@ -70517,7 +70530,7 @@ if (document.getElementById('homeColaborador')) {
 }
 
 /***/ }),
-/* 445 */
+/* 446 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
