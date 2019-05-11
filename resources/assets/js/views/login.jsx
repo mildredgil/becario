@@ -5,6 +5,7 @@ import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import defaultTheme from '../theme';
+import {CloseIcon} from './icons';
 
 const Login = ({classes}) => {
   const [inputName, setInputName] = React.useState('');
@@ -22,6 +23,7 @@ const Login = ({classes}) => {
     <MuiThemeProvider theme={defaultTheme}>
       <div className="row">
         <div className={`modal col s12 m4 offset-m4 ${classes.modalWrapper}`}>
+        <CloseIcon className= {classes.closeIcon}/>
           <div className="row">
             <div className="col s12">
               <label className={classes.labelHeader}>
@@ -96,6 +98,14 @@ const styles = theme => ({
     fontSize: '14px',
     color: '#000',
   },
+  closeIcon: {
+    color: 'black',
+    position: 'absolute',
+    right: '10px',
+    top: '12px',
+    fontSize: '18px',
+  },
+
 
   [`@media (max-width: ${maxWidth}px)`]: {
    

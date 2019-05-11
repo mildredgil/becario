@@ -8367,27 +8367,6 @@ exports.default = _default;
 
 /***/ }),
 /* 133 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(0);
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-Object.defineProperty(exports, "default", {
-  enumerable: true,
-  get: function get() {
-    return _TextField.default;
-  }
-});
-
-var _TextField = _interopRequireDefault(__webpack_require__(142));
-
-/***/ }),
-/* 134 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8548,6 +8527,27 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   }), _overrides)
 }));
+
+/***/ }),
+/* 134 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(0);
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "default", {
+  enumerable: true,
+  get: function get() {
+    return _TextField.default;
+  }
+});
+
+var _TextField = _interopRequireDefault(__webpack_require__(142));
 
 /***/ }),
 /* 135 */
@@ -47706,7 +47706,7 @@ var BUTTON_HOVER_COLOR = '#101010';
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_100__Tabs__ = __webpack_require__(420);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_100__Tabs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_100__Tabs__);
 /* unused harmony reexport Tabs */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_101__TextField__ = __webpack_require__(133);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_101__TextField__ = __webpack_require__(134);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_101__TextField___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_101__TextField__);
 /* unused harmony reexport TextField */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_102__Toolbar__ = __webpack_require__(130);
@@ -69791,209 +69791,6 @@ exports.default = _default;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__material_ui_core_Modal__ = __webpack_require__(45);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__material_ui_core_Modal___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__material_ui_core_Modal__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__material_ui_core_Button__ = __webpack_require__(38);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__material_ui_core_Button___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__material_ui_core_Button__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__material_ui_core_styles__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__material_ui_core_styles___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__material_ui_core_styles__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__theme__ = __webpack_require__(134);
-var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-
-
-
-
-
-
-
-var ReglamentoModal = function ReglamentoModal(_ref) {
-  var classes = _ref.classes;
-
-  var _React$useState = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(false),
-      _React$useState2 = _slicedToArray(_React$useState, 2),
-      open = _React$useState2[0],
-      setOpen = _React$useState2[1];
-
-  var handleOpen = function handleOpen() {
-    setOpen(true);
-  };
-
-  var handleClose = function handleClose() {
-    setOpen(false);
-  };
-
-  return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-    __WEBPACK_IMPORTED_MODULE_3__material_ui_core_styles__["MuiThemeProvider"],
-    { theme: __WEBPACK_IMPORTED_MODULE_4__theme__["a" /* default */] },
-    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-      __WEBPACK_IMPORTED_MODULE_2__material_ui_core_Button___default.a,
-      { onClick: handleOpen },
-      'Open Modal'
-    ),
-    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-      __WEBPACK_IMPORTED_MODULE_1__material_ui_core_Modal___default.a,
-      {
-        open: open,
-        onClose: handleClose,
-        classes: { root: classes.modalRoot }
-      },
-      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        'div',
-        { className: 'container ' + classes.containerWidth },
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          'div',
-          { className: 'card px-2 py-2' },
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'div',
-            { className: 'row' },
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              'div',
-              { className: 'col s12 center-align' },
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'label',
-                { className: classes.title },
-                'Reglamento Servicio Becario'
-              )
-            )
-          ),
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'div',
-            { className: 'row' },
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              'div',
-              { className: 'col s12 center-align' },
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                __WEBPACK_IMPORTED_MODULE_2__material_ui_core_Button___default.a,
-                { variant: 'contained', href: '#contained-buttons', className: classes.button },
-                'Descarga PDF'
-              )
-            )
-          ),
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'div',
-            { className: 'row' },
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              'div',
-              { className: 'col s12' },
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'label',
-                { className: classes.subTitle },
-                'Antes de empezar:'
-              )
-            )
-          ),
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'div',
-            { className: 'row' },
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              'div',
-              { className: 'col s12' },
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'ul',
-                { className: classes.list },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                  'li',
-                  { className: classes.list },
-                  'Conocer el Reglamento y las sanciones aplicadas en caso de no seguirlo'
-                ),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                  'li',
-                  { className: classes.list },
-                  'Revisar peri\xF3dicamente el correo institucional'
-                ),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                  'li',
-                  { className: classes.list },
-                  'Revisar la asignaci\xF3n o reasiignaci\xF3n y reportarse con la persona indicada'
-                ),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                  'li',
-                  { className: classes.list },
-                  'Intercambiar datos y negociar horarios de trabajo'
-                ),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                  'li',
-                  { className: classes.list },
-                  'Cumplir con la asignaci\xF3n durante todo el semestre'
-                ),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                  'li',
-                  { className: classes.list },
-                  'Solicitar ser evaluado y enviar la evaluaci\xF3n a Direcci\xF3n de Becas en fecha'
-                ),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                  'li',
-                  { className: classes.list },
-                  'Verificar que el reporte y el desempe\xF1o real coincidan'
-                ),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                  'li',
-                  { className: classes.list },
-                  'Reportar a la Direcci\xF3n de Becas y Apoyo'
-                ),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                  'li',
-                  { className: classes.list },
-                  'Actualizar la informaci\xF3n para que el solicitante pueda contactarte'
-                )
-              )
-            )
-          )
-        )
-      )
-    )
-  );
-};
-
-var maxWidth = 1000;
-
-var styles = function styles(theme) {
-  var _ref2;
-
-  return _ref2 = {
-    title: {
-      fontSize: '25px',
-      color: '#000'
-    }
-
-  }, _defineProperty(_ref2, 'title', {
-    fontSize: '25px',
-    color: '#000'
-  }), _defineProperty(_ref2, 'list', {
-    paddingLeft: '40px !important',
-    listStyleType: 'initial !important'
-  }), _defineProperty(_ref2, 'subTitle', {
-    fontSize: '15px',
-    color: '#000'
-  }), _defineProperty(_ref2, 'modalWrapper', {
-    padding: "25px !Important"
-  }), _defineProperty(_ref2, 'modalRoot', {
-    top: '20%'
-  }), _defineProperty(_ref2, 'labelHeader', {
-    fontSize: '18px',
-    color: '#000',
-    textAlign: 'center'
-  }), _defineProperty(_ref2, 'labelText', {
-    fontSize: '14px',
-    color: '#000'
-  }), _defineProperty(_ref2, 'containerWidth', {
-    maxWidth: 450
-  }), _defineProperty(_ref2, '@media (max-width: ' + maxWidth + 'px)', {}), _ref2;
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (Object(__WEBPACK_IMPORTED_MODULE_3__material_ui_core_styles__["withStyles"])(styles)(ReglamentoModal));
-
-/***/ }),
-/* 434 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
 /* unused harmony export AddIcon */
 /* unused harmony export BinIcon */
 /* unused harmony export CalendarIcon */
@@ -70002,12 +69799,12 @@ var styles = function styles(theme) {
 /* unused harmony export CautionIcon */
 /* unused harmony export CheckIcon */
 /* unused harmony export ClockIcon */
-/* unused harmony export CloseIcon */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CloseIcon; });
 /* unused harmony export ConfigIcon */
 /* unused harmony export DownArrowIcon */
-/* unused harmony export DownloadIcon */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return DownloadIcon; });
 /* unused harmony export DeleteIcon */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return EmailIcon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return EmailIcon; });
 /* unused harmony export EmptyStarIcon */
 /* unused harmony export FacebookIcon */
 /* unused harmony export FilterIcon */
@@ -70016,13 +69813,13 @@ var styles = function styles(theme) {
 /* unused harmony export HalfStarIcon */
 /* unused harmony export HelpIcon */
 /* unused harmony export HomeIcon */
-/* unused harmony export InstagramIcon */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return InfoIcon; });
 /* unused harmony export LanguageIcon */
 /* unused harmony export LabelIcon */
 /* unused harmony export LeftArrowIcon */
 /* unused harmony export LinkedinIcon */
 /* unused harmony export ListIcon */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return LocationIcon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return LocationIcon; });
 /* unused harmony export LockIcon */
 /* unused harmony export MedalIcon */
 /* unused harmony export MenuIcon */
@@ -70031,18 +69828,18 @@ var styles = function styles(theme) {
 /* unused harmony export NotificationIcon */
 /* unused harmony export PadlockIcon */
 /* unused harmony export PeopleIcon */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return PersonIcon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return PersonIcon; });
 /* unused harmony export PersonEditIcon */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return PhoneIcon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return PhoneIcon; });
 /* unused harmony export PlusIcon */
 /* unused harmony export PowerIcon */
 /* unused harmony export PriceDArrowIcon */
 /* unused harmony export PriceUArrowIcon */
 /* unused harmony export PublicIcon */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return RightArrowIcon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return RightArrowIcon; });
 /* unused harmony export RFullArrowIcon */
 /* unused harmony export SadIcon */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return SchoolIcon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return SchoolIcon; });
 /* unused harmony export SearchIcon */
 /* unused harmony export ShoppingIcon */
 /* unused harmony export TwitterIcon */
@@ -70213,11 +70010,11 @@ var HomeIcon = function HomeIcon(props) {
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('path', { d: 'M13.3438 8.30859C13.3438 8.19922 13.2891 8.11719 13.2344 8.03516L8.09375 3.82422C8.01172 3.76953 7.92969 3.74219 7.875 3.74219C7.79297 3.74219 7.71094 3.76953 7.65625 3.82422L2.51562 8.03516C2.43359 8.11719 2.40625 8.19922 2.40625 8.30859V12.2188C2.40625 12.4102 2.46094 12.5742 2.59766 12.6836C2.70703 12.8203 2.87109 12.875 3.0625 12.875H6.23438C6.31641 12.875 6.39844 12.8477 6.45312 12.793C6.50781 12.7383 6.5625 12.6562 6.5625 12.5469V9.48438C6.5625 9.40234 6.58984 9.32031 6.64453 9.26562C6.69922 9.21094 6.78125 9.15625 6.89062 9.15625H8.85938C8.94141 9.15625 9.02344 9.21094 9.07812 9.26562C9.13281 9.32031 9.1875 9.40234 9.1875 9.48438V12.5469C9.1875 12.6562 9.21484 12.7383 9.26953 12.793C9.32422 12.8477 9.40625 12.875 9.51562 12.875H12.6875C12.8516 12.875 13.0156 12.8203 13.1523 12.6836C13.2617 12.5742 13.3438 12.4102 13.3438 12.2188V8.30859ZM15.6406 6.64062C15.6953 6.69531 15.7227 6.77734 15.7227 6.85938C15.7227 6.96875 15.7227 7.05078 15.668 7.10547L14.9844 7.95312C14.9297 8.03516 14.8477 8.0625 14.7656 8.0625C14.6562 8.0625 14.5742 8.03516 14.5195 7.98047L8.09375 2.70312C8.01172 2.64844 7.92969 2.62109 7.875 2.62109C7.79297 2.62109 7.71094 2.64844 7.65625 2.70312L1.23047 7.98047C1.14844 8.03516 1.06641 8.0625 0.984375 8.0625C0.875 8.0625 0.820312 8.03516 0.765625 7.95312L0.0820312 7.10547C0.0273438 7.05078 0 6.96875 0 6.85938C0 6.77734 0.0546875 6.69531 0.109375 6.64062L7.05469 0.925781C7.27344 0.734375 7.54688 0.625 7.875 0.625C8.17578 0.625 8.44922 0.734375 8.72266 0.925781L11.1562 2.94922V0.953125C11.1562 0.871094 11.1836 0.789062 11.2383 0.734375C11.293 0.679688 11.375 0.625 11.4844 0.625H13.0156C13.0977 0.625 13.1797 0.679688 13.2344 0.734375C13.2891 0.789062 13.3438 0.871094 13.3438 0.953125V4.75391L15.6406 6.64062Z' })
   );
 };
-var InstagramIcon = function InstagramIcon(props) {
+var InfoIcon = function InfoIcon(props) {
   return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
     __WEBPACK_IMPORTED_MODULE_1__material_ui_core_SvgIcon___default.a,
-    _extends({}, props, { viewBox: '0 0 13 13' }),
-    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('path', { d: 'M6.525 3.60547C5.9599 3.60547 5.43125 3.7513 4.93906 4.04297C4.4651 4.31641 4.08229 4.69922 3.79062 5.19141C3.51719 5.66536 3.38047 6.1849 3.38047 6.75C3.38047 7.3151 3.51719 7.84375 3.79062 8.33594C4.08229 8.8099 4.4651 9.19271 4.93906 9.48438C5.43125 9.75781 5.9599 9.89453 6.525 9.89453C7.0901 9.89453 7.60964 9.75781 8.08359 9.48438C8.57578 9.19271 8.95859 8.8099 9.23203 8.33594C9.5237 7.84375 9.66953 7.3151 9.66953 6.75C9.66953 6.1849 9.5237 5.66536 9.23203 5.19141C8.95859 4.69922 8.57578 4.31641 8.08359 4.04297C7.60964 3.7513 7.0901 3.60547 6.525 3.60547ZM6.525 8.80078C5.9599 8.80078 5.47682 8.60026 5.07578 8.19922C4.67474 7.79818 4.47422 7.3151 4.47422 6.75C4.47422 6.1849 4.67474 5.70182 5.07578 5.30078C5.47682 4.89974 5.9599 4.69922 6.525 4.69922C7.0901 4.69922 7.57318 4.89974 7.97422 5.30078C8.37526 5.70182 8.57578 6.1849 8.57578 6.75C8.57578 7.3151 8.37526 7.79818 7.97422 8.19922C7.57318 8.60026 7.0901 8.80078 6.525 8.80078ZM10.5445 3.46875C10.5263 3.66927 10.4443 3.84245 10.2984 3.98828C10.1708 4.13411 10.0068 4.20703 9.80625 4.20703C9.60573 4.20703 9.43255 4.13411 9.28672 3.98828C9.14089 3.84245 9.06797 3.66927 9.06797 3.46875C9.06797 3.26823 9.14089 3.09505 9.28672 2.94922C9.43255 2.80339 9.60573 2.73047 9.80625 2.73047C10.0068 2.73047 10.1799 2.80339 10.3258 2.94922C10.4716 3.09505 10.5445 3.26823 10.5445 3.46875ZM12.6227 4.20703C12.5862 3.67839 12.5042 3.22266 12.3766 2.83984C12.2125 2.38411 11.9573 1.99219 11.6109 1.66406C11.2828 1.31771 10.8909 1.0625 10.4352 0.898438C10.0523 0.770833 9.59661 0.697917 9.06797 0.679688C8.55755 0.643229 7.7099 0.625 6.525 0.625C5.3401 0.625 4.48333 0.643229 3.95469 0.679688C3.44427 0.697917 2.99766 0.770833 2.61484 0.898438C2.15911 1.0625 1.75807 1.31771 1.41172 1.66406C1.08359 1.99219 0.8375 2.38411 0.673437 2.83984C0.545833 3.22266 0.463802 3.67839 0.427344 4.20703C0.409115 4.71745 0.4 5.5651 0.4 6.75C0.4 7.9349 0.409115 8.79167 0.427344 9.32031C0.463802 9.83073 0.545833 10.2773 0.673437 10.6602C0.8375 11.1159 1.08359 11.5169 1.41172 11.8633C1.75807 12.1914 2.15911 12.4284 2.61484 12.5742C2.99766 12.7201 3.44427 12.8021 3.95469 12.8203C4.48333 12.8568 5.3401 12.875 6.525 12.875C7.7099 12.875 8.55755 12.8568 9.06797 12.8203C9.59661 12.8021 10.0523 12.7292 10.4352 12.6016C10.8909 12.4375 11.2828 12.1914 11.6109 11.8633C11.9573 11.5169 12.2125 11.1159 12.3766 10.6602C12.5042 10.2773 12.5771 9.83073 12.5953 9.32031C12.6318 8.79167 12.65 7.9349 12.65 6.75C12.65 5.5651 12.6409 4.71745 12.6227 4.20703ZM11.3102 10.3594C11.0914 10.9062 10.6995 11.2982 10.1344 11.5352C9.84271 11.6445 9.35052 11.7174 8.65781 11.7539C8.275 11.7721 7.7099 11.7812 6.9625 11.7812H6.0875C5.35833 11.7812 4.79323 11.7721 4.39219 11.7539C3.71771 11.7174 3.22552 11.6445 2.91562 11.5352C2.36875 11.3164 1.97682 10.9245 1.73984 10.3594C1.63047 10.0495 1.55755 9.55729 1.52109 8.88281C1.50286 8.48177 1.49375 7.91667 1.49375 7.1875V6.3125C1.49375 5.58333 1.50286 5.01823 1.52109 4.61719C1.55755 3.92448 1.63047 3.43229 1.73984 3.14062C1.95859 2.57552 2.35052 2.18359 2.91562 1.96484C3.22552 1.85547 3.71771 1.78255 4.39219 1.74609C4.79323 1.72786 5.35833 1.71875 6.0875 1.71875H6.9625C7.69167 1.71875 8.25677 1.72786 8.65781 1.74609C9.35052 1.78255 9.84271 1.85547 10.1344 1.96484C10.6995 2.18359 11.0914 2.57552 11.3102 3.14062C11.4195 3.43229 11.4924 3.92448 11.5289 4.61719C11.5471 5 11.5562 5.5651 11.5562 6.3125V7.1875C11.5562 7.91667 11.5471 8.48177 11.5289 8.88281C11.4924 9.55729 11.4195 10.0495 11.3102 10.3594Z', fill: 'white' })
+    _extends({}, props, { viewBox: '0 0 24 24' }),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('path', { d: 'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z' })
   );
 };
 var LabelIcon = function LabelIcon(props) {
@@ -70454,6 +70251,224 @@ var WebIcon = function WebIcon(props) {
 
 
 /***/ }),
+/* 434 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__material_ui_core_Modal__ = __webpack_require__(45);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__material_ui_core_Modal___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__material_ui_core_Modal__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__material_ui_core_Button__ = __webpack_require__(38);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__material_ui_core_Button___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__material_ui_core_Button__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__material_ui_core_styles__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__material_ui_core_styles___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__material_ui_core_styles__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__theme__ = __webpack_require__(133);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__icons__ = __webpack_require__(433);
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+
+
+
+
+
+var ReglamentoModal = function ReglamentoModal(_ref) {
+  var classes = _ref.classes;
+
+  var _React$useState = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(false),
+      _React$useState2 = _slicedToArray(_React$useState, 2),
+      open = _React$useState2[0],
+      setOpen = _React$useState2[1];
+
+  var handleOpen = function handleOpen() {
+    setOpen(true);
+  };
+
+  var handleClose = function handleClose() {
+    setOpen(false);
+  };
+
+  return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+    __WEBPACK_IMPORTED_MODULE_3__material_ui_core_styles__["MuiThemeProvider"],
+    { theme: __WEBPACK_IMPORTED_MODULE_4__theme__["a" /* default */] },
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      __WEBPACK_IMPORTED_MODULE_2__material_ui_core_Button___default.a,
+      { onClick: handleOpen },
+      'Open Modal'
+    ),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      __WEBPACK_IMPORTED_MODULE_1__material_ui_core_Modal___default.a,
+      {
+        open: open,
+        onClose: handleClose,
+        classes: { root: classes.modalRoot }
+      },
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'div',
+        { className: 'container ' + classes.containerWidth },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'div',
+          { className: 'card ' + classes.pxThick + ' py-2' },
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'div',
+            { className: 'row' },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'div',
+              { className: 'col s12 center-align' },
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'label',
+                { className: classes.title },
+                'Reglamento Servicio Becario'
+              )
+            )
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'div',
+            { className: 'row' },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'div',
+              { className: 'col s12 ' },
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'label',
+                { className: classes.subTitle },
+                'Antes de empezar:'
+              )
+            )
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'div',
+            { className: 'row' },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'div',
+              { className: 'col s12 ' + classes.bulletPadding },
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'ul',
+                null,
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  'li',
+                  { className: classes.list },
+                  'Conocer el Reglamento y las sanciones aplicadas en caso de no seguirlo'
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  'li',
+                  { className: classes.list },
+                  'Revisar peri\xF3dicamente el correo institucional'
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  'li',
+                  { className: classes.list },
+                  'Revisar la asignaci\xF3n o reasiignaci\xF3n y reportarse con la persona indicada'
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  'li',
+                  { className: classes.list },
+                  'Intercambiar datos y negociar horarios de trabajo'
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  'li',
+                  { className: classes.list },
+                  'Cumplir con la asignaci\xF3n durante todo el semestre'
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  'li',
+                  { className: classes.list },
+                  'Solicitar ser evaluado y enviar la evaluaci\xF3n a Direcci\xF3n de Becas en fecha'
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  'li',
+                  { className: classes.list },
+                  'Verificar que el reporte y el desempe\xF1o real coincidan'
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  'li',
+                  { className: classes.list },
+                  'Reportar a la Direcci\xF3n de Becas y Apoyo'
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  'li',
+                  { className: classes.list },
+                  'Actualizar la informaci\xF3n para que el solicitante pueda contactarte'
+                )
+              )
+            )
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'div',
+            { className: 'row' },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'div',
+              { className: 'col s12 center-align' },
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                __WEBPACK_IMPORTED_MODULE_2__material_ui_core_Button___default.a,
+                { variant: 'contained', color: 'primary', href: '#contained-buttons', className: classes.button },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__icons__["b" /* DownloadIcon */], { className: 'white-text ' + classes.iconLabel }),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  'a',
+                  { href: 'http://localhost:8000/files/reglamento.pdf', download: 'reglamento', className: 'white-text ' + classes.iconLabel },
+                  ' PDF'
+                )
+              )
+            )
+          )
+        )
+      )
+    )
+  );
+};
+
+var maxWidth = 1000;
+
+var styles = function styles(theme) {
+  var _ref2;
+
+  return _ref2 = {
+    title: {
+      fontSize: '25px',
+      color: '#000'
+    }
+
+  }, _defineProperty(_ref2, 'title', {
+    fontSize: '25px',
+    color: '#000'
+  }), _defineProperty(_ref2, 'list', {
+    //paddingLeft: '40px !important',
+    listStyleType: 'initial !important'
+  }), _defineProperty(_ref2, 'pxThick', {
+    paddingLeft: '40px',
+    paddingRight: '40px'
+  }), _defineProperty(_ref2, 'iconLabel', {
+    fontSize: '20px',
+    marginRight: '0.5rem'
+  }), _defineProperty(_ref2, 'bulletPadding', {
+    paddingLeft: '40px !important'
+  }), _defineProperty(_ref2, 'subTitle', {
+    fontSize: '15px',
+    color: '#000'
+  }), _defineProperty(_ref2, 'modalWrapper', {
+    padding: "25px !Important"
+  }), _defineProperty(_ref2, 'modalRoot', {
+    top: '4%'
+  }), _defineProperty(_ref2, 'labelHeader', {
+    fontSize: '18px',
+    color: '#000',
+    textAlign: 'center'
+  }), _defineProperty(_ref2, 'labelText', {
+    fontSize: '14px',
+    color: '#000'
+  }), _defineProperty(_ref2, 'containerWidth', {
+    maxWidth: '40%'
+  }), _defineProperty(_ref2, '@media (max-width: ' + maxWidth + 'px)', {}), _ref2;
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(__WEBPACK_IMPORTED_MODULE_3__material_ui_core_styles__["withStyles"])(styles)(ReglamentoModal));
+
+/***/ }),
 /* 435 */,
 /* 436 */,
 /* 437 */,
@@ -70477,10 +70492,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__cardColaborador__ = __webpack_require__(442);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__itemPeriodo__ = __webpack_require__(443);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__reglamentoModal__ = __webpack_require__(433);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__reglamentoModal__ = __webpack_require__(434);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__theme__ = __webpack_require__(134);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__theme__ = __webpack_require__(133);
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
@@ -70596,10 +70611,10 @@ if (document.getElementById('content')) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__material_ui_core_styles__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__material_ui_core_styles___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__material_ui_core_styles__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__theme__ = __webpack_require__(134);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__theme__ = __webpack_require__(133);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__material_ui_core_Button__ = __webpack_require__(38);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__material_ui_core_Button___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__material_ui_core_Button__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__icons__ = __webpack_require__(434);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__icons__ = __webpack_require__(433);
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
@@ -70641,7 +70656,7 @@ var CardColaborador = function CardColaborador(_ref) {
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
             { className: 'col s6 valign-wrapper' },
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__icons__["c" /* PersonIcon */], { className: classes.iconLabel }),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__icons__["f" /* PersonIcon */], { className: classes.iconLabel }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'label',
               null,
@@ -70651,7 +70666,7 @@ var CardColaborador = function CardColaborador(_ref) {
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
             { className: 'col s6 valign-wrapper' },
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__icons__["f" /* SchoolIcon */], { className: classes.iconSchool }),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__icons__["i" /* SchoolIcon */], { className: classes.iconSchool }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'label',
               null,
@@ -70687,7 +70702,7 @@ var CardColaborador = function CardColaborador(_ref) {
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
             { className: 'col s6 valign-wrapper' },
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__icons__["b" /* LocationIcon */], { className: classes.iconLabel }),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__icons__["e" /* LocationIcon */], { className: classes.iconLabel }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'label',
               null,
@@ -70697,7 +70712,7 @@ var CardColaborador = function CardColaborador(_ref) {
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
             { className: 'col s6 valign-wrapper' },
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__icons__["a" /* EmailIcon */], { className: classes.iconLabel }),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__icons__["c" /* EmailIcon */], { className: classes.iconLabel }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'label',
               null,
@@ -70733,7 +70748,7 @@ var CardColaborador = function CardColaborador(_ref) {
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
             { className: 'col s6 valign-wrapper' },
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__icons__["d" /* PhoneIcon */], { className: classes.iconLabel }),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__icons__["g" /* PhoneIcon */], { className: classes.iconLabel }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'label',
               null,
@@ -70779,7 +70794,7 @@ var CardColaborador = function CardColaborador(_ref) {
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             __WEBPACK_IMPORTED_MODULE_3__material_ui_core_Button___default.a,
             { variant: 'contained', color: 'primary', href: 'mailto:A00820397@itesm.mx' },
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__icons__["a" /* EmailIcon */], { className: 'white-text ' + classes.icon }),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__icons__["c" /* EmailIcon */], { className: 'white-text ' + classes.icon }),
             'Enviar Correo'
           )
         )
@@ -70847,7 +70862,7 @@ var styles = function styles(theme) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__material_ui_core_styles__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__material_ui_core_styles___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__material_ui_core_styles__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__icons__ = __webpack_require__(434);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__icons__ = __webpack_require__(433);
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -70883,14 +70898,14 @@ var ItemPeriodo = function ItemPeriodo(_ref) {
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'label',
         { className: classes.colab + ' blue-tec-dark' },
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__icons__["c" /* PersonIcon */], { className: classes.iconLabel }),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__icons__["f" /* PersonIcon */], { className: classes.iconLabel }),
         'Lorena G\xF3mez | Evaluaci\xF3n: Pendiente'
       )
     ),
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       'div',
       { className: 'col s2' },
-      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__icons__["e" /* RightArrowIcon */], { className: 'hide ' + classes.icon + ' ' + (selected ? classes.itemIcon : '') + ' ' })
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__icons__["h" /* RightArrowIcon */], { className: 'hide ' + classes.icon + ' ' + (selected ? classes.itemIcon : '') + ' ' })
     )
   );
 };
