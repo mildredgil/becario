@@ -64,9 +64,9 @@ const CardColaborador = ({classes}) => {
             </div>
           </div>
         </div>
-        <div className="row margin-0 blue-tec-b valign-wrapper px-3">
+        <div className="row margin-0 blue-tec-light-b valign-wrapper px-3">
           <div className="col s4 py-3">
-              <label className={`  blue-tec-dark`}>Evaluación: </label>
+              <label className={`blue-tec-dark`}>Evaluación: </label>
               <br/>
               <label className={`${classes.status} blue-tec`}> Satisfactorio</label>
           </div>

@@ -36,7 +36,7 @@ Route::get('/homeColaborador', function () {
 });
 
 Route::get('/homeEstudiante', function () {
-  $estudiante = Estudiante::where('id', 1)->with("carrera")->first();
+  $estudiante = Estudiante::where('id', 2)->with("carrera")->first();
   
   return view('homeEstudiante', [
     'estudiante' => $estudiante

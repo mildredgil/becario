@@ -14,7 +14,7 @@ const ItemPeriodo = ({classes}) => {
       <div className="col s10">
         <label className={`${classes.periodo} blue-tec`}>Verano 2019</label>
         <br/>
-        <label className={classes.colab}>
+        <label className={`${classes.colab} blue-tec-dark`}>
           <PersonIcon className={classes.iconLabel}/>
           Lorena Gómez | Evaluación: Pendiente
         </label>
@@ -30,7 +30,7 @@ const maxWidth = 1000;
 
 const styles = theme => ({
   itemWrapper: {
-    borderBottom: '1px solid rgba(34, 63, 147, 0.2)',
+    borderBottom: '1px solid rgba(34,  63, 147, 0.2)',
     '&:hover': {
       background: "#223f9320",
     },

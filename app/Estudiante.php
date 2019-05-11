@@ -21,4 +21,8 @@ class Estudiante extends Model {
   public function carrera() {
     return $this->belongsTo('App\Carrera', 'id_carrera');
   }
+
+  public function solicitudes() {
+    return $this->HasMany('App\Solicitud_Becaria');
+  }
 }
