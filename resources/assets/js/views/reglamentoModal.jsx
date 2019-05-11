@@ -4,37 +4,28 @@ import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import defaultTheme from '../theme';
-import {DownloadIcon} from './icons';
+import {DownloadIcon, CloseIcon} from './icons';
 
-const ReglamentoModal = ({classes}) => {
-  const [open, setOpen]  = React.useState(false);
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
+const ReglamentoModal = ({classes, open, handleClose}) => {
   
   return (
     <MuiThemeProvider theme={defaultTheme}>
-			<Button onClick={handleOpen}>Open Modal</Button>
 			<Modal
 				open={open}
         onClose={handleClose}
         classes={{ root: classes.modalRoot }}
 			>
 				<div className={`container ${classes.containerWidth}`}>
-					<div className={`card ${classes.pxThick} py-2`}>
-            <div className="row">
+					<div className={`card ${classes.pxThick} py-4`}>
+            <CloseIcon onClick={handleClose} className= {classes.closeIcon}/>
+            <div className="row"> 
               <div className="col s12 center-align">
                 <label className={classes.title}>
                   Reglamento Servicio Becario
                 </label>
               </div>
             </div>
-            <div className="row">
+            <div className="row mb-0">
               <div className="col s12 ">
                 <label className={classes.subTitle}>
                   Antes de empezar:
@@ -90,8 +81,7 @@ const styles = theme => ({
   },
 
   pxThick:{
-    paddingLeft: '40px',
-    paddingRight: '40px',
+    padding: '40px',
   },
 
   iconLabel: {
@@ -125,7 +115,17 @@ const styles = theme => ({
   labelText: {
     fontSize: '14px',
     color: '#000',
-	},
+  },
+  
+  closeIcon: {
+    cursor: 'pointer',
+    color: 'black',
+    position: 'absolute',
+    right: '10px',
+    top: '12px',
+    fontSize: '18px',
+  },
+
 	containerWidth: {
     maxWidth: '40%',
   },
