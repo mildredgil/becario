@@ -17,4 +17,5 @@ const { mix } = require('laravel-mix');
     .react('resources/assets/js/views/navbarLogged.jsx',     'public/js/views')
     .react('resources/assets/js/views/homeEstudiante.jsx',   'public/js/views')
     .react('resources/assets/js/views/homeColaboradores.jsx','public/js/views')
-    .react('resources/assets/js/views/reglamentoModal.jsx', 'public/js/views');
+    .react('resources/assets/js/views/reglamentoModal.jsx',  'public/js/views')
+    .react('resources/assets/js/views/footer.jsx',           'public/js/views');

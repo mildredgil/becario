@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 445);
+/******/ 	return __webpack_require__(__webpack_require__.s = 446);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -69787,209 +69787,7 @@ var _default = (0, _withTheme.default)()(Zoom);
 exports.default = _default;
 
 /***/ }),
-/* 433 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__material_ui_core_Modal__ = __webpack_require__(45);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__material_ui_core_Modal___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__material_ui_core_Modal__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__material_ui_core_Button__ = __webpack_require__(43);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__material_ui_core_Button___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__material_ui_core_Button__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__material_ui_core_styles__ = __webpack_require__(37);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__material_ui_core_styles___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__material_ui_core_styles__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__theme__ = __webpack_require__(134);
-var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-
-
-
-
-
-
-
-var ReglamentoModal = function ReglamentoModal(_ref) {
-  var classes = _ref.classes;
-
-  var _React$useState = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(false),
-      _React$useState2 = _slicedToArray(_React$useState, 2),
-      open = _React$useState2[0],
-      setOpen = _React$useState2[1];
-
-  var handleOpen = function handleOpen() {
-    setOpen(true);
-  };
-
-  var handleClose = function handleClose() {
-    setOpen(false);
-  };
-
-  return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-    __WEBPACK_IMPORTED_MODULE_3__material_ui_core_styles__["MuiThemeProvider"],
-    { theme: __WEBPACK_IMPORTED_MODULE_4__theme__["a" /* default */] },
-    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-      __WEBPACK_IMPORTED_MODULE_2__material_ui_core_Button___default.a,
-      { onClick: handleOpen },
-      'Open Modal'
-    ),
-    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-      __WEBPACK_IMPORTED_MODULE_1__material_ui_core_Modal___default.a,
-      {
-        open: open,
-        onClose: handleClose,
-        classes: { root: classes.modalRoot }
-      },
-      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        'div',
-        { className: 'container ' + classes.containerWidth },
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          'div',
-          { className: 'card px-2 py-2' },
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'div',
-            { className: 'row' },
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              'div',
-              { className: 'col s12 center-align' },
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'label',
-                { className: classes.title },
-                'Reglamento Servicio Becario'
-              )
-            )
-          ),
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'div',
-            { className: 'row' },
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              'div',
-              { className: 'col s12 center-align' },
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                __WEBPACK_IMPORTED_MODULE_2__material_ui_core_Button___default.a,
-                { variant: 'contained', href: '#contained-buttons', className: classes.button },
-                'Descarga PDF'
-              )
-            )
-          ),
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'div',
-            { className: 'row' },
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              'div',
-              { className: 'col s12' },
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'label',
-                { className: classes.subTitle },
-                'Antes de empezar:'
-              )
-            )
-          ),
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'div',
-            { className: 'row' },
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              'div',
-              { className: 'col s12' },
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'ul',
-                { className: classes.list },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                  'li',
-                  { className: classes.list },
-                  'Conocer el Reglamento y las sanciones aplicadas en caso de no seguirlo'
-                ),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                  'li',
-                  { className: classes.list },
-                  'Revisar peri\xF3dicamente el correo institucional'
-                ),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                  'li',
-                  { className: classes.list },
-                  'Revisar la asignaci\xF3n o reasiignaci\xF3n y reportarse con la persona indicada'
-                ),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                  'li',
-                  { className: classes.list },
-                  'Intercambiar datos y negociar horarios de trabajo'
-                ),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                  'li',
-                  { className: classes.list },
-                  'Cumplir con la asignaci\xF3n durante todo el semestre'
-                ),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                  'li',
-                  { className: classes.list },
-                  'Solicitar ser evaluado y enviar la evaluaci\xF3n a Direcci\xF3n de Becas en fecha'
-                ),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                  'li',
-                  { className: classes.list },
-                  'Verificar que el reporte y el desempe\xF1o real coincidan'
-                ),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                  'li',
-                  { className: classes.list },
-                  'Reportar a la Direcci\xF3n de Becas y Apoyo'
-                ),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                  'li',
-                  { className: classes.list },
-                  'Actualizar la informaci\xF3n para que el solicitante pueda contactarte'
-                )
-              )
-            )
-          )
-        )
-      )
-    )
-  );
-};
-
-var maxWidth = 1000;
-
-var styles = function styles(theme) {
-  var _ref2;
-
-  return _ref2 = {
-    title: {
-      fontSize: '25px',
-      color: '#000'
-    }
-
-  }, _defineProperty(_ref2, 'title', {
-    fontSize: '25px',
-    color: '#000'
-  }), _defineProperty(_ref2, 'list', {
-    paddingLeft: '40px !important',
-    listStyleType: 'initial !important'
-  }), _defineProperty(_ref2, 'subTitle', {
-    fontSize: '15px',
-    color: '#000'
-  }), _defineProperty(_ref2, 'modalWrapper', {
-    padding: "25px !Important"
-  }), _defineProperty(_ref2, 'modalRoot', {
-    top: '20%'
-  }), _defineProperty(_ref2, 'labelHeader', {
-    fontSize: '18px',
-    color: '#000',
-    textAlign: 'center'
-  }), _defineProperty(_ref2, 'labelText', {
-    fontSize: '14px',
-    color: '#000'
-  }), _defineProperty(_ref2, 'containerWidth', {
-    maxWidth: 450
-  }), _defineProperty(_ref2, '@media (max-width: ' + maxWidth + 'px)', {}), _ref2;
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (Object(__WEBPACK_IMPORTED_MODULE_3__material_ui_core_styles__["withStyles"])(styles)(ReglamentoModal));
-
-/***/ }),
+/* 433 */,
 /* 434 */,
 /* 435 */,
 /* 436 */,
@@ -70001,11 +69799,89 @@ var styles = function styles(theme) {
 /* 442 */,
 /* 443 */,
 /* 444 */,
-/* 445 */
+/* 445 */,
+/* 446 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(433);
+module.exports = __webpack_require__(447);
 
+
+/***/ }),
+/* 447 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__material_ui_core_styles__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__material_ui_core_styles___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__material_ui_core_styles__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__theme__ = __webpack_require__(134);
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+
+
+
+var Footer = function Footer(_ref) {
+  var classes = _ref.classes;
+
+
+  return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+    __WEBPACK_IMPORTED_MODULE_2__material_ui_core_styles__["MuiThemeProvider"],
+    { theme: __WEBPACK_IMPORTED_MODULE_3__theme__["a" /* default */] },
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { className: classes.wrapper }),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      'div',
+      { className: classes.textWrapper + ' row mb-0' },
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'div',
+        { className: 'col s12 center-align' },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'span',
+          null,
+          '\xA9 2019 Tecnol\xF3gico de Monterey | Aviso de privacidad'
+        )
+      )
+    )
+  );
+};
+
+var maxWidth = 1000;
+
+var styles = function styles() {
+  return _defineProperty({
+    textWrapper: {
+      position: 'relative',
+      bottom: '70px',
+      left: '100p',
+      fontWeight: 'bold',
+      fontSize: '20px'
+    },
+
+    wrapper: {
+      backgroundImage: 'url(http://localhost:8000/img/teccampus.jpg)',
+      position: 'relative',
+      height: '120px',
+      opacity: '0.5',
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      backgroundRepeat: 'no-repeat',
+      filter: 'blur(3px)'
+    }
+
+  }, '@media (max-width: ' + maxWidth + 'px)', {});
+};
+
+var _Footer = Object(__WEBPACK_IMPORTED_MODULE_2__material_ui_core_styles__["withStyles"])(styles)(Footer);
+
+if (document.getElementById('footer')) {
+  __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(_Footer, null), document.getElementById('footer'));
+}
 
 /***/ })
 /******/ ]);

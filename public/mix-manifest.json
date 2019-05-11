@@ -6,5 +6,6 @@
   "/js/views/navbarLogged.js": "/js/views/navbarLogged.js",
   "/js/views/homeColaboradores.js": "/js/views/homeColaboradores.js",
   "/js/views/homeEstudiante.js": "/js/views/homeEstudiante.js",
-  "/js/views/reglamentoModal.js": "/js/views/reglamentoModal.js"
+  "/js/views/reglamentoModal.js": "/js/views/reglamentoModal.js",
+  "/js/views/footer.js": "/js/views/footer.js"
 }
