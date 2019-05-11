@@ -6,9 +6,11 @@ import { MuiThemeProvider } from '@material-ui/core/styles';
 import defaultTheme from '../theme';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import PerfilColaboradores from './perfilColaboradores';
 
 const NavBar = ({classes}) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [open, setOpen] = React.useState(false);
 
   const handleClick = event => {
     setAnchorEl(event.currentTarget);
@@ -18,6 +20,14 @@ const NavBar = ({classes}) => {
     setAnchorEl(null);
     window.location.replace("/login");
   };
+
+  const handleOpenPerfil = () => {
+		setOpen(true);
+	};
+
+	const handleClosePerfil = () => {
+		setOpen(false);
+	};
 
   return (
     <MuiThemeProvider theme={defaultTheme}>
@@ -42,7 +52,7 @@ const NavBar = ({classes}) => {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>Perfil</MenuItem>
+                <MenuItem onClick={handleOpenPerfil}>Perfil</MenuItem>
                 <MenuItem onClick={handleClose}>Cerrar Sesión</MenuItem>
               </Menu>
             </div>  
@@ -50,6 +60,7 @@ const NavBar = ({classes}) => {
           </div>
         </div>
       </nav>
+      <PerfilColaboradores  open={open} handleClose={handleClosePerfil} />
     </MuiThemeProvider>
   );
 }
