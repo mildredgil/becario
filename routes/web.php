@@ -11,8 +11,9 @@
 |
 */
 
-use App\Task;
+use App\User;
 use App\Estudiante;
+use App\Colaborador;
 use App\Departamento;
 use Illuminate\Http\Request;
 
@@ -61,18 +62,37 @@ Route::get('encrypt', function () {
 });
 
 Route::get('/estudiantes/users', function () {
-  $estudiante = Estudiante::where('id', '>', 0)->get();
+  $estudiantes = Estudiante::where('id', '>', 0)->get();
 
   foreach($estudiantes as $estudiante) {
-    $password = bcrypt($estudiante->password);
-    $estudiante->contrasena = $password;
-    //$estudiante->save();
+    $password = bcrypt($estudiante->contrasena);
+    
+    $user = User::create([
+      'user_id' => $estudiante->id, 
+      'username' => $estudiante->matricula,
+      'password' => $password,
+      'user_type' => User::ESTUDIANTE 
+    ]);    
+
+    var_dump($user);
   }
-  dd($estudiantes);
-  
-  return view('homeColaborador', [
-    'estudiante' => $estudiante
-  ]);
+});
+
+Route::get('/colaboradores/users', function () {
+  $colaboradores = Colaborador::where('id', '>', 0)->get();
+
+  foreach($colaboradores as $colaborador) {
+    $password = bcrypt($colaborador->contrasena);
+    
+    $user = User::create([
+      'user_id' => $colaborador->id, 
+      'username' => $colaborador->nomina,
+      'password' => $password,
+      'user_type' => User::COLABORADOR
+    ]);    
+
+    var_dump($user);
+  }
 });
 
 /**
