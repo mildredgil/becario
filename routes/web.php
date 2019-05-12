@@ -16,15 +16,9 @@ use App\Estudiante;
 use App\Departamento;
 use Illuminate\Http\Request;
 
-/**
-    * Show Task Dashboard
-    */
 Route::get('/', function () {
-    error_log("INFO: get /");
-    return redirect('/login');
-    /*/return view('tasks', [
-        'tasks' => Task::orderBy('created_at', 'asc')->get()
-    ]);*/
+  error_log("INFO: get /");
+  return redirect('/login');
 });
 
 Route::get('/login', function () {
@@ -32,7 +26,7 @@ Route::get('/login', function () {
 });
 
 Route::get('/homeColaborador', function () {
-    return view('homeColaborador');
+  return view('homeColaborador');
 });
 
 Route::get('/homeEstudiante', function () {
@@ -47,6 +41,17 @@ Route::get('/tasks', function () {
   return view('tasks', [
     'tasks' => Task::orderBy('created_at', 'asc')->get()
   ]);
+});
+
+Route::get('encrypt', function () {
+  $estudiantes = Estudiante::where('id', '>', 0)->get();
+  
+  foreach($estudiantes as $estudiante) {
+    $password = bcrypt($estudiante->password);
+    $estudiante->contrasena = $password;
+    //$estudiante->save();
+  }
+  dd($estudiantes);
 });
 
 /**

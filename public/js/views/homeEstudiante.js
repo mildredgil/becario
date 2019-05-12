@@ -70961,7 +70961,7 @@ var ItemPeriodo = function ItemPeriodo(_ref) {
 
   return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
     'div',
-    { onClick: handleClick, className: (isSelected ? classes.selected : classes.itemWrapper) + ' row valign-wrapper py-2 px-2 mb-0' },
+    { onClick: handleClick, className: (isSelected ? classes.selected : classes.itemWrapper) + ' hoverable row valign-wrapper py-2 px-2 mb-0' },
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       'div',
       { className: 'col s10' },
@@ -70996,13 +70996,15 @@ var styles = function styles(theme) {
   return _defineProperty({
     itemWrapper: {
       borderBottom: '1px solid rgba(34,  63, 147, 0.2)',
+      cursor: 'pointer',
       '&:hover': {
         background: "#223f9320"
       }
     },
 
     selected: {
-      background: "#223f9320"
+      background: "#223f9320",
+      cursor: 'pointer'
     },
 
     iconLocation: {

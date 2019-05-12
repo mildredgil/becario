@@ -2,11 +2,14 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Estudiante extends Model {
-    
+class Estudiante extends Authenticatable {
+  
+  use SoftDeletes;
   protected $table = 'estudiante';
+  protected $hidden = ['password', 'remember_token'];
   
   const HIJOPROFESOR  = 1;
   const ORQUESTA      = 2;
