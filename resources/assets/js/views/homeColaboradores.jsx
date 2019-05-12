@@ -11,6 +11,9 @@ import FormControl from '@material-ui/core/FormControl';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
+import Button from '@material-ui/core/Button';
+import {EmailIcon} from './icons';
+import {SatisfiedIcon} from './icons';
 
 const Home = ({classes, estudiante_html}) => {
   const [estudiante, setEstudiante] = React.useState(false);
@@ -75,7 +78,17 @@ const Home = ({classes, estudiante_html}) => {
       <div className="container">
         <div className={`row ${classes.margin40}`}>
           <div className={`col s12 blue-tec mb-2 ${classes.titleHistory}`}>
-          Historial | Agosto-Diciembre 2019
+            <div className="col s9">
+              <span className={classes.labelLogin}>Becarios | Agosto-Diciembre 2019</span>
+            </div>
+            <div className="col s3 align-right">
+              <Button
+                  variant="contained"
+                  color="primary">
+                  <SatisfiedIcon className={`white-text ${classes.labelCheck}`}/>
+                  <span className={classes.labelLogin}>Evaluar alumnos</span>
+              </Button>
+            </div>
           </div>
         </div> 
         <div  className={`row `}>
@@ -188,6 +201,16 @@ const styles = theme => ({
 
   titleHistory: {
     fontSize: '30px',
+  },
+
+  labelLogin:{
+    fontFamily : 'Nunito',
+    fontSize: '20px', 
+  },
+
+  labelCheck: {
+    fontSize: '16px',
+    marginRight: '0.5rem',
   },
 
   [`@media (max-width: ${maxWidth}px)`]: {

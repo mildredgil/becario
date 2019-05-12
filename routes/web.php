@@ -26,7 +26,7 @@ Route::get('/login', function () {
 });
 
 Route::get('/homeColaborador', function () {
-    $estudiante = Estudiante::where('id', 2)->with("carrera", "solicitudesBecarias.colaborador.departamento")->first();
+    $estudiante = Estudiante::where('id', 3)->with("carrera", "solicitudesBecarias.colaborador.departamento")->first();
   
     return view('homeColaborador', [
       'estudiante' => $estudiante
@@ -34,7 +34,7 @@ Route::get('/homeColaborador', function () {
 });
 
 Route::get('/homeEstudiante', function () {
-  $estudiante = Estudiante::where('id', 2)->with("carrera", "solicitudesBecarias.colaborador.departamento")->first();
+  $estudiante = Estudiante::where('id', 3)->with("carrera", "solicitudesBecarias.colaborador.departamento")->first();
   
   return view('homeEstudiante', [
     'estudiante' => $estudiante
