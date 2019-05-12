@@ -45,6 +45,7 @@
     
 </div>  
 <div id="homeColaborador"></div>   
+<input id="estudiante" type="hidden" value="{{ $estudiante }}" />
 @endsection
 
 @section('js')

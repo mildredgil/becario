@@ -32,7 +32,11 @@ Route::get('/login', function () {
 });
 
 Route::get('/homeColaborador', function () {
-    return view('homeColaborador');
+    $estudiante = Estudiante::where('id', 2)->with("carrera", "solicitudesBecarias.colaborador.departamento")->first();
+  
+    return view('homeColaborador', [
+      'estudiante' => $estudiante
+    ]);
 });
 
 Route::get('/homeEstudiante', function () {
