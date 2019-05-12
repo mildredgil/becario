@@ -11,11 +11,11 @@ body {
 }
 
 .blue-tec-light {
-  color : #223f9320;
+    color: #223f9320;
 }
 
 .blue-tec-dark {
-  color : #101010;
+    color: #101010;
 }
 
 .blue-tec-b {
@@ -23,7 +23,7 @@ body {
 }
 
 .blue-tec-light-b {
-  background-color : #223f9320;
+    background-color: #223f9320;
 }
 
 .blue-tec-dark-b {
@@ -252,5 +252,4 @@ body {
 
 .pb-5 {
     padding-bottom: 25px !important;
-    >>>>>>>38d4a44156e99a7be99094b9a5b97176d4f43148
 }
