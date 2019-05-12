@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 445);
+/******/ 	return __webpack_require__(__webpack_require__.s = 450);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -5486,190 +5486,6 @@ Object.keys(_withWidth).forEach(function (key) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__colors__ = __webpack_require__(254);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__material_ui_core__ = __webpack_require__(255);
-var _overrides;
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-
-
-
-/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_1__material_ui_core__["a" /* createMuiTheme */])({
-  palette: {
-    primary: {
-      main: __WEBPACK_IMPORTED_MODULE_0__colors__["c" /* PRIMARY_COLOR */]
-    },
-    secondary: {
-      main: __WEBPACK_IMPORTED_MODULE_0__colors__["d" /* SECONDARY_COLOR */]
-    }
-  },
-
-  overrides: (_overrides = {
-    MuiMenuItem: {
-      root: {
-        height: '35px'
-      }
-    },
-
-    MuiTab: {
-      root: {
-        fontFamily: 'Nunito'
-      }
-    },
-
-    MuiFormControl: {
-      root: {
-        width: '100%'
-      }
-    },
-
-    MuiFormLabel: {
-      '&$focused': {
-        color: __WEBPACK_IMPORTED_MODULE_0__colors__["b" /* FOCUSED_INPUT_COLOR */] + ' !important'
-      }
-    },
-
-    MuiInputLabel: {
-      root: {
-        '&$outlined$shrink': {
-          transform: 'translate(14px, -5px) scale(0.75)'
-        }
-      },
-
-      outlined: {
-        transform: 'translate(10px, 14px) scale(1)'
-      }
-    },
-
-    MuiFormControlLabel: {
-      root: {
-        marginLeft: '0px',
-        marginRight: '0px'
-      }
-    }
-
-  }, _defineProperty(_overrides, 'MuiFormControl', {
-    marginNormal: {
-      marginTop: '5px',
-      marginBottom: '15px'
-    }
-  }), _defineProperty(_overrides, 'MuiCheckbox', {
-    root: {
-      paddingLeft: '0px',
-      paddingTop: '0px'
-    },
-
-    "&$checked": {
-      color: __WEBPACK_IMPORTED_MODULE_0__colors__["c" /* PRIMARY_COLOR */] + ' !important'
-    }
-  }), _defineProperty(_overrides, 'MuiOutlinedInput', {
-    root: {
-      height: '40px',
-      background: '#fff',
-
-      '&$focused $notchedOutline': {
-        borderColor: __WEBPACK_IMPORTED_MODULE_0__colors__["b" /* FOCUSED_INPUT_COLOR */] + ' !important'
-      },
-
-      '& $notchedOutline': {
-        borderRadius: '2px'
-      }
-    },
-
-    input: {
-      padding: '12px'
-    }
-  }), _defineProperty(_overrides, 'MuiFilledInput', {
-    input: {
-      padding: "12px"
-    },
-
-    root: {
-      backgroundColor: "#ffffff",
-      borderRadius: "1px !Important",
-
-      '&:hover': {
-        backgroundColor: "#ffffff"
-      },
-
-      "&$focused": {
-        backgroundColor: "#ffffff"
-      }
-    }
-  }), _defineProperty(_overrides, 'MuiDialog', {
-    paper: {
-      marginLeft: '20px',
-      marginRight: '20px'
-    },
-
-    paperScrollPaper: {
-      maxHeight: 'calc(100% - 80px)'
-    }
-  }), _defineProperty(_overrides, 'MuiDialogContent', {
-    root: {
-      padding: '25px 20px',
-      zIndex: 2,
-      position: 'relative'
-    }
-  }), _defineProperty(_overrides, 'MuiFormHelperText', {
-    contained: {
-      margin: '8px 0px 0px'
-    }
-  }), _defineProperty(_overrides, 'MuiCircularProgress', {
-    root: {
-      position: 'absolute',
-      zIndex: 2,
-      top: '50%',
-      left: '50%',
-      marginTop: -12,
-      marginLeft: -12
-    },
-
-    colorPrimary: {
-      color: '' + __WEBPACK_IMPORTED_MODULE_0__colors__["c" /* PRIMARY_COLOR */]
-    }
-  }), _defineProperty(_overrides, 'MuiButton', {
-    root: {
-      borderRadius: '2px'
-    },
-
-    containedPrimary: {
-      backgroundColor: '' + __WEBPACK_IMPORTED_MODULE_0__colors__["c" /* PRIMARY_COLOR */],
-
-      '&:hover': {
-        backgroundColor: '' + __WEBPACK_IMPORTED_MODULE_0__colors__["a" /* BUTTON_HOVER_COLOR */]
-      }
-    }
-  }), _overrides)
-}));
-
-/***/ }),
-/* 79 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(0);
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-Object.defineProperty(exports, "default", {
-  enumerable: true,
-  get: function get() {
-    return _MenuItem.default;
-  }
-});
-
-var _MenuItem = _interopRequireDefault(__webpack_require__(368));
-
-/***/ }),
-/* 80 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AddIcon; });
 /* unused harmony export BinIcon */
 /* unused harmony export CalendarIcon */
@@ -5698,8 +5514,8 @@ var _MenuItem = _interopRequireDefault(__webpack_require__(368));
 /* unused harmony export LabelIcon */
 /* unused harmony export LeftArrowIcon */
 /* unused harmony export LinkedinIcon */
-/* unused harmony export ListIcon */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return LocationIcon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return ListIcon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return LocationIcon; });
 /* unused harmony export LockIcon */
 /* unused harmony export MedalIcon */
 /* unused harmony export MenuIcon */
@@ -5708,25 +5524,26 @@ var _MenuItem = _interopRequireDefault(__webpack_require__(368));
 /* unused harmony export NotificationIcon */
 /* unused harmony export PadlockIcon */
 /* unused harmony export PeopleIcon */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return PersonIcon; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return PersonEditIcon; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return PhoneIcon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return PersonIcon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return PersonEditIcon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return PhoneIcon; });
 /* unused harmony export PlusIcon */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return PowerIcon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return PowerIcon; });
 /* unused harmony export PriceDArrowIcon */
 /* unused harmony export PriceUArrowIcon */
 /* unused harmony export PublicIcon */
 /* unused harmony export RefIcon */
 /* unused harmony export RFullArrowIcon */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return RightArrowIcon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return RightArrowIcon; });
 /* unused harmony export SadIcon */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return SatisfiedIcon; });
+/* unused harmony export SatisfiedIcon */
 /* unused harmony export SaveIcon */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return SchoolIcon; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "p", function() { return SearchIcon; });
 /* unused harmony export ShoppingIcon */
 /* unused harmony export TwitterIcon */
 /* unused harmony export UpArrowIcon */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "q", function() { return UpLoadIcon; });
 /* unused harmony export WAIcon */
 /* unused harmony export WAIcon2 */
 /* unused harmony export WebIcon */
@@ -6138,6 +5955,13 @@ var UpArrowIcon = function UpArrowIcon(props) {
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('path', { d: 'M0 5L5 0L10 5H0Z' })
   );
 };
+var UpLoadIcon = function UpLoadIcon(props) {
+  return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+    __WEBPACK_IMPORTED_MODULE_1__material_ui_core_SvgIcon___default.a,
+    _extends({}, props, { viewBox: '0 0 24 24' }),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('path', { d: 'M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z' })
+  );
+};
 var WAIcon = function WAIcon(props) {
   return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
     __WEBPACK_IMPORTED_MODULE_1__material_ui_core_SvgIcon___default.a,
@@ -6160,6 +5984,190 @@ var WebIcon = function WebIcon(props) {
   );
 };
 
+
+/***/ }),
+/* 79 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__colors__ = __webpack_require__(254);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__material_ui_core__ = __webpack_require__(255);
+var _overrides;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_1__material_ui_core__["a" /* createMuiTheme */])({
+  palette: {
+    primary: {
+      main: __WEBPACK_IMPORTED_MODULE_0__colors__["c" /* PRIMARY_COLOR */]
+    },
+    secondary: {
+      main: __WEBPACK_IMPORTED_MODULE_0__colors__["d" /* SECONDARY_COLOR */]
+    }
+  },
+
+  overrides: (_overrides = {
+    MuiMenuItem: {
+      root: {
+        height: '35px'
+      }
+    },
+
+    MuiTab: {
+      root: {
+        fontFamily: 'Nunito'
+      }
+    },
+
+    MuiFormControl: {
+      root: {
+        width: '100%'
+      }
+    },
+
+    MuiFormLabel: {
+      '&$focused': {
+        color: __WEBPACK_IMPORTED_MODULE_0__colors__["b" /* FOCUSED_INPUT_COLOR */] + ' !important'
+      }
+    },
+
+    MuiInputLabel: {
+      root: {
+        '&$outlined$shrink': {
+          transform: 'translate(14px, -5px) scale(0.75)'
+        }
+      },
+
+      outlined: {
+        transform: 'translate(10px, 14px) scale(1)'
+      }
+    },
+
+    MuiFormControlLabel: {
+      root: {
+        marginLeft: '0px',
+        marginRight: '0px'
+      }
+    }
+
+  }, _defineProperty(_overrides, 'MuiFormControl', {
+    marginNormal: {
+      marginTop: '5px',
+      marginBottom: '15px'
+    }
+  }), _defineProperty(_overrides, 'MuiCheckbox', {
+    root: {
+      paddingLeft: '0px',
+      paddingTop: '0px'
+    },
+
+    "&$checked": {
+      color: __WEBPACK_IMPORTED_MODULE_0__colors__["c" /* PRIMARY_COLOR */] + ' !important'
+    }
+  }), _defineProperty(_overrides, 'MuiOutlinedInput', {
+    root: {
+      height: '40px',
+      background: '#fff',
+
+      '&$focused $notchedOutline': {
+        borderColor: __WEBPACK_IMPORTED_MODULE_0__colors__["b" /* FOCUSED_INPUT_COLOR */] + ' !important'
+      },
+
+      '& $notchedOutline': {
+        borderRadius: '2px'
+      }
+    },
+
+    input: {
+      padding: '12px'
+    }
+  }), _defineProperty(_overrides, 'MuiFilledInput', {
+    input: {
+      padding: "12px"
+    },
+
+    root: {
+      backgroundColor: "#ffffff",
+      borderRadius: "1px !Important",
+
+      '&:hover': {
+        backgroundColor: "#ffffff"
+      },
+
+      "&$focused": {
+        backgroundColor: "#ffffff"
+      }
+    }
+  }), _defineProperty(_overrides, 'MuiDialog', {
+    paper: {
+      marginLeft: '20px',
+      marginRight: '20px'
+    },
+
+    paperScrollPaper: {
+      maxHeight: 'calc(100% - 80px)'
+    }
+  }), _defineProperty(_overrides, 'MuiDialogContent', {
+    root: {
+      padding: '25px 20px',
+      zIndex: 2,
+      position: 'relative'
+    }
+  }), _defineProperty(_overrides, 'MuiFormHelperText', {
+    contained: {
+      margin: '8px 0px 0px'
+    }
+  }), _defineProperty(_overrides, 'MuiCircularProgress', {
+    root: {
+      position: 'absolute',
+      zIndex: 2,
+      top: '50%',
+      left: '50%',
+      marginTop: -12,
+      marginLeft: -12
+    },
+
+    colorPrimary: {
+      color: '' + __WEBPACK_IMPORTED_MODULE_0__colors__["c" /* PRIMARY_COLOR */]
+    }
+  }), _defineProperty(_overrides, 'MuiButton', {
+    root: {
+      borderRadius: '2px'
+    },
+
+    containedPrimary: {
+      backgroundColor: '' + __WEBPACK_IMPORTED_MODULE_0__colors__["c" /* PRIMARY_COLOR */],
+
+      '&:hover': {
+        backgroundColor: '' + __WEBPACK_IMPORTED_MODULE_0__colors__["a" /* BUTTON_HOVER_COLOR */]
+      }
+    }
+  }), _overrides)
+}));
+
+/***/ }),
+/* 80 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(0);
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "default", {
+  enumerable: true,
+  get: function get() {
+    return _MenuItem.default;
+  }
+});
+
+var _MenuItem = _interopRequireDefault(__webpack_require__(368));
 
 /***/ }),
 /* 81 */
@@ -48108,7 +48116,7 @@ var BUTTON_HOVER_COLOR = '#101010';
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_62__Menu__ = __webpack_require__(136);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_62__Menu___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_62__Menu__);
 /* unused harmony reexport Menu */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_63__MenuItem__ = __webpack_require__(79);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_63__MenuItem__ = __webpack_require__(80);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_63__MenuItem___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_63__MenuItem__);
 /* unused harmony reexport MenuItem */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_64__MenuList__ = __webpack_require__(112);
@@ -67455,7 +67463,7 @@ var _withStyles = _interopRequireDefault(__webpack_require__(5));
 
 var _InputBase = _interopRequireDefault(__webpack_require__(41));
 
-var _MenuItem = _interopRequireDefault(__webpack_require__(79));
+var _MenuItem = _interopRequireDefault(__webpack_require__(80));
 
 var _Select = _interopRequireDefault(__webpack_require__(57));
 
@@ -70296,8 +70304,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__material_ui_core_Button___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__material_ui_core_Button__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__material_ui_core_styles__ = __webpack_require__(27);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__material_ui_core_styles___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__material_ui_core_styles__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__theme__ = __webpack_require__(78);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__icons__ = __webpack_require__(80);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__theme__ = __webpack_require__(79);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__icons__ = __webpack_require__(78);
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
@@ -70503,14 +70511,19 @@ var styles = function styles(theme) {
 /* 442 */,
 /* 443 */,
 /* 444 */,
-/* 445 */
+/* 445 */,
+/* 446 */,
+/* 447 */,
+/* 448 */,
+/* 449 */,
+/* 450 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(446);
+module.exports = __webpack_require__(451);
 
 
 /***/ }),
-/* 446 */
+/* 451 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -70519,12 +70532,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__cardColaborador__ = __webpack_require__(447);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__itemPeriodo__ = __webpack_require__(448);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__cardColaborador__ = __webpack_require__(452);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__itemPeriodo__ = __webpack_require__(453);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__reglamentoModal__ = __webpack_require__(434);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__ = __webpack_require__(27);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__theme__ = __webpack_require__(78);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__theme__ = __webpack_require__(79);
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -70684,7 +70697,7 @@ if (document.getElementById('content')) {
 }
 
 /***/ }),
-/* 447 */
+/* 452 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -70692,10 +70705,10 @@ if (document.getElementById('content')) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__material_ui_core_styles__ = __webpack_require__(27);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__material_ui_core_styles___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__material_ui_core_styles__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__theme__ = __webpack_require__(78);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__theme__ = __webpack_require__(79);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__material_ui_core_Button__ = __webpack_require__(31);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__material_ui_core_Button___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__material_ui_core_Button__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__icons__ = __webpack_require__(80);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__icons__ = __webpack_require__(78);
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
@@ -70743,7 +70756,7 @@ var CardColaborador = function CardColaborador(_ref) {
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
             { className: 'col s6 valign-wrapper' },
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__icons__["j" /* PersonIcon */], { className: classes.iconLabel }),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__icons__["k" /* PersonIcon */], { className: classes.iconLabel }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'label',
               null,
@@ -70789,7 +70802,7 @@ var CardColaborador = function CardColaborador(_ref) {
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
             { className: 'col s6 valign-wrapper' },
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__icons__["h" /* LocationIcon */], { className: classes.iconLabel }),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__icons__["i" /* LocationIcon */], { className: classes.iconLabel }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'label',
               null,
@@ -70835,7 +70848,7 @@ var CardColaborador = function CardColaborador(_ref) {
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
             { className: 'col s6 valign-wrapper' },
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__icons__["k" /* PhoneIcon */], { className: classes.iconLabel }),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__icons__["l" /* PhoneIcon */], { className: classes.iconLabel }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'label',
               null,
@@ -70949,7 +70962,7 @@ var styles = function styles(theme) {
 /* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_1__material_ui_core_styles__["withStyles"])(styles)(CardColaborador));
 
 /***/ }),
-/* 448 */
+/* 453 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -70957,7 +70970,7 @@ var styles = function styles(theme) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__material_ui_core_styles__ = __webpack_require__(27);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__material_ui_core_styles___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__material_ui_core_styles__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__icons__ = __webpack_require__(80);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__icons__ = __webpack_require__(78);
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
@@ -71022,7 +71035,7 @@ var ItemPeriodo = function ItemPeriodo(_ref) {
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'label',
         { className: classes.colab + ' truncate blue-tec-dark' },
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__icons__["j" /* PersonIcon */], { className: classes.iconLabel }),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__icons__["k" /* PersonIcon */], { className: classes.iconLabel }),
         asignacion.colaborador.nombre_completo,
         ' | Evaluaci\xF3n: ',
         evaluacion[asignacion.evaluacion]
@@ -71031,7 +71044,7 @@ var ItemPeriodo = function ItemPeriodo(_ref) {
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       'div',
       { className: 'col s2' },
-      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__icons__["m" /* RightArrowIcon */], { className: 'hide ' + classes.icon + ' ' + (isSelected ? classes.itemIcon : '') + ' ' })
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__icons__["n" /* RightArrowIcon */], { className: 'hide ' + classes.icon + ' ' + (isSelected ? classes.itemIcon : '') + ' ' })
     )
   );
 };
