@@ -60,6 +60,21 @@ Route::get('encrypt', function () {
   dd($estudiantes);
 });
 
+Route::get('/estudiantes/users', function () {
+  $estudiante = Estudiante::where('id', '>', 0)->get();
+
+  foreach($estudiantes as $estudiante) {
+    $password = bcrypt($estudiante->password);
+    $estudiante->contrasena = $password;
+    //$estudiante->save();
+  }
+  dd($estudiantes);
+  
+  return view('homeColaborador', [
+    'estudiante' => $estudiante
+  ]);
+});
+
 /**
     * Add New Task
     */
