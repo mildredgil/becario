@@ -35,12 +35,16 @@ const homeColaboradores = ({ classes }) => {
 							<div className={`col s12`}>
 								<label className={`${classes.title} blue-tec`}>Información personal</label>
 							</div>
+						</div>
+						<div className="row no-margin">
 							<div className="col s6 mb-0 mt-4">
 								<label>Nombre:</label>
 							</div>
 							<div className="col s6 mb-0 mt-4">
 								<label>Departamento:</label>
 							</div>
+						</div>
+						<div className="row no-margin">	
 							<div className="col s6">
 								<TextField
 									fullWidth
@@ -67,12 +71,16 @@ const homeColaboradores = ({ classes }) => {
 									variant="outlined"
 								/>
 							</div>
+						</div>
+						<div className="row no-margin">	
 							<div className="col s6 mb-0 mt-4">
 								<label>Oficina:</label>
 							</div>
 							<div className="col s6 mb-0 mt-4">
 								<label >Correo Electrónico:</label>
 							</div>
+						</div>
+						<div className="row no-margin">		
 							<div className="col s6">
 								<TextField
 									fullWidth
@@ -95,6 +103,8 @@ const homeColaboradores = ({ classes }) => {
 									variant="outlined"
 								/>
 							</div>
+						</div>
+						<div className="row no-margin">	
 							<div className="col s6 mb-0 mt-4">
 								<label>Teléfono:</label>
 							</div>
