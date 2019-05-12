@@ -1,4 +1,4 @@
-@extends('layouts.app-logged')
+@extends('layouts.appLoggedColaborador')
 
 @section('css')
 <style>

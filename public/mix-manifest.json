@@ -7,5 +7,6 @@
   "/js/views/homeColaboradores.js": "/js/views/homeColaboradores.js",
   "/js/views/homeEstudiante.js": "/js/views/homeEstudiante.js",
   "/js/views/reglamentoModal.js": "/js/views/reglamentoModal.js",
-  "/js/views/footer.js": "/js/views/footer.js"
+  "/js/views/footer.js": "/js/views/footer.js",
+  "/js/views/navbarLoggedColaborador.js": "/js/views/navbarLoggedColaborador.js"
 }

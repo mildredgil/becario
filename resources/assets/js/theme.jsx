@@ -31,7 +31,7 @@ export default createMuiTheme({
     },
 
     MuiFormLabel: {
-      focused: {
+      '&$focused': {
         color: `${colors.FOCUSED_INPUT_COLOR} !important`
       }
     },

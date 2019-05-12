@@ -2,25 +2,54 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import {RightArrowIcon, PersonIcon} from './icons';
 
-const ItemPeriodo = ({classes}) => {
-  const [selected, setSelected]  = React.useState(false);
+const ItemPeriodo = ({classes, asignacion, isSelected, handleClick}) => {
+  const evaluacion = ['Pendiente', 'Satisfactoria', 'Insatisfactoria'];
+  const new_periodo = ['Invierno', 'Febrero-Junio', 'Verano', 'Agosto-Diciembre'];
+  const old_periodo = ['', 'Enero-Mayo', 'Verano', 'Agosto-Diciembre'];
+  
+  let periodo = '';
+  
+  let _date = asignacion.fecha_asignacion;
+  let date = new Date(_date);
+  let year = date.getFullYear();
+  let month = date.getMonth();
+  let periodo_string = '';
 
-  const onSelect = () => {
-    setSelected(true);
-  };
+  if(year >= 2020) {
+    periodo = new_periodo;
+
+    if(month == 0) {
+      periodo_string = periodo[0];
+    } else if (month == 1) {
+      periodo_string = periodo[1];
+    } else if (month == 6) {
+      periodo_string = periodo[2];
+    } else {
+      periodo_string = periodo[3];
+    }
+  } else {
+    periodo = old_periodo;
+    if (month == 0) {
+      periodo_string = periodo[1];
+    } else if (month == 5) {
+      periodo_string = periodo[2];
+    } else {
+      periodo_string = periodo[3];
+    }
+  }
 
   return (
-    <div onClick={onSelect} className={`${selected ? classes.selected :classes.itemWrapper} row valign-wrapper py-2 px-2 mb-0`}>
+    <div onClick={handleClick} className={`${isSelected ? classes.selected :classes.itemWrapper} row valign-wrapper py-2 px-2 mb-0`}>
       <div className="col s10">
-        <label className={`${classes.periodo} blue-tec`}>Verano 2019</label>
+        <label className={`${classes.periodo} blue-tec`}>{periodo_string} {year}</label>
         <br/>
-        <label className={`${classes.colab} blue-tec-dark`}>
+        <label className={`${classes.colab} truncate blue-tec-dark`}>
           <PersonIcon className={classes.iconLabel}/>
-          Lorena Gómez | Evaluación: Pendiente
+          {asignacion.colaborador.nombre_completo} | Evaluación: {evaluacion[asignacion.evaluacion]}
         </label>
       </div>
       <div className={`col s2`}>
-        <RightArrowIcon className={`hide ${classes.icon} ${selected ? classes.itemIcon : ''} `} />
+        <RightArrowIcon className={`hide ${classes.icon} ${isSelected ? classes.itemIcon : ''} `} />
       </div>
     </div>
   );
@@ -67,8 +96,6 @@ const styles = theme => ({
 
   colab: {
     fontSize: '12px',
-    display: 'flex',
-    alignItems: 'center'
   },
 
   [`@media (max-width: ${maxWidth}px)`]: {

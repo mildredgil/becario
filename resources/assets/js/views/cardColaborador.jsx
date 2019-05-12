@@ -5,8 +5,13 @@ import defaultTheme from '../theme';
 import Button from '@material-ui/core/Button';
 import {SchoolIcon, EmailIcon, LocationIcon, PhoneIcon, PersonIcon} from './icons';
 
-const CardColaborador = ({classes}) => {
-  
+const CardColaborador = ({classes, asignacion}) => {
+  let evaluacion = ['Pendiente', 'Satisfactorio', 'Insatisfactorio'];
+
+  if(asignacion == false) {
+    return null;
+  }
+
   return (
     <MuiThemeProvider theme={defaultTheme}>
       <div className="card my-0">
@@ -28,10 +33,10 @@ const CardColaborador = ({classes}) => {
           </div>
           <div className="row margin-0">
             <div className="col s6">
-              <label className={classes.labelText}>Lorena Gomez</label>
+              <label className={classes.labelText}>{asignacion.colaborador.nombre_completo}</label>
             </div>
             <div className="col s6">
-              <label className={classes.labelText}>Ciencias Computacionales</label>
+              <label className={classes.labelText}>{asignacion.colaborador.departamento.nombre_departamento}</label>
             </div>
           </div>
           <div className={`row margin-0 ${classes.paddingTop20}`}>
@@ -46,10 +51,10 @@ const CardColaborador = ({classes}) => {
           </div>
           <div className="row margin-0">
             <div className="col s6">
-              <label className={classes.labelText}>Cetec torre sur 301</label>
+              <label className={classes.labelText}>{asignacion.colaborador.oficina}</label>
             </div>
             <div className="col s6">
-              <label className={classes.labelText}>lorena.gomez@tec.mx</label>
+              <label className={classes.labelText}>{asignacion.colaborador.email}</label>
             </div>
           </div>
           <div className={`row margin-0 ${classes.paddingTop20}`}>
@@ -60,7 +65,7 @@ const CardColaborador = ({classes}) => {
           </div>
           <div className="row margin-0">
             <div className="col s6">
-              <label className={classes.labelText}>52818181818</label>
+              <label className={classes.labelText}>{asignacion.colaborador.celular}</label>
             </div>
           </div>
         </div>
@@ -68,10 +73,10 @@ const CardColaborador = ({classes}) => {
           <div className="col s4 py-3">
               <label className={`blue-tec-dark`}>Evaluación: </label>
               <br/>
-              <label className={`${classes.status} blue-tec`}> Satisfactorio</label>
+              <label className={`${classes.status} blue-tec`}>{evaluacion[asignacion.evaluacion]}</label>
           </div>
           <div className="col s8 right-align py-3">
-            <Button variant="contained"  color="primary" href="mailto:A00820397@itesm.mx">
+            <Button variant="contained"  color="primary" href={"mailto:" + asignacion.colaborador.email}>
               <EmailIcon className={`white-text ${classes.icon}`} />
               Enviar Correo
             </Button>
