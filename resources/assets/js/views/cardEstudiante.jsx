@@ -17,64 +17,57 @@ const CardEstudiante = ({classes}) => {
             </div>
           </div>
           <div className={`row margin-0 ${classes.paddingTop20}`}>
-            <div className="col s6 valign-wrapper">
-              <PersonIcon className={classes.iconLabel}/>
-              <label>Nombre</label>
-            </div>
-            <div className="col s6 valign-wrapper">
+          <div className="col s3 valign-wrapper">
               <InfoIcon className={classes.iconInfo}/>
               <label>Matrícula</label>
             </div>
+            <div className="col s9 valign-wrapper">
+              <PersonIcon className={classes.iconLabel}/>
+              <label>Nombre</label>
+            </div>
           </div>
           <div className="row margin-0">
-            <div className="col s6">
-              <label className={classes.labelText}>Jamememes Montemayor</label>
-            </div>
-            <div className="col s6">
+          <div className="col s3">
               <label className={classes.labelText}>A01176573</label>
             </div>
-          </div>
-          <div className={`row margin-0 ${classes.paddingTop20}`}>
-            <div className="col s6 valign-wrapper">
-              <SchoolIcon className={classes.iconSchool}/>
-              <label>Carrera</label>
-            </div>
-            <div className="col s3 valign-wrapper">
-              <InfoIcon className={classes.iconInfo}/>
-              <label >Siglas</label>
-            </div>
-            <div className="col s3 valign-wrapper">
-              <InfoIcon className={classes.iconInfo}/>
-              <label >Semestre</label>
-            </div>
-          </div>
-          <div className="row margin-0">
-            <div className="col s6">
-              <label className={classes.labelText}>Ingeniería en Tecnologías Computacionales</label>
-            </div>
-            <div className="col s3">
-              <label className={classes.labelText}>ITC</label>
-            </div>
-            <div className="col s3">
-              <label className={classes.labelText}>6°</label>
+            <div className="col s9">
+              <label className={classes.labelText}>Jaime Andrés Montemayor Molina</label>
             </div>
           </div>
           <div className={`row margin-0 ${classes.paddingTop20}`}>
-          <div className="col s6 valign-wrapper">
-              <EmailIcon className={classes.iconLabel}/>
-              <label>Correo</label>
-            </div>
-            <div className="col s6 valign-wrapper">
+          <div className="col s3 valign-wrapper">
               <PhoneIcon className={classes.iconLabel}/>
               <label>Teléfono</label>
             </div>
+          <div className="col s9 valign-wrapper">
+              <EmailIcon className={classes.iconLabel}/>
+              <label>Correo</label>
+            </div>
           </div>
           <div className="row margin-0">
-          <div className="col s6">
+          <div className="col s3">
+              <label className={classes.labelText}>52818181818</label>
+            </div>
+          <div className="col s9">
               <label className={classes.labelText}>jamememes.mm@tug.com.mx</label>
             </div>
-            <div className="col s6">
-              <label className={classes.labelText}>52818181818</label>
+          </div>
+          <div className={`row margin-0 ${classes.paddingTop20}`}>
+          <div className="col s3 valign-wrapper">
+              <InfoIcon className={classes.iconInfo}/>
+              <label >Semestre</label>
+           </div>
+          <div className="col s9 valign-wrapper">
+              <SchoolIcon className={classes.iconSchool}/>
+              <label>Carrera</label>
+            </div>
+          </div>
+          <div className="row margin-0">
+          <div className="col s3">
+              <label className={classes.labelText}>Sexto</label>
+            </div>
+            <div className="col s9">
+              <label className={classes.labelText}>Ing. en Tecnologías de Información y Comunicaciones</label>
             </div>
           </div>
         </div>

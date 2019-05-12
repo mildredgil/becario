@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import defaultTheme from '../theme';
-import { SchoolIcon, EmailIcon, LocationIcon, PhoneIcon, PersonIcon, InfoIcon, PersonEditIcon } from './icons';
+import { SchoolIcon, EmailIcon, LocationIcon, PhoneIcon, PersonIcon, InfoIcon, PersonEditIcon, CloseIcon } from './icons';
 
 const PerfilEstudiantes = ({ classes, open, handleClose }) => {
 
@@ -20,9 +20,10 @@ const PerfilEstudiantes = ({ classes, open, handleClose }) => {
             >
                 <div className={`container ${classes.containerWidth}`}>
                     <div className="card px-5 py-3">
+                        <CloseIcon onClick={handleClose} className= {classes.closeIcon}/>
                         <div className="row margin-0">
-                            <div className={`col s12`}>
-                                <PersonEditIcon className={`${classes.iconLabel} blue-tec`} />
+                            <div className={`col s12 valign-wrapper`}>
+                                <PersonEditIcon className={classes.iconEditLabel} />
                                 <label className={`${classes.title} blue-tec`}>Información personal</label>
                             </div>
                             <div className="col s6 mb-2 mt-4 valign-wrapper">
@@ -161,6 +162,7 @@ const styles = theme => ({
 
     title: {
         fontSize: '30px',
+        fontWeight: 'bold',
     },
 
     icon: {
@@ -180,6 +182,7 @@ const styles = theme => ({
         marginRight: '0.5rem'
     },
     iconEditLabel: {
+        color: "#223f93",
         fontSize: '30px',
         marginRight: '0.5rem'
     },
@@ -196,11 +199,13 @@ const styles = theme => ({
         marginRight: '0.5rem'
     },
 
-    title: {
-        fontSize: '30px',
-        color: '#101010',
-        fontWeight: 'bold'
-    },
+    closeIcon: {
+        color: 'black',
+        position: 'absolute',
+        right: '10px',
+        top: '12px',
+        fontSize: '14px',
+      },
 
     containerWidth: {
         maxWidth: '50%',

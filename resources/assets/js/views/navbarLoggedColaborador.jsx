@@ -7,15 +7,18 @@ import defaultTheme from '../theme';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import PerfilColaboradores from './perfilColaboradores';
+<<<<<<< HEAD
 import Fab from '@material-ui/core/Fab';
 
 import {AddIcon} from './icons';
+=======
+import { PowerIcon, PersonEditIcon, HelpIcon } from './icons';
+>>>>>>> 8cee9f3a4efd60338201b6d9d25895991c4afbd7
 
-
-const NavBar = ({classes}) => {
+const NavBar = ({ classes }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [open, setOpen] = React.useState(false);
- 
+
 
   const handleClick = event => {
     setAnchorEl(event.currentTarget);
@@ -24,16 +27,16 @@ const NavBar = ({classes}) => {
   const handleClose = () => {
     setAnchorEl(null);
     //window.location.replace("/login");
-  }; 
+  };
 
   const handleOpenPerfil = () => {
-		setOpen(true);
-	};
-
-	const handleClosePerfil = () => {
-		setOpen(false);
+    setOpen(true);
   };
-  
+
+  const handleClosePerfil = () => {
+    setOpen(false);
+  };
+
   return (
     <MuiThemeProvider theme={defaultTheme}>
       <nav className={`navbar navbar-default ${classes.navContainer}`}>
@@ -55,7 +58,7 @@ const NavBar = ({classes}) => {
                 aria-owns={anchorEl ? 'simple-menu' : undefined}
                 aria-haspopup="true"
                 onClick={handleClick}
-                classes={{root: classes.padding}}
+                classes={{ root: classes.padding }}
               >
                 <i className={`material-icons white-text`}>home</i>
               </Button>
@@ -65,15 +68,26 @@ const NavBar = ({classes}) => {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleOpenPerfil}>Perfil</MenuItem>
-                <MenuItem onClick={handleClose}>Cerrar Sesión</MenuItem>
+                <MenuItem onClick={handleOpenPerfil} className="valign-wrapper">
+                  <PersonEditIcon className={classes.iconLabel} />
+                  Perfil
+              </MenuItem>
+                <MenuItem onClick={handleClose} className="valign-wrapper">
+                  <PowerIcon className={classes.iconLabel} />
+                  Cerrar Sesión
+              </MenuItem>
               </Menu>
+<<<<<<< HEAD
             </div>  
             <img className={classes.logo} src="/img/tec-logo-letras.png"/>
+=======
+            </div>
+            <img class={classes.logo} src="/img/tec-logo-letras.png" />
+>>>>>>> 8cee9f3a4efd60338201b6d9d25895991c4afbd7
           </div>
         </div>
       </nav>
-      <PerfilColaboradores  open={open} handleClose={handleClosePerfil} />
+      <PerfilColaboradores open={open} handleClose={handleClosePerfil} />
     </MuiThemeProvider>
   );
 }
@@ -82,18 +96,30 @@ const maxWidth = 1000;
 
 const styles = () => ({
   navContainer: {
+<<<<<<< HEAD
     background:' linear-gradient(80.19deg, #101010 0%, #223f93 100%)',
     margin:'0px',
 	},
 	
   nav:{
+=======
+    background: ' linear-gradient(80.19deg, #101010 0%, #223f93 100%)',
+    margin: '0px',
+  },
+  nav: {
+>>>>>>> 8cee9f3a4efd60338201b6d9d25895991c4afbd7
     fontSize: '24px',
     fontFamily: 'Nunito',
     letterSpacing: '12px',
     textTransform: 'uppercase',
+<<<<<<< HEAD
     fontWeight: 'lighter,' 
 	},
 	
+=======
+    fontWeight: 'lighter,'
+  },
+>>>>>>> 8cee9f3a4efd60338201b6d9d25895991c4afbd7
   containerExtended: {
     width: '90%',
     margin: '0 auto',
@@ -124,13 +150,18 @@ const styles = () => ({
     right: '10px',
   },
 
+  iconLabel: {
+    fontSize: '14px',
+    marginRight: '0.5rem'
+  },
+
   [`@media (max-width: ${maxWidth}px)`]: {
-   
+
   }
 });
 
 const _NavBar = withStyles(styles)(NavBar);
 
 if (document.getElementById('nav')) {
-  ReactDOM.render(<_NavBar/>, document.getElementById('nav'));
+  ReactDOM.render(<_NavBar />, document.getElementById('nav'));
 }

@@ -1,168 +1,124 @@
-import React, { Component } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
-import TextField from '@material-ui/core/TextField';
-import Modal from '@material-ui/core/Modal';
-import Button from '@material-ui/core/Button';
+import CardEstudiante from './cardEstudiante';
+import ItemPeriodo from './itemPeriodo';
+import ReglamentoModal from './reglamentoModal';
 import { withStyles } from '@material-ui/core/styles';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import defaultTheme from '../theme';
-import CardEstudiante from './cardEstudiante';
-import PropTypes from 'prop-types';
 
-const homeColaboradores = ({ classes }) => {
-	const [open, setOpen] = React.useState(false);
+const Home = ({classes, estudiante_html}) => {
+  const [estudiante, setEstudiante] = React.useState(false);
+  const [selectedAsignacion, setSelectedAsignacion] = React.useState(false);
+  const [asignaciones, setAsignaciones] = React.useState([]);
+  const [indexSelected, setIndexSelected] = React.useState(0);
+  
+  React.useEffect(()=> {
+    
+    if(estudiante_html != null){
+      setEstudiante(estudiante_html);
+      let _asignaciones = asignaciones;
 
-	const handleOpen = () => {
-		setOpen(true);
-	};
+      estudiante_html.solicitudes_becarias.map(function(asignacion) {
+        _asignaciones.push(asignacion);  
+      });
 
-	const handleClose = () => {
-		setOpen(false);
-	};
+      setAsignaciones(_asignaciones);
+    }
+    
+  }, [estudiante_html]);
 
-	return (
-		<MuiThemeProvider theme={defaultTheme}>
-			<CardEstudiante/>
-			<Button onClick={handleOpen}>Open Modal</Button>
-			<Modal
-				open={open}
-				onClose={handleClose}
-				classes={{ root: classes.modalRoot }}
-			>
-				<div className={`container ${classes.containerWidth}`}>
-					<div className="card px-5 py-3">
-						<div className="row margin-0">
-							<div className={`col s12`}>
-								<label className={`${classes.title} blue-tec`}>Información personal</label>
-							</div>
-							<div className="col s6 mb-0 mt-4">
-								<label>Nombre:</label>
-							</div>
-							<div className="col s6 mb-0 mt-4">
-								<label>Departamento:</label>
-							</div>
-							<div className="col s6">
-								<TextField
-									fullWidth
-									id="outlined-bare"
-									classes={{ root: classes.labelText }}
-									defaultValue="Lorena Gomez"
-									InputProps={{
-										readOnly: true,
-										disabled: true,
-									}}
-									variant="outlined"
-								/>
-							</div>
-							<div className="col s6">
-								<TextField
-									fullWidth
-									id="outlined-bare"
-									classes={{ root: classes.labelText }}
-									defaultValue="Ciencias Computacionales"
-									InputProps={{
-										readOnly: true,
-										disabled: true,
-									}}
-									variant="outlined"
-								/>
-							</div>
-							<div className="col s6 mb-0 mt-4">
-								<label>Oficina:</label>
-							</div>
-							<div className="col s6 mb-0 mt-4">
-								<label >Correo Electrónico:</label>
-							</div>
-							<div className="col s6">
-								<TextField
-									fullWidth
-									id="outlined-bare"
-									classes={{ root: classes.labelText }}
-									defaultValue="Cetec torre sur 301"
-									variant="outlined"
-								/>
-							</div>
-							<div className="col s6">
-								<TextField
-									fullWidth
-									id="outlined-bare"
-									classes={{ root: classes.labelText }}
-									defaultValue="lorena.gomez@tec.mx"
-									InputProps={{
-										readOnly: true,
-										disabled: true,
-									}}
-									variant="outlined"
-								/>
-							</div>
-							<div className="col s6 mb-0 mt-4">
-								<label>Teléfono:</label>
-							</div>
-						</div>
-						<div className="row no-margin">
-							<div className="col s6">
-								<TextField
-									fullWidth
-									id="outlined-bare"
-									classes={{ root: classes.labelText }}
-									defaultValue="52818181818"
-									variant="outlined"
-								/>
-							</div>
-						</div>
-						<div className="row center-align">
-							<div className="col s12 mb-0 mt-4">
-								<Button
-									variant="contained"
-									color="primary"
-									href="/homeColaborador">
-									Guardar
-              </Button>
-							</div>
-						</div>
-					</div>
-				</div>
-			</Modal>
-		</MuiThemeProvider>
-	);
+  React.useEffect(()=> {
+    if(asignaciones.length > 0) {
+      setSelectedAsignacion(asignaciones[0]);
+    }
+  }, [asignaciones]);
+
+  console.log(selectedAsignacion);
+
+  const selectAsignacion = (index) => {
+    setSelectedAsignacion(asignaciones[index]);
+    setIndexSelected(index);
+  }
+
+  return (
+    <MuiThemeProvider theme={defaultTheme}>
+      <div className="container">
+        <div className={`row ${classes.margin40}`}>
+          <div className={`col s12 blue-tec mb-2 ${classes.titleHistory}`}>
+          Historial | Agosto-Diciembre 2019
+          </div>
+          <div className="col s4">
+            <div className={`row mb-0 ${classes.paddingRight20}`}>
+              <div className={`${classes.itemsWrapper} col s12 card my-0`}>
+              {
+                estudiante && 
+                estudiante.solicitudes_becarias.map((asignacion, index) => {
+                  if(index == indexSelected) {
+                    console.log(true, index);
+                    return (
+                      <ItemPeriodo isSelected={true} handleClick={(e) => selectAsignacion(index)} key={index} asignacion={asignacion}/>
+                    )   
+                  } else {
+                    return (
+                      <ItemPeriodo isSelected={false} handleClick={(e) => selectAsignacion(index)} key={index} asignacion={asignacion}/>
+                    )   
+                  }                  
+                })
+              }
+              </div>
+            </div>
+          </div>
+          <div className="col s8">
+            <div className="row mb-0">
+              <CardEstudiante asignacion={selectedAsignacion}/>
+            </div>
+          </div>
+        </div>
+      </div>
+      <ReglamentoModal/>
+    </MuiThemeProvider>
+  );
 }
 
 const maxWidth = 1000;
 
 const styles = theme => ({
+  itemsWrapper: {
+    overflowY: 'scroll',
+    height: '363px',
+  },
 
-	modalWrapper: {
-		padding: "25px !Important"
-	},
+  margin40: {
+    marginTop: '40px',
+    marginBottom: '40px'
+  },
 
-	modalRoot: {
-		top: '20%',
-	},
+  paddingRight20: {
+    paddingRight: '20px',
+  },
 
-	title: {
-		fontSize: '30px',
-	},
+  titleHistory: {
+    fontSize: '30px',
+  },
 
-	labelText: {
-		paddingBottom: '0px!Important',
-		//marginLeft: '10px!Important',
-		marginBottom: '0px!Important',
-		borderBottom: '0px!Important',
-		fontSize: '14px!Important',
-		color: '#000',
-	},
-
-	containerWidth: {
-		maxWidth: '40%',
-	},
-
-	[`@media (max-width: ${maxWidth}px)`]: {
-
-	}
+  [`@media (max-width: ${maxWidth}px)`]: {
+   
+  }
 });
 
-const _homeColaboradores = withStyles(styles)(homeColaboradores);
+const _Home = withStyles(styles)(Home);
 
 if (document.getElementById('homeColaborador')) {
-	ReactDOM.render(<_homeColaboradores />, document.getElementById('homeColaborador'));
+  let _estudiante = document.getElementById('estudiante');
+  let estudiante_obj = null;
+
+  if(estudiante != "") {
+    estudiante_obj = JSON.parse(_estudiante.value);
+    _estudiante.parentNode.removeChild(_estudiante);
+  } else {
+    estudiante = null;
+  }
+
+  ReactDOM.render(<_Home estudiante_html={estudiante_obj}/>, document.getElementById('homeColaborador'));
 }
