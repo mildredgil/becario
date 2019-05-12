@@ -82,7 +82,7 @@ const NavBar = ({ classes }) => {
           </div>
         </div>
       </nav>
-      <PerfilColaboradores open={open} handleClose={handleClosePerfil} />
+      <PerfilEstudiantes open={open} handleClose={handleClosePerfil} />
       <ReglamentoModal open={openReglamento} handleClose={handleCloseReglamento} />
     </MuiThemeProvider>
   );

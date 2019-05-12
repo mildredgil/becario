@@ -11,6 +11,8 @@ import FormControl from '@material-ui/core/FormControl';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
+import Button from '@material-ui/core/Button';
+import {EmailIcon} from './icons';
 
 const Home = ({classes, estudiante_html}) => {
   const [estudiante, setEstudiante] = React.useState(false);
@@ -74,8 +76,14 @@ const Home = ({classes, estudiante_html}) => {
     <MuiThemeProvider theme={defaultTheme}>
       <div className="container">
         <div className={`row ${classes.margin40}`}>
-          <div className={`col s12 blue-tec mb-2 ${classes.titleHistory}`}>
-          Historial | Agosto-Diciembre 2019
+          <div className={`col s6 blue-tec mb-2 ${classes.titleHistory}`}>
+            Becarios
+          </div>
+          <div className="col s6 align-right">
+            <Button variant="contained"  color="primary" >
+              <EmailIcon className={`white-text ${classes.icon}`} />
+              <span className={classes.labelLogin}>EvaluacionModal</span>
+            </Button>
           </div>
         </div> 
         <div  className={`row `}>
