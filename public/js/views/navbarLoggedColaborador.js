@@ -70837,7 +70837,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__material_ui_core_Fab___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__material_ui_core_Fab__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__icons__ = __webpack_require__(80);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__reglamentoModal__ = __webpack_require__(434);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__solicitudBecModal__ = __webpack_require__(443);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__solicitudBecModal__ = __webpack_require__(444);
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -71062,7 +71062,7 @@ if (document.getElementById('nav')) {
 }
 
 /***/ }),
-/* 443 */
+/* 444 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
