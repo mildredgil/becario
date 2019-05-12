@@ -8551,27 +8551,6 @@ var _TextField = _interopRequireDefault(__webpack_require__(143));
 
 /***/ }),
 /* 135 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(0);
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-Object.defineProperty(exports, "default", {
-  enumerable: true,
-  get: function get() {
-    return _Menu.default;
-  }
-});
-
-var _Menu = _interopRequireDefault(__webpack_require__(101));
-
-/***/ }),
-/* 136 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8616,14 +8595,15 @@ var _Menu = _interopRequireDefault(__webpack_require__(101));
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return PersonEditIcon; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return PhoneIcon; });
 /* unused harmony export PlusIcon */
-/* unused harmony export PowerIcon */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return PowerIcon; });
 /* unused harmony export PriceDArrowIcon */
 /* unused harmony export PriceUArrowIcon */
 /* unused harmony export PublicIcon */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return RightArrowIcon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return RefIcon; });
 /* unused harmony export RFullArrowIcon */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return RightArrowIcon; });
 /* unused harmony export SadIcon */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return SchoolIcon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return SchoolIcon; });
 /* unused harmony export SearchIcon */
 /* unused harmony export ShoppingIcon */
 /* unused harmony export TwitterIcon */
@@ -8955,11 +8935,11 @@ var PublicIcon = function PublicIcon(props) {
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('path', { d: 'M6.78125 0.96875C7.98438 0.96875 9.13281 1.29688 10.1719 1.89844C11.2109 2.5 12.0312 3.32031 12.6328 4.35938C13.2344 5.39844 13.5625 6.54688 13.5625 7.75C13.5625 8.98047 13.2344 10.1016 12.6328 11.1406C12.0312 12.1797 11.2109 13.0273 10.1719 13.6289C9.13281 14.2305 7.98438 14.5312 6.78125 14.5312C5.55078 14.5312 4.42969 14.2305 3.39062 13.6289C2.35156 13.0273 1.50391 12.1797 0.902344 11.1406C0.300781 10.1016 0 8.98047 0 7.75C0 6.54688 0.300781 5.39844 0.902344 4.35938C1.50391 3.32031 2.35156 2.5 3.39062 1.89844C4.42969 1.29688 5.55078 0.96875 6.78125 0.96875ZM9.02344 10.7578C9.26953 10.5117 9.40625 10.2109 9.40625 9.85547C9.40625 9.63672 9.32422 9.41797 9.16016 9.25391L8.77734 8.87109C8.61328 8.70703 8.39453 8.625 8.17578 8.625H6.34375C6.26172 8.59766 6.15234 8.46094 5.98828 8.21484C5.85156 8.07812 5.76953 7.96875 5.71484 7.88672C5.60547 7.80469 5.52344 7.75 5.46875 7.75C5.16797 7.75 4.89453 7.69531 4.64844 7.55859L4.34766 7.39453C4.21094 7.33984 4.15625 7.25781 4.15625 7.09375C4.15625 6.95703 4.21094 6.84766 4.375 6.79297L5.22266 6.51953C5.38672 6.46484 5.52344 6.49219 5.66016 6.60156L5.90625 6.82031C5.93359 6.875 5.98828 6.875 6.04297 6.875H6.20703C6.28906 6.875 6.34375 6.84766 6.39844 6.76562C6.42578 6.71094 6.42578 6.62891 6.39844 6.54688L5.98828 5.69922C5.93359 5.61719 5.93359 5.53516 6.01562 5.45312L6.28906 5.17969C6.31641 5.15234 6.37109 5.125 6.45312 5.125H6.69922C6.75391 5.125 6.78125 5.125 6.83594 5.07031L7.05469 4.85156C7.10938 4.79688 7.13672 4.74219 7.13672 4.6875C7.13672 4.63281 7.10938 4.57812 7.05469 4.52344L6.94531 4.41406C6.89062 4.35938 6.86328 4.30469 6.86328 4.25C6.86328 4.19531 6.89062 4.14062 6.94531 4.08594L7.35547 3.67578C7.41016 3.62109 7.46484 3.51172 7.46484 3.375C7.46484 3.26562 7.41016 3.15625 7.35547 3.07422L6.5625 2.28125C6.34375 2.30859 6.125 2.33594 5.90625 2.36328V2.66406C5.90625 2.82812 5.82422 2.96484 5.6875 3.04688C5.55078 3.12891 5.41406 3.12891 5.27734 3.04688L4.62109 2.71875C3.96484 2.99219 3.41797 3.375 2.92578 3.86719C2.43359 4.35938 2.07812 4.90625 1.80469 5.50781L2.73438 6.90234C2.87109 7.12109 3.03516 7.3125 3.22656 7.47656L3.25391 7.50391C3.52734 7.75 3.80078 7.94141 4.12891 8.10547C4.45703 8.26953 4.89453 8.51562 5.46875 8.81641C5.57812 8.89844 5.6875 9.00781 5.76953 9.14453C5.85156 9.28125 5.90625 9.41797 5.90625 9.58203V10.457C5.90625 10.7031 5.98828 10.9219 6.17969 11.0859C6.34375 11.2773 6.50781 11.5234 6.61719 11.7969C6.72656 12.0703 6.78125 12.3164 6.78125 12.4805V13.2188C7.16406 13.2188 7.54688 13.1914 7.95703 13.082L8.42188 11.7969C8.44922 11.7422 8.47656 11.6328 8.53125 11.4688L8.55859 11.3594C8.55859 11.25 8.61328 11.1406 8.69531 11.0586C8.75 11.0039 8.85938 10.8945 9.02344 10.7578ZM11.4023 8.24219L12.1953 8.46094C12.2227 8.1875 12.25 7.96875 12.25 7.75C12.25 6.90234 12.0586 6.08203 11.6758 5.31641L11.3203 5.48047C11.2109 5.53516 11.1016 5.61719 11.0469 5.69922L10.5273 6.51953C10.4453 6.62891 10.418 6.76562 10.418 6.875C10.418 7.01172 10.4453 7.12109 10.5273 7.23047L11.0195 7.96875C11.1016 8.13281 11.2383 8.21484 11.4023 8.24219Z' })
   );
 };
-var RightArrowIcon = function RightArrowIcon(props) {
+var RefIcon = function RefIcon(props) {
   return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
     __WEBPACK_IMPORTED_MODULE_1__material_ui_core_SvgIcon___default.a,
-    _extends({}, props, { viewBox: '0 0 19 31' }),
-    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('path', { d: 'M0.574951 4.00834L12.0666 15.5L0.574951 26.9917L3.66662 30.0833L18.25 15.5L3.66662 0.916672L0.574951 4.00834Z' })
+    _extends({}, props, { viewBox: '0 0 24 24' }),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('path', { d: 'M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z' })
   );
 };
 var RFullArrowIcon = function RFullArrowIcon(props) {
@@ -8967,6 +8947,13 @@ var RFullArrowIcon = function RFullArrowIcon(props) {
     __WEBPACK_IMPORTED_MODULE_1__material_ui_core_SvgIcon___default.a,
     _extends({}, props, { viewBox: '0 0 21 22' }),
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('path', { d: 'M8.95312 2.14062C8.67188 2.375 8.57812 2.65625 8.57812 2.9375C8.57812 3.26562 8.71875 3.54688 8.95312 3.73438L14.5781 9.125H1.125C0.796875 9.125 0.515625 9.26562 0.328125 9.45312C0.09375 9.6875 0 9.96875 0 10.25V11.75C0 12.0781 0.09375 12.3594 0.328125 12.5469C0.515625 12.7812 0.796875 12.875 1.125 12.875H14.5781L8.95312 18.2656C8.71875 18.5 8.57812 18.7812 8.57812 19.0625C8.57812 19.3906 8.67188 19.6719 8.95312 19.8594L9.98438 20.8906C10.1719 21.125 10.4531 21.2188 10.7812 21.2188C11.0625 21.2188 11.3438 21.125 11.5781 20.8906L20.6719 11.7969C20.8594 11.6094 21 11.3281 21 11C21 10.7188 20.8594 10.4375 20.6719 10.2031L11.5781 1.10938C11.3438 0.921875 11.0625 0.78125 10.7812 0.78125C10.4531 0.78125 10.1719 0.921875 9.98438 1.10938L8.95312 2.14062Z', fill: 'white' })
+  );
+};
+var RightArrowIcon = function RightArrowIcon(props) {
+  return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+    __WEBPACK_IMPORTED_MODULE_1__material_ui_core_SvgIcon___default.a,
+    _extends({}, props, { viewBox: '0 0 19 31' }),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('path', { d: 'M0.574951 4.00834L12.0666 15.5L0.574951 26.9917L3.66662 30.0833L18.25 15.5L3.66662 0.916672L0.574951 4.00834Z' })
   );
 };
 var SadIcon = function SadIcon(props) {
@@ -9033,6 +9020,27 @@ var WebIcon = function WebIcon(props) {
   );
 };
 
+
+/***/ }),
+/* 136 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(0);
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "default", {
+  enumerable: true,
+  get: function get() {
+    return _Menu.default;
+  }
+});
+
+var _Menu = _interopRequireDefault(__webpack_require__(101));
 
 /***/ }),
 /* 137 */
@@ -48052,7 +48060,7 @@ var BUTTON_HOVER_COLOR = '#101010';
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_61__ListSubheader__ = __webpack_require__(366);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_61__ListSubheader___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_61__ListSubheader__);
 /* unused harmony reexport ListSubheader */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_62__Menu__ = __webpack_require__(135);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_62__Menu__ = __webpack_require__(136);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_62__Menu___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_62__Menu__);
 /* unused harmony reexport Menu */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_63__MenuItem__ = __webpack_require__(78);
@@ -70276,7 +70284,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__material_ui_core_styles__ = __webpack_require__(29);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__material_ui_core_styles___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__material_ui_core_styles__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__theme__ = __webpack_require__(117);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__icons__ = __webpack_require__(136);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__icons__ = __webpack_require__(135);
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
