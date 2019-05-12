@@ -1,18 +1,40 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import CardEstudiante from './cardEstudiante';
-import ItemPeriodo from './itemPeriodo';
+import ItemBecario from './itemBecario';
 import ReglamentoModal from './reglamentoModal';
 import { withStyles } from '@material-ui/core/styles';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import defaultTheme from '../theme';
+import Select from '@material-ui/core/Select';
+import FormControl from '@material-ui/core/FormControl';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
+import MenuItem from '@material-ui/core/MenuItem';
+import InputLabel from '@material-ui/core/InputLabel';
 
 const Home = ({classes, estudiante_html}) => {
   const [estudiante, setEstudiante] = React.useState(false);
   const [selectedAsignacion, setSelectedAsignacion] = React.useState(false);
   const [asignaciones, setAsignaciones] = React.useState([]);
   const [indexSelected, setIndexSelected] = React.useState(0);
-  
+  const new_periodo = ['Invierno', 'Febrero-Junio', 'Verano', 'Agosto-Diciembre'];
+  const old_periodo = ['', 'Enero-Mayo', 'Verano', 'Agosto-Diciembre'];
+  const [periodo, setPeriodo] = React.useState(0);
+  const periodoOptions = [];
+  const yearOptions = [];
+  const [selectYear, setYear] = React.useState(0);
+  periodoOptions.push(<MenuItem classes={{ root: classes.options}} value={0}>{new_periodo[0]}</MenuItem>);
+  periodoOptions.push(<MenuItem classes={{ root: classes.options}} value={1}>{new_periodo[1]}</MenuItem>);
+  periodoOptions.push(<MenuItem classes={{ root: classes.options}} value={2}>{new_periodo[2]}</MenuItem>);
+  periodoOptions.push(<MenuItem classes={{ root: classes.options}} value={3}>{new_periodo[3]}</MenuItem>);
+  yearOptions.push(<MenuItem classes={{ root: classes.options}} value={2013}>2013</MenuItem>);
+  yearOptions.push(<MenuItem classes={{ root: classes.options}} value={2014}>2014</MenuItem>);
+  yearOptions.push(<MenuItem classes={{ root: classes.options}} value={2015}>2015</MenuItem>);
+  yearOptions.push(<MenuItem classes={{ root: classes.options}} value={2016}>2016</MenuItem>);
+  yearOptions.push(<MenuItem classes={{ root: classes.options}} value={2017}>2017</MenuItem>);
+  yearOptions.push(<MenuItem classes={{ root: classes.options}} value={2018}>2018</MenuItem>);
+  yearOptions.push(<MenuItem classes={{ root: classes.options}} value={2019}>2019</MenuItem>);
+  yearOptions.push(<MenuItem classes={{ root: classes.options}} value={2020}>2020</MenuItem>);
   React.useEffect(()=> {
     
     if(estudiante_html != null){
@@ -41,6 +63,13 @@ const Home = ({classes, estudiante_html}) => {
     setIndexSelected(index);
   }
 
+  const onChangePeriod = (event) => {
+    setPeriodo(event.target.value);
+  } 
+
+  const onChangeYear = (event) => {
+    setYear(event.target.value);
+  } 
   return (
     <MuiThemeProvider theme={defaultTheme}>
       <div className="container">
@@ -48,32 +77,82 @@ const Home = ({classes, estudiante_html}) => {
           <div className={`col s12 blue-tec mb-2 ${classes.titleHistory}`}>
           Historial | Agosto-Diciembre 2019
           </div>
+        </div> 
+        <div  className={`row `}>
           <div className="col s4">
-            <div className={`row mb-0 ${classes.paddingRight20}`}>
-              <div className={`${classes.itemsWrapper} col s12 card my-0`}>
-              {
-                estudiante && 
-                estudiante.solicitudes_becarias.map((asignacion, index) => {
-                  if(index == indexSelected) {
-                    console.log(true, index);
-                    return (
-                      <ItemPeriodo isSelected={true} handleClick={(e) => selectAsignacion(index)} key={index} asignacion={asignacion}/>
-                    )   
-                  } else {
-                    return (
-                      <ItemPeriodo isSelected={false} handleClick={(e) => selectAsignacion(index)} key={index} asignacion={asignacion}/>
-                    )   
-                  }                  
-                })
-              }
+            <div  className={`row `}>
+              <div className="col s6">
+                <FormControl variant="outlined" fullWidth={true} margin="normal">
+                <InputLabel
+                  htmlFor="lada"
+                >
+                  Periodo
+                </InputLabel>
+                <StyledSelect
+                  value={periodo}
+                  onChange={onChangePeriod}
+                  input={
+                    <OutlinedInput
+                      name="lada"
+                      id="lada"
+                      labelWidth={48}
+                    />
+                  }
+                  //MenuProps={{classes:{paper: maxHeight}}}
+                >
+                  {periodoOptions}
+                </StyledSelect>
+                </FormControl>
+              </div>
+              <div className="col s6">
+                <FormControl variant="outlined" fullWidth={true} margin="normal">
+                <InputLabel
+                  htmlFor="lada"
+                >
+                  Año
+                </InputLabel>
+                <StyledSelect
+                  value={selectYear}
+                  onChange={onChangeYear}
+                  input={
+                    <OutlinedInput
+                      name="lada"
+                      id="lada"
+                      labelWidth={48}
+                    />
+                  }
+                  //MenuProps={{classes:{paper: maxHeight}}}
+                >
+                  {yearOptions}
+                </StyledSelect>
+                </FormControl>
+              </div>
+              <div className={`row mb-0 ${classes.paddingRight20}`}>
+                <div className={`${classes.itemsWrapper} col s12 card my-0`}>
+                {
+                  estudiante && 
+                  estudiante.solicitudes_becarias.map((asignacion, index) => {
+                    if(index == indexSelected) {
+                      console.log(true, index);
+                      return (
+                        <ItemBecario isSelected={true} handleClick={(e) => selectAsignacion(index)} key={index} asignacion={asignacion}/>
+                      )   
+                    } else {
+                      return (
+                        <ItemBecario isSelected={false} handleClick={(e) => selectAsignacion(index)} key={index} asignacion={asignacion}/>
+                      )   
+                    }                  
+                  })
+                }
+                </div>
               </div>
             </div>
           </div>
           <div className="col s8">
-            <div className="row mb-0">
-              <CardEstudiante asignacion={selectedAsignacion}/>
-            </div>
+          <div className="row mb-0">
+            <CardEstudiante asignacion={selectedAsignacion}/>
           </div>
+        </div>  
         </div>
       </div>
       <ReglamentoModal/>
@@ -81,12 +160,21 @@ const Home = ({classes, estudiante_html}) => {
   );
 }
 
+const StyledSelect = withStyles({
+  outlined: {
+    padding: '18.5px 14px',
+    borderRadius: 0,
+    fontFamily: 'Nunito',
+    fontSize: '14px',
+    color: '#B7B7B7',
+  },
+})(Select);
 const maxWidth = 1000;
 
 const styles = theme => ({
   itemsWrapper: {
     overflowY: 'scroll',
-    height: '363px',
+    height: '300px',
   },
 
   margin40: {

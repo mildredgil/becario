@@ -28,22 +28,22 @@ const ReglamentoModal = ({classes, open, handleClose}) => {
             <div className="row mb-0">
               <div className="col s12 ">
                 <label className={classes.subTitle}>
-                  Antes de empezar:
+                  Recuerda:
                 </label>
               </div>
             </div>
             <div className="row">
               <div className={`col s12 ${classes.bulletPadding}`}>
                 <ul>
-                  <li className={classes.list}>Conocer el Reglamento y las sanciones aplicadas en caso de no seguirlo</li>
-                  <li className={classes.list}>Revisar periódicamente el correo institucional</li>
-                  <li className={classes.list}>Revisar la asignación o reasiignación y reportarse con la persona indicada</li>
-                  <li className={classes.list}>Intercambiar datos y negociar horarios de trabajo</li>
-                  <li className={classes.list}>Cumplir con la asignación durante todo el semestre</li>
-                  <li className={classes.list}>Solicitar ser evaluado y enviar la evaluación a Dirección de Becas en fecha</li>
-                  <li className={classes.list}>Verificar que el reporte y el desempeño real coincidan</li>
-                  <li className={classes.list}>Reportar a la Dirección de Becas y Apoyo</li>
-                  <li className={classes.list}>Actualizar la información para que el solicitante pueda contactarte</li>
+                  <li className={classes.list}>Conocer el Reglamento y las sanciones aplicadas en caso de no seguirlo.</li>
+                  <li className={classes.list}>Revisar periódicamente el correo institucional.</li>
+                  <li className={classes.list}>Revisar la asignación o reasiignación y reportarse con la persona indicada.</li>
+                  <li className={classes.list}>Intercambiar datos y negociar horarios de trabajo.</li>
+                  <li className={classes.list}>Cumplir con la asignación durante todo el semestre.</li>
+                  <li className={classes.list}>Solicitar ser evaluado y enviar la evaluación a Dirección de Becas en fecha.</li>
+                  <li className={classes.list}>Verificar que el reporte y el desempeño real coincidan.</li>
+                  <li className={classes.list}>Reportar a la Dirección de Becas y Apoyo.</li>
+                  <li className={classes.list}>Actualizar la información para que el solicitante pueda contactarte.</li>
                 </ul> 
               </div>
             </div>
@@ -51,7 +51,7 @@ const ReglamentoModal = ({classes, open, handleClose}) => {
               <div className="col s12 center-align">
                 <Button variant="contained" color="primary" href="#contained-buttons" className={classes.button}>
                   <DownloadIcon className={`white-text ${classes.iconLabel}`}/>
-                  <a href="http://localhost:8000/files/reglamento.pdf" download="reglamento" className={`white-text ${classes.iconLabel}`}> PDF</a>
+                  <a href="http://localhost:8000/files/reglamento.pdf" download="reglamento" className={`white-text ${classes.iconLabel}`}> Reglamento</a>
                 </Button>
               </div>
             </div>
@@ -76,7 +76,8 @@ const styles = theme => ({
   },
 
   list:{
-    //paddingLeft: '40px !important',
+    padding: '3px 0',
+    fontSize: '14px',
     listStyleType: 'initial !important',
   },
 
@@ -87,6 +88,7 @@ const styles = theme => ({
   iconLabel: {
     fontSize: '20px',
     marginRight: '0.5rem',
+    fontFamily : 'Nunito',
   }, 
 
   bulletPadding:{
@@ -121,7 +123,7 @@ const styles = theme => ({
     cursor: 'pointer',
     color: 'black',
     position: 'absolute',
-    right: '10px',
+    right: '12px',
     top: '12px',
     fontSize: '18px',
   },

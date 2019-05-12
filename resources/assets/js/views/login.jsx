@@ -95,8 +95,8 @@ const Login = ({classes}) => {
           </div>
           <div className="row no-margin">
             <div className="col s12">
-              <Button onClick={login} fullWidth variant="contained"  color="primary">
-                Iniciar Sesión
+              <Button fullWidth variant="contained"  color="primary">
+                <span className={classes.labelLogin}>Iniciar Sesión</span>
               </Button>
             </div>
           </div>
@@ -128,11 +128,15 @@ const styles = theme => ({
     color: '#000',
   },
   closeIcon: {
+    cursor : 'pointer',
     color: 'black',
     position: 'absolute',
-    right: '10px',
+    right: '12px',
     top: '12px',
     fontSize: '18px',
+  },
+  labelLogin: {
+    fontFamily : 'Nunito',
   },
 
 
