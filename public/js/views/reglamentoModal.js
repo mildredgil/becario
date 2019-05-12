@@ -70345,47 +70345,47 @@ var ReglamentoModal = function ReglamentoModal(_ref) {
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                   'li',
                   { className: classes.list },
-                  'Conocer el Reglamento y las sanciones aplicadas en caso de no seguirlo'
+                  'Conocer el Reglamento y las sanciones aplicadas en caso de no seguirlo.'
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                   'li',
                   { className: classes.list },
-                  'Revisar peri\xF3dicamente el correo institucional'
+                  'Revisar peri\xF3dicamente el correo institucional.'
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                   'li',
                   { className: classes.list },
-                  'Revisar la asignaci\xF3n o reasiignaci\xF3n y reportarse con la persona indicada'
+                  'Revisar la asignaci\xF3n o reasiignaci\xF3n y reportarse con la persona indicada.'
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                   'li',
                   { className: classes.list },
-                  'Intercambiar datos y negociar horarios de trabajo'
+                  'Intercambiar datos y negociar horarios de trabajo.'
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                   'li',
                   { className: classes.list },
-                  'Cumplir con la asignaci\xF3n durante todo el semestre'
+                  'Cumplir con la asignaci\xF3n durante todo el semestre.'
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                   'li',
                   { className: classes.list },
-                  'Solicitar ser evaluado y enviar la evaluaci\xF3n a Direcci\xF3n de Becas en fecha'
+                  'Solicitar ser evaluado y enviar la evaluaci\xF3n a Direcci\xF3n de Becas en fecha.'
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                   'li',
                   { className: classes.list },
-                  'Verificar que el reporte y el desempe\xF1o real coincidan'
+                  'Verificar que el reporte y el desempe\xF1o real coincidan.'
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                   'li',
                   { className: classes.list },
-                  'Reportar a la Direcci\xF3n de Becas y Apoyo'
+                  'Reportar a la Direcci\xF3n de Becas y Apoyo.'
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                   'li',
                   { className: classes.list },
-                  'Actualizar la informaci\xF3n para que el solicitante pueda contactarte'
+                  'Actualizar la informaci\xF3n para que el solicitante pueda contactarte.'
                 )
               )
             )
