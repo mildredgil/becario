@@ -6,10 +6,20 @@ import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import defaultTheme from '../theme';
-import { SchoolIcon, EmailIcon, LocationIcon, PhoneIcon, PersonIcon, InfoIcon, PersonEditIcon, CloseIcon, CheckIcon } from './icons';
+import { SchoolIcon, EmailIcon, LocationIcon, PhoneIcon, PersonIcon, InfoIcon, PersonEditIcon, CloseIcon, CheckIcon, SearchIcon } from './icons';
 
 const SolicitudBecaria = ({ classes, open, handleClose }) => {
+    const [ifSearchTrue, setIfSearchTrue] = React.useState(true);
+    const searchClick = (event) => {
+        setIfSearchTrue(false);
+    }
 
+    React.useEffect(()=> {
+        if(open == false){
+            setIfSearchTrue(true);  
+        }
+      }, [open]);
+    
     
     return (
         <MuiThemeProvider theme={defaultTheme}>
@@ -60,89 +70,38 @@ const SolicitudBecaria = ({ classes, open, handleClose }) => {
                                     variant="outlined"
                                 />
                             </div>
-                            <div className="col s6 mb-2 mt-4 valign-wrapper">
-                                <SchoolIcon className={classes.iconSchool} />
-                                <label>Carrera</label>
+                            
+                            <div className="row center-align">
+                                <div className="col s12 mb-2 mt-4">
+                                <div className="col s6">
+                                    <Button
+                                        onClick={searchClick}
+                                        variant="contained"
+                                        color="primary">
+                                        <SearchIcon className={`white-text ${classes.labelSearch}`}/>
+                                        <span className={classes.labelLogin}>Buscar</span>
+                                    </Button>
+                                </div>
+                                    <div className="col s6">
+                                    <Button
+                                        disabled = {ifSearchTrue}
+                                        variant="contained"
+                                        color="primary">
+                                        <CheckIcon className={`white-text ${classes.labelCheck}`}/>
+                                        <span className={classes.labelLogin}>Aceptar</span>
+                                    </Button>
+                                    </div>
+                                </div>
                             </div>
-                            <div className="col s6 mb-2 mt-4 valign-wrapper">
-                                <InfoIcon className={classes.iconInfo} />
-                                <label >Semestre</label>
-                            </div>
-                            <div className="col s6">
-                                <TextField
-                                    fullWidth
-                                    id="outlined-bare"
-                                    classes={{ root: classes.labelText }}
-                                    defaultValue="ITC"
-                                    InputProps={{
-                                        readOnly: true,
-                                        disabled: true,
-                                    }}
-                                    variant="outlined"
-                                />
-                            </div>
-                            <div className="col s6">
-                                <TextField
-                                    fullWidth
-                                    id="outlined-bare"
-                                    classes={{ root: classes.labelText }}
-                                    defaultValue="6°"
-                                    InputProps={{
-                                        readOnly: true,
-                                        disabled: true,
-                                    }}
-                                    variant="outlined"
-                                />
-                            </div>
-                            <div className="col s6 mb-2 mt-4 valign-wrapper">
-                                <EmailIcon className={classes.iconLabel} />
-                                <label>Correo</label>
-                            </div>
-                            <div className="col s6 mb-2 mt-4 valign-wrapper">
-                                <PhoneIcon className={classes.iconInfo} />
-                                <label >Teléfono</label>
+                            <div className="row red center-align">
+                                <div className="col s12 mb-2 mt-4">
+                                    <div className="col s6">
+                                        No se encontró el alumno
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div className="row no-margin">
-                            <div className="col s6">
-                                <TextField
-                                    fullWidth
-                                    id="outlined-bare"
-                                    classes={{ root: classes.labelText }}
-                                    defaultValue="a09273645@itesm.mx"
-                                    InputProps={{
-                                        readOnly: true,
-                                        disabled: true,
-                                    }}
-                                    variant="outlined"
-                                />
-                            </div>
-                            <div className="col s6">
-                                <TextField
-                                    fullWidth
-                                    id="outlined-bare"
-                                    classes={{ root: classes.labelText }}
-                                    defaultValue="8181818181"
-                                    InputProps={{
-                                        readOnly: false,
-                                        disabled: false,
-                                    }}
-                                    variant="outlined"
-                                />
-                            </div>
-                        </div>
-                        <div className="row center-align">
-                            <div className="col s12 mb-2 mt-4">
-                                <Button
-                                    variant="contained"
-                                    color="primary"
-                                    href="/homeEstudiante">
-                                    <CheckIcon className={`white-text ${classes.labelCheck}`}/>
-                                    <span className={classes.labelLogin}>Guardar</span>
-                                </Button>
-                            </div>
-                        </div>
-                    </div>
+                    </div> 
                 </div>
             </Modal>
         </MuiThemeProvider>
@@ -213,6 +172,11 @@ const styles = theme => ({
         maxWidth: '50%',
     },
 
+    labelSearch: {
+        fontSize: '20px',
+        marginRight: '0.5rem',
+    },
+
     labelCheck: {
         fontSize: '16px',
         marginRight: '0.5rem',
@@ -222,6 +186,8 @@ const styles = theme => ({
         fontFamily : 'Nunito',
         fontSize: '20px', 
     },
+
+   
 
     [`@media (max-width: ${maxWidth}px)`]: {
 
