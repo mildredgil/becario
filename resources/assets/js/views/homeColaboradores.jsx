@@ -76,10 +76,10 @@ const Home = ({classes, estudiante_html}) => {
     <MuiThemeProvider theme={defaultTheme}>
       <div className="container">
         <div className={`row ${classes.margin40}`}>
-          <div className={`col s6 blue-tec mb-2 ${classes.titleHistory}`}>
+          <div className={`col s9 blue-tec mb-2 ${classes.titleHistory}`}>
             Becarios
           </div>
-          <div className="col s6 align-right">
+          <div className="col s3 align-right">
             <Button variant="contained"  color="primary" >
               <EmailIcon className={`white-text ${classes.icon}`} />
               <span className={classes.labelLogin}>EvaluacionModal</span>
