@@ -63,10 +63,11 @@
       </div>
     </div> 
   </div> 
-  <div id="login-modal"></div>   
+     
 @endsection
 
 @section('js')
+<script src="{{ asset('/js/views/modalLoginColaborador.js') }}"></script>
 <script src="{{ asset('/js/views/login.js') }}"></script>
 <script>
   $(document).ready(function(){
