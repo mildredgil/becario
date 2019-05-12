@@ -13,6 +13,7 @@
 
 use App\User;
 use App\Estudiante;
+use App\Administrador;
 use App\Colaborador;
 use App\Departamento;
 use Illuminate\Http\Request;
@@ -42,9 +43,11 @@ Route::get('/homeEstudiante', function () {
   ]);
 });
 
-Route::get('/tasks', function () {
-  return view('tasks', [
-    'tasks' => Task::orderBy('created_at', 'asc')->get()
+Route::get('/homeAdministrador', function () {
+  $estudiante = Estudiante::where('id', 3)->with("carrera", "solicitudesBecarias.colaborador.departamento")->first();
+  
+  return view('homeEstudiante', [
+    'estudiante' => $estudiante
   ]);
 });
 
@@ -95,35 +98,19 @@ Route::get('/colaboradores/users', function () {
   }
 });
 
-/**
-    * Add New Task
-    */
-Route::post('/task', function (Request $request) {
-    error_log("INFO: post /task");
-    $validator = Validator::make($request->all(), [
-        'name' => 'required|max:255',
-    ]);
+Route::get('/colaboradores/admin', function () {
+  $colaboradores = Colaborador::where('id', '>', 0)->get();
 
-    if ($validator->fails()) {
-        error_log("ERROR: Add task failed.");
-        return redirect('/')
-            ->withInput()
-            ->withErrors($validator);
-    }
+  foreach($colaboradores as $colaborador) {
+    $password = bcrypt($colaborador->contrasena);
+    
+    $user = User::create([
+      'user_id' => $colaborador->id, 
+      'username' => $colaborador->nomina,
+      'password' => $password,
+      'user_type' => User::COLABORADOR
+    ]);    
 
-    $task = new Task;
-    $task->name = $request->name;
-    $task->save();
-
-    return redirect('/');
-});
-
-/**
-    * Delete Task
-    */
-Route::delete('/task/{id}', function ($id) {
-    error_log('INFO: delete /task/'.$id);
-    Task::findOrFail($id)->delete();
-
-    return redirect('/');
+    var_dump($user);
+  }
 });

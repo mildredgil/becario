@@ -30,7 +30,7 @@ class User extends Authenticatable
       'password', 'remember_token',
   ];
 
-  const ADMINISTRADOR = 'App\Admin';
+  const ADMINISTRADOR = 'App\Administrador';
   const ESTUDIANTE    = 'App\Estudiante';
   const COLABORADOR   = 'App\Colaborador';
   
