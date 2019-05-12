@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 442);
+/******/ 	return __webpack_require__(__webpack_require__.s = 468);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -70260,7 +70260,9 @@ exports.default = _default;
 
 /***/ }),
 /* 434 */,
-/* 435 */
+/* 435 */,
+/* 436 */,
+/* 437 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -70559,20 +70561,44 @@ var styles = function styles(theme) {
 /* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__["withStyles"])(styles)(PerfilColaboradores));
 
 /***/ }),
-/* 436 */,
-/* 437 */,
 /* 438 */,
 /* 439 */,
 /* 440 */,
 /* 441 */,
-/* 442 */
+/* 442 */,
+/* 443 */,
+/* 444 */,
+/* 445 */,
+/* 446 */,
+/* 447 */,
+/* 448 */,
+/* 449 */,
+/* 450 */,
+/* 451 */,
+/* 452 */,
+/* 453 */,
+/* 454 */,
+/* 455 */,
+/* 456 */,
+/* 457 */,
+/* 458 */,
+/* 459 */,
+/* 460 */,
+/* 461 */,
+/* 462 */,
+/* 463 */,
+/* 464 */,
+/* 465 */,
+/* 466 */,
+/* 467 */,
+/* 468 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(443);
+module.exports = __webpack_require__(469);
 
 
 /***/ }),
-/* 443 */
+/* 469 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -70590,7 +70616,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__material_ui_core_Menu___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_Menu__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__material_ui_core_MenuItem__ = __webpack_require__(78);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__material_ui_core_MenuItem___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__material_ui_core_MenuItem__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__perfilColaboradores__ = __webpack_require__(435);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__perfilColaboradores__ = __webpack_require__(437);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__material_ui_core_Fab__ = __webpack_require__(137);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__material_ui_core_Fab___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__material_ui_core_Fab__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__icons__ = __webpack_require__(134);
@@ -70745,7 +70771,6 @@ var styles = function styles() {
       cursor: 'pointer'
     },
 
-    //  backgroundColor: '#46c2ff75',
     padding: {
       padding: '0px'
     },

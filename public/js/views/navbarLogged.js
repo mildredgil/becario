@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 439);
+/******/ 	return __webpack_require__(__webpack_require__.s = 465);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -70259,7 +70259,8 @@ var _default = (0, _withTheme.default)()(Zoom);
 exports.default = _default;
 
 /***/ }),
-/* 434 */
+/* 434 */,
+/* 435 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -70467,7 +70468,8 @@ var styles = function styles(theme) {
 /* harmony default export */ __webpack_exports__["default"] = (Object(__WEBPACK_IMPORTED_MODULE_3__material_ui_core_styles__["withStyles"])(styles)(ReglamentoModal));
 
 /***/ }),
-/* 435 */
+/* 436 */,
+/* 437 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -70766,17 +70768,41 @@ var styles = function styles(theme) {
 /* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__["withStyles"])(styles)(PerfilColaboradores));
 
 /***/ }),
-/* 436 */,
-/* 437 */,
 /* 438 */,
-/* 439 */
+/* 439 */,
+/* 440 */,
+/* 441 */,
+/* 442 */,
+/* 443 */,
+/* 444 */,
+/* 445 */,
+/* 446 */,
+/* 447 */,
+/* 448 */,
+/* 449 */,
+/* 450 */,
+/* 451 */,
+/* 452 */,
+/* 453 */,
+/* 454 */,
+/* 455 */,
+/* 456 */,
+/* 457 */,
+/* 458 */,
+/* 459 */,
+/* 460 */,
+/* 461 */,
+/* 462 */,
+/* 463 */,
+/* 464 */,
+/* 465 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(440);
+module.exports = __webpack_require__(466);
 
 
 /***/ }),
-/* 440 */
+/* 466 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -70794,9 +70820,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__material_ui_core_Menu___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_Menu__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__material_ui_core_MenuItem__ = __webpack_require__(78);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__material_ui_core_MenuItem___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__material_ui_core_MenuItem__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__perfilColaboradores__ = __webpack_require__(435);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__perfilEstudiante__ = __webpack_require__(441);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__reglamentoModal__ = __webpack_require__(434);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__perfilColaboradores__ = __webpack_require__(437);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__perfilEstudiante__ = __webpack_require__(467);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__reglamentoModal__ = __webpack_require__(435);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__icons__ = __webpack_require__(134);
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
@@ -70976,7 +71002,7 @@ if (document.getElementById('nav')) {
 }
 
 /***/ }),
-/* 441 */
+/* 467 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

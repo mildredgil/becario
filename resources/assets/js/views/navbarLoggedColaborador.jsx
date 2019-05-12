@@ -9,12 +9,11 @@ import MenuItem from '@material-ui/core/MenuItem';
 import PerfilColaboradores from './perfilColaboradores';
 import Fab from '@material-ui/core/Fab';
 import {AddIcon} from './icons';
-import { PowerIcon, PersonEditIcon, HelpIcon } from './icons';
+import { PowerIcon, PersonEditIcon } from './icons';
 
 const NavBar = ({ classes }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [open, setOpen] = React.useState(false);
-
 
   const handleClick = event => {
     setAnchorEl(event.currentTarget);
@@ -108,7 +107,6 @@ const styles = () => ({
     cursor: 'pointer',
 	},
 	
-  //  backgroundColor: '#46c2ff75',
   padding: {
     padding: '0px',
 	},

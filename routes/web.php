@@ -47,6 +47,8 @@ Route::get('/tasks', function () {
   ]);
 });
 
+Route::post('/get/login', 'Auth\LoginController@postLogin');	
+
 Route::get('encrypt', function () {
   $estudiantes = Estudiante::where('id', '>', 0)->get();
   
