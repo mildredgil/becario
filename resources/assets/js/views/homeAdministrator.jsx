@@ -219,7 +219,7 @@ const styles = theme => ({
 
 const _Home = withStyles(styles)(Home);
 
-if (document.getElementById('homeColaborador')) {
+if (document.getElementById('homeAdministrator')) {
   let _estudiante = document.getElementById('estudiante');
   let estudiante_obj = null;
 
@@ -230,5 +230,5 @@ if (document.getElementById('homeColaborador')) {
     estudiante = null;
   }
 
-  ReactDOM.render(<_Home estudiante_html={estudiante_obj}/>, document.getElementById('homeColaborador'));
+  ReactDOM.render(<_Home estudiante_html={estudiante_obj}/>, document.getElementById('homeAdministrator'));
 }
