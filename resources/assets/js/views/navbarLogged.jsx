@@ -22,7 +22,7 @@ const NavBar = ({ classes }) => {
 
   const handleClose = () => {
     setAnchorEl(null);
-    window.location.replace("/login");
+    //window.location.replace("/login");
   };
 
   const handleOpenPerfil = () => {

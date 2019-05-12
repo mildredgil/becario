@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 451);
+/******/ 	return __webpack_require__(__webpack_require__.s = 452);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -69805,14 +69805,15 @@ exports.default = _default;
 /* 448 */,
 /* 449 */,
 /* 450 */,
-/* 451 */
+/* 451 */,
+/* 452 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(452);
+module.exports = __webpack_require__(453);
 
 
 /***/ }),
-/* 452 */
+/* 453 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -69839,7 +69840,6 @@ var Footer = function Footer(_ref) {
   return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
     __WEBPACK_IMPORTED_MODULE_2__material_ui_core_styles__["MuiThemeProvider"],
     { theme: __WEBPACK_IMPORTED_MODULE_3__theme__["a" /* default */] },
-    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { className: classes.wrapper }),
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       'div',
       { className: classes.textWrapper + ' row mb-0' },
@@ -69852,7 +69852,8 @@ var Footer = function Footer(_ref) {
           '\xA9 2019 Tecnol\xF3gico de Monterey | Aviso de privacidad'
         )
       )
-    )
+    ),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { className: classes.wrapper })
   );
 };
 
@@ -69862,15 +69863,17 @@ var styles = function styles() {
   return _defineProperty({
     textWrapper: {
       position: 'relative',
-      bottom: '70px',
-      left: '100p',
+      //paddingTop: '50vh',
+      top: '70px',
+      //left: '100p',
       fontWeight: 'bold',
       fontSize: '20px'
     },
 
     wrapper: {
       backgroundImage: 'url(http://localhost:8000/img/teccampus.jpg)',
-      position: 'relative',
+      //position: 'relative',
+      //paddingTop: '50vh',
       height: '120px',
       opacity: '0.5',
       backgroundSize: 'cover',
