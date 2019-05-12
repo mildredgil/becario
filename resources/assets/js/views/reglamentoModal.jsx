@@ -76,7 +76,8 @@ const styles = theme => ({
   },
 
   list:{
-    //paddingLeft: '40px !important',
+    padding: '3px 0',
+    fontSize: '14px',
     listStyleType: 'initial !important',
   },
 

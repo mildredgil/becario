@@ -70429,7 +70429,8 @@ var styles = function styles(theme) {
     fontSize: '25px',
     color: '#000'
   }), _defineProperty(_ref2, 'list', {
-    //paddingLeft: '40px !important',
+    padding: '3px 0',
+    fontSize: '14px',
     listStyleType: 'initial !important'
   }), _defineProperty(_ref2, 'pxThick', {
     padding: '40px'
