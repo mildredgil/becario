@@ -7,6 +7,8 @@ import defaultTheme from '../theme';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import PerfilColaboradores from './perfilColaboradores';
+import Fab from '@material-ui/core/Fab';
+import {AddIcon} from './icons';
 import { PowerIcon, PersonEditIcon, HelpIcon } from './icons';
 
 const NavBar = ({ classes }) => {
@@ -33,20 +35,28 @@ const NavBar = ({ classes }) => {
 
   return (
     <MuiThemeProvider theme={defaultTheme}>
-      <nav class={`navbar navbar-default ${classes.navContainer}`}>
-        <div class={classes.containerExtended}>
-          <div class="row valign-wrapper">
-            <div class={`col s8 white-text ${classes.nav}`}>
+      <nav className={`navbar navbar-default ${classes.navContainer}`}>
+        <div className={classes.containerExtended}> 
+          <div className="row valign-wrapper">
+            <div className={`col s8 offset-s1 white-text ${classes.nav}`}>
               Asignación Becaria
-            </div>
-            <div class={`col s1 offset-s2 white-text nav center-align ${classes.nav}`}>
+            </div> 
+						<div className={'col s2 right-align'}>
+							<Fab variant="extended" size="small" color="secondary" aria-label="Delete" className={classes.fab}>
+       					<AddIcon className={`blue-tec ${classes.addIcon}`} />
+									<label className={`blue-tec ${classes.becarioStyle}`}>
+										Becarios
+									</label>
+      				</Fab>
+						</div>
+            <div className={`col s1  white-text nav center-align ${classes.nav}`}>
               <Button
                 aria-owns={anchorEl ? 'simple-menu' : undefined}
                 aria-haspopup="true"
                 onClick={handleClick}
                 classes={{ root: classes.padding }}
               >
-                <i class={`material-icons white-text`}>home</i>
+                <i className={`material-icons white-text`}>home</i>
               </Button>
               <Menu
                 id="simple-menu"
@@ -63,8 +73,8 @@ const NavBar = ({ classes }) => {
                   Cerrar Sesión
               </MenuItem>
               </Menu>
-            </div>
-            <img class={classes.logo} src="/img/tec-logo-letras.png" />
+            </div>  
+            <img className={classes.logo} src="/img/tec-logo-letras.png"/>
           </div>
         </div>
       </nav>
@@ -77,27 +87,42 @@ const maxWidth = 1000;
 
 const styles = () => ({
   navContainer: {
-    background: ' linear-gradient(80.19deg, #101010 0%, #223f93 100%)',
-    margin: '0px',
-  },
-  nav: {
+    background: 'linear-gradient(80.19deg, #101010 0%, #223f93 100%)',
+    margin:'0px',
+	},
+	
+  nav:{
     fontSize: '24px',
     fontFamily: 'Nunito',
     letterSpacing: '12px',
     textTransform: 'uppercase',
-    fontWeight: 'lighter,'
-  },
+    fontWeight: 'lighter', 
+	},
+	
   containerExtended: {
     width: '90%',
     margin: '0 auto',
-  },
+	},
+	
   icon: {
     cursor: 'pointer',
-  },
+	},
+	
   //  backgroundColor: '#46c2ff75',
   padding: {
     padding: '0px',
-  },
+	},
+
+	becarioStyle: {
+		letterSpacing: '3px',
+		fontSize: '14px',
+	},
+	
+	addIcon:{
+		fontSize: '18px',
+		marginRight: '5px',
+	},
+
   logo: {
     width: '60px',
     position: 'absolute',

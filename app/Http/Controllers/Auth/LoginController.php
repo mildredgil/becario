@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
+use Illuminate\Http\Request;
+
 class LoginController extends Controller
 {
     /*
@@ -35,5 +37,41 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    public function postLogin(Request $request)
+    {
+      $username = $request->input('email');
+      $password = $request->input('password');
+
+      if( ! auth()->attempt(['username' => $username, 'password' => $password], true)) {
+        return response()->json([
+          'email' => $username,
+          'password' => $password,
+          'error' => $this->failedLoginMessage
+        ], 401);
+      } 
+      
+      $user = authUser();
+      request()->session()->regenerate();
+
+      $token = auth('api')->setTTL(1440)->login($user);
+
+      if($user->confirmed == 0) {
+        Mail::send('emails.verify', ['confirmation_code' => $user->confirmation_code], function($message)  use ($request) {
+          $message->to($request->input('email'), $request->input('username'))
+            ->subject(trans('emails.subject.verify_address'));
+        });
+
+        $response['message'] = trans('messages.verify_message');
+        $response['user'] = $user;
+        $response['token'] = $token;
+      } else {
+        /* Prepare the response data. */
+        $response['user']  = $user;
+        $response['token'] = $token;
+      }
+
+      return response()->json($response);
     }
 }

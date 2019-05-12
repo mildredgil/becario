@@ -39,7 +39,7 @@ const ItemPeriodo = ({classes, asignacion, isSelected, handleClick}) => {
   }
 
   return (
-    <div onClick={handleClick} className={`${isSelected ? classes.selected :classes.itemWrapper} row valign-wrapper py-2 px-2 mb-0`}>
+    <div onClick={handleClick} className={`${isSelected ? classes.selected :classes.itemWrapper} hoverable row valign-wrapper py-2 px-2 mb-0`}>
       <div className="col s10">
         <label className={`${classes.periodo} blue-tec`}>{periodo_string} {year}</label>
         <br/>
@@ -60,13 +60,15 @@ const maxWidth = 1000;
 const styles = theme => ({
   itemWrapper: {
     borderBottom: '1px solid rgba(34,  63, 147, 0.2)',
+    cursor: 'pointer',
     '&:hover': {
       background: "#223f9320",
     },
   },
   
   selected: {
-    background: "#223f9320"
+    background: "#223f9320",
+    cursor: 'pointer'
   },
 
   iconLocation: {
