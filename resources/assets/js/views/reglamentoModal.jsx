@@ -28,7 +28,7 @@ const ReglamentoModal = ({classes, open, handleClose}) => {
             <div className="row mb-0">
               <div className="col s12 ">
                 <label className={classes.subTitle}>
-                  Antes de empezar:
+                  Recuerda:
                 </label>
               </div>
             </div>
@@ -51,7 +51,7 @@ const ReglamentoModal = ({classes, open, handleClose}) => {
               <div className="col s12 center-align">
                 <Button variant="contained" color="primary" href="#contained-buttons" className={classes.button}>
                   <DownloadIcon className={`white-text ${classes.iconLabel}`}/>
-                  <a href="http://localhost:8000/files/reglamento.pdf" download="reglamento" className={`white-text ${classes.iconLabel}`}> PDF</a>
+                  <a href="http://localhost:8000/files/reglamento.pdf" download="reglamento" className={`white-text ${classes.iconLabel}`}> Reglamento</a>
                 </Button>
               </div>
             </div>
@@ -88,6 +88,7 @@ const styles = theme => ({
   iconLabel: {
     fontSize: '20px',
     marginRight: '0.5rem',
+    fontFamily : 'Nunito',
   }, 
 
   bulletPadding:{
@@ -122,7 +123,7 @@ const styles = theme => ({
     cursor: 'pointer',
     color: 'black',
     position: 'absolute',
-    right: '10px',
+    right: '12px',
     top: '12px',
     fontSize: '18px',
   },

@@ -9,11 +9,13 @@ import MenuItem from '@material-ui/core/MenuItem';
 import PerfilColaboradores from './perfilColaboradores';
 import Fab from '@material-ui/core/Fab';
 import {AddIcon} from './icons';
-import { PowerIcon, PersonEditIcon, HelpIcon } from './icons';
+import ReglamentoModal from './reglamentoModal';
+import { PowerIcon, PersonEditIcon, HelpIcon, DescriptionIcon } from './icons';
 
 const NavBar = ({ classes }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [open, setOpen] = React.useState(false);
+  const [openReglamento, setOpenReglamento] = React.useState(false);
 
 
   const handleClick = event => {
@@ -31,6 +33,14 @@ const NavBar = ({ classes }) => {
 
   const handleClosePerfil = () => {
     setOpen(false);
+  };
+
+  const handleOpenReglamento = () => {
+    setOpenReglamento(true);
+  };
+
+  const handleCloseReglamento = () => {
+    setOpenReglamento(false);
   };
 
   return (
@@ -68,6 +78,10 @@ const NavBar = ({ classes }) => {
                   <PersonEditIcon className={classes.iconLabel} />
                   Perfil
               </MenuItem>
+              <MenuItem onClick={handleOpenReglamento} className="valign-wrapper">
+                  <DescriptionIcon className={classes.iconLabel} />
+                  Reglamento
+                </MenuItem>
                 <MenuItem onClick={handleClose} className="valign-wrapper">
                   <PowerIcon className={classes.iconLabel} />
                   Cerrar Sesión
@@ -79,6 +93,7 @@ const NavBar = ({ classes }) => {
         </div>
       </nav>
       <PerfilColaboradores open={open} handleClose={handleClosePerfil} />
+      <ReglamentoModal open={openReglamento} handleClose={handleCloseReglamento} />
     </MuiThemeProvider>
   );
 }
@@ -130,7 +145,7 @@ const styles = () => ({
   },
 
   iconLabel: {
-    fontSize: '14px',
+    fontSize: '18px',
     marginRight: '0.5rem'
   },
 
