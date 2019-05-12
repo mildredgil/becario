@@ -35,15 +35,15 @@ const ReglamentoModal = ({classes, open, handleClose}) => {
             <div className="row">
               <div className={`col s12 ${classes.bulletPadding}`}>
                 <ul>
-                  <li className={classes.list}>Conocer el Reglamento y las sanciones aplicadas en caso de no seguirlo</li>
-                  <li className={classes.list}>Revisar periódicamente el correo institucional</li>
-                  <li className={classes.list}>Revisar la asignación o reasiignación y reportarse con la persona indicada</li>
-                  <li className={classes.list}>Intercambiar datos y negociar horarios de trabajo</li>
-                  <li className={classes.list}>Cumplir con la asignación durante todo el semestre</li>
-                  <li className={classes.list}>Solicitar ser evaluado y enviar la evaluación a Dirección de Becas en fecha</li>
-                  <li className={classes.list}>Verificar que el reporte y el desempeño real coincidan</li>
-                  <li className={classes.list}>Reportar a la Dirección de Becas y Apoyo</li>
-                  <li className={classes.list}>Actualizar la información para que el solicitante pueda contactarte</li>
+                  <li className={classes.list}>Conocer el Reglamento y las sanciones aplicadas en caso de no seguirlo.</li>
+                  <li className={classes.list}>Revisar periódicamente el correo institucional.</li>
+                  <li className={classes.list}>Revisar la asignación o reasiignación y reportarse con la persona indicada.</li>
+                  <li className={classes.list}>Intercambiar datos y negociar horarios de trabajo.</li>
+                  <li className={classes.list}>Cumplir con la asignación durante todo el semestre.</li>
+                  <li className={classes.list}>Solicitar ser evaluado y enviar la evaluación a Dirección de Becas en fecha.</li>
+                  <li className={classes.list}>Verificar que el reporte y el desempeño real coincidan.</li>
+                  <li className={classes.list}>Reportar a la Dirección de Becas y Apoyo.</li>
+                  <li className={classes.list}>Actualizar la información para que el solicitante pueda contactarte.</li>
                 </ul> 
               </div>
             </div>
