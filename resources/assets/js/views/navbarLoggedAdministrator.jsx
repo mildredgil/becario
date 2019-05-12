@@ -6,9 +6,13 @@ import { MuiThemeProvider } from '@material-ui/core/styles';
 import defaultTheme from '../theme';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import PerfilColaboradores from './perfilColaboradores';
 import Fab from '@material-ui/core/Fab';
+import {AddIcon} from './icons';
+import ReglamentoModal from './reglamentoModal';
 import ImportarCSV from './importarCSV';
-import { PowerIcon, PersonEditIcon, UpLoadIcon, DescriptionIcon, AddIcon } from './icons';
+import SolicitudBecaria from './solicitudBecModal';
+import { PowerIcon, PersonEditIcon, UpLoadIcon, DescriptionIcon } from './icons';
 
 const NavBar = ({ classes }) => {
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -63,27 +67,25 @@ const NavBar = ({ classes }) => {
         <nav className={`navbar navbar-default ${classes.navContainer}`}>
           <div className={classes.containerExtended}> 
             <div className="row valign-wrapper">
-              <div className={`col 6 offset-s1 white-text ${classes.nav}`}>
+              <div className={`col s10 offset-s1 white-text ${classes.nav}`}>
                 Asignación Becaria
               </div> 
-              <div className={'col s2 right-align'}>
-                              <Fab variant="extended" size="small" color="secondary" aria-label="Delete" className={classes.fab}
-                    onClick={handleOpenImport} className="valign-wrapper">
-                   <UpLoadIcon className={`blue-tec ${classes.addIcon}`} />
-                                      <label className={`blue-tec ${classes.becarioStyle}`}>
-                                          Importar
-                                      </label>
+              <div className={`col s1 white-text nav right-align`}>
+                        <Fab variant="extended" size="small" color="secondary" aria-label="Delete" className={classes.fab}
+                            onClick={handleOpenImport} className="valign-wrapper">
+                            <UpLoadIcon className={`blue-tec ${classes.addIcon}`} />
+                            <label className={`blue-tec ${classes.becarioStyle}`}>
+                            </label>
                         </Fab>
                           </div>
-                          <div className={'col s2 right-align'}>
-                              <Fab variant="extended" size="small" color="secondary" aria-label="Delete" className={classes.fab}
-                    onClick={handleOpenSolicitud} className="valign-wrapper">
-                   <AddIcon className={`blue-tec ${classes.addIcon}`} />
-                                      <label className={`blue-tec ${classes.becarioStyle}`}>
-                                          Becarios
-                                      </label>
-                        </Fab>
-                          </div>
+                          <div className={`col s1 white-text nav right-align`}>
+                            <Fab variant="extended" size="small" color="secondary" aria-label="Delete" className={classes.fab}
+                                onClick={handleOpenSolicitud} className="valign-wrapper">
+                                <AddIcon className={`blue-tec ${classes.addIcon}`} />
+                                <label className={`blue-tec ${classes.becarioStyle}`}>
+                                </label>
+                            </Fab>
+                </div>
               <div className={`col s1  white-text nav center-align ${classes.nav}`}>
                 <Button
                   aria-owns={anchorEl ? 'simple-menu' : undefined}
@@ -162,7 +164,7 @@ const NavBar = ({ classes }) => {
       
       addIcon:{
           fontSize: '18px',
-          marginRight: '5px',
+          marginRight: '0px',
       },
   
     logo: {
