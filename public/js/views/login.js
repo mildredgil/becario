@@ -70289,6 +70289,19 @@ module.exports = __webpack_require__(437);
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modalLogin__ = __webpack_require__(438);
+
+var _Login = withStyles(styles)(__WEBPACK_IMPORTED_MODULE_0__modalLogin__["a" /* default */]);
+
+if (document.getElementById('login-modal')) {
+  ReactDOM.render(React.createElement(_Login, null), document.getElementById('login-modal'));
+}
+
+/***/ }),
+/* 438 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(16);
@@ -70410,11 +70423,7 @@ var Login = function Login(_ref) {
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               __WEBPACK_IMPORTED_MODULE_3__material_ui_core_Button___default.a,
               { fullWidth: true, variant: 'contained', color: 'primary', href: '/homeEstudiante' },
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'span',
-                { className: classes.labelLogin },
-                'Iniciar Sesi\xF3n'
-              )
+              'Iniciar Sesi\xF3n'
             )
           )
         )
@@ -70446,25 +70455,17 @@ var styles = function styles(theme) {
       color: '#000'
     },
     closeIcon: {
-      cursor: 'pointer',
       color: 'black',
       position: 'absolute',
-      right: '12px',
+      right: '10px',
       top: '12px',
       fontSize: '18px'
-    },
-    labelLogin: {
-      fontFamily: 'Nunito'
     }
 
   }, '@media (max-width: ' + maxWidth + 'px)', {});
 };
 
-var _Login = Object(__WEBPACK_IMPORTED_MODULE_4__material_ui_core_styles__["withStyles"])(styles)(Login);
-
-if (document.getElementById('login-modal')) {
-  __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(_Login, null), document.getElementById('login-modal'));
-}
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_4__material_ui_core_styles__["withStyles"])(styles)(Login));
 
 /***/ })
 /******/ ]);

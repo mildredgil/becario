@@ -19,7 +19,6 @@ const NavBar = ({ classes }) => {
   const [openReglamento, setOpenReglamento] = React.useState(false);
   const [openSolicitudBec, setOpenSolicitudBec] = React.useState(false);
 
-
   const handleClick = event => {
     setAnchorEl(event.currentTarget);
   };
@@ -135,7 +134,6 @@ const styles = () => ({
     cursor: 'pointer',
 	},
 	
-  //  backgroundColor: '#46c2ff75',
   padding: {
     padding: '0px',
 	},

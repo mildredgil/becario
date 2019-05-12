@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 441);
+/******/ 	return __webpack_require__(__webpack_require__.s = 442);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -70806,14 +70806,15 @@ var styles = function styles(theme) {
 /* 438 */,
 /* 439 */,
 /* 440 */,
-/* 441 */
+/* 441 */,
+/* 442 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(442);
+module.exports = __webpack_require__(443);
 
 
 /***/ }),
-/* 442 */
+/* 443 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -71025,7 +71026,6 @@ var styles = function styles() {
       cursor: 'pointer'
     },
 
-    //  backgroundColor: '#46c2ff75',
     padding: {
       padding: '0px'
     },

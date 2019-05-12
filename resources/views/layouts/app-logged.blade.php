@@ -17,6 +17,7 @@
     <style>
         body {
             font-family: 'Nunito';
+            height:100%;
         }
         .nav{
           font-size: 24px;
@@ -46,6 +47,12 @@
           width: 60px;
           position: absolute;
           right: 10px;
+        }
+        #footer {
+          position: absolute;
+          left: 0;
+          right: 0;
+          bottom:0;
         }
     </style>
     @yield('css')

@@ -17,36 +17,15 @@
     <style>
         body {
             font-family: 'Nunito';
+            height: 100%;
         }
-        .nav{
-          font-size: 24px;
-          font-family: Nunito;
-          letter-spacing: 12px;
-          text-transform: uppercase;
-          font-weight: lighter; 
-        }
-        .nav-container{
-          background: linear-gradient(80.19deg, #101010 0%, #223f93 100%);
-          margin:0px;
-        }
-        .container-extended{
-          width: 90%;
-          margin: 0 auto;
-        }
-        .icon{
-          cursor: pointer;
-        }
-        .icon:hover{
-          background-color: #46c2ff75;
-        }
-        .active{
-          background-color: #46c2ff75;
-        }
-        .logo{
-          width: 60px;
+        #footer {
           position: absolute;
-          right: 10px;
+          left: 0;
+          right: 0;
+          bottom:0;
         }
+        
     </style>
     @yield('css')
   
@@ -54,14 +33,11 @@
   <body id="app-layout">
     <div id="nav"></div>            
     @yield('content')
-
     <div id="footer"></div>
     <script src="{{ asset('/js/materialize.min.js') }}"></script>
     <script src="{{ asset('/js/views/navbarLoggedColaborador.js') }}"></script>
     <script src="{{ asset('/js/views/footer.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    
     @yield('js')
-
   </body>
 </html>
