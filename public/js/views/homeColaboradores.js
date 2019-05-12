@@ -5646,27 +5646,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 /***/ }),
 /* 79 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(0);
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-Object.defineProperty(exports, "default", {
-  enumerable: true,
-  get: function get() {
-    return _MenuItem.default;
-  }
-});
-
-var _MenuItem = _interopRequireDefault(__webpack_require__(368));
-
-/***/ }),
-/* 80 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5698,8 +5677,8 @@ var _MenuItem = _interopRequireDefault(__webpack_require__(368));
 /* unused harmony export LabelIcon */
 /* unused harmony export LeftArrowIcon */
 /* unused harmony export LinkedinIcon */
-/* unused harmony export ListIcon */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return LocationIcon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return ListIcon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return LocationIcon; });
 /* unused harmony export LockIcon */
 /* unused harmony export MedalIcon */
 /* unused harmony export MenuIcon */
@@ -5708,19 +5687,19 @@ var _MenuItem = _interopRequireDefault(__webpack_require__(368));
 /* unused harmony export NotificationIcon */
 /* unused harmony export PadlockIcon */
 /* unused harmony export PeopleIcon */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return PersonIcon; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return PersonEditIcon; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return PhoneIcon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return PersonIcon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return PersonEditIcon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return PhoneIcon; });
 /* unused harmony export PlusIcon */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return PowerIcon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return PowerIcon; });
 /* unused harmony export PriceDArrowIcon */
 /* unused harmony export PriceUArrowIcon */
 /* unused harmony export PublicIcon */
 /* unused harmony export RefIcon */
 /* unused harmony export RFullArrowIcon */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return RightArrowIcon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return RightArrowIcon; });
 /* unused harmony export SadIcon */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return SatisfiedIcon; });
+/* unused harmony export SatisfiedIcon */
 /* unused harmony export SaveIcon */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return SchoolIcon; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "p", function() { return SearchIcon; });
@@ -6160,6 +6139,27 @@ var WebIcon = function WebIcon(props) {
   );
 };
 
+
+/***/ }),
+/* 80 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(0);
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "default", {
+  enumerable: true,
+  get: function get() {
+    return _MenuItem.default;
+  }
+});
+
+var _MenuItem = _interopRequireDefault(__webpack_require__(368));
 
 /***/ }),
 /* 81 */
@@ -9060,11 +9060,11 @@ Object.defineProperty(exports, "__esModule", {
 Object.defineProperty(exports, "default", {
   enumerable: true,
   get: function get() {
-    return _Menu.default;
+    return _Fab.default;
   }
 });
 
-var _Menu = _interopRequireDefault(__webpack_require__(103));
+var _Fab = _interopRequireDefault(__webpack_require__(331));
 
 /***/ }),
 /* 137 */
@@ -9081,11 +9081,11 @@ Object.defineProperty(exports, "__esModule", {
 Object.defineProperty(exports, "default", {
   enumerable: true,
   get: function get() {
-    return _Fab.default;
+    return _Menu.default;
   }
 });
 
-var _Fab = _interopRequireDefault(__webpack_require__(331));
+var _Menu = _interopRequireDefault(__webpack_require__(103));
 
 /***/ }),
 /* 138 */
@@ -48018,7 +48018,7 @@ var BUTTON_HOVER_COLOR = '#101010';
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__ExpansionPanelSummary__ = __webpack_require__(329);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__ExpansionPanelSummary___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_32__ExpansionPanelSummary__);
 /* unused harmony reexport ExpansionPanelSummary */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__Fab__ = __webpack_require__(137);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__Fab__ = __webpack_require__(136);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__Fab___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_33__Fab__);
 /* unused harmony reexport Fab */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__Fade__ = __webpack_require__(69);
@@ -48105,10 +48105,10 @@ var BUTTON_HOVER_COLOR = '#101010';
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_61__ListSubheader__ = __webpack_require__(366);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_61__ListSubheader___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_61__ListSubheader__);
 /* unused harmony reexport ListSubheader */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_62__Menu__ = __webpack_require__(136);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_62__Menu__ = __webpack_require__(137);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_62__Menu___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_62__Menu__);
 /* unused harmony reexport Menu */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_63__MenuItem__ = __webpack_require__(79);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_63__MenuItem__ = __webpack_require__(80);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_63__MenuItem___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_63__MenuItem__);
 /* unused harmony reexport MenuItem */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_64__MenuList__ = __webpack_require__(112);
@@ -67455,7 +67455,7 @@ var _withStyles = _interopRequireDefault(__webpack_require__(5));
 
 var _InputBase = _interopRequireDefault(__webpack_require__(41));
 
-var _MenuItem = _interopRequireDefault(__webpack_require__(79));
+var _MenuItem = _interopRequireDefault(__webpack_require__(80));
 
 var _Select = _interopRequireDefault(__webpack_require__(57));
 
@@ -70297,7 +70297,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__material_ui_core_styles__ = __webpack_require__(27);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__material_ui_core_styles___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__material_ui_core_styles__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__theme__ = __webpack_require__(78);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__icons__ = __webpack_require__(80);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__icons__ = __webpack_require__(79);
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
@@ -70526,25 +70526,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__cardEstudiante__ = __webpack_require__(451);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__itemBecario__ = __webpack_require__(452);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__reglamentoModal__ = __webpack_require__(434);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__theme__ = __webpack_require__(78);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__material_ui_core_Select__ = __webpack_require__(57);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__material_ui_core_Select___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__material_ui_core_Select__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__material_ui_core_FormControl__ = __webpack_require__(83);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__material_ui_core_FormControl___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__material_ui_core_FormControl__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__material_ui_core_OutlinedInput__ = __webpack_require__(81);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__material_ui_core_OutlinedInput___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9__material_ui_core_OutlinedInput__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__material_ui_core_MenuItem__ = __webpack_require__(79);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__material_ui_core_MenuItem___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10__material_ui_core_MenuItem__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__material_ui_core_InputLabel__ = __webpack_require__(82);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__material_ui_core_InputLabel___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11__material_ui_core_InputLabel__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__material_ui_core_Button__ = __webpack_require__(31);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__material_ui_core_Button___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_12__material_ui_core_Button__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__icons__ = __webpack_require__(80);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__evaluacionModal__ = __webpack_require__(453);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__material_ui_core_styles__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__material_ui_core_styles___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__material_ui_core_styles__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__theme__ = __webpack_require__(78);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__material_ui_core_Select__ = __webpack_require__(57);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__material_ui_core_Select___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__material_ui_core_Select__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__material_ui_core_FormControl__ = __webpack_require__(83);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__material_ui_core_FormControl___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9__material_ui_core_FormControl__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__material_ui_core_OutlinedInput__ = __webpack_require__(81);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__material_ui_core_OutlinedInput___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10__material_ui_core_OutlinedInput__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__material_ui_core_MenuItem__ = __webpack_require__(80);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__material_ui_core_MenuItem___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11__material_ui_core_MenuItem__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__material_ui_core_InputLabel__ = __webpack_require__(82);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__material_ui_core_InputLabel___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_12__material_ui_core_InputLabel__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__material_ui_core_Button__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__material_ui_core_Button___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_13__material_ui_core_Button__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__icons__ = __webpack_require__(79);
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -70602,63 +70604,76 @@ var Home = function Home(_ref) {
       selectYear = _React$useState12[0],
       setYear = _React$useState12[1];
 
+  var _React$useState13 = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(false),
+      _React$useState14 = _slicedToArray(_React$useState13, 2),
+      openEvaluacion = _React$useState14[0],
+      setOpenEvaluacion = _React$useState14[1];
+
+  var handleOpenEvaluacion = function handleOpenEvaluacion() {
+    setOpenEvaluacion(true);
+  };
+
+  var handleCloseEvaluacion = function handleCloseEvaluacion() {
+    setOpenEvaluacion(false);
+  };
+
   periodoOptions.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-    __WEBPACK_IMPORTED_MODULE_10__material_ui_core_MenuItem___default.a,
+    __WEBPACK_IMPORTED_MODULE_11__material_ui_core_MenuItem___default.a,
     { classes: { root: classes.options }, value: 0 },
     new_periodo[0]
   ));
   periodoOptions.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-    __WEBPACK_IMPORTED_MODULE_10__material_ui_core_MenuItem___default.a,
+    __WEBPACK_IMPORTED_MODULE_11__material_ui_core_MenuItem___default.a,
     { classes: { root: classes.options }, value: 1 },
     new_periodo[1]
   ));
   periodoOptions.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-    __WEBPACK_IMPORTED_MODULE_10__material_ui_core_MenuItem___default.a,
+    __WEBPACK_IMPORTED_MODULE_11__material_ui_core_MenuItem___default.a,
     { classes: { root: classes.options }, value: 2 },
     new_periodo[2]
   ));
   periodoOptions.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-    __WEBPACK_IMPORTED_MODULE_10__material_ui_core_MenuItem___default.a,
+    __WEBPACK_IMPORTED_MODULE_11__material_ui_core_MenuItem___default.a,
     { classes: { root: classes.options }, value: 3 },
     new_periodo[3]
   ));
   yearOptions.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-    __WEBPACK_IMPORTED_MODULE_10__material_ui_core_MenuItem___default.a,
+    __WEBPACK_IMPORTED_MODULE_11__material_ui_core_MenuItem___default.a,
     { classes: { root: classes.options }, value: 2013 },
     '2013'
   ));
   yearOptions.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-    __WEBPACK_IMPORTED_MODULE_10__material_ui_core_MenuItem___default.a,
+    __WEBPACK_IMPORTED_MODULE_11__material_ui_core_MenuItem___default.a,
     { classes: { root: classes.options }, value: 2014 },
     '2014'
   ));
   yearOptions.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-    __WEBPACK_IMPORTED_MODULE_10__material_ui_core_MenuItem___default.a,
+    __WEBPACK_IMPORTED_MODULE_11__material_ui_core_MenuItem___default.a,
     { classes: { root: classes.options }, value: 2015 },
     '2015'
   ));
   yearOptions.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-    __WEBPACK_IMPORTED_MODULE_10__material_ui_core_MenuItem___default.a,
+    __WEBPACK_IMPORTED_MODULE_11__material_ui_core_MenuItem___default.a,
     { classes: { root: classes.options }, value: 2016 },
     '2016'
   ));
   yearOptions.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-    __WEBPACK_IMPORTED_MODULE_10__material_ui_core_MenuItem___default.a,
+    __WEBPACK_IMPORTED_MODULE_11__material_ui_core_MenuItem___default.a,
     { classes: { root: classes.options }, value: 2017 },
     '2017'
   ));
   yearOptions.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-    __WEBPACK_IMPORTED_MODULE_10__material_ui_core_MenuItem___default.a,
+    __WEBPACK_IMPORTED_MODULE_11__material_ui_core_MenuItem___default.a,
     { classes: { root: classes.options }, value: 2018 },
     '2018'
   ));
   yearOptions.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-    __WEBPACK_IMPORTED_MODULE_10__material_ui_core_MenuItem___default.a,
+    __WEBPACK_IMPORTED_MODULE_11__material_ui_core_MenuItem___default.a,
     { classes: { root: classes.options }, value: 2019 },
     '2019'
   ));
   yearOptions.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-    __WEBPACK_IMPORTED_MODULE_10__material_ui_core_MenuItem___default.a,
+    __WEBPACK_IMPORTED_MODULE_11__material_ui_core_MenuItem___default.a,
     { classes: { root: classes.options }, value: 2020 },
     '2020'
   ));
@@ -70697,8 +70712,8 @@ var Home = function Home(_ref) {
     setYear(event.target.value);
   };
   return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-    __WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__["MuiThemeProvider"],
-    { theme: __WEBPACK_IMPORTED_MODULE_6__theme__["a" /* default */] },
+    __WEBPACK_IMPORTED_MODULE_6__material_ui_core_styles__["MuiThemeProvider"],
+    { theme: __WEBPACK_IMPORTED_MODULE_7__theme__["a" /* default */] },
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       'div',
       { className: 'container' },
@@ -70707,22 +70722,6 @@ var Home = function Home(_ref) {
         { className: 'row ' + classes.margin40 },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'div',
-<<<<<<< HEAD
-          { className: 'col s6 blue-tec mb-2 ' + classes.titleHistory },
-          'Becarios'
-        ),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          'div',
-          { className: 'col s6 align-right' },
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            __WEBPACK_IMPORTED_MODULE_12__material_ui_core_Button___default.a,
-            { variant: 'contained', color: 'primary' },
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_13__icons__["f" /* EmailIcon */], { className: 'white-text ' + classes.icon }),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              'span',
-              { className: classes.labelLogin },
-              'EvaluacionModal'
-=======
           { className: 'col s12 blue-tec mb-2 ' + classes.titleHistory },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
@@ -70730,24 +70729,21 @@ var Home = function Home(_ref) {
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'span',
               { className: classes.labelLogin },
-              'Historial | Agosto-Diciembre 2019'
+              'Becarios | Agosto-Diciembre 2019'
             )
           ),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
-            { className: 'col s3' },
+            { className: 'col s3 align-right' },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              __WEBPACK_IMPORTED_MODULE_12__material_ui_core_Button___default.a,
-              {
-                variant: 'contained',
-                color: 'primary' },
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_13__icons__["n" /* SatisfiedIcon */], { className: 'white-text ' + classes.labelCheck }),
+              __WEBPACK_IMPORTED_MODULE_13__material_ui_core_Button___default.a,
+              { variant: 'contained', color: 'primary', onClick: handleOpenEvaluacion },
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_14__icons__["h" /* ListIcon */], { className: 'white-text ' + classes.labelCheck }),
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'span',
                 { className: classes.labelLogin },
                 'Evaluar alumnos'
               )
->>>>>>> 8d15a064d71fa238c90c89c8e92da2c0fabf63fc
             )
           )
         )
@@ -70765,10 +70761,10 @@ var Home = function Home(_ref) {
               'div',
               { className: 'col s6' },
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                __WEBPACK_IMPORTED_MODULE_8__material_ui_core_FormControl___default.a,
+                __WEBPACK_IMPORTED_MODULE_9__material_ui_core_FormControl___default.a,
                 { variant: 'outlined', fullWidth: true, margin: 'normal' },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                  __WEBPACK_IMPORTED_MODULE_11__material_ui_core_InputLabel___default.a,
+                  __WEBPACK_IMPORTED_MODULE_12__material_ui_core_InputLabel___default.a,
                   {
                     htmlFor: 'lada'
                   },
@@ -70779,7 +70775,7 @@ var Home = function Home(_ref) {
                   {
                     value: periodo,
                     onChange: onChangePeriod,
-                    input: __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_9__material_ui_core_OutlinedInput___default.a, {
+                    input: __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_10__material_ui_core_OutlinedInput___default.a, {
                       name: 'lada',
                       id: 'lada',
                       labelWidth: 48
@@ -70794,10 +70790,10 @@ var Home = function Home(_ref) {
               'div',
               { className: 'col s6' },
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                __WEBPACK_IMPORTED_MODULE_8__material_ui_core_FormControl___default.a,
+                __WEBPACK_IMPORTED_MODULE_9__material_ui_core_FormControl___default.a,
                 { variant: 'outlined', fullWidth: true, margin: 'normal' },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                  __WEBPACK_IMPORTED_MODULE_11__material_ui_core_InputLabel___default.a,
+                  __WEBPACK_IMPORTED_MODULE_12__material_ui_core_InputLabel___default.a,
                   {
                     htmlFor: 'lada'
                   },
@@ -70808,7 +70804,7 @@ var Home = function Home(_ref) {
                   {
                     value: selectYear,
                     onChange: onChangeYear,
-                    input: __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_9__material_ui_core_OutlinedInput___default.a, {
+                    input: __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_10__material_ui_core_OutlinedInput___default.a, {
                       name: 'lada',
                       id: 'lada',
                       labelWidth: 48
@@ -70852,11 +70848,12 @@ var Home = function Home(_ref) {
         )
       )
     ),
-    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__reglamentoModal__["default"], null)
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__reglamentoModal__["default"], null),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__evaluacionModal__["a" /* default */], { open: openEvaluacion, handleClose: handleCloseEvaluacion })
   );
 };
 
-var StyledSelect = Object(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__["withStyles"])({
+var StyledSelect = Object(__WEBPACK_IMPORTED_MODULE_6__material_ui_core_styles__["withStyles"])({
   outlined: {
     padding: '18.5px 14px',
     borderRadius: 0,
@@ -70864,7 +70861,7 @@ var StyledSelect = Object(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__
     fontSize: '14px',
     color: '#B7B7B7'
   }
-})(__WEBPACK_IMPORTED_MODULE_7__material_ui_core_Select___default.a);
+})(__WEBPACK_IMPORTED_MODULE_8__material_ui_core_Select___default.a);
 var maxWidth = 1000;
 
 var styles = function styles(theme) {
@@ -70893,14 +70890,14 @@ var styles = function styles(theme) {
     },
 
     labelCheck: {
-      fontSize: '16px',
+      fontSize: '20px',
       marginRight: '0.5rem'
     }
 
   }, '@media (max-width: ' + maxWidth + 'px)', {});
 };
 
-var _Home = Object(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__["withStyles"])(styles)(Home);
+var _Home = Object(__WEBPACK_IMPORTED_MODULE_6__material_ui_core_styles__["withStyles"])(styles)(Home);
 
 if (document.getElementById('homeColaborador')) {
   var _estudiante = document.getElementById('estudiante');
@@ -70928,7 +70925,7 @@ if (document.getElementById('homeColaborador')) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__theme__ = __webpack_require__(78);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__material_ui_core_Button__ = __webpack_require__(31);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__material_ui_core_Button___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__material_ui_core_Button__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__icons__ = __webpack_require__(80);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__icons__ = __webpack_require__(79);
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
@@ -70980,7 +70977,7 @@ var CardEstudiante = function CardEstudiante(_ref) {
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
             { className: 'col s9 valign-wrapper' },
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__icons__["j" /* PersonIcon */], { className: classes.iconLabel }),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__icons__["k" /* PersonIcon */], { className: classes.iconLabel }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'label',
               null,
@@ -71016,7 +71013,7 @@ var CardEstudiante = function CardEstudiante(_ref) {
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
             { className: 'col s3 valign-wrapper' },
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__icons__["k" /* PhoneIcon */], { className: classes.iconLabel }),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__icons__["l" /* PhoneIcon */], { className: classes.iconLabel }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'label',
               null,
@@ -71213,7 +71210,7 @@ var styles = function styles(theme) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__material_ui_core_styles__ = __webpack_require__(27);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__material_ui_core_styles___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__material_ui_core_styles__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__icons__ = __webpack_require__(80);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__icons__ = __webpack_require__(79);
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
@@ -71276,14 +71273,14 @@ var ItemBecario = function ItemBecario(_ref) {
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'label',
         { className: classes.colab + ' truncate blue-tec-dark' },
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__icons__["j" /* PersonIcon */], { className: classes.iconLabel }),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__icons__["k" /* PersonIcon */], { className: classes.iconLabel }),
         '6\xB0 ITC | Evaluaci\xF3n: Satisfactorio'
       )
     ),
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       'div',
       { className: 'col s2' },
-      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__icons__["m" /* RightArrowIcon */], { className: 'hide ' + classes.icon + ' ' + (isSelected ? classes.itemIcon : '') + ' ' })
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__icons__["n" /* RightArrowIcon */], { className: 'hide ' + classes.icon + ' ' + (isSelected ? classes.itemIcon : '') + ' ' })
     )
   );
 };
@@ -71336,6 +71333,349 @@ var styles = function styles(theme) {
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_1__material_ui_core_styles__["withStyles"])(styles)(ItemBecario));
+
+/***/ }),
+/* 453 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__material_ui_core_TextField__ = __webpack_require__(135);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__material_ui_core_TextField___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__material_ui_core_TextField__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__material_ui_core_Modal__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__material_ui_core_Modal___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__material_ui_core_Modal__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__material_ui_core_Button__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__material_ui_core_Button___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__material_ui_core_Button__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__material_ui_core_Fab__ = __webpack_require__(136);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__material_ui_core_Fab___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_Fab__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__material_ui_core_styles__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__material_ui_core_styles___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__material_ui_core_styles__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__theme__ = __webpack_require__(78);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__icons__ = __webpack_require__(79);
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+
+
+
+
+
+
+
+
+var EvaluacionModal = function EvaluacionModal(_ref) {
+    var classes = _ref.classes,
+        open = _ref.open,
+        handleClose = _ref.handleClose;
+
+
+    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        __WEBPACK_IMPORTED_MODULE_6__material_ui_core_styles__["MuiThemeProvider"],
+        { theme: __WEBPACK_IMPORTED_MODULE_7__theme__["a" /* default */] },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            __WEBPACK_IMPORTED_MODULE_3__material_ui_core_Modal___default.a,
+            {
+                open: open,
+                onClose: handleClose,
+                classes: { root: classes.modalRoot }
+            },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                { className: 'container ' + classes.containerWidth },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'div',
+                    { className: 'card px-5 py-3' },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8__icons__["c" /* CloseIcon */], { onClick: handleClose, className: classes.closeIcon }),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { className: 'row margin-0' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'div',
+                            { className: 'col s12 valign-wrapper' },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8__icons__["j" /* PersonEditIcon */], { className: classes.iconEditLabel }),
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                'label',
+                                { className: classes.title + ' blue-tec' },
+                                'Becarios'
+                            )
+                        )
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { className: 'row margin-0' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'div',
+                            { className: 'col s3 offset-s6 valing-wrapper' },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                'label',
+                                { className: 'center-align ' + classes.labelText },
+                                'Satisfactorio'
+                            )
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'div',
+                            { className: 'col s3 valing-wrapper' },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                'label',
+                                { className: 'center-align ' + classes.labelText },
+                                'Insatisfactorio'
+                            )
+                        )
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { className: 'row margin-0' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'div',
+                            { className: 'col s6 mt-4' },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8__icons__["k" /* PersonIcon */], { className: classes.iconLabel }),
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                'label',
+                                { className: classes.labelText },
+                                'Sergio De La Rosa Mungu\xEDa'
+                            )
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'div',
+                            { className: 'col s3 mt-4 valign-wrapper' },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                __WEBPACK_IMPORTED_MODULE_5__material_ui_core_Fab___default.a,
+                                { size: 'small', className: 'center-align ' + classes.botonVerde },
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8__icons__["b" /* CheckIcon */], { className: classes.iconLabel })
+                            )
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'div',
+                            { className: 'col s3 mt-4 valign-wrapper' },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                __WEBPACK_IMPORTED_MODULE_5__material_ui_core_Fab___default.a,
+                                { size: 'small', className: 'center-align ' + classes.botonRojo },
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8__icons__["c" /* CloseIcon */], { className: 'white-text ' + classes.iconLabel })
+                            )
+                        )
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { className: 'row margin-0' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'div',
+                            { className: 'col s16 mb-2 mt-1 valign-wrapper' },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                'label',
+                                null,
+                                'A00225910'
+                            )
+                        )
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { className: 'row margin-0' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'div',
+                            { className: 'col s6 mt-4' },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8__icons__["k" /* PersonIcon */], { className: classes.iconLabel }),
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                'label',
+                                { className: classes.labelText },
+                                'Diana Guadalupe Sanchez Burgos'
+                            )
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'div',
+                            { className: 'col s3 mt-4 valign-wrapper' },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                __WEBPACK_IMPORTED_MODULE_5__material_ui_core_Fab___default.a,
+                                { size: 'small', className: 'center-align ' + classes.botonVerde },
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8__icons__["b" /* CheckIcon */], { className: classes.iconLabel })
+                            )
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'div',
+                            { className: 'col s3 mt-4 valign-wrapper' },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                __WEBPACK_IMPORTED_MODULE_5__material_ui_core_Fab___default.a,
+                                { size: 'small', className: 'center-align ' + classes.botonRojo },
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8__icons__["c" /* CloseIcon */], { className: 'white-text ' + classes.iconLabel })
+                            )
+                        )
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { className: 'row margin-0' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'div',
+                            { className: 'col s16 mb-2 mt-1 valign-wrapper' },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                'label',
+                                null,
+                                'A00226239'
+                            )
+                        )
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { className: 'row margin-0' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'div',
+                            { className: 'col s6 mt-4' },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8__icons__["k" /* PersonIcon */], { className: classes.iconLabel }),
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                'label',
+                                { className: classes.labelText },
+                                'Jaime Andr\xE9s Montemayor Molina'
+                            )
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'div',
+                            { className: 'col s3 mt-4 valign-wrapper' },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                __WEBPACK_IMPORTED_MODULE_5__material_ui_core_Fab___default.a,
+                                { size: 'small', className: 'center-align ' + classes.botonVerde },
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8__icons__["b" /* CheckIcon */], { className: classes.iconLabel })
+                            )
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'div',
+                            { className: 'col s3 mt-4 valign-wrapper' },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                __WEBPACK_IMPORTED_MODULE_5__material_ui_core_Fab___default.a,
+                                { size: 'small', className: 'center-align ' + classes.botonRojo },
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8__icons__["c" /* CloseIcon */], { className: 'white-text ' + classes.iconLabel })
+                            )
+                        )
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { className: 'row margin-0' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'div',
+                            { className: 'col s16 mb-2 mt-1 valign-wrapper' },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                'label',
+                                null,
+                                'A01138755'
+                            )
+                        )
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { className: 'row center-align' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'div',
+                            { className: 'col s12 mb-2 mt-4' },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                __WEBPACK_IMPORTED_MODULE_4__material_ui_core_Button___default.a,
+                                {
+                                    variant: 'contained',
+                                    color: 'primary',
+                                    href: '/homeEstudiante' },
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8__icons__["b" /* CheckIcon */], { className: 'white-text ' + classes.labelCheck }),
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                    'span',
+                                    { className: classes.labelLogin },
+                                    'Guardar'
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+        )
+    );
+};
+
+var maxWidth = 1000;
+
+var styles = function styles(theme) {
+    return _defineProperty({
+
+        modalWrapper: {
+            padding: "25px !Important"
+        },
+
+        modalRoot: {
+            top: '20%'
+        },
+
+        title: {
+            fontSize: '30px',
+            fontWeight: 'bold'
+        },
+
+        botonVerde: {
+            backgroundColor: '#76ff03'
+        },
+
+        botonRojo: {
+            backgroundColor: '#d50000'
+        },
+
+        icon: {
+            fontSize: '17px',
+            marginRight: '0.5rem'
+        },
+
+        labelText: {
+            fontSize: '16px',
+            color: '#000'
+            //marginLeft: '0.5rem'
+        },
+
+        iconLabel: {
+            color: "#101010",
+            fontSize: '15px'
+            //marginRight: '0.5rem'
+        },
+        iconEditLabel: {
+            color: "#223f93",
+            fontSize: '30px',
+            marginRight: '0.5rem'
+        },
+
+        iconSchool: {
+            color: "#101010",
+            fontSize: '18px',
+            marginRight: '0.5rem'
+        },
+
+        iconInfo: {
+            color: "#101010",
+            fontSize: '18px',
+            marginRight: '0.5rem'
+        },
+
+        closeIcon: {
+            cursor: 'pointer',
+            color: 'black',
+            position: 'absolute',
+            right: '12px',
+            top: '12px',
+            fontSize: '18px'
+        },
+
+        containerWidth: {
+            maxWidth: '50%'
+        },
+
+        labelCheck: {
+            fontSize: '16px',
+            marginRight: '0.5rem'
+        },
+
+        labelLogin: {
+            fontFamily: 'Nunito',
+            fontSize: '20px'
+        }
+
+    }, '@media (max-width: ' + maxWidth + 'px)', {});
+};
+
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_6__material_ui_core_styles__["withStyles"])(styles)(EvaluacionModal));
 
 /***/ })
 /******/ ]);

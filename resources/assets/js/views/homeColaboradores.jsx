@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import CardEstudiante from './cardEstudiante';
 import ItemBecario from './itemBecario';
 import ReglamentoModal from './reglamentoModal';
+import EvaluacionModal from './evaluacionModal';
 import { withStyles } from '@material-ui/core/styles';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import defaultTheme from '../theme';
@@ -12,8 +13,7 @@ import OutlinedInput from '@material-ui/core/OutlinedInput';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 import Button from '@material-ui/core/Button';
-import {EmailIcon} from './icons';
-import {SatisfiedIcon} from './icons';
+import {ListIcon} from './icons';
 
 const Home = ({classes, estudiante_html}) => {
   const [estudiante, setEstudiante] = React.useState(false);
@@ -26,6 +26,17 @@ const Home = ({classes, estudiante_html}) => {
   const periodoOptions = [];
   const yearOptions = [];
   const [selectYear, setYear] = React.useState(0);
+
+  const [openEvaluacion, setOpenEvaluacion] = React.useState(false);
+
+  const handleOpenEvaluacion = () => {
+    setOpenEvaluacion(true);
+  };
+
+  const handleCloseEvaluacion = () => {
+    setOpenEvaluacion(false);
+  };
+
   periodoOptions.push(<MenuItem classes={{ root: classes.options}} value={0}>{new_periodo[0]}</MenuItem>);
   periodoOptions.push(<MenuItem classes={{ root: classes.options}} value={1}>{new_periodo[1]}</MenuItem>);
   periodoOptions.push(<MenuItem classes={{ root: classes.options}} value={2}>{new_periodo[2]}</MenuItem>);
@@ -82,10 +93,8 @@ const Home = ({classes, estudiante_html}) => {
               <span className={classes.labelLogin}>Becarios | Agosto-Diciembre 2019</span>
             </div>
             <div className="col s3 align-right">
-              <Button
-                  variant="contained"
-                  color="primary">
-                  <SatisfiedIcon className={`white-text ${classes.labelCheck}`}/>
+              <Button variant="contained" color="primary" onClick={handleOpenEvaluacion}>
+                  <ListIcon className={`white-text ${classes.labelCheck}`}/>
                   <span className={classes.labelLogin}>Evaluar alumnos</span>
               </Button>
             </div>
@@ -169,6 +178,7 @@ const Home = ({classes, estudiante_html}) => {
         </div>
       </div>
       <ReglamentoModal/>
+      <EvaluacionModal open={openEvaluacion} handleClose={handleCloseEvaluacion} />
     </MuiThemeProvider>
   );
 }
@@ -209,7 +219,7 @@ const styles = theme => ({
   },
 
   labelCheck: {
-    fontSize: '16px',
+    fontSize: '20px',
     marginRight: '0.5rem',
   },
 
