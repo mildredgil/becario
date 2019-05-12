@@ -11,8 +11,10 @@
 |
 */
 
-use App\Task;
+use App\User;
 use App\Estudiante;
+use App\Administrador;
+use App\Colaborador;
 use App\Departamento;
 use Illuminate\Http\Request;
 
@@ -23,6 +25,14 @@ Route::get('/', function () {
 
 Route::get('/login', function () {
   return view('login');
+});
+
+Route::get('/homeAdministrator', function () {
+  $estudiante = Estudiante::where('id', 3)->with("carrera", "solicitudesBecarias.colaborador.departamento")->first();
+
+  return view('homeAdministrator', [
+    'estudiante' => $estudiante
+  ]);
 });
 
 Route::get('/homeColaborador', function () {
@@ -41,9 +51,11 @@ Route::get('/homeEstudiante', function () {
   ]);
 });
 
-Route::get('/tasks', function () {
-  return view('tasks', [
-    'tasks' => Task::orderBy('created_at', 'asc')->get()
+Route::get('/homeAdministrador', function () {
+  $estudiante = Estudiante::where('id', 3)->with("carrera", "solicitudesBecarias.colaborador.departamento")->first();
+  
+  return view('homeEstudiante', [
+    'estudiante' => $estudiante
   ]);
 });
 
@@ -60,35 +72,53 @@ Route::get('encrypt', function () {
   dd($estudiantes);
 });
 
-/**
-    * Add New Task
-    */
-Route::post('/task', function (Request $request) {
-    error_log("INFO: post /task");
-    $validator = Validator::make($request->all(), [
-        'name' => 'required|max:255',
-    ]);
+Route::get('/estudiantes/users', function () {
+  $estudiantes = Estudiante::where('id', '>', 0)->get();
 
-    if ($validator->fails()) {
-        error_log("ERROR: Add task failed.");
-        return redirect('/')
-            ->withInput()
-            ->withErrors($validator);
-    }
+  foreach($estudiantes as $estudiante) {
+    $password = bcrypt($estudiante->contrasena);
+    
+    $user = User::create([
+      'user_id' => $estudiante->id, 
+      'username' => $estudiante->matricula,
+      'password' => $password,
+      'user_type' => User::ESTUDIANTE 
+    ]);    
 
-    $task = new Task;
-    $task->name = $request->name;
-    $task->save();
-
-    return redirect('/');
+    var_dump($user);
+  }
 });
 
-/**
-    * Delete Task
-    */
-Route::delete('/task/{id}', function ($id) {
-    error_log('INFO: delete /task/'.$id);
-    Task::findOrFail($id)->delete();
+Route::get('/colaboradores/users', function () {
+  $colaboradores = Colaborador::where('id', '>', 0)->get();
 
-    return redirect('/');
+  foreach($colaboradores as $colaborador) {
+    $password = bcrypt($colaborador->contrasena);
+    
+    $user = User::create([
+      'user_id' => $colaborador->id, 
+      'username' => $colaborador->nomina,
+      'password' => $password,
+      'user_type' => User::COLABORADOR
+    ]);    
+
+    var_dump($user);
+  }
+});
+
+Route::get('/colaboradores/admin', function () {
+  $colaboradores = Colaborador::where('id', '>', 0)->get();
+
+  foreach($colaboradores as $colaborador) {
+    $password = bcrypt($colaborador->contrasena);
+    
+    $user = User::create([
+      'user_id' => $colaborador->id, 
+      'username' => $colaborador->nomina,
+      'password' => $password,
+      'user_type' => User::COLABORADOR
+    ]);    
+
+    var_dump($user);
+  }
 });

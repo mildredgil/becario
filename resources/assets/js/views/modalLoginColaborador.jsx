@@ -112,6 +112,12 @@ const styles = theme => ({
     fontSize: '18px',
   },
 
+  userHover: {
+    cursor: pointer,
+    fontSize: '70px',
+    color: '#223f93',
+    fill:'#fff';
+  },
 
   [`@media (max-width: ${maxWidth}px)`]: {
    
