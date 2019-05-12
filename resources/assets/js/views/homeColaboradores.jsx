@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import CardEstudiante from './cardEstudiante';
-import ItemPeriodo from './itemPeriodo';
+import ItemBecario from './itemBecario';
 import ReglamentoModal from './reglamentoModal';
 import { withStyles } from '@material-ui/core/styles';
 import { MuiThemeProvider } from '@material-ui/core/styles';
@@ -57,11 +57,11 @@ const Home = ({classes, estudiante_html}) => {
                   if(index == indexSelected) {
                     console.log(true, index);
                     return (
-                      <ItemPeriodo isSelected={true} handleClick={(e) => selectAsignacion(index)} key={index} asignacion={asignacion}/>
+                      <ItemBecario isSelected={true} handleClick={(e) => selectAsignacion(index)} key={index} asignacion={asignacion}/>
                     )   
                   } else {
                     return (
-                      <ItemPeriodo isSelected={false} handleClick={(e) => selectAsignacion(index)} key={index} asignacion={asignacion}/>
+                      <ItemBecario isSelected={false} handleClick={(e) => selectAsignacion(index)} key={index} asignacion={asignacion}/>
                     )   
                   }                  
                 })
