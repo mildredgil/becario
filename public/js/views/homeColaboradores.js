@@ -70840,7 +70840,7 @@ var CardEstudiante = function CardEstudiante(_ref) {
           { className: 'row margin-0 ' + classes.paddingTop20 },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
-            { className: 'col s4 valign-wrapper' },
+            { className: 'col s3 valign-wrapper' },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__icons__["d" /* InfoIcon */], { className: classes.iconInfo }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'label',
@@ -70850,7 +70850,7 @@ var CardEstudiante = function CardEstudiante(_ref) {
           ),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
-            { className: 'col s8 valign-wrapper' },
+            { className: 'col s9 valign-wrapper' },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__icons__["g" /* PersonIcon */], { className: classes.iconLabel }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'label',
@@ -70864,7 +70864,7 @@ var CardEstudiante = function CardEstudiante(_ref) {
           { className: 'row margin-0' },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
-            { className: 'col s4' },
+            { className: 'col s3' },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'label',
               { className: classes.labelText },
@@ -70873,7 +70873,7 @@ var CardEstudiante = function CardEstudiante(_ref) {
           ),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
-            { className: 'col s8' },
+            { className: 'col s9' },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'label',
               { className: classes.labelText },
@@ -70886,7 +70886,7 @@ var CardEstudiante = function CardEstudiante(_ref) {
           { className: 'row margin-0 ' + classes.paddingTop20 },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
-            { className: 'col s4 valign-wrapper' },
+            { className: 'col s3 valign-wrapper' },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__icons__["h" /* PhoneIcon */], { className: classes.iconLabel }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'label',
@@ -70896,7 +70896,7 @@ var CardEstudiante = function CardEstudiante(_ref) {
           ),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
-            { className: 'col s8 valign-wrapper' },
+            { className: 'col s9 valign-wrapper' },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__icons__["c" /* EmailIcon */], { className: classes.iconLabel }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'label',
@@ -70910,7 +70910,7 @@ var CardEstudiante = function CardEstudiante(_ref) {
           { className: 'row margin-0' },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
-            { className: 'col s4' },
+            { className: 'col s3' },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'label',
               { className: classes.labelText },
@@ -70919,7 +70919,7 @@ var CardEstudiante = function CardEstudiante(_ref) {
           ),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
-            { className: 'col s8' },
+            { className: 'col s9' },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'label',
               { className: classes.labelText },
@@ -70932,7 +70932,7 @@ var CardEstudiante = function CardEstudiante(_ref) {
           { className: 'row margin-0 ' + classes.paddingTop20 },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
-            { className: 'col s4 valign-wrapper' },
+            { className: 'col s3 valign-wrapper' },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__icons__["d" /* InfoIcon */], { className: classes.iconInfo }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'label',
@@ -70942,7 +70942,7 @@ var CardEstudiante = function CardEstudiante(_ref) {
           ),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
-            { className: 'col s8 valign-wrapper' },
+            { className: 'col s9 valign-wrapper' },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__icons__["j" /* SchoolIcon */], { className: classes.iconSchool }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'label',
@@ -70956,7 +70956,7 @@ var CardEstudiante = function CardEstudiante(_ref) {
           { className: 'row margin-0' },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
-            { className: 'col s4' },
+            { className: 'col s3' },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'label',
               { className: classes.labelText },
@@ -70965,11 +70965,11 @@ var CardEstudiante = function CardEstudiante(_ref) {
           ),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
-            { className: 'col s8' },
+            { className: 'col s9' },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'label',
               { className: classes.labelText },
-              'Ingenier\xEDa en Tecnolog\xEDas Computacionales'
+              'Ing. en Tecnolog\xEDas de Informaci\xF3n y Comunicaciones'
             )
           )
         )
