@@ -10,12 +10,14 @@ import PerfilColaboradores from './perfilColaboradores';
 import Fab from '@material-ui/core/Fab';
 import {AddIcon} from './icons';
 import ReglamentoModal from './reglamentoModal';
+import SolicitudBecaria from './solicitudBecModal';
 import { PowerIcon, PersonEditIcon, HelpIcon, DescriptionIcon } from './icons';
 
 const NavBar = ({ classes }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [open, setOpen] = React.useState(false);
   const [openReglamento, setOpenReglamento] = React.useState(false);
+  const [openSolicitudBec, setOpenSolicitudBec] = React.useState(false);
 
 
   const handleClick = event => {
@@ -43,6 +45,14 @@ const NavBar = ({ classes }) => {
     setOpenReglamento(false);
   };
 
+  const handleOpenSolicitud = () => {
+    setOpenSolicitudBec(true);
+  };
+
+  const handleCloseSolicitud = () => {
+    setOpenSolicitudBec(false);
+  };
+
   return (
     <MuiThemeProvider theme={defaultTheme}>
       <nav className={`navbar navbar-default ${classes.navContainer}`}>
@@ -52,8 +62,9 @@ const NavBar = ({ classes }) => {
               Asignación Becaria
             </div> 
 						<div className={'col s2 right-align'}>
-							<Fab variant="extended" size="small" color="secondary" aria-label="Delete" className={classes.fab}>
-       					<AddIcon className={`blue-tec ${classes.addIcon}`} />
+							<Fab variant="extended" size="small" color="secondary" aria-label="Delete" className={classes.fab}
+                  onClick={handleOpenSolicitud} className="valign-wrapper">
+                 <AddIcon className={`blue-tec ${classes.addIcon}`} />
 									<label className={`blue-tec ${classes.becarioStyle}`}>
 										Becarios
 									</label>
@@ -94,6 +105,7 @@ const NavBar = ({ classes }) => {
       </nav>
       <PerfilColaboradores open={open} handleClose={handleClosePerfil} />
       <ReglamentoModal open={openReglamento} handleClose={handleCloseReglamento} />
+      <SolicitudBecaria open={openSolicitudBec} handleClose={handleCloseSolicitud} />
     </MuiThemeProvider>
   );
 }
@@ -129,6 +141,7 @@ const styles = () => ({
 	},
 
 	becarioStyle: {
+    cursor: 'pointer',
 		letterSpacing: '3px',
 		fontSize: '14px',
 	},
