@@ -5720,9 +5720,10 @@ var _MenuItem = _interopRequireDefault(__webpack_require__(368));
 /* unused harmony export RFullArrowIcon */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return RightArrowIcon; });
 /* unused harmony export SadIcon */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return SatisfiedIcon; });
 /* unused harmony export SaveIcon */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return SchoolIcon; });
-/* unused harmony export SearchIcon */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return SchoolIcon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "p", function() { return SearchIcon; });
 /* unused harmony export ShoppingIcon */
 /* unused harmony export TwitterIcon */
 /* unused harmony export UpArrowIcon */
@@ -6107,6 +6108,13 @@ var SearchIcon = function SearchIcon(props) {
     __WEBPACK_IMPORTED_MODULE_1__material_ui_core_SvgIcon___default.a,
     _extends({}, props, { viewBox: '0 0 24 24' }),
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('path', { d: 'M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z' })
+  );
+};
+var SatisfiedIcon = function SatisfiedIcon(props) {
+  return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+    __WEBPACK_IMPORTED_MODULE_1__material_ui_core_SvgIcon___default.a,
+    _extends({}, props, { viewBox: '0 0 24 24' }),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('path', { d: 'M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm0-2.5c2.33 0 4.32-1.45 5.12-3.5h-1.67c-.69 1.19-1.97 2-3.45 2s-2.75-.81-3.45-2H6.88c.8 2.05 2.79 3.5 5.12 3.5z' })
   );
 };
 var ShoppingIcon = function ShoppingIcon(props) {
@@ -71080,6 +71088,8 @@ if (document.getElementById('nav')) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__theme__ = __webpack_require__(78);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__icons__ = __webpack_require__(80);
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
@@ -71097,6 +71107,20 @@ var SolicitudBecaria = function SolicitudBecaria(_ref) {
         open = _ref.open,
         handleClose = _ref.handleClose;
 
+    var _React$useState = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(true),
+        _React$useState2 = _slicedToArray(_React$useState, 2),
+        ifSearchTrue = _React$useState2[0],
+        setIfSearchTrue = _React$useState2[1];
+
+    var searchClick = function searchClick(event) {
+        setIfSearchTrue(false);
+    };
+
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.useEffect(function () {
+        if (open == false) {
+            setIfSearchTrue(true);
+        }
+    }, [open]);
 
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         __WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__["MuiThemeProvider"],
@@ -71180,126 +71204,56 @@ var SolicitudBecaria = function SolicitudBecaria(_ref) {
                         ),
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'div',
-                            { className: 'col s6 mb-2 mt-4 valign-wrapper' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["n" /* SchoolIcon */], { className: classes.iconSchool }),
+                            { className: 'row center-align' },
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'label',
-                                null,
-                                'Carrera'
-                            )
-                        ),
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'div',
-                            { className: 'col s6 mb-2 mt-4 valign-wrapper' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["g" /* InfoIcon */], { className: classes.iconInfo }),
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'label',
-                                null,
-                                'Semestre'
-                            )
-                        ),
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'div',
-                            { className: 'col s6' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__material_ui_core_TextField___default.a, {
-                                fullWidth: true,
-                                id: 'outlined-bare',
-                                classes: { root: classes.labelText },
-                                defaultValue: 'ITC',
-                                InputProps: {
-                                    readOnly: true,
-                                    disabled: true
-                                },
-                                variant: 'outlined'
-                            })
-                        ),
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'div',
-                            { className: 'col s6' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__material_ui_core_TextField___default.a, {
-                                fullWidth: true,
-                                id: 'outlined-bare',
-                                classes: { root: classes.labelText },
-                                defaultValue: '6\xB0',
-                                InputProps: {
-                                    readOnly: true,
-                                    disabled: true
-                                },
-                                variant: 'outlined'
-                            })
-                        ),
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'div',
-                            { className: 'col s6 mb-2 mt-4 valign-wrapper' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["f" /* EmailIcon */], { className: classes.iconLabel }),
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'label',
-                                null,
-                                'Correo'
-                            )
-                        ),
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'div',
-                            { className: 'col s6 mb-2 mt-4 valign-wrapper' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["k" /* PhoneIcon */], { className: classes.iconInfo }),
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'label',
-                                null,
-                                'Tel\xE9fono'
-                            )
-                        )
-                    ),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'div',
-                        { className: 'row no-margin' },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'div',
-                            { className: 'col s6' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__material_ui_core_TextField___default.a, {
-                                fullWidth: true,
-                                id: 'outlined-bare',
-                                classes: { root: classes.labelText },
-                                defaultValue: 'a09273645@itesm.mx',
-                                InputProps: {
-                                    readOnly: true,
-                                    disabled: true
-                                },
-                                variant: 'outlined'
-                            })
-                        ),
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'div',
-                            { className: 'col s6' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__material_ui_core_TextField___default.a, {
-                                fullWidth: true,
-                                id: 'outlined-bare',
-                                classes: { root: classes.labelText },
-                                defaultValue: '8181818181',
-                                InputProps: {
-                                    readOnly: false,
-                                    disabled: false
-                                },
-                                variant: 'outlined'
-                            })
-                        )
-                    ),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'div',
-                        { className: 'row center-align' },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'div',
-                            { className: 'col s12 mb-2 mt-4' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                __WEBPACK_IMPORTED_MODULE_4__material_ui_core_Button___default.a,
-                                {
-                                    variant: 'contained',
-                                    color: 'primary',
-                                    href: '/homeEstudiante' },
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["b" /* CheckIcon */], { className: 'white-text ' + classes.labelCheck }),
+                                'div',
+                                { className: 'col s12 mb-2 mt-4' },
                                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                    'span',
-                                    { className: classes.labelLogin },
-                                    'Guardar'
+                                    'div',
+                                    { className: 'col s6' },
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                        __WEBPACK_IMPORTED_MODULE_4__material_ui_core_Button___default.a,
+                                        {
+                                            onClick: searchClick,
+                                            variant: 'contained',
+                                            color: 'primary' },
+                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["p" /* SearchIcon */], { className: 'white-text ' + classes.labelSearch }),
+                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                            'span',
+                                            { className: classes.labelLogin },
+                                            'Buscar'
+                                        )
+                                    )
+                                ),
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                    'div',
+                                    { className: 'col s6' },
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                        __WEBPACK_IMPORTED_MODULE_4__material_ui_core_Button___default.a,
+                                        {
+                                            disabled: ifSearchTrue,
+                                            variant: 'contained',
+                                            color: 'primary' },
+                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["b" /* CheckIcon */], { className: 'white-text ' + classes.labelCheck }),
+                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                            'span',
+                                            { className: classes.labelLogin },
+                                            'Aceptar'
+                                        )
+                                    )
+                                )
+                            )
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'div',
+                            { className: 'row red center-align' },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                'div',
+                                { className: 'col s12 mb-2 mt-4' },
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                    'div',
+                                    { className: 'col s6' },
+                                    'No se encontr\xF3 el alumno'
                                 )
                             )
                         )
@@ -71373,6 +71327,11 @@ var styles = function styles(theme) {
 
         containerWidth: {
             maxWidth: '50%'
+        },
+
+        labelSearch: {
+            fontSize: '20px',
+            marginRight: '0.5rem'
         },
 
         labelCheck: {
