@@ -78,7 +78,7 @@ const CardColaborador = ({classes, asignacion}) => {
           <div className="col s8 right-align py-3">
             <Button variant="contained"  color="primary" href={"mailto:" + asignacion.colaborador.email}>
               <EmailIcon className={`white-text ${classes.icon}`} />
-              Enviar Correo
+              <span className={classes.labelLogin}>Enviar correo</span>
             </Button>
           </div>
         </div>
@@ -129,6 +129,10 @@ const styles = theme => ({
 
   status: {
     fontSize: '20px'
+  },
+
+  labelLogin: {
+    fontFamily : 'Nunito',
   },
 
   [`@media (max-width: ${maxWidth}px)`]: {

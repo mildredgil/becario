@@ -80,7 +80,7 @@ const CardEstudiante = ({classes}) => {
           <div className="col s8 right-align py-3">
             <Button variant="contained"  color="primary" href="mailto:A00820397@itesm.mx">
               <EmailIcon className={`white-text ${classes.icon}`} />
-              Enviar Correo
+              <span className={classes.labelLogin}>Enviar correo</span>
             </Button>
           </div>
         </div>
@@ -141,7 +141,11 @@ const styles = theme => ({
 
   containerWidth: {
 		maxWidth: '40%',
-	},
+  },
+  
+  labelLogin: {
+    fontFamily : 'Nunito',
+  },
 
   [`@media (max-width: ${maxWidth}px)`]: {
    

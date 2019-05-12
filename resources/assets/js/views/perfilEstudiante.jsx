@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import defaultTheme from '../theme';
-import { SchoolIcon, EmailIcon, LocationIcon, PhoneIcon, PersonIcon, InfoIcon, PersonEditIcon, CloseIcon } from './icons';
+import { SchoolIcon, EmailIcon, LocationIcon, PhoneIcon, PersonIcon, InfoIcon, PersonEditIcon, CloseIcon, CheckIcon } from './icons';
 
 const PerfilEstudiantes = ({ classes, open, handleClose }) => {
 
@@ -137,7 +137,8 @@ const PerfilEstudiantes = ({ classes, open, handleClose }) => {
                                     variant="contained"
                                     color="primary"
                                     href="/homeEstudiante">
-                                    Guardar
+                                    <CheckIcon className={`white-text ${classes.labelCheck}`}/>
+                                    <span className={classes.labelLogin}>Guardar</span>
                                 </Button>
                             </div>
                         </div>
@@ -200,15 +201,26 @@ const styles = theme => ({
     },
 
     closeIcon: {
+        cursor : 'pointer',
         color: 'black',
         position: 'absolute',
-        right: '10px',
+        right: '12px',
         top: '12px',
-        fontSize: '14px',
+        fontSize: '18px',
       },
 
     containerWidth: {
         maxWidth: '50%',
+    },
+
+    labelCheck: {
+        fontSize: '16px',
+        marginRight: '0.5rem',
+    },
+
+    labelLogin:{
+        fontFamily : 'Nunito',
+        fontSize: '20px', 
     },
 
     [`@media (max-width: ${maxWidth}px)`]: {

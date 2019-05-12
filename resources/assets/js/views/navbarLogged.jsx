@@ -9,7 +9,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import PerfilColaboradores from './perfilColaboradores';
 import PerfilEstudiantes from './perfilEstudiante';
 import ReglamentoModal from './reglamentoModal';
-import { PowerIcon, PersonEditIcon, RefIcon } from './icons';
+import { PowerIcon, PersonEditIcon, DescriptionIcon } from './icons';
 
 const NavBar = ({ classes }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -69,7 +69,7 @@ const NavBar = ({ classes }) => {
                   Perfil
                 </MenuItem>
                 <MenuItem onClick={handleOpenReglamento} className="valign-wrapper">
-                  <RefIcon className={classes.iconLabel} />
+                  <DescriptionIcon className={classes.iconLabel} />
                   Reglamento
                 </MenuItem>
                 <MenuItem onClick={handleClose} className="valign-wrapper">

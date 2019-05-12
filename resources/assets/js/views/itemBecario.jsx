@@ -2,7 +2,7 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import {RightArrowIcon, PersonIcon} from './icons';
 
-const ItemPeriodo = ({classes, asignacion, isSelected, handleClick}) => {
+const ItemBecario = ({classes, asignacion, isSelected, handleClick}) => {
   const evaluacion = ['Pendiente', 'Satisfactoria', 'Insatisfactoria'];
   const new_periodo = ['Invierno', 'Febrero-Junio', 'Verano', 'Agosto-Diciembre'];
   const old_periodo = ['', 'Enero-Mayo', 'Verano', 'Agosto-Diciembre'];
@@ -39,13 +39,13 @@ const ItemPeriodo = ({classes, asignacion, isSelected, handleClick}) => {
   }
 
   return (
-    <div onClick={handleClick} className={`${isSelected ? classes.selected :classes.itemWrapper} hoverable row valign-wrapper py-2 px-2 mb-0`}>
+    <div onClick={handleClick} className={`${isSelected ? classes.selected :classes.itemWrapper} row valign-wrapper py-2 px-2 mb-0`}>
       <div className="col s10">
-        <label className={`${classes.periodo} blue-tec`}>{periodo_string} {year}</label>
+        <label className={`${classes.periodo} blue-tec`}>Jaime Andrés Montemayor Molina</label>
         <br/>
         <label className={`${classes.colab} truncate blue-tec-dark`}>
           <PersonIcon className={classes.iconLabel}/>
-          {asignacion.colaborador.nombre_completo} | Evaluación: {evaluacion[asignacion.evaluacion]}
+          6° ITC | Evaluación: Satisfactorio
         </label>
       </div>
       <div className={`col s2`}>
@@ -60,15 +60,13 @@ const maxWidth = 1000;
 const styles = theme => ({
   itemWrapper: {
     borderBottom: '1px solid rgba(34,  63, 147, 0.2)',
-    cursor: 'pointer',
     '&:hover': {
       background: "#223f9320",
     },
   },
   
   selected: {
-    background: "#223f9320",
-    cursor: 'pointer'
+    background: "#223f9320"
   },
 
   iconLocation: {
@@ -105,4 +103,4 @@ const styles = theme => ({
   }
 });
 
-export default withStyles(styles)(ItemPeriodo);
+export default withStyles(styles)(ItemBecario);
