@@ -39,7 +39,7 @@ const ModalLoginColaborador = ({ classes, open, handleClose }) => {
               </label>
                     <br></br>
                     <label className={classes.labelText}>
-                      En esta plataforma encontrarás quién te apoyará como becario este Verano 2019.
+                      En esta plataforma encontrarás con quién realizarás tu servicio becario este Verano 2019.
               </label>
                   </div>
                 </div>
@@ -49,7 +49,7 @@ const ModalLoginColaborador = ({ classes, open, handleClose }) => {
                       classes={{ focused: classes.colorFocused }}
                       fullWidth
                       id="username"
-                      label="Nómina:"
+                      label="Matrícula:"
                       value={inputName}
                       onChange={onChangeName}
                       margin="normal"
@@ -74,7 +74,7 @@ const ModalLoginColaborador = ({ classes, open, handleClose }) => {
                 </div>
                 <div className="row no-margin">
                   <div className="col s12">
-                    <Button fullWidth variant="contained" color="primary" href="/homeColaborador">
+                    <Button fullWidth variant="contained" color="primary" href="/homeEstudiante">
                       Iniciar Sesión
                 </Button>
                   </div>

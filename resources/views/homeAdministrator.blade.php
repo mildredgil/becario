@@ -1,4 +1,4 @@
-@extends('layouts.app-logged')
+@extends('layouts.appLoggedAdministrador')
 
 @section('content')    
   <div id="homeAdministrator"></div>  
