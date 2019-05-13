@@ -20,6 +20,32 @@ const ModalLoginColaborador = ({ classes, open, handleClose }) => {
     setInputPassword(event.target.value);
   }
 
+  const login = () => {
+    console.log("hi");
+		/*axios({
+			method: 'post',
+      url:  "/get/login",    
+      data: JSON.stringify({
+        username: inputName,
+        password: inputPassword
+      })
+		}).then((response) => {
+      console.log(response);
+		}).catch((err) =>  {
+			//console.log(err);
+    });*/
+    axios.post("/get/login", {
+      username: inputName,
+      password: inputPassword
+    })
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
+
   return (
     <MuiThemeProvider theme={defaultTheme}>
       <Modal
