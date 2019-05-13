@@ -15,9 +15,8 @@ class AddColumnsToUsersTable extends Migration
     {
       Schema::table('users', function (Blueprint $table) {
         $table->dropColumn('name');
-        $table->dropTimestamps();
         $table->renameColumn('email', 'username'); 
-        $table->morphs('user');
+        $table->morphs('assignable');
         $table->softDeletes();
       });
     }
@@ -31,10 +30,10 @@ class AddColumnsToUsersTable extends Migration
     {
       Schema::table('users', function (Blueprint $table) {
         $table->dropSoftDeletes();
+        $table->dropColumn('assignable_id');        
+        $table->dropColumn('assignable_type');        
         $table->renameColumn('username', 'email'); 
         $table->string('name');        
-        $table->dropColumn('user_id');        
-        $table->dropColumn('user_type');        
       });
     }
 }

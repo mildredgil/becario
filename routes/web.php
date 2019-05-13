@@ -27,6 +27,18 @@ Route::get('/login', function () {
   return view('login');
 });
 
+Route::get('/home', function () {
+  $user = User::find(3);
+
+  $assignable = $user->assignable;
+  dd($assignable);
+  $estudiante = User::where('id', 3)->user;
+  
+  return view('homeAdministrator', [
+    'estudiante' => $estudiante
+  ]);
+});
+
 Route::get('/homeAdministrator', function () {
   $estudiante = Estudiante::where('id', 3)->with("carrera", "solicitudesBecarias.colaborador.departamento")->first();
 
@@ -44,14 +56,6 @@ Route::get('/homeColaborador', function () {
 });
 
 Route::get('/homeEstudiante', function () {
-  $estudiante = Estudiante::where('id', 3)->with("carrera", "solicitudesBecarias.colaborador.departamento")->first();
-  
-  return view('homeEstudiante', [
-    'estudiante' => $estudiante
-  ]);
-});
-
-Route::get('/homeAdministrador', function () {
   $estudiante = Estudiante::where('id', 3)->with("carrera", "solicitudesBecarias.colaborador.departamento")->first();
   
   return view('homeEstudiante', [
@@ -79,10 +83,10 @@ Route::get('/estudiantes/users', function () {
     $password = bcrypt($estudiante->contrasena);
     
     $user = User::create([
-      'user_id' => $estudiante->id, 
+      'assignable_id' => $estudiante->id, 
       'username' => $estudiante->matricula,
       'password' => $password,
-      'user_type' => User::ESTUDIANTE 
+      'assignable_type' => User::ESTUDIANTE 
     ]);    
 
     var_dump($user);
@@ -96,27 +100,27 @@ Route::get('/colaboradores/users', function () {
     $password = bcrypt($colaborador->contrasena);
     
     $user = User::create([
-      'user_id' => $colaborador->id, 
+      'assignable_id' => $colaborador->id, 
       'username' => $colaborador->nomina,
       'password' => $password,
-      'user_type' => User::COLABORADOR
+      'assignable_type' => User::COLABORADOR
     ]);    
 
     var_dump($user);
   }
 });
 
-Route::get('/colaboradores/admin', function () {
+Route::get('/admins/users', function () {
   $colaboradores = Colaborador::where('id', '>', 0)->get();
 
   foreach($colaboradores as $colaborador) {
     $password = bcrypt($colaborador->contrasena);
     
     $user = User::create([
-      'user_id' => $colaborador->id, 
+      'assignable_id' => $colaborador->id, 
       'username' => $colaborador->nomina,
       'password' => $password,
-      'user_type' => User::COLABORADOR
+      'assignable_type' => User::COLABORADOR
     ]);    
 
     var_dump($user);

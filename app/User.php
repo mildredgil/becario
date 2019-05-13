@@ -17,8 +17,8 @@ class User extends Authenticatable
   protected $fillable = [
       'username', 
       'password', 
-      'user_id', 
-      'user_type'
+      'assignable_id', 
+      'assignable_type'
   ];
   
   /**
@@ -34,7 +34,7 @@ class User extends Authenticatable
   const ESTUDIANTE    = 'App\Estudiante';
   const COLABORADOR   = 'App\Colaborador';
   
-  public function payable() {
+  public function assignable() {
     return $this->morphTo();
   }
 }
