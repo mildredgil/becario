@@ -8,7 +8,7 @@ import { MuiThemeProvider } from '@material-ui/core/styles';
 import defaultTheme from '../theme';
 import { SchoolIcon, EmailIcon, LocationIcon, PhoneIcon, PersonIcon, InfoIcon, PersonEditIcon, CloseIcon, CheckIcon, SearchIcon } from './icons';
 
-const CrearAsignModal = ({ classes, open, handleClose }) => {
+const BorrarAsignModal = ({ classes, open, handleClose }) => {
     const [ifSearchTrue, setIfSearchTrue] = React.useState(true);
     const searchClick = (event) => {
         setIfSearchTrue(false);
@@ -34,7 +34,7 @@ const CrearAsignModal = ({ classes, open, handleClose }) => {
                         <div className="row margin-0">
                             <div className={`col s12 center-align valign-wrapper`}>
                                 <PersonEditIcon className={classes.iconEditLabel} />
-                                <label className={`${classes.title} blue-tec`}>Crear Asignación</label>
+                                <label className={`${classes.title} blue-tec`}>Borrar Asignación</label>
                             </div>
                             <div className="col s6 mb-2 mt-4 valign-wrapper">
                                 <PersonIcon className={classes.iconLabel} />
@@ -70,18 +70,17 @@ const CrearAsignModal = ({ classes, open, handleClose }) => {
                                     variant="outlined"
                                 />
                             </div>
-                            
+
                             <div className="row center-align">
                                 <div className="col s12 mb-2 mt-4">
                                     <div className="col s2 offset-s5">
-                                        <Button onClick={searchClick} variant="contained" className={`${classes.labelCheckV}`}>
-                                            <CheckIcon className={` ${classes.labelSearch}`}/>
-                                            <span className={classes.labelLogin}>Crear</span>
+                                        <Button disabled = {ifSearchTrue} variant="contained" className={`${classes.labelCheckR}`}>
+                                            <CloseIcon className={`white-text ${classes.labelSearch}`}/>
+                                            <span className={` white-text ${classes.labelLogin}`}>Borrar</span>
                                         </Button>
                                     </div>
                                 </div>
                             </div>
-
                             <div className="row red center-align">
                                 <div className="col s12 mb-2 mt-4">
                                     <div className="col s6">
@@ -166,10 +165,11 @@ const styles = theme => ({
         marginRight: '0.5rem',
     },
 
-    labelCheckV: {
+
+    labelCheckR: {
         fontSize: '16px',
         marginRight: '0.5rem',
-        backgroundColor: '#76ff03',
+        backgroundColor: '#d50000',
     },
 
     labelLogin:{
@@ -184,4 +184,4 @@ const styles = theme => ({
     }
 });
 
-export default withStyles(styles)(CrearAsignModal);
+export default withStyles(styles)(BorrarAsignModal);
