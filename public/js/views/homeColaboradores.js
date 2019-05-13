@@ -70603,14 +70603,17 @@ var ItemBecario = function ItemBecario(_ref) {
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'label',
         { className: classes.periodo + ' blue-tec' },
-        'Jaime Andr\xE9s Montemayor Molina'
+        asignacion.estudiante.nombre_completo
       ),
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'label',
         { className: classes.colab + ' truncate blue-tec-dark' },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__icons__["m" /* PersonIcon */], { className: classes.iconLabel }),
-        '6\xB0 ITC | Evaluaci\xF3n: Satisfactorio'
+        asignacion.estudiante.semestre_actual,
+        '\xB0 ',
+        asignacion.estudiante.carrera.siglas_carrera,
+        ' | Evaluaci\xF3n: Satisfactorio'
       )
     ),
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -70749,12 +70752,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 var Home = function Home(_ref) {
   var classes = _ref.classes,
-      estudiante_html = _ref.estudiante_html;
+      colaborador_html = _ref.colaborador_html;
 
   var _React$useState = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(false),
       _React$useState2 = _slicedToArray(_React$useState, 2),
-      estudiante = _React$useState2[0],
-      setEstudiante = _React$useState2[1];
+      colaborador = _React$useState2[0],
+      setColaborador = _React$useState2[1];
 
   var _React$useState3 = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(false),
       _React$useState4 = _slicedToArray(_React$useState3, 2),
@@ -70861,18 +70864,18 @@ var Home = function Home(_ref) {
     '2020'
   ));
   __WEBPACK_IMPORTED_MODULE_0_react___default.a.useEffect(function () {
-
-    if (estudiante_html != null) {
-      setEstudiante(estudiante_html);
+    console.log(colaborador);
+    if (colaborador_html != null) {
+      setColaborador(colaborador_html);
       var _asignaciones = asignaciones;
 
-      estudiante_html.solicitudes_becarias.map(function (asignacion) {
+      colaborador_html.solicitudes_becarias.map(function (asignacion) {
         _asignaciones.push(asignacion);
       });
 
       setAsignaciones(_asignaciones);
     }
-  }, [estudiante_html]);
+  }, [colaborador_html]);
 
   __WEBPACK_IMPORTED_MODULE_0_react___default.a.useEffect(function () {
     if (asignaciones.length > 0) {
@@ -71004,7 +71007,7 @@ var Home = function Home(_ref) {
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
                 { className: classes.itemsWrapper + ' col s12 card my-0' },
-                estudiante && estudiante.solicitudes_becarias.map(function (asignacion, index) {
+                colaborador && colaborador.solicitudes_becarias.map(function (asignacion, index) {
                   if (index == indexSelected) {
                     console.log(true, index);
                     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__itemBecario__["a" /* default */], { isSelected: true, handleClick: function handleClick(e) {
@@ -71083,17 +71086,17 @@ var styles = function styles(theme) {
 var _Home = Object(__WEBPACK_IMPORTED_MODULE_6__material_ui_core_styles__["withStyles"])(styles)(Home);
 
 if (document.getElementById('homeColaborador')) {
-  var _estudiante = document.getElementById('estudiante');
-  var estudiante_obj = null;
+  var _colaborador = document.getElementById('colaborador');
+  var colaborador_obj = null;
 
-  if (estudiante != "") {
-    estudiante_obj = JSON.parse(_estudiante.value);
-    _estudiante.parentNode.removeChild(_estudiante);
+  if (colaborador != "") {
+    colaborador_obj = JSON.parse(_colaborador.value);
+    //_colaborador.parentNode.removeChild(_colaborador);
   } else {
-    estudiante = null;
+    colaborador = null;
   }
 
-  __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(_Home, { estudiante_html: estudiante_obj }), document.getElementById('homeColaborador'));
+  __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(_Home, { colaborador_html: colaborador_obj }), document.getElementById('homeColaborador'));
 }
 
 /***/ }),
@@ -71119,8 +71122,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 var CardEstudiante = function CardEstudiante(_ref) {
-  var classes = _ref.classes;
+  var classes = _ref.classes,
+      asignacion = _ref.asignacion;
 
+  var evaluacion = ['Pendiente', 'Satisfactoria', 'Insatisfactoria'];
+  var semestre = ['', 'Primero', 'Segundo', 'Tercero', 'Cuarto', 'Quinto', 'Sexto', 'Septimo', 'Octavo', 'Noveno'];
+
+  if (asignacion == false) {
+    return null;
+  } else {
+    console.log(asignacion);
+  }
 
   return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
     __WEBPACK_IMPORTED_MODULE_1__material_ui_core_styles__["MuiThemeProvider"],
@@ -71177,7 +71189,7 @@ var CardEstudiante = function CardEstudiante(_ref) {
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'label',
               { className: classes.labelText },
-              'A01176573'
+              asignacion.estudiante.matricula
             )
           ),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -71186,7 +71198,7 @@ var CardEstudiante = function CardEstudiante(_ref) {
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'label',
               { className: classes.labelText },
-              'Jaime Andr\xE9s Montemayor Molina'
+              asignacion.estudiante.nombre_completo
             )
           )
         ),
@@ -71223,7 +71235,7 @@ var CardEstudiante = function CardEstudiante(_ref) {
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'label',
               { className: classes.labelText },
-              '52818181818'
+              asignacion.estudiante.celular
             )
           ),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -71232,7 +71244,7 @@ var CardEstudiante = function CardEstudiante(_ref) {
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'label',
               { className: classes.labelText },
-              'jamememes.mm@tug.com.mx'
+              asignacion.estudiante.email
             )
           )
         ),
@@ -71269,7 +71281,7 @@ var CardEstudiante = function CardEstudiante(_ref) {
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'label',
               { className: classes.labelText },
-              'Sexto'
+              semestre[asignacion.estudiante.semestre_actual]
             )
           ),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -71278,7 +71290,7 @@ var CardEstudiante = function CardEstudiante(_ref) {
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'label',
               { className: classes.labelText },
-              'Ing. en Tecnolog\xEDas de Informaci\xF3n y Comunicaciones'
+              asignacion.estudiante.carrera.carrera_nombre
             )
           )
         )
@@ -71298,7 +71310,8 @@ var CardEstudiante = function CardEstudiante(_ref) {
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'label',
             { className: classes.status + ' blue-tec' },
-            ' Satisfactorio'
+            ' ',
+            evaluacion[asignacion.evaluacion]
           )
         ),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(

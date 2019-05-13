@@ -41,11 +41,11 @@ const ItemBecario = ({classes, asignacion, isSelected, handleClick}) => {
   return (
     <div onClick={handleClick} className={`${isSelected ? classes.selected :classes.itemWrapper} row valign-wrapper py-2 px-2 mb-0`}>
       <div className="col s10">
-        <label className={`${classes.periodo} blue-tec`}>Jaime Andrés Montemayor Molina</label>
+        <label className={`${classes.periodo} blue-tec`}>{asignacion.estudiante.nombre_completo}</label>
         <br/>
         <label className={`${classes.colab} truncate blue-tec-dark`}>
           <PersonIcon className={classes.iconLabel}/>
-          6° ITC | Evaluación: Satisfactorio
+          {asignacion.estudiante.semestre_actual}° {asignacion.estudiante.carrera.siglas_carrera} | Evaluación: Satisfactorio
         </label>
       </div>
       <div className={`col s2`}>

@@ -8,9 +8,10 @@ import { MuiThemeProvider } from '@material-ui/core/styles';
 import defaultTheme from '../theme';
 import { SchoolIcon, EmailIcon, LocationIcon, PhoneIcon, PersonIcon, InfoIcon, PersonEditIcon, CloseIcon, CheckIcon } from './icons';
 
-const PerfilEstudiantes = ({ classes, open, handleClose }) => {
+const PerfilEstudiantes = ({ classes, open, handleClose, estudiante }) => {
 
-
+    const semestre = ['','Primero', 'Segundo', 'Tercero', 'Cuarto', 'Quinto', 'Sexto', 'Septimo', 'Octavo', 'Noveno'];
+    console.log(estudiante);
     return (
         <MuiThemeProvider theme={defaultTheme}>
             <Modal
@@ -39,7 +40,7 @@ const PerfilEstudiantes = ({ classes, open, handleClose }) => {
                                     fullWidth
                                     id="outlined-bare"
                                     classes={{ root: classes.labelText }}
-                                    defaultValue="Lorena Gomez"
+                                    defaultValue={estudiante.nombre_completo}
                                     InputProps={{
                                         readOnly: true,
                                         disabled: true,
@@ -52,7 +53,7 @@ const PerfilEstudiantes = ({ classes, open, handleClose }) => {
                                     fullWidth
                                     id="outlined-bare"
                                     classes={{ root: classes.labelText }}
-                                    defaultValue="A01176573"
+                                    defaultValue={estudiante.matricula}
                                     InputProps={{
                                         readOnly: true,
                                         disabled: true,
@@ -73,7 +74,7 @@ const PerfilEstudiantes = ({ classes, open, handleClose }) => {
                                     fullWidth
                                     id="outlined-bare"
                                     classes={{ root: classes.labelText }}
-                                    defaultValue="ITC"
+                                    defaultValue={estudiante.carrera.siglas_carrera}
                                     InputProps={{
                                         readOnly: true,
                                         disabled: true,
@@ -86,7 +87,7 @@ const PerfilEstudiantes = ({ classes, open, handleClose }) => {
                                     fullWidth
                                     id="outlined-bare"
                                     classes={{ root: classes.labelText }}
-                                    defaultValue="6°"
+                                    defaultValue={semestre[estudiante.semestre_actual]}
                                     InputProps={{
                                         readOnly: true,
                                         disabled: true,
@@ -109,7 +110,7 @@ const PerfilEstudiantes = ({ classes, open, handleClose }) => {
                                     fullWidth
                                     id="outlined-bare"
                                     classes={{ root: classes.labelText }}
-                                    defaultValue="a09273645@itesm.mx"
+                                    defaultValue={estudiante.email}
                                     InputProps={{
                                         readOnly: true,
                                         disabled: true,
@@ -122,7 +123,7 @@ const PerfilEstudiantes = ({ classes, open, handleClose }) => {
                                     fullWidth
                                     id="outlined-bare"
                                     classes={{ root: classes.labelText }}
-                                    defaultValue="8181818181"
+                                    defaultValue={estudiante.celular}
                                     InputProps={{
                                         readOnly: false,
                                         disabled: false,

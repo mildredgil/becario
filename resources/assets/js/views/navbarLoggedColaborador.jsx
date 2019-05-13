@@ -8,12 +8,12 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import PerfilColaboradores from './perfilColaboradores';
 import Fab from '@material-ui/core/Fab';
-import {AddIcon} from './icons';
+import { AddIcon } from './icons';
 import ReglamentoModal from './reglamentoModal';
 import SolicitudBecaria from './solicitudBecModal';
 import { PowerIcon, PersonEditIcon, UpLoadIcon, DescriptionIcon } from './icons';
 
-const NavBar = ({ classes }) => {
+const NavBar = ({ classes, colaborador_html }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [open, setOpen] = React.useState(false);
   const [openReglamento, setOpenReglamento] = React.useState(false);
@@ -55,7 +55,7 @@ const NavBar = ({ classes }) => {
   return (
     <MuiThemeProvider theme={defaultTheme}>
       <nav className={`navbar navbar-default ${classes.navContainer}`}>
-        <div className={classes.containerExtended}> 
+        <div className={classes.containerExtended}>
           <div className="row valign-wrapper">
             <div className={`col s6 offset-s1 white-text ${classes.nav}`}>
               Asignación Becaria
@@ -67,8 +67,8 @@ const NavBar = ({ classes }) => {
 									<label className={`blue-tec ${classes.becarioStyle}`}>
 										Becarios
 									</label>
-      				</Fab>
-						</div>
+              </Fab>
+            </div>
             <div className={`col s1  white-text nav center-align ${classes.nav}`}>
               <Button
                 aria-owns={anchorEl ? 'simple-menu' : undefined}
@@ -88,7 +88,7 @@ const NavBar = ({ classes }) => {
                   <PersonEditIcon className={classes.iconLabel} />
                   Perfil
               </MenuItem>
-              <MenuItem onClick={handleOpenReglamento} className="valign-wrapper">
+                <MenuItem onClick={handleOpenReglamento} className="valign-wrapper">
                   <DescriptionIcon className={classes.iconLabel} />
                   Reglamento
                 </MenuItem>
@@ -97,12 +97,12 @@ const NavBar = ({ classes }) => {
                   Cerrar Sesión
               </MenuItem>
               </Menu>
-            </div>  
-            <img className={classes.logo} src="/img/tec-logo-letras.png"/>
+            </div>
+            <img className={classes.logo} src="/img/tec-logo-letras.png" />
           </div>
         </div>
       </nav>
-      <PerfilColaboradores open={open} handleClose={handleClosePerfil} />
+      <PerfilColaboradores open={open} handleClose={handleClosePerfil} colaborador={colaborador_html} />
       <ReglamentoModal open={openReglamento} handleClose={handleCloseReglamento} />
       <SolicitudBecaria open={openSolicitudBec} handleClose={handleCloseSolicitud} />
     </MuiThemeProvider>
@@ -114,40 +114,40 @@ const maxWidth = 1000;
 const styles = () => ({
   navContainer: {
     background: 'linear-gradient(80.19deg, #101010 0%, #223f93 100%)',
-    margin:'0px',
-	},
-	
-  nav:{
+    margin: '0px',
+  },
+
+  nav: {
     fontSize: '24px',
     fontFamily: 'Nunito',
     letterSpacing: '12px',
     textTransform: 'uppercase',
-    fontWeight: 'lighter', 
-	},
-	
+    fontWeight: 'lighter',
+  },
+
   containerExtended: {
     width: '90%',
     margin: '0 auto',
-	},
-	
+  },
+
   icon: {
     cursor: 'pointer',
-	},
-	
+  },
+
   padding: {
     padding: '0px',
-	},
+  },
 
-	becarioStyle: {
+  becarioStyle: {
     cursor: 'pointer',
-		letterSpacing: '3px',
-		fontSize: '14px',
-	},
-	
-	addIcon:{
-		fontSize: '18px',
-		marginRight: '5px',
-	},
+    letterSpacing: '3px',
+    fontSize: '14px',
+  },
+
+  addIcon: {
+    fontSize: '18px',
+    marginRight: '5px',
+  },
 
   logo: {
     width: '60px',
@@ -166,7 +166,18 @@ const styles = () => ({
 });
 
 const _NavBar = withStyles(styles)(NavBar);
-
 if (document.getElementById('nav')) {
-  ReactDOM.render(<_NavBar />, document.getElementById('nav'));
+  let _colaborador = document.getElementById('colaborador');
+  let colaborador_obj = null;
+
+  if (colaborador != "") {
+    colaborador_obj = JSON.parse(_colaborador.value);
+    //_colaborador.parentNode.removeChild(_colaborador);
+  } else {
+    colaborador = null;
+  }
+
+  if (document.getElementById('nav')) {
+    ReactDOM.render(<_NavBar colaborador_html={colaborador_obj} />, document.getElementById('nav'));
+  }
 }

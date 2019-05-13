@@ -70549,8 +70549,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 var PerfilColaboradores = function PerfilColaboradores(_ref) {
     var classes = _ref.classes,
         open = _ref.open,
-        handleClose = _ref.handleClose;
+        handleClose = _ref.handleClose,
+        colaborador = _ref.colaborador;
 
+
+    if (colaborador == false) {
+        return null;
+    } else {
+        console.log(colaborador);
+    }
 
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         __WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__["MuiThemeProvider"],
@@ -70617,7 +70624,7 @@ var PerfilColaboradores = function PerfilColaboradores(_ref) {
                                 fullWidth: true,
                                 id: 'outlined-bare',
                                 classes: { root: classes.labelText },
-                                defaultValue: 'Lorena Gomez',
+                                defaultValue: colaborador.nombre_completo,
                                 InputProps: {
                                     readOnly: true,
                                     disabled: true
@@ -70632,7 +70639,7 @@ var PerfilColaboradores = function PerfilColaboradores(_ref) {
                                 fullWidth: true,
                                 id: 'outlined-bare',
                                 classes: { root: classes.labelText },
-                                defaultValue: 'Ciencias Computacionales',
+                                defaultValue: colaborador.departamento.nombre_departamento,
                                 InputProps: {
                                     readOnly: true,
                                     disabled: true
@@ -70675,7 +70682,7 @@ var PerfilColaboradores = function PerfilColaboradores(_ref) {
                                 fullWidth: true,
                                 id: 'outlined-bare',
                                 classes: { root: classes.labelText },
-                                defaultValue: 'Cetec torre sur 301',
+                                defaultValue: colaborador.oficina,
                                 variant: 'outlined'
                             })
                         ),
@@ -70686,7 +70693,7 @@ var PerfilColaboradores = function PerfilColaboradores(_ref) {
                                 fullWidth: true,
                                 id: 'outlined-bare',
                                 classes: { root: classes.labelText },
-                                defaultValue: 'lorena.gomez@tec.mx',
+                                defaultValue: colaborador.email,
                                 InputProps: {
                                     readOnly: true,
                                     disabled: true
@@ -70719,7 +70726,7 @@ var PerfilColaboradores = function PerfilColaboradores(_ref) {
                                 fullWidth: true,
                                 id: 'outlined-bare',
                                 classes: { root: classes.labelText },
-                                defaultValue: '52818181818',
+                                defaultValue: colaborador.celular,
                                 variant: 'outlined'
                             })
                         )
@@ -70907,7 +70914,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 var NavBar = function NavBar(_ref) {
-  var classes = _ref.classes;
+  var classes = _ref.classes,
+      estudiante_html = _ref.estudiante_html;
 
   var _React$useState = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(null),
       _React$useState2 = _slicedToArray(_React$useState, 2),
@@ -70954,21 +70962,21 @@ var NavBar = function NavBar(_ref) {
     { theme: __WEBPACK_IMPORTED_MODULE_4__theme__["a" /* default */] },
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       'nav',
-      { 'class': 'navbar navbar-default ' + classes.navContainer },
+      { className: 'navbar navbar-default ' + classes.navContainer },
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
-        { 'class': classes.containerExtended },
+        { className: classes.containerExtended },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'div',
-          { 'class': 'row valign-wrapper' },
+          { className: 'row valign-wrapper' },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
-            { 'class': 'col s8 white-text ' + classes.nav },
+            { className: 'col s8 white-text ' + classes.nav },
             'Asignaci\xF3n Becaria'
           ),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
-            { 'class': 'col s1 offset-s2 white-text nav center-align ' + classes.nav },
+            { className: 'col s1 offset-s2 white-text nav center-align ' + classes.nav },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               __WEBPACK_IMPORTED_MODULE_3__material_ui_core_Button___default.a,
               {
@@ -70979,7 +70987,7 @@ var NavBar = function NavBar(_ref) {
               },
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'i',
-                { 'class': 'material-icons white-text' },
+                { className: 'material-icons white-text' },
                 'home'
               )
             ),
@@ -71011,11 +71019,11 @@ var NavBar = function NavBar(_ref) {
               )
             )
           ),
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { 'class': classes.logo, src: '/img/tec-logo-letras.png' })
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { className: classes.logo, src: '/img/tec-logo-letras.png' })
         )
       )
     ),
-    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8__perfilEstudiante__["a" /* default */], { open: open, handleClose: handleClosePerfil }),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8__perfilEstudiante__["a" /* default */], { open: open, handleClose: handleClosePerfil, estudiante: estudiante_html }),
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_9__reglamentoModal__["default"], { open: openReglamento, handleClose: handleCloseReglamento })
   );
 };
@@ -71063,7 +71071,17 @@ var styles = function styles() {
 var _NavBar = Object(__WEBPACK_IMPORTED_MODULE_2__material_ui_core_styles__["withStyles"])(styles)(NavBar);
 
 if (document.getElementById('nav')) {
-  __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(_NavBar, null), document.getElementById('nav'));
+  var _estudiante = document.getElementById('estudiante');
+  var estudiante_obj = null;
+
+  if (estudiante != "") {
+    estudiante_obj = JSON.parse(_estudiante.value);
+    //_estudiante.parentNode.removeChild(_estudiante);
+  } else {
+    estudiante = null;
+  }
+
+  __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(_NavBar, { estudiante_html: estudiante_obj }), document.getElementById('nav'));
 }
 
 /***/ }),
@@ -71100,9 +71118,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 var PerfilEstudiantes = function PerfilEstudiantes(_ref) {
     var classes = _ref.classes,
         open = _ref.open,
-        handleClose = _ref.handleClose;
+        handleClose = _ref.handleClose,
+        estudiante = _ref.estudiante;
 
 
+    var semestre = ['', 'Primero', 'Segundo', 'Tercero', 'Cuarto', 'Quinto', 'Sexto', 'Septimo', 'Octavo', 'Noveno'];
+    console.log(estudiante);
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         __WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__["MuiThemeProvider"],
         { theme: __WEBPACK_IMPORTED_MODULE_6__theme__["a" /* default */] },
@@ -71160,7 +71181,7 @@ var PerfilEstudiantes = function PerfilEstudiantes(_ref) {
                                 fullWidth: true,
                                 id: 'outlined-bare',
                                 classes: { root: classes.labelText },
-                                defaultValue: 'Lorena Gomez',
+                                defaultValue: estudiante.nombre_completo,
                                 InputProps: {
                                     readOnly: true,
                                     disabled: true
@@ -71175,7 +71196,7 @@ var PerfilEstudiantes = function PerfilEstudiantes(_ref) {
                                 fullWidth: true,
                                 id: 'outlined-bare',
                                 classes: { root: classes.labelText },
-                                defaultValue: 'A01176573',
+                                defaultValue: estudiante.matricula,
                                 InputProps: {
                                     readOnly: true,
                                     disabled: true
@@ -71210,7 +71231,7 @@ var PerfilEstudiantes = function PerfilEstudiantes(_ref) {
                                 fullWidth: true,
                                 id: 'outlined-bare',
                                 classes: { root: classes.labelText },
-                                defaultValue: 'ITC',
+                                defaultValue: estudiante.carrera.siglas_carrera,
                                 InputProps: {
                                     readOnly: true,
                                     disabled: true
@@ -71225,7 +71246,7 @@ var PerfilEstudiantes = function PerfilEstudiantes(_ref) {
                                 fullWidth: true,
                                 id: 'outlined-bare',
                                 classes: { root: classes.labelText },
-                                defaultValue: '6\xB0',
+                                defaultValue: semestre[estudiante.semestre_actual],
                                 InputProps: {
                                     readOnly: true,
                                     disabled: true
@@ -71264,7 +71285,7 @@ var PerfilEstudiantes = function PerfilEstudiantes(_ref) {
                                 fullWidth: true,
                                 id: 'outlined-bare',
                                 classes: { root: classes.labelText },
-                                defaultValue: 'a09273645@itesm.mx',
+                                defaultValue: estudiante.email,
                                 InputProps: {
                                     readOnly: true,
                                     disabled: true
@@ -71279,7 +71300,7 @@ var PerfilEstudiantes = function PerfilEstudiantes(_ref) {
                                 fullWidth: true,
                                 id: 'outlined-bare',
                                 classes: { root: classes.labelText },
-                                defaultValue: '8181818181',
+                                defaultValue: estudiante.celular,
                                 InputProps: {
                                     readOnly: false,
                                     disabled: false

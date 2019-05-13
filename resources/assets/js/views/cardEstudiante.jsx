@@ -5,8 +5,16 @@ import defaultTheme from '../theme';
 import Button from '@material-ui/core/Button';
 import {SchoolIcon, EmailIcon, LocationIcon, PhoneIcon, PersonIcon, InfoIcon} from './icons';
 
-const CardEstudiante = ({classes}) => {
+const CardEstudiante = ({classes, asignacion}) => {
+  const evaluacion = ['Pendiente', 'Satisfactoria', 'Insatisfactoria'];
+  const semestre = ['','Primero', 'Segundo', 'Tercero', 'Cuarto', 'Quinto', 'Sexto', 'Septimo', 'Octavo', 'Noveno'];
   
+  if(asignacion == false) {
+    return null;
+  } else {
+    console.log(asignacion);
+  }
+
   return (
     <MuiThemeProvider theme={defaultTheme}>
       <div className="card my-0">
@@ -28,10 +36,10 @@ const CardEstudiante = ({classes}) => {
           </div>
           <div className="row margin-0">
           <div className="col s3">
-              <label className={classes.labelText}>A01176573</label>
+              <label className={classes.labelText}>{asignacion.estudiante.matricula}</label>
             </div>
             <div className="col s9">
-              <label className={classes.labelText}>Jaime Andrés Montemayor Molina</label>
+              <label className={classes.labelText}>{asignacion.estudiante.nombre_completo}</label>
             </div>
           </div>
           <div className={`row margin-0 ${classes.paddingTop20}`}>
@@ -46,10 +54,10 @@ const CardEstudiante = ({classes}) => {
           </div>
           <div className="row margin-0">
           <div className="col s3">
-              <label className={classes.labelText}>52818181818</label>
+              <label className={classes.labelText}>{asignacion.estudiante.celular}</label>
             </div>
           <div className="col s9">
-              <label className={classes.labelText}>jamememes.mm@tug.com.mx</label>
+              <label className={classes.labelText}>{asignacion.estudiante.email}</label>
             </div>
           </div>
           <div className={`row margin-0 ${classes.paddingTop20}`}>
@@ -64,10 +72,10 @@ const CardEstudiante = ({classes}) => {
           </div>
           <div className="row margin-0">
           <div className="col s3">
-              <label className={classes.labelText}>Sexto</label>
+              <label className={classes.labelText}>{semestre[asignacion.estudiante.semestre_actual]}</label>
             </div>
             <div className="col s9">
-              <label className={classes.labelText}>Ing. en Tecnologías de Información y Comunicaciones</label>
+              <label className={classes.labelText}>{asignacion.estudiante.carrera.carrera_nombre}</label>
             </div>
           </div>
         </div>
@@ -75,7 +83,7 @@ const CardEstudiante = ({classes}) => {
           <div className="col s4 py-3">
               <label className={`blue-tec-dark`}>Evaluación: </label>
               <br/>
-              <label className={`${classes.status} blue-tec`}> Satisfactorio</label>
+              <label className={`${classes.status} blue-tec`}> {evaluacion[asignacion.evaluacion]}</label>
           </div>
           <div className="col s8 right-align py-3">
             <Button variant="contained"  color="primary" href="mailto:A00820397@itesm.mx">

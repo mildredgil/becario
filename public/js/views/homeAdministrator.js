@@ -70646,11 +70646,7 @@ var CrearAsignModal = function CrearAsignModal(_ref) {
                                 fullWidth: true,
                                 id: 'outlined-bare',
                                 classes: { root: classes.labelText },
-                                defaultValue: 'A01281459',
-                                InputProps: {
-                                    readOnly: true,
-                                    disabled: true
-                                },
+                                defaultValue: '',
                                 variant: 'outlined'
                             })
                         ),
@@ -70661,11 +70657,7 @@ var CrearAsignModal = function CrearAsignModal(_ref) {
                                 fullWidth: true,
                                 id: 'outlined-bare',
                                 classes: { root: classes.labelText },
-                                defaultValue: 'L00483610',
-                                InputProps: {
-                                    readOnly: true,
-                                    disabled: true
-                                },
+                                defaultValue: '',
                                 variant: 'outlined'
                             })
                         ),
@@ -70784,7 +70776,7 @@ var styles = function styles(theme) {
         labelCheckV: {
             fontSize: '16px',
             marginRight: '0.5rem',
-            backgroundColor: '#76ff03'
+            backgroundColor: '#223F93'
         },
 
         labelLogin: {
@@ -70863,14 +70855,17 @@ var ItemBecario = function ItemBecario(_ref) {
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'label',
         { className: classes.periodo + ' blue-tec' },
-        'Jaime Andr\xE9s Montemayor Molina'
+        asignacion.estudiante.nombre_completo
       ),
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'label',
         { className: classes.colab + ' truncate blue-tec-dark' },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__icons__["m" /* PersonIcon */], { className: classes.iconLabel }),
-        '6\xB0 ITC | Evaluaci\xF3n: Satisfactorio'
+        asignacion.estudiante.semestre_actual,
+        '\xB0 ',
+        asignacion.estudiante.carrera.siglas_carrera,
+        ' | Evaluaci\xF3n: Satisfactorio'
       )
     ),
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
