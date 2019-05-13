@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import CardEstudiante from './cardEstudiante';
+import CardAdministrator from './cardAdministrator';
 import ItemBecario from './itemBecario';
 import ReglamentoModal from './reglamentoModal';
 import CrearAsignModal from './crearAsignModal';
@@ -87,12 +87,6 @@ const Home = ({classes, estudiante_html}) => {
   return (
     <MuiThemeProvider theme={defaultTheme}>
       <div className="container">
-        <div className={`row`}>
-          <Button variant="contained" color="primary" onClick={handleOpenCrearAsign}>
-            <ListIcon className={`white-text ${classes.labelCheck}`}/>
-            <span className={classes.labelLogin}>Crear/Borrar Asignacion</span>
-          </Button>
-        </div>
         <div className={`row ${classes.margin40}`}>
           <div className={`col s12 blue-tec mb-2 ${classes.titleHistory}`}>
             <div className="col s9">
@@ -110,53 +104,8 @@ const Home = ({classes, estudiante_html}) => {
         </div> 
         <div  className={`row `}>
           <div className="col s4">
+          <span className={classes.labelLogin}>Solicitudes pendientes</span>
             <div  className={`row `}>
-              <div className="col s6">
-                <FormControl variant="outlined" fullWidth={true} margin="normal">
-                <InputLabel
-                  htmlFor="lada"
-                >
-                  Periodo
-                </InputLabel>
-                <StyledSelect
-                  value={periodo}
-                  onChange={onChangePeriod}
-                  input={
-                    <OutlinedInput
-                      name="lada"
-                      id="lada"
-                      labelWidth={48}
-                    />
-                  }
-                  //MenuProps={{classes:{paper: maxHeight}}}
-                >
-                  {periodoOptions}
-                </StyledSelect>
-                </FormControl>
-              </div>
-              <div className="col s6">
-                <FormControl variant="outlined" fullWidth={true} margin="normal">
-                <InputLabel
-                  htmlFor="lada"
-                >
-                  Año
-                </InputLabel>
-                <StyledSelect
-                  value={selectYear}
-                  onChange={onChangeYear}
-                  input={
-                    <OutlinedInput
-                      name="lada"
-                      id="lada"
-                      labelWidth={48}
-                    />
-                  }
-                  //MenuProps={{classes:{paper: maxHeight}}}
-                >
-                  {yearOptions}
-                </StyledSelect>
-                </FormControl>
-              </div>
               <div className={`row mb-0 ${classes.paddingRight20}`}>
                 <div className={`${classes.itemsWrapper} col s12 card my-0`}>
                 {
@@ -180,7 +129,7 @@ const Home = ({classes, estudiante_html}) => {
           </div>
           <div className="col s8">
           <div className="row mb-0">
-            <CardEstudiante asignacion={selectedAsignacion}/>
+            <CardAdministrator asignacion={selectedAsignacion}/>
           </div>
         </div>  
         </div>
@@ -205,7 +154,7 @@ const maxWidth = 1000;
 const styles = theme => ({
   itemsWrapper: {
     overflowY: 'scroll',
-    height: '300px',
+    height: '330px',
   },
 
   margin40: {

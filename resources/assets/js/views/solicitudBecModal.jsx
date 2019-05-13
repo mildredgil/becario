@@ -49,10 +49,10 @@ const SolicitudBecaria = ({ classes, open, handleClose }) => {
                                     fullWidth
                                     id="outlined-bare"
                                     classes={{ root: classes.labelText }}
-                                    defaultValue="Lorena Gomez"
+                                    defaultValue=""
                                     InputProps={{
                                         readOnly: true,
-                                        disabled: true,
+                                        disabled: false,
                                     }}
                                     variant="outlined"
                                 />
@@ -62,10 +62,10 @@ const SolicitudBecaria = ({ classes, open, handleClose }) => {
                                     fullWidth
                                     id="outlined-bare"
                                     classes={{ root: classes.labelText }}
-                                    defaultValue="A01176573"
+                                    defaultValue=""
                                     InputProps={{
                                         readOnly: true,
-                                        disabled: true,
+                                        disabled: false,
                                     }}
                                     variant="outlined"
                                 />

@@ -49,11 +49,7 @@ const CrearAsignModal = ({ classes, open, handleClose }) => {
                                     fullWidth
                                     id="outlined-bare"
                                     classes={{ root: classes.labelText }}
-                                    defaultValue="A01281459"
-                                    InputProps={{
-                                        readOnly: true,
-                                        disabled: true,
-                                    }}
+                                    defaultValue=""
                                     variant="outlined"
                                 />
                             </div>
@@ -62,11 +58,7 @@ const CrearAsignModal = ({ classes, open, handleClose }) => {
                                     fullWidth
                                     id="outlined-bare"
                                     classes={{ root: classes.labelText }}
-                                    defaultValue="L00483610"
-                                    InputProps={{
-                                        readOnly: true,
-                                        disabled: true,
-                                    }}
+                                    defaultValue=""
                                     variant="outlined"
                                 />
                             </div>
@@ -169,7 +161,7 @@ const styles = theme => ({
     labelCheckV: {
         fontSize: '16px',
         marginRight: '0.5rem',
-        backgroundColor: '#76ff03',
+        backgroundColor: '#223F93',
     },
 
     labelLogin:{
