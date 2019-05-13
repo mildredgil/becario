@@ -70772,7 +70772,7 @@ var Home = function Home(_ref) {
         { className: 'row ' + classes.margin40 },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'div',
-          { className: 'col s12 blue-tec mb-2 ' + classes.titleHistory },
+          { className: 'col s12 blue-tec mb-2 ' + classes.titleHistory + ' px-0' },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
             { className: 'col s9' },
@@ -70784,10 +70784,10 @@ var Home = function Home(_ref) {
           ),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
-            { className: 'col s3 align-right' },
+            { className: 'col s3 align-right px-0' },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               __WEBPACK_IMPORTED_MODULE_13__material_ui_core_Button___default.a,
-              { variant: 'contained', color: 'primary', onClick: handleOpenEvaluacion },
+              { className: 'valign-wrapper', style: { float: 'right' }, variant: 'contained', color: 'primary', onClick: handleOpenEvaluacion },
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_14__icons__["j" /* ListIcon */], { className: 'white-text ' + classes.labelCheck }),
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'span',
@@ -70936,7 +70936,7 @@ var styles = function styles(theme) {
 
     labelLogin: {
       fontFamily: 'Nunito',
-      fontSize: '20px'
+      fontSize: '16px'
     },
 
     labelCheck: {

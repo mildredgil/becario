@@ -87,12 +87,12 @@ const Home = ({classes, colaborador_html}) => {
     <MuiThemeProvider theme={defaultTheme}>
       <div className="container">
         <div className={`row ${classes.margin40}`}>
-          <div className={`col s12 blue-tec mb-2 ${classes.titleHistory}`}>
+          <div className={`col s12 blue-tec mb-2 ${classes.titleHistory} px-0`}>
             <div className="col s9">
               <span className={classes.labelLogin}>Becarios | Agosto-Diciembre 2019</span>
             </div>
-            <div className="col s3 align-right">
-              <Button variant="contained" color="primary" onClick={handleOpenEvaluacion}>
+            <div className="col s3 align-right px-0">
+              <Button className="valign-wrapper" style={{float:'right',}} variant="contained" color="primary" onClick={handleOpenEvaluacion}>
                   <ListIcon className={`white-text ${classes.labelCheck}`}/>
                   <span className={classes.labelLogin}>Evaluar alumnos</span>
               </Button>
@@ -214,7 +214,7 @@ const styles = theme => ({
 
   labelLogin:{
     fontFamily : 'Nunito',
-    fontSize: '20px', 
+    fontSize: '16px', 
   },
 
   labelCheck: {

@@ -110,6 +110,11 @@ Route::get('/colaboradores/users', function () {
   }
 });
 
+Route::get('/algoritmo/users', function () {
+  $colaboradores = Colaborador::where('id', '>', 0)->get();
+  $estudiantes = Estudiante::where('id', '>', 0)->get();  
+});
+
 Route::get('/colaboradores/admin', function () {
   $colaboradores = Colaborador::where('id', '>', 0)->get();
 
