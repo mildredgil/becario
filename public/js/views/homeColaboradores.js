@@ -71295,8 +71295,6 @@ var ItemBecario = function ItemBecario(_ref) {
   var month = date.getMonth();
   var periodo_string = '';
 
-  if (asignacion == null) return null;
-
   if (year >= 2020) {
     periodo = new_periodo;
 
