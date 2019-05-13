@@ -58,7 +58,7 @@ Route::get('/homeEstudiante', function () {
 Route::get('/homeAdministrador', function () {
   $estudiante = Estudiante::where('id', 3)->with("carrera", "solicitudesBecarias.colaborador.departamento")->first();
   
-  return view('homeEstudiante', [
+  return view('homeAdministrator', [
     'estudiante' => $estudiante
   ]);
 });

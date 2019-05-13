@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import CardEstudiante from './cardEstudiante';
 import ItemBecario from './itemBecario';
 import ReglamentoModal from './reglamentoModal';
+import CrearAsignModal from './crearAsignModal';
 import { withStyles } from '@material-ui/core/styles';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import defaultTheme from '../theme';
@@ -25,6 +26,17 @@ const Home = ({classes, estudiante_html}) => {
   const periodoOptions = [];
   const yearOptions = [];
   const [selectYear, setYear] = React.useState(0);
+
+  const [openCrearAsign, setOpenCrearAsign] = React.useState(false);
+
+  const handleOpenCrearAsign = () => {
+    setOpenCrearAsign(true);
+  };
+
+  const handleCloseCrearAsign = () => {
+    setOpenCrearAsign(false);
+  };
+
   periodoOptions.push(<MenuItem classes={{ root: classes.options}} value={0}>{new_periodo[0]}</MenuItem>);
   periodoOptions.push(<MenuItem classes={{ root: classes.options}} value={1}>{new_periodo[1]}</MenuItem>);
   periodoOptions.push(<MenuItem classes={{ root: classes.options}} value={2}>{new_periodo[2]}</MenuItem>);
@@ -75,6 +87,12 @@ const Home = ({classes, estudiante_html}) => {
   return (
     <MuiThemeProvider theme={defaultTheme}>
       <div className="container">
+        <div className={`row`}>
+          <Button variant="contained" color="primary" onClick={handleOpenCrearAsign}>
+            <ListIcon className={`white-text ${classes.labelCheck}`}/>
+            <span className={classes.labelLogin}>Crear/Borrar Asignacion</span>
+          </Button>
+        </div>
         <div className={`row ${classes.margin40}`}>
           <div className={`col s12 blue-tec mb-2 ${classes.titleHistory}`}>
             <div className="col s9">
@@ -168,6 +186,7 @@ const Home = ({classes, estudiante_html}) => {
         </div>
       </div>
       <ReglamentoModal/>
+      <CrearAsignModal open={openCrearAsign} handleClose={handleCloseCrearAsign} />
     </MuiThemeProvider>
   );
 }

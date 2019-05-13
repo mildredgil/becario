@@ -10,7 +10,6 @@ import PerfilColaboradores from './perfilColaboradores';
 import Fab from '@material-ui/core/Fab';
 import { AddIcon } from './icons';
 import ReglamentoModal from './reglamentoModal';
-import ImportarCSV from './importarCSV';
 import SolicitudBecaria from './solicitudBecModal';
 import { PowerIcon, PersonEditIcon, UpLoadIcon, DescriptionIcon } from './icons';
 
@@ -19,7 +18,6 @@ const NavBar = ({ classes, colaborador_html }) => {
   const [open, setOpen] = React.useState(false);
   const [openReglamento, setOpenReglamento] = React.useState(false);
   const [openSolicitudBec, setOpenSolicitudBec] = React.useState(false);
-  const [openImportarCSV, setOpenImportarCSV] = React.useState(false);
 
   const handleClick = event => {
     setAnchorEl(event.currentTarget);
@@ -54,37 +52,20 @@ const NavBar = ({ classes, colaborador_html }) => {
     setOpenSolicitudBec(false);
   };
 
-  const handleOpenImport = () => {
-    setOpenImportarCSV(true);
-  };
-
-  const handleCloseImport = () => {
-    setOpenImportarCSV(false);
-  };
-
   return (
     <MuiThemeProvider theme={defaultTheme}>
       <nav className={`navbar navbar-default ${classes.navContainer}`}>
         <div className={classes.containerExtended}>
           <div className="row valign-wrapper">
-            <div className={`col 6 offset-s1 white-text ${classes.nav}`}>
+            <div className={`col s6 offset-s1 white-text ${classes.nav}`}>
               Asignación Becaria
-            </div>
-            <div className={'col s2 right-align'}>
-              <Fab variant="extended" size="small" color="secondary" aria-label="Delete" className={classes.fab}
-                onClick={handleOpenImport} className="valign-wrapper">
-                <UpLoadIcon className={`blue-tec ${classes.addIcon}`} />
-                <label className={`blue-tec ${classes.becarioStyle}`}>
-                  Importar
-									</label>
-              </Fab>
-            </div>
-            <div className={'col s2 right-align'}>
-              <Fab variant="extended" size="small" color="secondary" aria-label="Delete" className={classes.fab}
-                onClick={handleOpenSolicitud} className="valign-wrapper">
-                <AddIcon className={`blue-tec ${classes.addIcon}`} />
-                <label className={`blue-tec ${classes.becarioStyle}`}>
-                  Becarios
+            </div> 
+						<div className={'col s5 right-align'}>
+							<Fab variant="extended" size="small" color="secondary" aria-label="Delete" className={classes.fab}
+                  onClick={handleOpenSolicitud} className="valign-wrapper">
+                 <AddIcon className={`blue-tec ${classes.addIcon}`} />
+									<label className={`blue-tec ${classes.becarioStyle}`}>
+										Becarios
 									</label>
               </Fab>
             </div>
@@ -123,7 +104,6 @@ const NavBar = ({ classes, colaborador_html }) => {
       </nav>
       <PerfilColaboradores open={open} handleClose={handleClosePerfil} colaborador={colaborador_html} />
       <ReglamentoModal open={openReglamento} handleClose={handleCloseReglamento} />
-      <ImportarCSV open={openImportarCSV} handleClose={handleCloseImport} />
       <SolicitudBecaria open={openSolicitudBec} handleClose={handleCloseSolicitud} />
     </MuiThemeProvider>
   );

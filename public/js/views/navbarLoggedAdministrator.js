@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 477);
+/******/ 	return __webpack_require__(__webpack_require__.s = 476);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -5659,11 +5659,12 @@ Object.keys(_withWidth).forEach(function (key) {
 /* unused harmony export ClockIcon */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return CloseIcon; });
 /* unused harmony export ConfigIcon */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return DescriptionIcon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return CreateIcon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return DescriptionIcon; });
 /* unused harmony export DownArrowIcon */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return DownloadIcon; });
-/* unused harmony export DeleteIcon */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return EmailIcon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return DownloadIcon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return DeleteIcon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return EmailIcon; });
 /* unused harmony export EmptyStarIcon */
 /* unused harmony export FacebookIcon */
 /* unused harmony export FilterIcon */
@@ -5672,13 +5673,13 @@ Object.keys(_withWidth).forEach(function (key) {
 /* unused harmony export HalfStarIcon */
 /* unused harmony export HelpIcon */
 /* unused harmony export HomeIcon */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return InfoIcon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return InfoIcon; });
 /* unused harmony export LanguageIcon */
 /* unused harmony export LabelIcon */
 /* unused harmony export LeftArrowIcon */
 /* unused harmony export LinkedinIcon */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return ListIcon; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return LocationIcon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return ListIcon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return LocationIcon; });
 /* unused harmony export LockIcon */
 /* unused harmony export MedalIcon */
 /* unused harmony export MenuIcon */
@@ -5687,26 +5688,26 @@ Object.keys(_withWidth).forEach(function (key) {
 /* unused harmony export NotificationIcon */
 /* unused harmony export PadlockIcon */
 /* unused harmony export PeopleIcon */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return PersonIcon; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return PersonEditIcon; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return PhoneIcon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return PersonIcon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return PersonEditIcon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return PhoneIcon; });
 /* unused harmony export PlusIcon */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return PowerIcon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return PowerIcon; });
 /* unused harmony export PriceDArrowIcon */
 /* unused harmony export PriceUArrowIcon */
 /* unused harmony export PublicIcon */
 /* unused harmony export RefIcon */
 /* unused harmony export RFullArrowIcon */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return RightArrowIcon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "p", function() { return RightArrowIcon; });
 /* unused harmony export SadIcon */
 /* unused harmony export SatisfiedIcon */
 /* unused harmony export SaveIcon */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return SchoolIcon; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "p", function() { return SearchIcon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "q", function() { return SchoolIcon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "r", function() { return SearchIcon; });
 /* unused harmony export ShoppingIcon */
 /* unused harmony export TwitterIcon */
 /* unused harmony export UpArrowIcon */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "q", function() { return UpLoadIcon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "s", function() { return UpLoadIcon; });
 /* unused harmony export WAIcon */
 /* unused harmony export WAIcon2 */
 /* unused harmony export WebIcon */
@@ -5787,6 +5788,13 @@ var ConfigIcon = function ConfigIcon(props) {
     __WEBPACK_IMPORTED_MODULE_1__material_ui_core_SvgIcon___default.a,
     _extends({}, props, { viewBox: '0 0 18 18' }),
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('path', { d: 'M15.6445 10.4805C15.7852 9.67188 15.7852 8.86328 15.6445 8.01953L17.1211 7.14062C17.1914 7.10547 17.2617 7.03516 17.2969 6.92969C17.332 6.85938 17.332 6.75391 17.332 6.64844C16.9102 5.41797 16.2773 4.32812 15.3984 3.34375C15.3281 3.27344 15.2227 3.23828 15.1523 3.20312C15.0469 3.20312 14.9414 3.20312 14.8711 3.23828L13.3945 4.11719C12.7617 3.58984 12.0234 3.16797 11.25 2.88672V1.16406C11.25 1.09375 11.2148 0.988281 11.1445 0.917969C11.0742 0.847656 11.0039 0.777344 10.9336 0.742188C9.63281 0.460938 8.33203 0.460938 7.06641 0.742188C6.96094 0.777344 6.89062 0.847656 6.82031 0.917969C6.75 0.988281 6.75 1.09375 6.75 1.16406V2.88672C5.94141 3.16797 5.23828 3.58984 4.60547 4.11719L3.12891 3.23828C3.02344 3.20312 2.91797 3.20312 2.84766 3.20312C2.74219 3.23828 2.67188 3.27344 2.60156 3.34375C1.6875 4.32812 1.05469 5.41797 0.667969 6.64844C0.632812 6.75391 0.632812 6.85938 0.667969 6.92969C0.703125 7.03516 0.773438 7.10547 0.878906 7.14062L2.35547 8.01953C2.21484 8.86328 2.21484 9.67188 2.35547 10.4805L0.878906 11.3594C0.773438 11.4297 0.703125 11.5 0.667969 11.5703C0.632812 11.6758 0.632812 11.7812 0.667969 11.8516C1.05469 13.1172 1.6875 14.207 2.60156 15.1562C2.67188 15.2266 2.74219 15.2969 2.84766 15.2969C2.91797 15.332 3.02344 15.332 3.12891 15.2617L4.60547 14.3828C5.23828 14.9453 5.94141 15.332 6.75 15.6133V17.3359C6.75 17.4414 6.75 17.5469 6.82031 17.6172C6.89062 17.6875 6.96094 17.7578 7.06641 17.7578C8.33203 18.0391 9.63281 18.0391 10.9336 17.7578C11.0039 17.7578 11.0742 17.6875 11.1445 17.6172C11.2148 17.5469 11.25 17.4414 11.25 17.3359V15.6133C12.0234 15.332 12.7617 14.9453 13.3945 14.3828L14.8711 15.2617C14.9414 15.332 15.0469 15.332 15.1523 15.2969C15.2227 15.2969 15.3281 15.2266 15.3984 15.1562C16.2773 14.207 16.9102 13.1172 17.332 11.8516C17.332 11.7812 17.332 11.6758 17.2969 11.5703C17.2617 11.5 17.1914 11.4297 17.1211 11.3594L15.6445 10.4805ZM11.8125 9.25C11.8125 10.0234 11.5312 10.6914 10.9688 11.2539C10.4062 11.8164 9.77344 12.0625 9 12.0625C8.22656 12.0625 7.55859 11.8164 6.99609 11.2539C6.43359 10.6914 6.1875 10.0234 6.1875 9.25C6.1875 8.47656 6.43359 7.84375 6.99609 7.28125C7.55859 6.71875 8.22656 6.4375 9 6.4375C9.77344 6.4375 10.4062 6.71875 10.9688 7.28125C11.5312 7.84375 11.8125 8.47656 11.8125 9.25Z' })
+  );
+};
+var CreateIcon = function CreateIcon(props) {
+  return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+    __WEBPACK_IMPORTED_MODULE_1__material_ui_core_SvgIcon___default.a,
+    _extends({}, props, { viewBox: '0 0 24 24' }),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('path', { d: 'M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z' })
   );
 };
 var DeleteIcon = function DeleteIcon(props) {
@@ -9069,11 +9077,11 @@ Object.defineProperty(exports, "__esModule", {
 Object.defineProperty(exports, "default", {
   enumerable: true,
   get: function get() {
-    return _Fab.default;
+    return _Menu.default;
   }
 });
 
-var _Fab = _interopRequireDefault(__webpack_require__(315));
+var _Menu = _interopRequireDefault(__webpack_require__(119));
 
 /***/ }),
 /* 138 */
@@ -9090,11 +9098,11 @@ Object.defineProperty(exports, "__esModule", {
 Object.defineProperty(exports, "default", {
   enumerable: true,
   get: function get() {
-    return _Menu.default;
+    return _Fab.default;
   }
 });
 
-var _Menu = _interopRequireDefault(__webpack_require__(119));
+var _Fab = _interopRequireDefault(__webpack_require__(315));
 
 /***/ }),
 /* 139 */
@@ -38438,7 +38446,7 @@ var BUTTON_HOVER_COLOR = '#101010';
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__ExpansionPanelSummary__ = __webpack_require__(313);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__ExpansionPanelSummary___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_32__ExpansionPanelSummary__);
 /* unused harmony reexport ExpansionPanelSummary */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__Fab__ = __webpack_require__(137);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__Fab__ = __webpack_require__(138);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__Fab___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_33__Fab__);
 /* unused harmony reexport Fab */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__Fade__ = __webpack_require__(66);
@@ -38525,7 +38533,7 @@ var BUTTON_HOVER_COLOR = '#101010';
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_61__ListSubheader__ = __webpack_require__(360);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_61__ListSubheader___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_61__ListSubheader__);
 /* unused harmony reexport ListSubheader */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_62__Menu__ = __webpack_require__(138);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_62__Menu__ = __webpack_require__(137);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_62__Menu___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_62__Menu__);
 /* unused harmony reexport Menu */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_63__MenuItem__ = __webpack_require__(80);
@@ -70432,7 +70440,7 @@ var ReglamentoModal = function ReglamentoModal(_ref) {
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 __WEBPACK_IMPORTED_MODULE_2__material_ui_core_Button___default.a,
                 { variant: 'contained', color: 'primary', href: '#contained-buttons', className: classes.button },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__icons__["e" /* DownloadIcon */], { className: 'white-text ' + classes.iconLabel }),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__icons__["g" /* DownloadIcon */], { className: 'white-text ' + classes.iconLabel }),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                   'a',
                   { href: 'http://localhost:8000/files/reglamento.pdf', download: 'reglamento', className: 'white-text ' + classes.iconLabel },
@@ -70574,7 +70582,7 @@ var PerfilColaboradores = function PerfilColaboradores(_ref) {
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'div',
                             { className: 'col s12 valign-wrapper' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["j" /* PersonEditIcon */], { className: classes.iconEditLabel }),
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["l" /* PersonEditIcon */], { className: classes.iconEditLabel }),
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                 'label',
                                 { className: classes.title + ' blue-tec' },
@@ -70588,7 +70596,7 @@ var PerfilColaboradores = function PerfilColaboradores(_ref) {
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'div',
                             { className: 'col s6 mb-2 mt-4 valign-wrapper' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["k" /* PersonIcon */], { className: classes.iconLabel }),
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["m" /* PersonIcon */], { className: classes.iconLabel }),
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                 'label',
                                 null,
@@ -70598,7 +70606,7 @@ var PerfilColaboradores = function PerfilColaboradores(_ref) {
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'div',
                             { className: 'col s6 mb-2 mt-4 valign-wrapper' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["g" /* InfoIcon */], { className: classes.iconInfo }),
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["i" /* InfoIcon */], { className: classes.iconInfo }),
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                 'label',
                                 null,
@@ -70646,7 +70654,7 @@ var PerfilColaboradores = function PerfilColaboradores(_ref) {
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'div',
                             { className: 'col s6 mb-2 mt-4 valign-wrapper' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["g" /* InfoIcon */], { className: classes.iconInfo }),
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["i" /* InfoIcon */], { className: classes.iconInfo }),
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                 'label',
                                 null,
@@ -70656,7 +70664,7 @@ var PerfilColaboradores = function PerfilColaboradores(_ref) {
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'div',
                             { className: 'col s6 mb-2 mt-4 valign-wrapper' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["f" /* EmailIcon */], { className: classes.iconLabel }),
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["h" /* EmailIcon */], { className: classes.iconLabel }),
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                 'label',
                                 null,
@@ -70700,7 +70708,7 @@ var PerfilColaboradores = function PerfilColaboradores(_ref) {
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'div',
                             { className: 'col s6 mb-2 mt-4 valign-wrapper' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["l" /* PhoneIcon */], { className: classes.iconInfo }),
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["n" /* PhoneIcon */], { className: classes.iconInfo }),
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                 'label',
                                 null,
@@ -70882,286 +70890,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-var ImportarCSV = function ImportarCSV(_ref) {
-    var classes = _ref.classes,
-        open = _ref.open,
-        handleClose = _ref.handleClose;
-
-    var _React$useState = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(true),
-        _React$useState2 = _slicedToArray(_React$useState, 2),
-        ifSearchTrue = _React$useState2[0],
-        setIfSearchTrue = _React$useState2[1];
-
-    var searchClick = function searchClick(event) {
-        setIfSearchTrue(false);
-    };
-
-    __WEBPACK_IMPORTED_MODULE_0_react___default.a.useEffect(function () {
-        if (open == false) {
-            setIfSearchTrue(true);
-        }
-    }, [open]);
-
-    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        __WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__["MuiThemeProvider"],
-        { theme: __WEBPACK_IMPORTED_MODULE_6__theme__["a" /* default */] },
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            __WEBPACK_IMPORTED_MODULE_3__material_ui_core_Modal___default.a,
-            {
-                open: open,
-                onClose: handleClose,
-                classes: { root: classes.modalRoot }
-            },
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'div',
-                { className: 'container ' + classes.containerWidth },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'div',
-                    { className: 'card px-5 py-3' },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["c" /* CloseIcon */], { onClick: handleClose, className: classes.closeIcon }),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'div',
-                        { className: 'row margin-0' },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'div',
-                            { className: 'col s12 valign-wrapper' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["j" /* PersonEditIcon */], { className: classes.iconEditLabel }),
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'label',
-                                { className: classes.title + ' blue-tec' },
-                                'Solicitud becaria'
-                            )
-                        ),
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'div',
-                            { className: 'col s6 mb-2 mt-4 valign-wrapper' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["k" /* PersonIcon */], { className: classes.iconLabel }),
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'label',
-                                null,
-                                'Nombre'
-                            )
-                        ),
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'div',
-                            { className: 'col s6 mb-2 mt-4 valign-wrapper' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["g" /* InfoIcon */], { className: classes.iconInfo }),
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'label',
-                                null,
-                                'Matr\xEDcula'
-                            )
-                        ),
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'div',
-                            { className: 'col s6' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__material_ui_core_TextField___default.a, {
-                                fullWidth: true,
-                                id: 'outlined-bare',
-                                classes: { root: classes.labelText },
-                                defaultValue: 'Lorena Gomez',
-                                InputProps: {
-                                    readOnly: true,
-                                    disabled: true
-                                },
-                                variant: 'outlined'
-                            })
-                        ),
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'div',
-                            { className: 'col s6' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__material_ui_core_TextField___default.a, {
-                                fullWidth: true,
-                                id: 'outlined-bare',
-                                classes: { root: classes.labelText },
-                                defaultValue: 'A01176573',
-                                InputProps: {
-                                    readOnly: true,
-                                    disabled: true
-                                },
-                                variant: 'outlined'
-                            })
-                        ),
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'div',
-                            { className: 'row center-align' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'div',
-                                { className: 'col s12 mb-2 mt-4' },
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                    'div',
-                                    { className: 'col s6' },
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                        __WEBPACK_IMPORTED_MODULE_4__material_ui_core_Button___default.a,
-                                        {
-                                            onClick: searchClick,
-                                            variant: 'contained',
-                                            color: 'primary' },
-                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["p" /* SearchIcon */], { className: 'white-text ' + classes.labelSearch }),
-                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                            'span',
-                                            { className: classes.labelLogin },
-                                            'Buscar'
-                                        )
-                                    )
-                                ),
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                    'div',
-                                    { className: 'col s6' },
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                        __WEBPACK_IMPORTED_MODULE_4__material_ui_core_Button___default.a,
-                                        {
-                                            disabled: ifSearchTrue,
-                                            variant: 'contained',
-                                            color: 'primary' },
-                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["b" /* CheckIcon */], { className: 'white-text ' + classes.labelCheck }),
-                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                            'span',
-                                            { className: classes.labelLogin },
-                                            'Aceptar'
-                                        )
-                                    )
-                                )
-                            )
-                        ),
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'div',
-                            { className: 'row red center-align' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'div',
-                                { className: 'col s12 mb-2 mt-4' },
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                    'div',
-                                    { className: 'col s6' },
-                                    'No se encontr\xF3 el alumno'
-                                )
-                            )
-                        )
-                    )
-                )
-            )
-        )
-    );
-};
-
-var maxWidth = 1000;
-
-var styles = function styles(theme) {
-    return _defineProperty({
-
-        modalWrapper: {
-            padding: "25px !Important"
-        },
-
-        modalRoot: {
-            top: '20%'
-        },
-
-        title: {
-            fontSize: '30px',
-            fontWeight: 'bold'
-        },
-
-        icon: {
-            fontSize: '17px',
-            marginRight: '0.5rem'
-        },
-
-        labelText: {
-            fontSize: '14px',
-            color: '#000'
-            //marginLeft: '0.5rem'
-        },
-
-        iconLabel: {
-            color: "#101010",
-            fontSize: '14px',
-            marginRight: '0.5rem'
-        },
-        iconEditLabel: {
-            color: "#223f93",
-            fontSize: '30px',
-            marginRight: '0.5rem'
-        },
-
-        iconSchool: {
-            color: "#101010",
-            fontSize: '18px',
-            marginRight: '0.5rem'
-        },
-
-        iconInfo: {
-            color: "#101010",
-            fontSize: '18px',
-            marginRight: '0.5rem'
-        },
-
-        closeIcon: {
-            cursor: 'pointer',
-            color: 'black',
-            position: 'absolute',
-            right: '12px',
-            top: '12px',
-            fontSize: '18px'
-        },
-
-        containerWidth: {
-            maxWidth: '50%'
-        },
-
-        labelSearch: {
-            fontSize: '20px',
-            marginRight: '0.5rem'
-        },
-
-        labelCheck: {
-            fontSize: '16px',
-            marginRight: '0.5rem'
-        },
-
-        labelLogin: {
-            fontFamily: 'Nunito',
-            fontSize: '20px'
-        }
-
-    }, '@media (max-width: ' + maxWidth + 'px)', {});
-};
-
-/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__["withStyles"])(styles)(ImportarCSV));
-
-/***/ }),
-/* 463 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__material_ui_core_TextField__ = __webpack_require__(84);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__material_ui_core_TextField___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__material_ui_core_TextField__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__material_ui_core_Modal__ = __webpack_require__(39);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__material_ui_core_Modal___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__material_ui_core_Modal__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__material_ui_core_Button__ = __webpack_require__(31);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__material_ui_core_Button___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__material_ui_core_Button__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__ = __webpack_require__(23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__theme__ = __webpack_require__(65);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__icons__ = __webpack_require__(79);
-var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-
-
-
-
-
-
-
-
-
-
 var SolicitudBecaria = function SolicitudBecaria(_ref) {
     var classes = _ref.classes,
         open = _ref.open,
@@ -71205,7 +70933,7 @@ var SolicitudBecaria = function SolicitudBecaria(_ref) {
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'div',
                             { className: 'col s12 valign-wrapper' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["j" /* PersonEditIcon */], { className: classes.iconEditLabel }),
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["l" /* PersonEditIcon */], { className: classes.iconEditLabel }),
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                 'label',
                                 { className: classes.title + ' blue-tec' },
@@ -71215,7 +70943,7 @@ var SolicitudBecaria = function SolicitudBecaria(_ref) {
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'div',
                             { className: 'col s6 mb-2 mt-4 valign-wrapper' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["k" /* PersonIcon */], { className: classes.iconLabel }),
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["m" /* PersonIcon */], { className: classes.iconLabel }),
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                 'label',
                                 null,
@@ -71225,7 +70953,7 @@ var SolicitudBecaria = function SolicitudBecaria(_ref) {
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'div',
                             { className: 'col s6 mb-2 mt-4 valign-wrapper' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["g" /* InfoIcon */], { className: classes.iconInfo }),
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["i" /* InfoIcon */], { className: classes.iconInfo }),
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                 'label',
                                 null,
@@ -71277,7 +71005,7 @@ var SolicitudBecaria = function SolicitudBecaria(_ref) {
                                             onClick: searchClick,
                                             variant: 'contained',
                                             color: 'primary' },
-                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["p" /* SearchIcon */], { className: 'white-text ' + classes.labelSearch }),
+                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["r" /* SearchIcon */], { className: 'white-text ' + classes.labelSearch }),
                                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                             'span',
                                             { className: classes.labelLogin },
@@ -71410,6 +71138,7 @@ var styles = function styles(theme) {
 /* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__["withStyles"])(styles)(SolicitudBecaria));
 
 /***/ }),
+/* 463 */,
 /* 464 */,
 /* 465 */,
 /* 466 */,
@@ -71422,15 +71151,14 @@ var styles = function styles(theme) {
 /* 473 */,
 /* 474 */,
 /* 475 */,
-/* 476 */,
-/* 477 */
+/* 476 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(478);
+module.exports = __webpack_require__(477);
 
 
 /***/ }),
-/* 478 */
+/* 477 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -71444,21 +71172,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__material_ui_core_Button__ = __webpack_require__(31);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__material_ui_core_Button___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__material_ui_core_Button__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__theme__ = __webpack_require__(65);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__material_ui_core_Menu__ = __webpack_require__(138);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__material_ui_core_Menu__ = __webpack_require__(137);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__material_ui_core_Menu___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_Menu__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__material_ui_core_MenuItem__ = __webpack_require__(80);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__material_ui_core_MenuItem___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__material_ui_core_MenuItem__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__perfilColaboradores__ = __webpack_require__(442);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__material_ui_core_Fab__ = __webpack_require__(137);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__material_ui_core_Fab___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__material_ui_core_Fab__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__icons__ = __webpack_require__(79);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__reglamentoModal__ = __webpack_require__(435);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__importarCSV__ = __webpack_require__(462);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__solicitudBecModal__ = __webpack_require__(463);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__icons__ = __webpack_require__(79);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__reglamentoModal__ = __webpack_require__(435);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__importarCSV__ = __webpack_require__(478);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__solicitudBecModal__ = __webpack_require__(462);
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 
 
 
@@ -71483,25 +71208,30 @@ var NavBar = function NavBar(_ref) {
       anchorEl = _React$useState2[0],
       setAnchorEl = _React$useState2[1];
 
-  var _React$useState3 = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(false),
+  var _React$useState3 = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(null),
       _React$useState4 = _slicedToArray(_React$useState3, 2),
-      open = _React$useState4[0],
-      setOpen = _React$useState4[1];
+      anchorEl2 = _React$useState4[0],
+      setAnchorEl2 = _React$useState4[1];
 
   var _React$useState5 = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(false),
       _React$useState6 = _slicedToArray(_React$useState5, 2),
-      openReglamento = _React$useState6[0],
-      setOpenReglamento = _React$useState6[1];
+      open = _React$useState6[0],
+      setOpen = _React$useState6[1];
 
   var _React$useState7 = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(false),
       _React$useState8 = _slicedToArray(_React$useState7, 2),
-      openSolicitudBec = _React$useState8[0],
-      setOpenSolicitudBec = _React$useState8[1];
+      openReglamento = _React$useState8[0],
+      setOpenReglamento = _React$useState8[1];
 
   var _React$useState9 = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(false),
       _React$useState10 = _slicedToArray(_React$useState9, 2),
-      openImportarCSV = _React$useState10[0],
-      setOpenImportarCSV = _React$useState10[1];
+      openSolicitudBec = _React$useState10[0],
+      setOpenSolicitudBec = _React$useState10[1];
+
+  var _React$useState11 = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(false),
+      _React$useState12 = _slicedToArray(_React$useState11, 2),
+      openImportarCSV = _React$useState12[0],
+      setOpenImportarCSV = _React$useState12[1];
 
   var handleClick = function handleClick(event) {
     setAnchorEl(event.currentTarget);
@@ -71512,11 +71242,28 @@ var NavBar = function NavBar(_ref) {
     //window.location.replace("/login");
   };
 
+  var handleClick2 = function handleClick2(event) {
+    setAnchorEl2(event.currentTarget);
+  };
+
+  var handleClose2 = function handleClose2() {
+    setAnchorEl2(null);
+    //window.location.replace("/login");
+  };
+
   var handleOpenPerfil = function handleOpenPerfil() {
     setOpen(true);
   };
 
   var handleClosePerfil = function handleClosePerfil() {
+    setOpen(false);
+  };
+
+  var handleOpenEdit = function handleOpenEdit() {
+    setOpen(true);
+  };
+
+  var handleCloseEdit = function handleCloseEdit() {
     setOpen(false);
   };
 
@@ -71563,24 +71310,43 @@ var NavBar = function NavBar(_ref) {
           ),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
-            { className: 'col s1 white-text nav right-align' },
+            { className: 'col s1  white-text nav center-align ' + classes.nav },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              __WEBPACK_IMPORTED_MODULE_8__material_ui_core_Fab___default.a,
-              _defineProperty({ variant: 'extended', size: 'small', color: 'secondary', 'aria-label': 'Delete', className: classes.fab,
-                onClick: handleOpenImport }, 'className', 'valign-wrapper'),
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_9__icons__["q" /* UpLoadIcon */], { className: 'blue-tec ' + classes.addIcon }),
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('label', { className: 'blue-tec ' + classes.becarioStyle })
-            )
-          ),
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'div',
-            { className: 'col s1 white-text nav right-align' },
+              __WEBPACK_IMPORTED_MODULE_3__material_ui_core_Button___default.a,
+              {
+                'aria-owns': anchorEl2 ? 'simple-menu2' : undefined,
+                'aria-haspopup': 'true',
+                onClick: handleClick2,
+                classes: { root: classes.padding }
+              },
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8__icons__["d" /* CreateIcon */], { className: classes.createLabel })
+            ),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              __WEBPACK_IMPORTED_MODULE_8__material_ui_core_Fab___default.a,
-              _defineProperty({ variant: 'extended', size: 'small', color: 'secondary', 'aria-label': 'Delete', className: classes.fab,
-                onClick: handleOpenSolicitud }, 'className', 'valign-wrapper'),
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_9__icons__["a" /* AddIcon */], { className: 'blue-tec ' + classes.addIcon }),
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('label', { className: 'blue-tec ' + classes.becarioStyle })
+              __WEBPACK_IMPORTED_MODULE_5__material_ui_core_Menu___default.a,
+              {
+                id: 'simple-menu2',
+                anchorEl: anchorEl2,
+                open: Boolean(anchorEl2),
+                onClose: handleClose2
+              },
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                __WEBPACK_IMPORTED_MODULE_6__material_ui_core_MenuItem___default.a,
+                { onClick: handleOpenEdit, className: 'valign-wrapper' },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8__icons__["a" /* AddIcon */], { className: classes.iconLabel }),
+                'Crear asignaci\xF3n'
+              ),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                __WEBPACK_IMPORTED_MODULE_6__material_ui_core_MenuItem___default.a,
+                { onClick: handleOpenReglamento, className: 'valign-wrapper' },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8__icons__["e" /* DeleteIcon */], { className: classes.iconLabel }),
+                'Borrar asignaci\xF3n'
+              ),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                __WEBPACK_IMPORTED_MODULE_6__material_ui_core_MenuItem___default.a,
+                { onClick: handleClose, className: 'valign-wrapper' },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8__icons__["s" /* UpLoadIcon */], { className: classes.iconLabel }),
+                'Importar .csv'
+              )
             )
           ),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -71611,19 +71377,19 @@ var NavBar = function NavBar(_ref) {
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 __WEBPACK_IMPORTED_MODULE_6__material_ui_core_MenuItem___default.a,
                 { onClick: handleOpenPerfil, className: 'valign-wrapper' },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_9__icons__["j" /* PersonEditIcon */], { className: classes.iconLabel }),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8__icons__["l" /* PersonEditIcon */], { className: classes.iconLabel }),
                 'Perfil'
               ),
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 __WEBPACK_IMPORTED_MODULE_6__material_ui_core_MenuItem___default.a,
                 { onClick: handleOpenReglamento, className: 'valign-wrapper' },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_9__icons__["d" /* DescriptionIcon */], { className: classes.iconLabel }),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8__icons__["f" /* DescriptionIcon */], { className: classes.iconLabel }),
                 'Reglamento'
               ),
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 __WEBPACK_IMPORTED_MODULE_6__material_ui_core_MenuItem___default.a,
                 { onClick: handleClose, className: 'valign-wrapper' },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_9__icons__["m" /* PowerIcon */], { className: classes.iconLabel }),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8__icons__["o" /* PowerIcon */], { className: classes.iconLabel }),
                 'Cerrar Sesi\xF3n'
               )
             )
@@ -71633,9 +71399,9 @@ var NavBar = function NavBar(_ref) {
       )
     ),
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__perfilColaboradores__["a" /* default */], { open: open, handleClose: handleClosePerfil }),
-    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_10__reglamentoModal__["default"], { open: openReglamento, handleClose: handleCloseReglamento }),
-    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_12__solicitudBecModal__["a" /* default */], { open: openSolicitudBec, handleClose: handleCloseSolicitud }),
-    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_11__importarCSV__["a" /* default */], { open: openImportarCSV, handleClose: handleCloseImport })
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_9__reglamentoModal__["default"], { open: openReglamento, handleClose: handleCloseReglamento }),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_11__solicitudBecModal__["a" /* default */], { open: openSolicitudBec, handleClose: handleCloseSolicitud }),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_10__importarCSV__["a" /* default */], { open: openImportarCSV, handleClose: handleCloseImport })
   );
 };
 
@@ -71689,6 +71455,12 @@ var styles = function styles() {
     iconLabel: {
       fontSize: '18px',
       marginRight: '0.5rem'
+    },
+
+    createLabel: {
+      fontSize: '22px',
+      marginRight: '0.5rem',
+      fill: 'white'
     }
 
   }, '@media (max-width: ' + maxWidth + 'px)', {});
@@ -71699,6 +71471,286 @@ var _NavBar = Object(__WEBPACK_IMPORTED_MODULE_2__material_ui_core_styles__["wit
 if (document.getElementById('nav')) {
   __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(_NavBar, null), document.getElementById('nav'));
 }
+
+/***/ }),
+/* 478 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__material_ui_core_TextField__ = __webpack_require__(84);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__material_ui_core_TextField___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__material_ui_core_TextField__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__material_ui_core_Modal__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__material_ui_core_Modal___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__material_ui_core_Modal__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__material_ui_core_Button__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__material_ui_core_Button___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__material_ui_core_Button__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__theme__ = __webpack_require__(65);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__icons__ = __webpack_require__(79);
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+
+
+
+
+
+
+
+var ImportarCSV = function ImportarCSV(_ref) {
+    var classes = _ref.classes,
+        open = _ref.open,
+        handleClose = _ref.handleClose;
+
+    var _React$useState = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(true),
+        _React$useState2 = _slicedToArray(_React$useState, 2),
+        ifSearchTrue = _React$useState2[0],
+        setIfSearchTrue = _React$useState2[1];
+
+    var searchClick = function searchClick(event) {
+        setIfSearchTrue(false);
+    };
+
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.useEffect(function () {
+        if (open == false) {
+            setIfSearchTrue(true);
+        }
+    }, [open]);
+
+    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        __WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__["MuiThemeProvider"],
+        { theme: __WEBPACK_IMPORTED_MODULE_6__theme__["a" /* default */] },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            __WEBPACK_IMPORTED_MODULE_3__material_ui_core_Modal___default.a,
+            {
+                open: open,
+                onClose: handleClose,
+                classes: { root: classes.modalRoot }
+            },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                { className: 'container ' + classes.containerWidth },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'div',
+                    { className: 'card px-5 py-3' },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["c" /* CloseIcon */], { onClick: handleClose, className: classes.closeIcon }),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { className: 'row margin-0' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'div',
+                            { className: 'col s12 valign-wrapper' },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["l" /* PersonEditIcon */], { className: classes.iconEditLabel }),
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                'label',
+                                { className: classes.title + ' blue-tec' },
+                                'Solicitud becaria'
+                            )
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'div',
+                            { className: 'col s6 mb-2 mt-4 valign-wrapper' },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["m" /* PersonIcon */], { className: classes.iconLabel }),
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                'label',
+                                null,
+                                'Nombre'
+                            )
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'div',
+                            { className: 'col s6 mb-2 mt-4 valign-wrapper' },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["i" /* InfoIcon */], { className: classes.iconInfo }),
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                'label',
+                                null,
+                                'Matr\xEDcula'
+                            )
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'div',
+                            { className: 'col s6' },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__material_ui_core_TextField___default.a, {
+                                fullWidth: true,
+                                id: 'outlined-bare',
+                                classes: { root: classes.labelText },
+                                defaultValue: 'Lorena Gomez',
+                                InputProps: {
+                                    readOnly: true,
+                                    disabled: true
+                                },
+                                variant: 'outlined'
+                            })
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'div',
+                            { className: 'col s6' },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__material_ui_core_TextField___default.a, {
+                                fullWidth: true,
+                                id: 'outlined-bare',
+                                classes: { root: classes.labelText },
+                                defaultValue: 'A01176573',
+                                InputProps: {
+                                    readOnly: true,
+                                    disabled: true
+                                },
+                                variant: 'outlined'
+                            })
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'div',
+                            { className: 'row center-align' },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                'div',
+                                { className: 'col s12 mb-2 mt-4' },
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                    'div',
+                                    { className: 'col s6' },
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                        __WEBPACK_IMPORTED_MODULE_4__material_ui_core_Button___default.a,
+                                        {
+                                            onClick: searchClick,
+                                            variant: 'contained',
+                                            color: 'primary' },
+                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["r" /* SearchIcon */], { className: 'white-text ' + classes.labelSearch }),
+                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                            'span',
+                                            { className: classes.labelLogin },
+                                            'Buscar'
+                                        )
+                                    )
+                                ),
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                    'div',
+                                    { className: 'col s6' },
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                        __WEBPACK_IMPORTED_MODULE_4__material_ui_core_Button___default.a,
+                                        {
+                                            disabled: ifSearchTrue,
+                                            variant: 'contained',
+                                            color: 'primary' },
+                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["b" /* CheckIcon */], { className: 'white-text ' + classes.labelCheck }),
+                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                            'span',
+                                            { className: classes.labelLogin },
+                                            'Aceptar'
+                                        )
+                                    )
+                                )
+                            )
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'div',
+                            { className: 'row red center-align' },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                'div',
+                                { className: 'col s12 mb-2 mt-4' },
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                    'div',
+                                    { className: 'col s6' },
+                                    'No se encontr\xF3 el alumno'
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+        )
+    );
+};
+
+var maxWidth = 1000;
+
+var styles = function styles(theme) {
+    return _defineProperty({
+
+        modalWrapper: {
+            padding: "25px !Important"
+        },
+
+        modalRoot: {
+            top: '20%'
+        },
+
+        title: {
+            fontSize: '30px',
+            fontWeight: 'bold'
+        },
+
+        icon: {
+            fontSize: '17px',
+            marginRight: '0.5rem'
+        },
+
+        labelText: {
+            fontSize: '14px',
+            color: '#000'
+            //marginLeft: '0.5rem'
+        },
+
+        iconLabel: {
+            color: "#101010",
+            fontSize: '14px',
+            marginRight: '0.5rem'
+        },
+        iconEditLabel: {
+            color: "#223f93",
+            fontSize: '30px',
+            marginRight: '0.5rem'
+        },
+
+        iconSchool: {
+            color: "#101010",
+            fontSize: '18px',
+            marginRight: '0.5rem'
+        },
+
+        iconInfo: {
+            color: "#101010",
+            fontSize: '18px',
+            marginRight: '0.5rem'
+        },
+
+        closeIcon: {
+            cursor: 'pointer',
+            color: 'black',
+            position: 'absolute',
+            right: '12px',
+            top: '12px',
+            fontSize: '18px'
+        },
+
+        containerWidth: {
+            maxWidth: '50%'
+        },
+
+        labelSearch: {
+            fontSize: '20px',
+            marginRight: '0.5rem'
+        },
+
+        labelCheck: {
+            fontSize: '16px',
+            marginRight: '0.5rem'
+        },
+
+        labelLogin: {
+            fontFamily: 'Nunito',
+            fontSize: '20px'
+        }
+
+    }, '@media (max-width: ' + maxWidth + 'px)', {});
+};
+
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__["withStyles"])(styles)(ImportarCSV));
 
 /***/ })
 /******/ ]);
