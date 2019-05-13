@@ -71708,7 +71708,7 @@ var styles = function styles(theme) {
     },
 
     containerWidth: {
-      paddingTop: '100px',
+      paddingTop: '20vh',
       maxWidth: '30%',
       maxHeight: '100%'
     }

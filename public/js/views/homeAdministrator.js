@@ -70552,8 +70552,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 var CardEstudiante = function CardEstudiante(_ref) {
-  var classes = _ref.classes;
+  var classes = _ref.classes,
+      asignacion = _ref.asignacion;
 
+  var evaluacion = ['Pendiente', 'Satisfactoria', 'Insatisfactoria'];
+  var semestre = ['', 'Primero', 'Segundo', 'Tercero', 'Cuarto', 'Quinto', 'Sexto', 'Septimo', 'Octavo', 'Noveno'];
+
+  if (asignacion == false) {
+    return null;
+  } else {
+    console.log(asignacion);
+  }
 
   return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
     __WEBPACK_IMPORTED_MODULE_1__material_ui_core_styles__["MuiThemeProvider"],
@@ -70610,7 +70619,7 @@ var CardEstudiante = function CardEstudiante(_ref) {
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'label',
               { className: classes.labelText },
-              'A01176573'
+              asignacion.estudiante.matricula
             )
           ),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -70619,7 +70628,7 @@ var CardEstudiante = function CardEstudiante(_ref) {
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'label',
               { className: classes.labelText },
-              'Jaime Andr\xE9s Montemayor Molina'
+              asignacion.estudiante.nombre_completo
             )
           )
         ),
@@ -70656,7 +70665,7 @@ var CardEstudiante = function CardEstudiante(_ref) {
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'label',
               { className: classes.labelText },
-              '52818181818'
+              asignacion.estudiante.celular
             )
           ),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -70665,7 +70674,7 @@ var CardEstudiante = function CardEstudiante(_ref) {
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'label',
               { className: classes.labelText },
-              'jamememes.mm@tug.com.mx'
+              asignacion.estudiante.email
             )
           )
         ),
@@ -70702,7 +70711,7 @@ var CardEstudiante = function CardEstudiante(_ref) {
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'label',
               { className: classes.labelText },
-              'Sexto'
+              semestre[asignacion.estudiante.semestre_actual]
             )
           ),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -70711,7 +70720,7 @@ var CardEstudiante = function CardEstudiante(_ref) {
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'label',
               { className: classes.labelText },
-              'Ing. en Tecnolog\xEDas de Informaci\xF3n y Comunicaciones'
+              asignacion.estudiante.carrera.carrera_nombre
             )
           )
         )
@@ -70731,7 +70740,8 @@ var CardEstudiante = function CardEstudiante(_ref) {
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'label',
             { className: classes.status + ' blue-tec' },
-            ' Satisfactorio'
+            ' ',
+            evaluacion[asignacion.evaluacion]
           )
         ),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -70883,14 +70893,17 @@ var ItemBecario = function ItemBecario(_ref) {
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'label',
         { className: classes.periodo + ' blue-tec' },
-        'Jaime Andr\xE9s Montemayor Molina'
+        asignacion.estudiante.nombre_completo
       ),
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'label',
         { className: classes.colab + ' truncate blue-tec-dark' },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__icons__["k" /* PersonIcon */], { className: classes.iconLabel }),
-        '6\xB0 ITC | Evaluaci\xF3n: Satisfactorio'
+        asignacion.estudiante.semestre_actual,
+        '\xB0 ',
+        asignacion.estudiante.carrera.siglas_carrera,
+        ' | Evaluaci\xF3n: Satisfactorio'
       )
     ),
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(

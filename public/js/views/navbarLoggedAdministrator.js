@@ -70541,8 +70541,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 var PerfilColaboradores = function PerfilColaboradores(_ref) {
     var classes = _ref.classes,
         open = _ref.open,
-        handleClose = _ref.handleClose;
+        handleClose = _ref.handleClose,
+        colaborador = _ref.colaborador;
 
+
+    if (colaborador == false) {
+        return null;
+    } else {
+        console.log(colaborador);
+    }
 
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         __WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__["MuiThemeProvider"],
@@ -70609,7 +70616,7 @@ var PerfilColaboradores = function PerfilColaboradores(_ref) {
                                 fullWidth: true,
                                 id: 'outlined-bare',
                                 classes: { root: classes.labelText },
-                                defaultValue: 'Lorena Gomez',
+                                defaultValue: colaborador.nombre_completo,
                                 InputProps: {
                                     readOnly: true,
                                     disabled: true
@@ -70624,7 +70631,7 @@ var PerfilColaboradores = function PerfilColaboradores(_ref) {
                                 fullWidth: true,
                                 id: 'outlined-bare',
                                 classes: { root: classes.labelText },
-                                defaultValue: 'Ciencias Computacionales',
+                                defaultValue: colaborador.departamento.nombre_departamento,
                                 InputProps: {
                                     readOnly: true,
                                     disabled: true
@@ -70667,7 +70674,7 @@ var PerfilColaboradores = function PerfilColaboradores(_ref) {
                                 fullWidth: true,
                                 id: 'outlined-bare',
                                 classes: { root: classes.labelText },
-                                defaultValue: 'Cetec torre sur 301',
+                                defaultValue: colaborador.oficina,
                                 variant: 'outlined'
                             })
                         ),
@@ -70678,7 +70685,7 @@ var PerfilColaboradores = function PerfilColaboradores(_ref) {
                                 fullWidth: true,
                                 id: 'outlined-bare',
                                 classes: { root: classes.labelText },
-                                defaultValue: 'lorena.gomez@tec.mx',
+                                defaultValue: colaborador.email,
                                 InputProps: {
                                     readOnly: true,
                                     disabled: true
@@ -70711,7 +70718,7 @@ var PerfilColaboradores = function PerfilColaboradores(_ref) {
                                 fullWidth: true,
                                 id: 'outlined-bare',
                                 classes: { root: classes.labelText },
-                                defaultValue: '52818181818',
+                                defaultValue: colaborador.celular,
                                 variant: 'outlined'
                             })
                         )

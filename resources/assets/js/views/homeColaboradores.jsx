@@ -15,8 +15,8 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Button from '@material-ui/core/Button';
 import {ListIcon} from './icons';
 
-const Home = ({classes, estudiante_html}) => {
-  const [estudiante, setEstudiante] = React.useState(false);
+const Home = ({classes, colaborador_html}) => {
+  const [colaborador, setColaborador] = React.useState(false);
   const [selectedAsignacion, setSelectedAsignacion] = React.useState(false);
   const [asignaciones, setAsignaciones] = React.useState([]);
   const [indexSelected, setIndexSelected] = React.useState(0);
@@ -26,7 +26,6 @@ const Home = ({classes, estudiante_html}) => {
   const periodoOptions = [];
   const yearOptions = [];
   const [selectYear, setYear] = React.useState(0);
-
   const [openEvaluacion, setOpenEvaluacion] = React.useState(false);
 
   const handleOpenEvaluacion = () => {
@@ -50,19 +49,19 @@ const Home = ({classes, estudiante_html}) => {
   yearOptions.push(<MenuItem classes={{ root: classes.options}} value={2019}>2019</MenuItem>);
   yearOptions.push(<MenuItem classes={{ root: classes.options}} value={2020}>2020</MenuItem>);
   React.useEffect(()=> {
-    
-    if(estudiante_html != null){
-      setEstudiante(estudiante_html);
+    console.log(colaborador);
+    if(colaborador_html != null){
+      setColaborador(colaborador_html);
       let _asignaciones = asignaciones;
 
-      estudiante_html.solicitudes_becarias.map(function(asignacion) {
+      colaborador_html.solicitudes_becarias.map(function(asignacion) {
         _asignaciones.push(asignacion);  
       });
 
       setAsignaciones(_asignaciones);
     }
     
-  }, [estudiante_html]);
+  }, [colaborador_html]);
 
   React.useEffect(()=> {
     if(asignaciones.length > 0) {
@@ -152,8 +151,8 @@ const Home = ({classes, estudiante_html}) => {
               <div className={`row mb-0 ${classes.paddingRight20}`}>
                 <div className={`${classes.itemsWrapper} col s12 card my-0`}>
                 {
-                  estudiante && 
-                  estudiante.solicitudes_becarias.map((asignacion, index) => {
+                  colaborador && 
+                  colaborador.solicitudes_becarias.map((asignacion, index) => {
                     if(index == indexSelected) {
                       console.log(true, index);
                       return (
@@ -231,15 +230,15 @@ const styles = theme => ({
 const _Home = withStyles(styles)(Home);
 
 if (document.getElementById('homeColaborador')) {
-  let _estudiante = document.getElementById('estudiante');
-  let estudiante_obj = null;
+  let _colaborador = document.getElementById('colaborador');
+  let colaborador_obj = null;
 
-  if(estudiante != "") {
-    estudiante_obj = JSON.parse(_estudiante.value);
-    _estudiante.parentNode.removeChild(_estudiante);
+  if(colaborador != "") {
+    colaborador_obj = JSON.parse(_colaborador.value);
+    //_colaborador.parentNode.removeChild(_colaborador);
   } else {
-    estudiante = null;
+    colaborador = null;
   }
 
-  ReactDOM.render(<_Home estudiante_html={estudiante_obj}/>, document.getElementById('homeColaborador'));
+  ReactDOM.render(<_Home colaborador_html={colaborador_obj}/>, document.getElementById('homeColaborador'));
 }

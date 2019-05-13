@@ -70541,8 +70541,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 var PerfilColaboradores = function PerfilColaboradores(_ref) {
     var classes = _ref.classes,
         open = _ref.open,
-        handleClose = _ref.handleClose;
+        handleClose = _ref.handleClose,
+        colaborador = _ref.colaborador;
 
+
+    if (colaborador == false) {
+        return null;
+    } else {
+        console.log(colaborador);
+    }
 
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         __WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__["MuiThemeProvider"],
@@ -70609,7 +70616,7 @@ var PerfilColaboradores = function PerfilColaboradores(_ref) {
                                 fullWidth: true,
                                 id: 'outlined-bare',
                                 classes: { root: classes.labelText },
-                                defaultValue: 'Lorena Gomez',
+                                defaultValue: colaborador.nombre_completo,
                                 InputProps: {
                                     readOnly: true,
                                     disabled: true
@@ -70624,7 +70631,7 @@ var PerfilColaboradores = function PerfilColaboradores(_ref) {
                                 fullWidth: true,
                                 id: 'outlined-bare',
                                 classes: { root: classes.labelText },
-                                defaultValue: 'Ciencias Computacionales',
+                                defaultValue: colaborador.departamento.nombre_departamento,
                                 InputProps: {
                                     readOnly: true,
                                     disabled: true
@@ -70667,7 +70674,7 @@ var PerfilColaboradores = function PerfilColaboradores(_ref) {
                                 fullWidth: true,
                                 id: 'outlined-bare',
                                 classes: { root: classes.labelText },
-                                defaultValue: 'Cetec torre sur 301',
+                                defaultValue: colaborador.oficina,
                                 variant: 'outlined'
                             })
                         ),
@@ -70678,7 +70685,7 @@ var PerfilColaboradores = function PerfilColaboradores(_ref) {
                                 fullWidth: true,
                                 id: 'outlined-bare',
                                 classes: { root: classes.labelText },
-                                defaultValue: 'lorena.gomez@tec.mx',
+                                defaultValue: colaborador.email,
                                 InputProps: {
                                     readOnly: true,
                                     disabled: true
@@ -70711,7 +70718,7 @@ var PerfilColaboradores = function PerfilColaboradores(_ref) {
                                 fullWidth: true,
                                 id: 'outlined-bare',
                                 classes: { root: classes.labelText },
-                                defaultValue: '52818181818',
+                                defaultValue: colaborador.celular,
                                 variant: 'outlined'
                             })
                         )
@@ -71467,7 +71474,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 var NavBar = function NavBar(_ref) {
-  var classes = _ref.classes;
+  var classes = _ref.classes,
+      colaborador_html = _ref.colaborador_html;
 
   var _React$useState = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(null),
       _React$useState2 = _slicedToArray(_React$useState, 2),
@@ -71631,7 +71639,7 @@ var NavBar = function NavBar(_ref) {
         )
       )
     ),
-    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__perfilColaboradores__["a" /* default */], { open: open, handleClose: handleClosePerfil }),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__perfilColaboradores__["a" /* default */], { open: open, handleClose: handleClosePerfil, colaborador: colaborador_html }),
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_10__reglamentoModal__["default"], { open: openReglamento, handleClose: handleCloseReglamento }),
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_11__importarCSV__["a" /* default */], { open: openImportarCSV, handleClose: handleCloseImport }),
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_12__solicitudBecModal__["a" /* default */], { open: openSolicitudBec, handleClose: handleCloseSolicitud })
@@ -71694,9 +71702,20 @@ var styles = function styles() {
 };
 
 var _NavBar = Object(__WEBPACK_IMPORTED_MODULE_2__material_ui_core_styles__["withStyles"])(styles)(NavBar);
-
 if (document.getElementById('nav')) {
-  __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(_NavBar, null), document.getElementById('nav'));
+  var _colaborador = document.getElementById('colaborador');
+  var colaborador_obj = null;
+
+  if (colaborador != "") {
+    colaborador_obj = JSON.parse(_colaborador.value);
+    //_colaborador.parentNode.removeChild(_colaborador);
+  } else {
+    colaborador = null;
+  }
+
+  if (document.getElementById('nav')) {
+    __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(_NavBar, { colaborador_html: colaborador_obj }), document.getElementById('nav'));
+  }
 }
 
 /***/ })

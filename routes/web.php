@@ -40,10 +40,10 @@ Route::get('/homeAdministrator', function () {
 });
 
 Route::get('/homeColaborador', function () {
-    $estudiante = Estudiante::where('id', 3)->with("carrera", "solicitudesBecarias.colaborador.departamento")->first();
+    $colaborador = Colaborador::where('id', 3)->with("departamento", "solicitudesBecarias.estudiante.carrera")->first();
   
     return view('homeColaborador', [
-      'estudiante' => $estudiante
+      'colaborador' => $colaborador
     ]);
 });
 

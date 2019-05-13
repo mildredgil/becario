@@ -11,7 +11,7 @@ import PerfilEstudiantes from './perfilEstudiante';
 import ReglamentoModal from './reglamentoModal';
 import { PowerIcon, PersonEditIcon, DescriptionIcon } from './icons';
 
-const NavBar = ({ classes }) => {
+const NavBar = ({ classes, estudiante_html }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [open, setOpen] = React.useState(false);
   const [openReglamento, setOpenReglamento] = React.useState(false);
@@ -43,20 +43,20 @@ const NavBar = ({ classes }) => {
 
   return (
     <MuiThemeProvider theme={defaultTheme}>
-      <nav class={`navbar navbar-default ${classes.navContainer}`}>
-        <div class={classes.containerExtended}>
-          <div class="row valign-wrapper">
-            <div class={`col s8 white-text ${classes.nav}`}>
+      <nav className={`navbar navbar-default ${classes.navContainer}`}>
+        <div className={classes.containerExtended}>
+          <div className="row valign-wrapper">
+            <div className={`col s8 white-text ${classes.nav}`}>
               Asignación Becaria
             </div>
-            <div class={`col s1 offset-s2 white-text nav center-align ${classes.nav}`}>
+            <div className={`col s1 offset-s2 white-text nav center-align ${classes.nav}`}>
               <Button
                 aria-owns={anchorEl ? 'simple-menu' : undefined}
                 aria-haspopup="true"
                 onClick={handleClick}
                 classes={{ root: classes.padding }}
               >
-                <i class={`material-icons white-text`}>home</i>
+                <i className={`material-icons white-text`}>home</i>
               </Button>
               <Menu
                 id="simple-menu"
@@ -78,11 +78,11 @@ const NavBar = ({ classes }) => {
                 </MenuItem>
               </Menu>
             </div>
-            <img class={classes.logo} src="/img/tec-logo-letras.png" />
+            <img className={classes.logo} src="/img/tec-logo-letras.png" />
           </div>
         </div>
       </nav>
-      <PerfilEstudiantes open={open} handleClose={handleClosePerfil} />
+      <PerfilEstudiantes open={open} handleClose={handleClosePerfil} estudiante={estudiante_html} />
       <ReglamentoModal open={openReglamento} handleClose={handleCloseReglamento} />
     </MuiThemeProvider>
   );
@@ -132,5 +132,15 @@ const styles = () => ({
 const _NavBar = withStyles(styles)(NavBar);
 
 if (document.getElementById('nav')) {
-  ReactDOM.render(<_NavBar />, document.getElementById('nav'));
+  let _estudiante = document.getElementById('estudiante');
+  let estudiante_obj = null;
+
+  if (estudiante != "") {
+    estudiante_obj = JSON.parse(_estudiante.value);
+    //_estudiante.parentNode.removeChild(_estudiante);
+  } else {
+    estudiante = null;
+  }
+
+    ReactDOM.render(<_NavBar estudiante_html={estudiante_obj} />, document.getElementById('nav'));  
 }
