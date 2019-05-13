@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 444);
+/******/ 	return __webpack_require__(__webpack_require__.s = 458);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -70501,24 +70501,21 @@ var styles = function styles(theme) {
 /* harmony default export */ __webpack_exports__["default"] = (Object(__WEBPACK_IMPORTED_MODULE_3__material_ui_core_styles__["withStyles"])(styles)(ReglamentoModal));
 
 /***/ }),
-/* 435 */
+/* 435 */,
+/* 436 */,
+/* 437 */,
+/* 438 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__material_ui_core_TextField__ = __webpack_require__(84);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__material_ui_core_TextField___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__material_ui_core_TextField__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__material_ui_core_Modal__ = __webpack_require__(38);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__material_ui_core_Modal___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__material_ui_core_Modal__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__material_ui_core_Button__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__material_ui_core_Button___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__material_ui_core_Button__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__ = __webpack_require__(23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__theme__ = __webpack_require__(58);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__icons__ = __webpack_require__(57);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__material_ui_core_styles__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__material_ui_core_styles___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__material_ui_core_styles__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__theme__ = __webpack_require__(58);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__material_ui_core_Button__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__material_ui_core_Button___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__material_ui_core_Button__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__icons__ = __webpack_require__(57);
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
@@ -70528,311 +70525,432 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+var CardEstudiante = function CardEstudiante(_ref) {
+  var classes = _ref.classes;
 
 
-
-var PerfilColaboradores = function PerfilColaboradores(_ref) {
-    var classes = _ref.classes,
-        open = _ref.open,
-        handleClose = _ref.handleClose;
-
-
-    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        __WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__["MuiThemeProvider"],
-        { theme: __WEBPACK_IMPORTED_MODULE_6__theme__["a" /* default */] },
+  return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+    __WEBPACK_IMPORTED_MODULE_1__material_ui_core_styles__["MuiThemeProvider"],
+    { theme: __WEBPACK_IMPORTED_MODULE_2__theme__["a" /* default */] },
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      'div',
+      { className: 'card my-0' },
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'div',
+        { className: 'px-3 py-3' },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            __WEBPACK_IMPORTED_MODULE_3__material_ui_core_Modal___default.a,
-            {
-                open: open,
-                onClose: handleClose,
-                classes: { root: classes.modalRoot }
-            },
+          'div',
+          { className: 'row margin-0' },
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'div',
+            { className: 'col s12' },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'div',
-                { className: 'container ' + classes.containerWidth },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'div',
-                    { className: 'card px-5 py-3' },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["c" /* CloseIcon */], { onClick: handleClose, className: classes.closeIcon }),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'div',
-                        { className: 'row margin-0' },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'div',
-                            { className: 'col s12 valign-wrapper' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["j" /* PersonEditIcon */], { className: classes.iconEditLabel }),
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'label',
-                                { className: classes.title + ' blue-tec' },
-                                'Informaci\xF3n personal'
-                            )
-                        )
-                    ),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'div',
-                        { className: 'row margin-0' },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'div',
-                            { className: 'col s6 mb-2 mt-4 valign-wrapper' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["k" /* PersonIcon */], { className: classes.iconLabel }),
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'label',
-                                null,
-                                'Nombre'
-                            )
-                        ),
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'div',
-                            { className: 'col s6 mb-2 mt-4 valign-wrapper' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["g" /* InfoIcon */], { className: classes.iconInfo }),
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'label',
-                                null,
-                                'Departamento'
-                            )
-                        )
-                    ),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'div',
-                        { className: 'row margin-0' },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'div',
-                            { className: 'col s6' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__material_ui_core_TextField___default.a, {
-                                fullWidth: true,
-                                id: 'outlined-bare',
-                                classes: { root: classes.labelText },
-                                defaultValue: 'Lorena Gomez',
-                                InputProps: {
-                                    readOnly: true,
-                                    disabled: true
-                                },
-                                variant: 'outlined'
-                            })
-                        ),
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'div',
-                            { className: 'col s6' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__material_ui_core_TextField___default.a, {
-                                fullWidth: true,
-                                id: 'outlined-bare',
-                                classes: { root: classes.labelText },
-                                defaultValue: 'Ciencias Computacionales',
-                                InputProps: {
-                                    readOnly: true,
-                                    disabled: true
-                                },
-                                variant: 'outlined'
-                            })
-                        )
-                    ),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'div',
-                        { className: 'row margin-0' },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'div',
-                            { className: 'col s6 mb-2 mt-4 valign-wrapper' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["g" /* InfoIcon */], { className: classes.iconInfo }),
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'label',
-                                null,
-                                'Oficina'
-                            )
-                        ),
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'div',
-                            { className: 'col s6 mb-2 mt-4 valign-wrapper' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["f" /* EmailIcon */], { className: classes.iconLabel }),
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'label',
-                                null,
-                                'Correo Electr\xF3nico'
-                            )
-                        )
-                    ),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'div',
-                        { className: 'row margin-0' },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'div',
-                            { className: 'col s6' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__material_ui_core_TextField___default.a, {
-                                fullWidth: true,
-                                id: 'outlined-bare',
-                                classes: { root: classes.labelText },
-                                defaultValue: 'Cetec torre sur 301',
-                                variant: 'outlined'
-                            })
-                        ),
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'div',
-                            { className: 'col s6' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__material_ui_core_TextField___default.a, {
-                                fullWidth: true,
-                                id: 'outlined-bare',
-                                classes: { root: classes.labelText },
-                                defaultValue: 'lorena.gomez@tec.mx',
-                                InputProps: {
-                                    readOnly: true,
-                                    disabled: true
-                                },
-                                variant: 'outlined'
-                            })
-                        )
-                    ),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'div',
-                        { className: 'row margin-0' },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'div',
-                            { className: 'col s6 mb-2 mt-4 valign-wrapper' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["l" /* PhoneIcon */], { className: classes.iconInfo }),
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'label',
-                                null,
-                                'Tel\xE9fono'
-                            )
-                        )
-                    ),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'div',
-                        { className: 'row margin-0' },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'div',
-                            { className: 'col s6' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__material_ui_core_TextField___default.a, {
-                                fullWidth: true,
-                                id: 'outlined-bare',
-                                classes: { root: classes.labelText },
-                                defaultValue: '52818181818',
-                                variant: 'outlined'
-                            })
-                        )
-                    ),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'div',
-                        { className: 'row center-align' },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'div',
-                            { className: 'col s12 mb-2 mt-4' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                __WEBPACK_IMPORTED_MODULE_4__material_ui_core_Button___default.a,
-                                {
-                                    variant: 'contained',
-                                    color: 'primary',
-                                    href: '/homeColaborador' },
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["b" /* CheckIcon */], { className: 'white-text ' + classes.labelCheck }),
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                    'span',
-                                    { className: classes.labelLogin },
-                                    'Guardar'
-                                )
-                            )
-                        )
-                    )
-                )
+              'label',
+              { className: classes.title },
+              'Informaci\xF3n Estudiante'
             )
+          )
+        ),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'div',
+          { className: 'row margin-0 ' + classes.paddingTop20 },
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'div',
+            { className: 'col s3 valign-wrapper' },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__icons__["g" /* InfoIcon */], { className: classes.iconInfo }),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'label',
+              null,
+              'Matr\xEDcula'
+            )
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'div',
+            { className: 'col s9 valign-wrapper' },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__icons__["k" /* PersonIcon */], { className: classes.iconLabel }),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'label',
+              null,
+              'Nombre'
+            )
+          )
+        ),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'div',
+          { className: 'row margin-0' },
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'div',
+            { className: 'col s3' },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'label',
+              { className: classes.labelText },
+              'A01176573'
+            )
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'div',
+            { className: 'col s9' },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'label',
+              { className: classes.labelText },
+              'Jaime Andr\xE9s Montemayor Molina'
+            )
+          )
+        ),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'div',
+          { className: 'row margin-0 ' + classes.paddingTop20 },
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'div',
+            { className: 'col s3 valign-wrapper' },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__icons__["l" /* PhoneIcon */], { className: classes.iconLabel }),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'label',
+              null,
+              'Tel\xE9fono'
+            )
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'div',
+            { className: 'col s9 valign-wrapper' },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__icons__["f" /* EmailIcon */], { className: classes.iconLabel }),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'label',
+              null,
+              'Correo'
+            )
+          )
+        ),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'div',
+          { className: 'row margin-0' },
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'div',
+            { className: 'col s3' },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'label',
+              { className: classes.labelText },
+              '52818181818'
+            )
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'div',
+            { className: 'col s9' },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'label',
+              { className: classes.labelText },
+              'jamememes.mm@tug.com.mx'
+            )
+          )
+        ),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'div',
+          { className: 'row margin-0 ' + classes.paddingTop20 },
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'div',
+            { className: 'col s3 valign-wrapper' },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__icons__["g" /* InfoIcon */], { className: classes.iconInfo }),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'label',
+              null,
+              'Semestre'
+            )
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'div',
+            { className: 'col s9 valign-wrapper' },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__icons__["o" /* SchoolIcon */], { className: classes.iconSchool }),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'label',
+              null,
+              'Carrera'
+            )
+          )
+        ),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'div',
+          { className: 'row margin-0' },
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'div',
+            { className: 'col s3' },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'label',
+              { className: classes.labelText },
+              'Sexto'
+            )
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'div',
+            { className: 'col s9' },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'label',
+              { className: classes.labelText },
+              'Ing. en Tecnolog\xEDas de Informaci\xF3n y Comunicaciones'
+            )
+          )
         )
-    );
+      ),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'div',
+        { className: 'row margin-0 blue-tec-light-b valign-wrapper px-3' },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'div',
+          { className: 'col s4 py-3' },
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'label',
+            { className: 'blue-tec-dark' },
+            'Evaluaci\xF3n: '
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'label',
+            { className: classes.status + ' blue-tec' },
+            ' Satisfactorio'
+          )
+        ),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'div',
+          { className: 'col s8 right-align py-3' },
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            __WEBPACK_IMPORTED_MODULE_3__material_ui_core_Button___default.a,
+            { variant: 'contained', color: 'primary', href: 'mailto:A00820397@itesm.mx' },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__icons__["f" /* EmailIcon */], { className: 'white-text ' + classes.icon }),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'span',
+              { className: classes.labelLogin },
+              'Enviar correo'
+            )
+          )
+        )
+      )
+    )
+  );
 };
 
 var maxWidth = 1000;
 
 var styles = function styles(theme) {
-    return _defineProperty({
+  return _defineProperty({
+    btn: {
+      backgroundColor: 'white',
+      color: "#212121"
+    },
 
-        modalWrapper: {
-            padding: "25px !Important"
-        },
+    icon: {
+      fontSize: '17px',
+      marginRight: '0.5rem'
+    },
 
-        modalRoot: {
-            top: '20%'
-        },
+    iconLabel: {
+      color: "#101010",
+      fontSize: '14px',
+      marginRight: '0.5rem'
+    },
 
-        title: {
-            fontSize: '30px',
-            fontWeight: 'bold'
-        },
+    iconSchool: {
+      color: "#101010",
+      fontSize: '18px',
+      marginRight: '0.5rem'
+    },
 
-        icon: {
-            fontSize: '17px',
-            marginRight: '0.5rem'
-        },
+    iconInfo: {
+      color: "#101010",
+      fontSize: '18px',
+      marginRight: '0.5rem'
+    },
 
-        labelText: {
-            fontSize: '14px',
-            color: '#000'
-        },
+    title: {
+      fontSize: '30px',
+      color: '#101010',
+      fontWeight: 'bold'
+    },
 
-        iconLabel: {
-            color: "#101010",
-            fontSize: '14px',
-            marginRight: '0.5rem'
-        },
-        iconEditLabel: {
-            color: "#223f93",
-            fontSize: '30px',
-            marginRight: '0.5rem'
-        },
+    labelText: {
+      fontSize: '20px',
+      color: '#000'
+    },
 
-        iconSchool: {
-            color: "#101010",
-            fontSize: '18px',
-            marginRight: '0.5rem'
-        },
+    paddingTop20: {
+      paddingTop: '20px'
+    },
 
-        iconInfo: {
-            color: "#101010",
-            fontSize: '18px',
-            marginRight: '0.5rem'
-        },
+    status: {
+      fontSize: '20px'
+    },
 
-        closeIcon: {
-            cursor: 'pointer',
-            color: 'black',
-            position: 'absolute',
-            right: '12px',
-            top: '12px',
-            fontSize: '18px'
-        },
+    containerWidth: {
+      maxWidth: '40%'
+    },
 
-        containerWidth: {
-            maxWidth: '50%'
-        },
+    labelLogin: {
+      fontFamily: 'Nunito'
+    }
 
-        labelLogin: {
-            fontFamily: 'Nunito',
-            fontSize: '20px',
-            marginRight: '0.5rem'
-        },
-
-        labelCheck: {
-            fontSize: '16px',
-            marginRight: '0.5rem'
-        }
-
-    }, '@media (max-width: ' + maxWidth + 'px)', {});
+  }, '@media (max-width: ' + maxWidth + 'px)', {});
 };
 
-/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__["withStyles"])(styles)(PerfilColaboradores));
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_1__material_ui_core_styles__["withStyles"])(styles)(CardEstudiante));
 
 /***/ }),
-/* 436 */,
-/* 437 */,
-/* 438 */,
-/* 439 */,
+/* 439 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__material_ui_core_styles__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__material_ui_core_styles___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__material_ui_core_styles__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__icons__ = __webpack_require__(57);
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+
+var ItemBecario = function ItemBecario(_ref) {
+  var classes = _ref.classes,
+      asignacion = _ref.asignacion,
+      isSelected = _ref.isSelected,
+      handleClick = _ref.handleClick;
+
+  var evaluacion = ['Pendiente', 'Satisfactoria', 'Insatisfactoria'];
+  var new_periodo = ['Invierno', 'Febrero-Junio', 'Verano', 'Agosto-Diciembre'];
+  var old_periodo = ['', 'Enero-Mayo', 'Verano', 'Agosto-Diciembre'];
+
+  var periodo = '';
+
+  var _date = asignacion.fecha_asignacion;
+  var date = new Date(_date);
+  var year = date.getFullYear();
+  var month = date.getMonth();
+  var periodo_string = '';
+
+  if (year >= 2020) {
+    periodo = new_periodo;
+
+    if (month == 0) {
+      periodo_string = periodo[0];
+    } else if (month == 1) {
+      periodo_string = periodo[1];
+    } else if (month == 6) {
+      periodo_string = periodo[2];
+    } else {
+      periodo_string = periodo[3];
+    }
+  } else {
+    periodo = old_periodo;
+    if (month == 0) {
+      periodo_string = periodo[1];
+    } else if (month == 5) {
+      periodo_string = periodo[2];
+    } else {
+      periodo_string = periodo[3];
+    }
+  }
+
+  return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+    'div',
+    { onClick: handleClick, className: (isSelected ? classes.selected : classes.itemWrapper) + ' row valign-wrapper py-2 px-2 mb-0' },
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      'div',
+      { className: 'col s10' },
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'label',
+        { className: classes.periodo + ' blue-tec' },
+        'Jaime Andr\xE9s Montemayor Molina'
+      ),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'label',
+        { className: classes.colab + ' truncate blue-tec-dark' },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__icons__["k" /* PersonIcon */], { className: classes.iconLabel }),
+        '6\xB0 ITC | Evaluaci\xF3n: Satisfactorio'
+      )
+    ),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      'div',
+      { className: 'col s2' },
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__icons__["n" /* RightArrowIcon */], { className: 'hide ' + classes.icon + ' ' + (isSelected ? classes.itemIcon : '') + ' ' })
+    )
+  );
+};
+
+var maxWidth = 1000;
+
+var styles = function styles(theme) {
+  return _defineProperty({
+    itemWrapper: {
+      borderBottom: '1px solid rgba(34,  63, 147, 0.2)',
+      '&:hover': {
+        background: "#223f9320"
+      }
+    },
+
+    selected: {
+      background: "#223f9320"
+    },
+
+    iconLocation: {
+      fontSize: '12px'
+    },
+
+    itemIcon: {
+      display: "inline-block !important"
+    },
+
+    icon: {
+      color: "#223f93",
+      fontSize: '17px',
+      marginRight: '0.5rem'
+    },
+
+    iconLabel: {
+      color: "#223f93",
+      fontSize: '12px',
+      marginRight: '0.5rem'
+    },
+
+    periodo: {
+      fontSize: '20px',
+      fontWeight: 'bold'
+    },
+
+    colab: {
+      fontSize: '12px'
+    }
+
+  }, '@media (max-width: ' + maxWidth + 'px)', {});
+};
+
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_1__material_ui_core_styles__["withStyles"])(styles)(ItemBecario));
+
+/***/ }),
 /* 440 */,
 /* 441 */,
 /* 442 */,
 /* 443 */,
-/* 444 */
+/* 444 */,
+/* 445 */,
+/* 446 */,
+/* 447 */,
+/* 448 */,
+/* 449 */,
+/* 450 */,
+/* 451 */,
+/* 452 */,
+/* 453 */,
+/* 454 */,
+/* 455 */,
+/* 456 */,
+/* 457 */,
+/* 458 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(445);
+module.exports = __webpack_require__(459);
 
 
 /***/ }),
-/* 445 */
+/* 459 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -70841,19 +70959,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__material_ui_core_styles__ = __webpack_require__(23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__material_ui_core_styles___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__material_ui_core_styles__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__material_ui_core_Button__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__material_ui_core_Button___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__material_ui_core_Button__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__theme__ = __webpack_require__(58);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__material_ui_core_Menu__ = __webpack_require__(137);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__material_ui_core_Menu___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_Menu__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__material_ui_core_MenuItem__ = __webpack_require__(80);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__material_ui_core_MenuItem___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__material_ui_core_MenuItem__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__perfilColaboradores__ = __webpack_require__(435);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__perfilEstudiante__ = __webpack_require__(446);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__reglamentoModal__ = __webpack_require__(434);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__icons__ = __webpack_require__(57);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__cardEstudiante__ = __webpack_require__(438);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__itemBecario__ = __webpack_require__(439);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__reglamentoModal__ = __webpack_require__(434);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__theme__ = __webpack_require__(58);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__material_ui_core_Select__ = __webpack_require__(59);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__material_ui_core_Select___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__material_ui_core_Select__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__material_ui_core_FormControl__ = __webpack_require__(81);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__material_ui_core_FormControl___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__material_ui_core_FormControl__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__material_ui_core_OutlinedInput__ = __webpack_require__(83);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__material_ui_core_OutlinedInput___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9__material_ui_core_OutlinedInput__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__material_ui_core_MenuItem__ = __webpack_require__(80);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__material_ui_core_MenuItem___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10__material_ui_core_MenuItem__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__material_ui_core_InputLabel__ = __webpack_require__(82);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__material_ui_core_InputLabel___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11__material_ui_core_InputLabel__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__material_ui_core_Button__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__material_ui_core_Button___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_12__material_ui_core_Button__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__icons__ = __webpack_require__(57);
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -70871,494 +70995,345 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-var NavBar = function NavBar(_ref) {
-  var classes = _ref.classes;
 
-  var _React$useState = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(null),
+
+
+var Home = function Home(_ref) {
+  var classes = _ref.classes,
+      estudiante_html = _ref.estudiante_html;
+
+  var _React$useState = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(false),
       _React$useState2 = _slicedToArray(_React$useState, 2),
-      anchorEl = _React$useState2[0],
-      setAnchorEl = _React$useState2[1];
+      estudiante = _React$useState2[0],
+      setEstudiante = _React$useState2[1];
 
   var _React$useState3 = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(false),
       _React$useState4 = _slicedToArray(_React$useState3, 2),
-      open = _React$useState4[0],
-      setOpen = _React$useState4[1];
+      selectedAsignacion = _React$useState4[0],
+      setSelectedAsignacion = _React$useState4[1];
 
-  var _React$useState5 = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(false),
+  var _React$useState5 = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState([]),
       _React$useState6 = _slicedToArray(_React$useState5, 2),
-      openReglamento = _React$useState6[0],
-      setOpenReglamento = _React$useState6[1];
+      asignaciones = _React$useState6[0],
+      setAsignaciones = _React$useState6[1];
 
-  var handleClick = function handleClick(event) {
-    setAnchorEl(event.currentTarget);
+  var _React$useState7 = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(0),
+      _React$useState8 = _slicedToArray(_React$useState7, 2),
+      indexSelected = _React$useState8[0],
+      setIndexSelected = _React$useState8[1];
+
+  var new_periodo = ['Invierno', 'Febrero-Junio', 'Verano', 'Agosto-Diciembre'];
+  var old_periodo = ['', 'Enero-Mayo', 'Verano', 'Agosto-Diciembre'];
+
+  var _React$useState9 = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(0),
+      _React$useState10 = _slicedToArray(_React$useState9, 2),
+      periodo = _React$useState10[0],
+      setPeriodo = _React$useState10[1];
+
+  var periodoOptions = [];
+  var yearOptions = [];
+
+  var _React$useState11 = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(0),
+      _React$useState12 = _slicedToArray(_React$useState11, 2),
+      selectYear = _React$useState12[0],
+      setYear = _React$useState12[1];
+
+  periodoOptions.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+    __WEBPACK_IMPORTED_MODULE_10__material_ui_core_MenuItem___default.a,
+    { classes: { root: classes.options }, value: 0 },
+    new_periodo[0]
+  ));
+  periodoOptions.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+    __WEBPACK_IMPORTED_MODULE_10__material_ui_core_MenuItem___default.a,
+    { classes: { root: classes.options }, value: 1 },
+    new_periodo[1]
+  ));
+  periodoOptions.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+    __WEBPACK_IMPORTED_MODULE_10__material_ui_core_MenuItem___default.a,
+    { classes: { root: classes.options }, value: 2 },
+    new_periodo[2]
+  ));
+  periodoOptions.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+    __WEBPACK_IMPORTED_MODULE_10__material_ui_core_MenuItem___default.a,
+    { classes: { root: classes.options }, value: 3 },
+    new_periodo[3]
+  ));
+  yearOptions.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+    __WEBPACK_IMPORTED_MODULE_10__material_ui_core_MenuItem___default.a,
+    { classes: { root: classes.options }, value: 2013 },
+    '2013'
+  ));
+  yearOptions.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+    __WEBPACK_IMPORTED_MODULE_10__material_ui_core_MenuItem___default.a,
+    { classes: { root: classes.options }, value: 2014 },
+    '2014'
+  ));
+  yearOptions.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+    __WEBPACK_IMPORTED_MODULE_10__material_ui_core_MenuItem___default.a,
+    { classes: { root: classes.options }, value: 2015 },
+    '2015'
+  ));
+  yearOptions.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+    __WEBPACK_IMPORTED_MODULE_10__material_ui_core_MenuItem___default.a,
+    { classes: { root: classes.options }, value: 2016 },
+    '2016'
+  ));
+  yearOptions.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+    __WEBPACK_IMPORTED_MODULE_10__material_ui_core_MenuItem___default.a,
+    { classes: { root: classes.options }, value: 2017 },
+    '2017'
+  ));
+  yearOptions.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+    __WEBPACK_IMPORTED_MODULE_10__material_ui_core_MenuItem___default.a,
+    { classes: { root: classes.options }, value: 2018 },
+    '2018'
+  ));
+  yearOptions.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+    __WEBPACK_IMPORTED_MODULE_10__material_ui_core_MenuItem___default.a,
+    { classes: { root: classes.options }, value: 2019 },
+    '2019'
+  ));
+  yearOptions.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+    __WEBPACK_IMPORTED_MODULE_10__material_ui_core_MenuItem___default.a,
+    { classes: { root: classes.options }, value: 2020 },
+    '2020'
+  ));
+  __WEBPACK_IMPORTED_MODULE_0_react___default.a.useEffect(function () {
+
+    if (estudiante_html != null) {
+      setEstudiante(estudiante_html);
+      var _asignaciones = asignaciones;
+
+      estudiante_html.solicitudes_becarias.map(function (asignacion) {
+        _asignaciones.push(asignacion);
+      });
+
+      setAsignaciones(_asignaciones);
+    }
+  }, [estudiante_html]);
+
+  __WEBPACK_IMPORTED_MODULE_0_react___default.a.useEffect(function () {
+    if (asignaciones.length > 0) {
+      setSelectedAsignacion(asignaciones[0]);
+    }
+  }, [asignaciones]);
+
+  console.log(selectedAsignacion);
+
+  var selectAsignacion = function selectAsignacion(index) {
+    setSelectedAsignacion(asignaciones[index]);
+    setIndexSelected(index);
   };
 
-  var handleClose = function handleClose() {
-    setAnchorEl(null);
-    //window.location.replace("/login");
+  var onChangePeriod = function onChangePeriod(event) {
+    setPeriodo(event.target.value);
   };
 
-  var handleOpenPerfil = function handleOpenPerfil() {
-    setOpen(true);
+  var onChangeYear = function onChangeYear(event) {
+    setYear(event.target.value);
   };
-
-  var handleClosePerfil = function handleClosePerfil() {
-    setOpen(false);
-  };
-
-  var handleOpenReglamento = function handleOpenReglamento() {
-    setOpenReglamento(true);
-  };
-
-  var handleCloseReglamento = function handleCloseReglamento() {
-    setOpenReglamento(false);
-  };
-
   return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-    __WEBPACK_IMPORTED_MODULE_2__material_ui_core_styles__["MuiThemeProvider"],
-    { theme: __WEBPACK_IMPORTED_MODULE_4__theme__["a" /* default */] },
+    __WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__["MuiThemeProvider"],
+    { theme: __WEBPACK_IMPORTED_MODULE_6__theme__["a" /* default */] },
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-      'nav',
-      { 'class': 'navbar navbar-default ' + classes.navContainer },
+      'div',
+      { className: 'container' },
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
-        { 'class': classes.containerExtended },
+        { className: 'row ' + classes.margin40 },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'div',
-          { 'class': 'row valign-wrapper' },
+          { className: 'col s12 blue-tec mb-2 ' + classes.titleHistory },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
-            { 'class': 'col s8 white-text ' + classes.nav },
-            'Asignaci\xF3n Becaria'
+            { className: 'col s9' },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'span',
+              { className: classes.labelLogin },
+              'Becarios | Agosto-Diciembre 2019'
+            )
           ),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
-            { 'class': 'col s1 offset-s2 white-text nav center-align ' + classes.nav },
+            { className: 'col s3 align-right' },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              __WEBPACK_IMPORTED_MODULE_3__material_ui_core_Button___default.a,
+              __WEBPACK_IMPORTED_MODULE_12__material_ui_core_Button___default.a,
               {
-                'aria-owns': anchorEl ? 'simple-menu' : undefined,
-                'aria-haspopup': 'true',
-                onClick: handleClick,
-                classes: { root: classes.padding }
-              },
+                variant: 'contained',
+                color: 'primary' },
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_13__icons__["h" /* ListIcon */], { className: 'white-text ' + classes.labelCheck }),
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'i',
-                { 'class': 'material-icons white-text' },
-                'home'
+                'span',
+                { className: classes.labelLogin },
+                'Evaluar alumnos'
+              )
+            )
+          )
+        )
+      ),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'div',
+        { className: 'row ' },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'div',
+          { className: 'col s4' },
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'div',
+            { className: 'row ' },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'div',
+              { className: 'col s6' },
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                __WEBPACK_IMPORTED_MODULE_8__material_ui_core_FormControl___default.a,
+                { variant: 'outlined', fullWidth: true, margin: 'normal' },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  __WEBPACK_IMPORTED_MODULE_11__material_ui_core_InputLabel___default.a,
+                  {
+                    htmlFor: 'lada'
+                  },
+                  'Periodo'
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  StyledSelect,
+                  {
+                    value: periodo,
+                    onChange: onChangePeriod,
+                    input: __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_9__material_ui_core_OutlinedInput___default.a, {
+                      name: 'lada',
+                      id: 'lada',
+                      labelWidth: 48
+                    })
+                    //MenuProps={{classes:{paper: maxHeight}}}
+                  },
+                  periodoOptions
+                )
               )
             ),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              __WEBPACK_IMPORTED_MODULE_5__material_ui_core_Menu___default.a,
-              {
-                id: 'simple-menu',
-                anchorEl: anchorEl,
-                open: Boolean(anchorEl),
-                onClose: handleClose
-              },
+              'div',
+              { className: 'col s6' },
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                __WEBPACK_IMPORTED_MODULE_6__material_ui_core_MenuItem___default.a,
-                { onClick: handleOpenPerfil, className: 'valign-wrapper' },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_10__icons__["j" /* PersonEditIcon */], { className: classes.iconLabel }),
-                'Perfil'
-              ),
+                __WEBPACK_IMPORTED_MODULE_8__material_ui_core_FormControl___default.a,
+                { variant: 'outlined', fullWidth: true, margin: 'normal' },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  __WEBPACK_IMPORTED_MODULE_11__material_ui_core_InputLabel___default.a,
+                  {
+                    htmlFor: 'lada'
+                  },
+                  'A\xF1o'
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  StyledSelect,
+                  {
+                    value: selectYear,
+                    onChange: onChangeYear,
+                    input: __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_9__material_ui_core_OutlinedInput___default.a, {
+                      name: 'lada',
+                      id: 'lada',
+                      labelWidth: 48
+                    })
+                    //MenuProps={{classes:{paper: maxHeight}}}
+                  },
+                  yearOptions
+                )
+              )
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'div',
+              { className: 'row mb-0 ' + classes.paddingRight20 },
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                __WEBPACK_IMPORTED_MODULE_6__material_ui_core_MenuItem___default.a,
-                { onClick: handleOpenReglamento, className: 'valign-wrapper' },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_10__icons__["d" /* DescriptionIcon */], { className: classes.iconLabel }),
-                'Reglamento'
-              ),
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                __WEBPACK_IMPORTED_MODULE_6__material_ui_core_MenuItem___default.a,
-                { onClick: handleClose, className: 'valign-wrapper' },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_10__icons__["m" /* PowerIcon */], { className: classes.iconLabel }),
-                'Cerrar Sesi\xF3n'
+                'div',
+                { className: classes.itemsWrapper + ' col s12 card my-0' },
+                estudiante && estudiante.solicitudes_becarias.map(function (asignacion, index) {
+                  if (index == indexSelected) {
+                    console.log(true, index);
+                    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__itemBecario__["a" /* default */], { isSelected: true, handleClick: function handleClick(e) {
+                        return selectAsignacion(index);
+                      }, key: index, asignacion: asignacion });
+                  } else {
+                    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__itemBecario__["a" /* default */], { isSelected: false, handleClick: function handleClick(e) {
+                        return selectAsignacion(index);
+                      }, key: index, asignacion: asignacion });
+                  }
+                })
               )
             )
-          ),
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { 'class': classes.logo, src: '/img/tec-logo-letras.png' })
+          )
+        ),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'div',
+          { className: 'col s8' },
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'div',
+            { className: 'row mb-0' },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__cardEstudiante__["a" /* default */], { asignacion: selectedAsignacion })
+          )
         )
       )
     ),
-    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8__perfilEstudiante__["a" /* default */], { open: open, handleClose: handleClosePerfil }),
-    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_9__reglamentoModal__["default"], { open: openReglamento, handleClose: handleCloseReglamento })
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__reglamentoModal__["default"], null)
   );
 };
 
+var StyledSelect = Object(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__["withStyles"])({
+  outlined: {
+    padding: '18.5px 14px',
+    borderRadius: 0,
+    fontFamily: 'Nunito',
+    fontSize: '14px',
+    color: '#B7B7B7'
+  }
+})(__WEBPACK_IMPORTED_MODULE_7__material_ui_core_Select___default.a);
 var maxWidth = 1000;
 
-var styles = function styles() {
+var styles = function styles(theme) {
   return _defineProperty({
-    navContainer: {
-      background: ' linear-gradient(80.19deg, #101010 0%, #223f93 100%)',
-      margin: '0px'
-    },
-    nav: {
-      fontSize: '24px',
-      fontFamily: 'Nunito',
-      letterSpacing: '12px',
-      textTransform: 'uppercase',
-      fontWeight: 'lighter,'
-    },
-    containerExtended: {
-      width: '90%',
-      margin: '0 auto'
-    },
-    icon: {
-      cursor: 'pointer'
-    },
-    //  backgroundColor: '#46c2ff75',
-    padding: {
-      padding: '0px'
-    },
-    logo: {
-      width: '60px',
-      position: 'absolute',
-      right: '10px'
+    itemsWrapper: {
+      overflowY: 'scroll',
+      height: '300px'
     },
 
-    iconLabel: {
-      fontSize: '18px',
+    margin40: {
+      marginTop: '40px',
+      marginBottom: '40px'
+    },
+
+    paddingRight20: {
+      paddingRight: '20px'
+    },
+
+    titleHistory: {
+      fontSize: '30px'
+    },
+
+    labelLogin: {
+      fontFamily: 'Nunito',
+      fontSize: '20px'
+    },
+
+    labelCheck: {
+      fontSize: '20px',
       marginRight: '0.5rem'
     }
 
   }, '@media (max-width: ' + maxWidth + 'px)', {});
 };
 
-var _NavBar = Object(__WEBPACK_IMPORTED_MODULE_2__material_ui_core_styles__["withStyles"])(styles)(NavBar);
+var _Home = Object(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__["withStyles"])(styles)(Home);
 
-if (document.getElementById('nav')) {
-  __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(_NavBar, null), document.getElementById('nav'));
+if (document.getElementById('homeAdministrator')) {
+  var _estudiante = document.getElementById('estudiante');
+  var estudiante_obj = null;
+
+  if (estudiante != "") {
+    estudiante_obj = JSON.parse(_estudiante.value);
+    _estudiante.parentNode.removeChild(_estudiante);
+  } else {
+    estudiante = null;
+  }
+
+  __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(_Home, { estudiante_html: estudiante_obj }), document.getElementById('homeAdministrator'));
 }
-
-/***/ }),
-/* 446 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__material_ui_core_TextField__ = __webpack_require__(84);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__material_ui_core_TextField___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__material_ui_core_TextField__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__material_ui_core_Modal__ = __webpack_require__(38);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__material_ui_core_Modal___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__material_ui_core_Modal__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__material_ui_core_Button__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__material_ui_core_Button___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__material_ui_core_Button__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__ = __webpack_require__(23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__theme__ = __webpack_require__(58);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__icons__ = __webpack_require__(57);
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-
-
-
-
-
-
-
-
-
-
-var PerfilEstudiantes = function PerfilEstudiantes(_ref) {
-    var classes = _ref.classes,
-        open = _ref.open,
-        handleClose = _ref.handleClose;
-
-
-    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        __WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__["MuiThemeProvider"],
-        { theme: __WEBPACK_IMPORTED_MODULE_6__theme__["a" /* default */] },
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            __WEBPACK_IMPORTED_MODULE_3__material_ui_core_Modal___default.a,
-            {
-                open: open,
-                onClose: handleClose,
-                classes: { root: classes.modalRoot }
-            },
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'div',
-                { className: 'container ' + classes.containerWidth },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'div',
-                    { className: 'card px-5 py-3' },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["c" /* CloseIcon */], { onClick: handleClose, className: classes.closeIcon }),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'div',
-                        { className: 'row margin-0' },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'div',
-                            { className: 'col s12 valign-wrapper' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["j" /* PersonEditIcon */], { className: classes.iconEditLabel }),
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'label',
-                                { className: classes.title + ' blue-tec' },
-                                'Informaci\xF3n personal'
-                            )
-                        ),
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'div',
-                            { className: 'col s6 mb-2 mt-4 valign-wrapper' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["k" /* PersonIcon */], { className: classes.iconLabel }),
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'label',
-                                null,
-                                'Nombre'
-                            )
-                        ),
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'div',
-                            { className: 'col s6 mb-2 mt-4 valign-wrapper' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["g" /* InfoIcon */], { className: classes.iconInfo }),
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'label',
-                                null,
-                                'Matr\xEDcula'
-                            )
-                        ),
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'div',
-                            { className: 'col s6' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__material_ui_core_TextField___default.a, {
-                                fullWidth: true,
-                                id: 'outlined-bare',
-                                classes: { root: classes.labelText },
-                                defaultValue: 'Lorena Gomez',
-                                InputProps: {
-                                    readOnly: true,
-                                    disabled: true
-                                },
-                                variant: 'outlined'
-                            })
-                        ),
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'div',
-                            { className: 'col s6' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__material_ui_core_TextField___default.a, {
-                                fullWidth: true,
-                                id: 'outlined-bare',
-                                classes: { root: classes.labelText },
-                                defaultValue: 'A01176573',
-                                InputProps: {
-                                    readOnly: true,
-                                    disabled: true
-                                },
-                                variant: 'outlined'
-                            })
-                        ),
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'div',
-                            { className: 'col s6 mb-2 mt-4 valign-wrapper' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["o" /* SchoolIcon */], { className: classes.iconSchool }),
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'label',
-                                null,
-                                'Carrera'
-                            )
-                        ),
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'div',
-                            { className: 'col s6 mb-2 mt-4 valign-wrapper' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["g" /* InfoIcon */], { className: classes.iconInfo }),
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'label',
-                                null,
-                                'Semestre'
-                            )
-                        ),
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'div',
-                            { className: 'col s6' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__material_ui_core_TextField___default.a, {
-                                fullWidth: true,
-                                id: 'outlined-bare',
-                                classes: { root: classes.labelText },
-                                defaultValue: 'ITC',
-                                InputProps: {
-                                    readOnly: true,
-                                    disabled: true
-                                },
-                                variant: 'outlined'
-                            })
-                        ),
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'div',
-                            { className: 'col s6' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__material_ui_core_TextField___default.a, {
-                                fullWidth: true,
-                                id: 'outlined-bare',
-                                classes: { root: classes.labelText },
-                                defaultValue: '6\xB0',
-                                InputProps: {
-                                    readOnly: true,
-                                    disabled: true
-                                },
-                                variant: 'outlined'
-                            })
-                        ),
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'div',
-                            { className: 'col s6 mb-2 mt-4 valign-wrapper' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["f" /* EmailIcon */], { className: classes.iconLabel }),
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'label',
-                                null,
-                                'Correo'
-                            )
-                        ),
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'div',
-                            { className: 'col s6 mb-2 mt-4 valign-wrapper' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["l" /* PhoneIcon */], { className: classes.iconInfo }),
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'label',
-                                null,
-                                'Tel\xE9fono'
-                            )
-                        )
-                    ),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'div',
-                        { className: 'row no-margin' },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'div',
-                            { className: 'col s6' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__material_ui_core_TextField___default.a, {
-                                fullWidth: true,
-                                id: 'outlined-bare',
-                                classes: { root: classes.labelText },
-                                defaultValue: 'a09273645@itesm.mx',
-                                InputProps: {
-                                    readOnly: true,
-                                    disabled: true
-                                },
-                                variant: 'outlined'
-                            })
-                        ),
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'div',
-                            { className: 'col s6' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__material_ui_core_TextField___default.a, {
-                                fullWidth: true,
-                                id: 'outlined-bare',
-                                classes: { root: classes.labelText },
-                                defaultValue: '8181818181',
-                                InputProps: {
-                                    readOnly: false,
-                                    disabled: false
-                                },
-                                variant: 'outlined'
-                            })
-                        )
-                    ),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'div',
-                        { className: 'row center-align' },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'div',
-                            { className: 'col s12 mb-2 mt-4' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                __WEBPACK_IMPORTED_MODULE_4__material_ui_core_Button___default.a,
-                                {
-                                    variant: 'contained',
-                                    color: 'primary',
-                                    href: '/homeEstudiante' },
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["b" /* CheckIcon */], { className: 'white-text ' + classes.labelCheck }),
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                    'span',
-                                    { className: classes.labelLogin },
-                                    'Guardar'
-                                )
-                            )
-                        )
-                    )
-                )
-            )
-        )
-    );
-};
-
-var maxWidth = 1000;
-
-var styles = function styles(theme) {
-    return _defineProperty({
-
-        modalWrapper: {
-            padding: "25px !Important"
-        },
-
-        modalRoot: {
-            top: '20%'
-        },
-
-        title: {
-            fontSize: '30px',
-            fontWeight: 'bold'
-        },
-
-        icon: {
-            fontSize: '17px',
-            marginRight: '0.5rem'
-        },
-
-        labelText: {
-            fontSize: '14px',
-            color: '#000'
-            //marginLeft: '0.5rem'
-        },
-
-        iconLabel: {
-            color: "#101010",
-            fontSize: '14px',
-            marginRight: '0.5rem'
-        },
-        iconEditLabel: {
-            color: "#223f93",
-            fontSize: '30px',
-            marginRight: '0.5rem'
-        },
-
-        iconSchool: {
-            color: "#101010",
-            fontSize: '18px',
-            marginRight: '0.5rem'
-        },
-
-        iconInfo: {
-            color: "#101010",
-            fontSize: '18px',
-            marginRight: '0.5rem'
-        },
-
-        closeIcon: {
-            cursor: 'pointer',
-            color: 'black',
-            position: 'absolute',
-            right: '12px',
-            top: '12px',
-            fontSize: '18px'
-        },
-
-        containerWidth: {
-            maxWidth: '50%'
-        },
-
-        labelCheck: {
-            fontSize: '16px',
-            marginRight: '0.5rem'
-        },
-
-        labelLogin: {
-            fontFamily: 'Nunito',
-            fontSize: '20px'
-        }
-
-    }, '@media (max-width: ' + maxWidth + 'px)', {});
-};
-
-/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__["withStyles"])(styles)(PerfilEstudiantes));
 
 /***/ })
 /******/ ]);

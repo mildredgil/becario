@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import CardEstudiante from './cardEstudiante';
 import ItemBecario from './itemBecario';
 import ReglamentoModal from './reglamentoModal';
-import EvaluacionModal from './evaluacionModal';
 import { withStyles } from '@material-ui/core/styles';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import defaultTheme from '../theme';
@@ -26,17 +25,6 @@ const Home = ({classes, estudiante_html}) => {
   const periodoOptions = [];
   const yearOptions = [];
   const [selectYear, setYear] = React.useState(0);
-
-  const [openEvaluacion, setOpenEvaluacion] = React.useState(false);
-
-  const handleOpenEvaluacion = () => {
-    setOpenEvaluacion(true);
-  };
-
-  const handleCloseEvaluacion = () => {
-    setOpenEvaluacion(false);
-  };
-
   periodoOptions.push(<MenuItem classes={{ root: classes.options}} value={0}>{new_periodo[0]}</MenuItem>);
   periodoOptions.push(<MenuItem classes={{ root: classes.options}} value={1}>{new_periodo[1]}</MenuItem>);
   periodoOptions.push(<MenuItem classes={{ root: classes.options}} value={2}>{new_periodo[2]}</MenuItem>);
@@ -93,7 +81,9 @@ const Home = ({classes, estudiante_html}) => {
               <span className={classes.labelLogin}>Becarios | Agosto-Diciembre 2019</span>
             </div>
             <div className="col s3 align-right">
-              <Button variant="contained" color="primary" onClick={handleOpenEvaluacion}>
+              <Button
+                  variant="contained"
+                  color="primary">
                   <ListIcon className={`white-text ${classes.labelCheck}`}/>
                   <span className={classes.labelLogin}>Evaluar alumnos</span>
               </Button>
@@ -178,7 +168,6 @@ const Home = ({classes, estudiante_html}) => {
         </div>
       </div>
       <ReglamentoModal/>
-      <EvaluacionModal open={openEvaluacion} handleClose={handleCloseEvaluacion} />
     </MuiThemeProvider>
   );
 }
@@ -230,7 +219,7 @@ const styles = theme => ({
 
 const _Home = withStyles(styles)(Home);
 
-if (document.getElementById('homeColaborador')) {
+if (document.getElementById('homeAdministrator')) {
   let _estudiante = document.getElementById('estudiante');
   let estudiante_obj = null;
 
@@ -241,5 +230,5 @@ if (document.getElementById('homeColaborador')) {
     estudiante = null;
   }
 
-  ReactDOM.render(<_Home estudiante_html={estudiante_obj}/>, document.getElementById('homeColaborador'));
+  ReactDOM.render(<_Home estudiante_html={estudiante_obj}/>, document.getElementById('homeAdministrator'));
 }

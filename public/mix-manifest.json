@@ -8,5 +8,8 @@
   "/js/views/homeEstudiante.js": "/js/views/homeEstudiante.js",
   "/js/views/reglamentoModal.js": "/js/views/reglamentoModal.js",
   "/js/views/footer.js": "/js/views/footer.js",
-  "/js/views/navbarLoggedColaborador.js": "/js/views/navbarLoggedColaborador.js"
+  "/js/views/navbarLoggedColaborador.js": "/js/views/navbarLoggedColaborador.js",
+  "/js/views/navbarLoggedAdministrador.js": "/js/views/navbarLoggedAdministrador.js",
+  "/js/views/navbarLoggedAdministrator.js": "/js/views/navbarLoggedAdministrator.js",
+  "/js/views/homeAdministrator.js": "/js/views/homeAdministrator.js"
 }

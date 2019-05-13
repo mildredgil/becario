@@ -2,10 +2,10 @@
 
 namespace App;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Estudiante extends Authenticatable {
+class Estudiante extends Model {
   
   use SoftDeletes;
   protected $table = 'estudiante';
