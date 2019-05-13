@@ -7,6 +7,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import defaultTheme from '../theme';
 import { CloseIcon } from './icons';
+import axios from 'axios'; 
 
 const ModalLoginColaborador = ({ classes, open, handleClose }) => {
   const [inputName, setInputName] = React.useState('');
@@ -18,6 +19,32 @@ const ModalLoginColaborador = ({ classes, open, handleClose }) => {
 
   const onChangePassword = (event) => {
     setInputPassword(event.target.value);
+  }
+
+  const login = () => {
+    console.log("hi");
+		/*axios({
+			method: 'post',
+      url:  "/get/login",    
+      data: JSON.stringify({
+        username: inputName,
+        password: inputPassword
+      })
+		}).then((response) => {
+      console.log(response);
+		}).catch((err) =>  {
+			//console.log(err);
+    });*/
+    axios.post("/get/login", {
+      username: inputName,
+      password: inputPassword
+    })
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
   }
 
   return (
