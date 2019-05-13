@@ -8,18 +8,7 @@ import { MuiThemeProvider } from '@material-ui/core/styles';
 import defaultTheme from '../theme';
 import { SchoolIcon, EmailIcon, LocationIcon, PhoneIcon, PersonIcon, InfoIcon, PersonEditIcon, CloseIcon, CheckIcon, SearchIcon } from './icons';
 
-const BorrarAsignModal = ({ classes, open, handleClose }) => {
-    const [ifSearchTrue, setIfSearchTrue] = React.useState(true);
-    const searchClick = (event) => {
-        setIfSearchTrue(false);
-    }
-
-    React.useEffect(()=> {
-        if(open == false){
-            setIfSearchTrue(true);  
-        }
-      }, [open]);
-    
+const BorrarAsignModal = ({ classes, open, handleClose }) => {    
     
     return (
         <MuiThemeProvider theme={defaultTheme}>
@@ -74,7 +63,7 @@ const BorrarAsignModal = ({ classes, open, handleClose }) => {
                             <div className="row center-align">
                                 <div className="col s12 mb-2 mt-4">
                                     <div className="col s2 offset-s5">
-                                        <Button disabled = {ifSearchTrue} variant="contained" className={`${classes.labelCheckR}`}>
+                                        <Button  variant="contained" className={`${classes.labelCheckR}`}>
                                             <CloseIcon className={`white-text ${classes.labelSearch}`}/>
                                             <span className={` white-text ${classes.labelLogin}`}>Borrar</span>
                                         </Button>
@@ -169,7 +158,7 @@ const styles = theme => ({
     labelCheckR: {
         fontSize: '16px',
         marginRight: '0.5rem',
-        backgroundColor: '#d50000',
+        backgroundColor: '#223F93',
     },
 
     labelLogin:{

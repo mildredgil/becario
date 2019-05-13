@@ -6,6 +6,8 @@ import { MuiThemeProvider } from '@material-ui/core/styles';
 import defaultTheme from '../theme';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import BorrarAsignModal from './borrarAsignModal';
+import CrearAsignModal from './crearAsignModal';
 import {AddIcon} from './icons';
 import ReglamentoModal from './reglamentoModal';
 import ImportarCSV from './importarCSV';
@@ -17,7 +19,8 @@ const NavBar = ({ classes }) => {
     const [anchorEl2, setAnchorEl2] = React.useState(null);
     const [open, setOpen] = React.useState(false);
     const [openReglamento, setOpenReglamento] = React.useState(false);
-    const [openSolicitudBec, setOpenSolicitudBec] = React.useState(false);
+    const [openBorrarAsig, setBorrarAsig] = React.useState(false);
+    const [openCrearAsig, setCrearAsig] = React.useState(false);
     const [openImportarCSV, setOpenImportarCSV] = React.useState(false);
   
     const handleClick = event => {
@@ -33,7 +36,7 @@ const NavBar = ({ classes }) => {
       setAnchorEl2(event.currentTarget);
     };
   
-    const handleClose2 = () => {
+    const handleCloseEdit = () => {
       setAnchorEl2(null);
       //window.location.replace("/login");
     };
@@ -45,14 +48,6 @@ const NavBar = ({ classes }) => {
     const handleClosePerfil = () => {
       setOpen(false);
     };
-
-    const handleOpenEdit = () => {
-      setOpen(true);
-    };
-  
-    const handleCloseEdit = () => {
-      setOpen(false);
-    };
   
     const handleOpenReglamento = () => {
       setOpenReglamento(true);
@@ -61,13 +56,21 @@ const NavBar = ({ classes }) => {
     const handleCloseReglamento = () => {
       setOpenReglamento(false);
     };
-  
-    const handleOpenSolicitud = () => {
-      setOpenSolicitudBec(true);
+
+    const handleOpenDelete = () => {
+      setBorrarAsig(true);
     };
   
-    const handleCloseSolicitud = () => {
-      setOpenSolicitudBec(false);
+    const handleCloseDelete = () => {
+      setBorrarAsig(false);
+    };
+
+    const handleOpenCreate = () => {
+      setCrearAsig(true);
+    };
+  
+    const handleCloseCreate = () => {
+      setCrearAsig(false);
     };
   
     const handleOpenImport = () => {
@@ -99,17 +102,17 @@ const NavBar = ({ classes }) => {
                   id="simple-menu2"
                   anchorEl={anchorEl2}
                   open={Boolean(anchorEl2)}
-                  onClose={handleClose2}
+                  onClose={handleCloseEdit}
                 >
-                  <MenuItem onClick={handleOpenEdit} className="valign-wrapper">
+                  <MenuItem onClick={handleOpenCreate} className="valign-wrapper">
                     <AddIcon className={classes.iconLabel} />
                     Crear asignación
                 </MenuItem>
-                <MenuItem onClick={handleOpenReglamento} className="valign-wrapper">
+                <MenuItem onClick={handleOpenDelete} className="valign-wrapper">
                     <DeleteIcon className={classes.iconLabel} />
                     Borrar asignación
                   </MenuItem>
-                  <MenuItem onClick={handleClose} className="valign-wrapper">
+                  <MenuItem onClick={handleOpenImport} className="valign-wrapper">
                     <UpLoadIcon className={classes.iconLabel} />
                     Importar .csv
                 </MenuItem>
@@ -149,7 +152,8 @@ const NavBar = ({ classes }) => {
           </div>
         </nav>
         <ReglamentoModal open={openReglamento} handleClose={handleCloseReglamento} />
-        <SolicitudBecaria open={openSolicitudBec} handleClose={handleCloseSolicitud} />
+        <BorrarAsignModal open={openBorrarAsig} handleClose={handleCloseDelete} />
+        <CrearAsignModal open={openCrearAsig} handleClose={handleCloseCreate} />
         <ImportarCSV open={openImportarCSV} handleClose={handleCloseImport} />
       </MuiThemeProvider>
     );
