@@ -8,7 +8,7 @@ import { MuiThemeProvider } from '@material-ui/core/styles';
 import defaultTheme from '../theme';
 import { SchoolIcon, EmailIcon, LocationIcon, PhoneIcon, PersonIcon, InfoIcon, PersonEditIcon, CloseIcon, CheckIcon, SearchIcon } from './icons';
 
-const SolicitudBecaria = ({ classes, open, handleClose }) => {
+const CrearAsignModal = ({ classes, open, handleClose }) => {
     const [ifSearchTrue, setIfSearchTrue] = React.useState(true);
     const searchClick = (event) => {
         setIfSearchTrue(false);
@@ -194,4 +194,4 @@ const styles = theme => ({
     }
 });
 
-export default withStyles(styles)(SolicitudBecaria);
+export default withStyles(styles)(CrearAsignModal);
