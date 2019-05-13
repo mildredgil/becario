@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 484);
+/******/ 	return __webpack_require__(__webpack_require__.s = 483);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -70538,142 +70538,7 @@ var styles = function styles(theme) {
 /* 461 */,
 /* 462 */,
 /* 463 */,
-/* 464 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__material_ui_core_styles__ = __webpack_require__(23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__material_ui_core_styles___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__material_ui_core_styles__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__icons__ = __webpack_require__(79);
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-
-
-
-
-var ItemBecario = function ItemBecario(_ref) {
-  var classes = _ref.classes,
-      asignacion = _ref.asignacion,
-      isSelected = _ref.isSelected,
-      handleClick = _ref.handleClick;
-
-  var evaluacion = ['Pendiente', 'Satisfactoria', 'Insatisfactoria'];
-  var new_periodo = ['Invierno', 'Febrero-Junio', 'Verano', 'Agosto-Diciembre'];
-  var old_periodo = ['', 'Enero-Mayo', 'Verano', 'Agosto-Diciembre'];
-
-  var periodo = '';
-
-  var _date = asignacion.fecha_asignacion;
-  var date = new Date(_date);
-  var year = date.getFullYear();
-  var month = date.getMonth();
-  var periodo_string = '';
-
-  if (year >= 2020) {
-    periodo = new_periodo;
-
-    if (month == 0) {
-      periodo_string = periodo[0];
-    } else if (month == 1) {
-      periodo_string = periodo[1];
-    } else if (month == 6) {
-      periodo_string = periodo[2];
-    } else {
-      periodo_string = periodo[3];
-    }
-  } else {
-    periodo = old_periodo;
-    if (month == 0) {
-      periodo_string = periodo[1];
-    } else if (month == 5) {
-      periodo_string = periodo[2];
-    } else {
-      periodo_string = periodo[3];
-    }
-  }
-
-  return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-    'div',
-    { onClick: handleClick, className: (isSelected ? classes.selected : classes.itemWrapper) + ' row valign-wrapper py-2 px-2 mb-0' },
-    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-      'div',
-      { className: 'col s10' },
-      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        'label',
-        { className: classes.periodo + ' blue-tec' },
-        asignacion.estudiante.nombre_completo
-      ),
-      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
-      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        'label',
-        { className: classes.colab + ' truncate blue-tec-dark' },
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__icons__["m" /* PersonIcon */], { className: classes.iconLabel }),
-        asignacion.estudiante.semestre_actual,
-        '\xB0 ',
-        asignacion.estudiante.carrera.siglas_carrera,
-        ' | Evaluaci\xF3n: Satisfactorio'
-      )
-    ),
-    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-      'div',
-      { className: 'col s2' },
-      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__icons__["p" /* RightArrowIcon */], { className: 'hide ' + classes.icon + ' ' + (isSelected ? classes.itemIcon : '') + ' ' })
-    )
-  );
-};
-
-var maxWidth = 1000;
-
-var styles = function styles(theme) {
-  return _defineProperty({
-    itemWrapper: {
-      borderBottom: '1px solid rgba(34,  63, 147, 0.2)',
-      '&:hover': {
-        background: "#223f9320"
-      }
-    },
-
-    selected: {
-      background: "#223f9320"
-    },
-
-    iconLocation: {
-      fontSize: '12px'
-    },
-
-    itemIcon: {
-      display: "inline-block !important"
-    },
-
-    icon: {
-      color: "#223f93",
-      fontSize: '17px',
-      marginRight: '0.5rem'
-    },
-
-    iconLabel: {
-      color: "#223f93",
-      fontSize: '12px',
-      marginRight: '0.5rem'
-    },
-
-    periodo: {
-      fontSize: '20px',
-      fontWeight: 'bold'
-    },
-
-    colab: {
-      fontSize: '12px'
-    }
-
-  }, '@media (max-width: ' + maxWidth + 'px)', {});
-};
-
-/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_1__material_ui_core_styles__["withStyles"])(styles)(ItemBecario));
-
-/***/ }),
+/* 464 */,
 /* 465 */,
 /* 466 */,
 /* 467 */,
@@ -70692,15 +70557,14 @@ var styles = function styles(theme) {
 /* 480 */,
 /* 481 */,
 /* 482 */,
-/* 483 */,
-/* 484 */
+/* 483 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(485);
+module.exports = __webpack_require__(484);
 
 
 /***/ }),
-/* 485 */
+/* 484 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -70709,8 +70573,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__cardEstudiante__ = __webpack_require__(486);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__itemBecario__ = __webpack_require__(464);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__cardEstudiante__ = __webpack_require__(485);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__itemBecario__ = __webpack_require__(486);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__reglamentoModal__ = __webpack_require__(435);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__evaluacionModal__ = __webpack_require__(487);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__material_ui_core_styles__ = __webpack_require__(23);
@@ -71100,7 +70964,7 @@ if (document.getElementById('homeColaborador')) {
 }
 
 /***/ }),
-/* 486 */
+/* 485 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -71396,6 +71260,144 @@ var styles = function styles(theme) {
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_1__material_ui_core_styles__["withStyles"])(styles)(CardEstudiante));
+
+/***/ }),
+/* 486 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__material_ui_core_styles__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__material_ui_core_styles___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__material_ui_core_styles__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__icons__ = __webpack_require__(79);
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+
+var ItemBecario = function ItemBecario(_ref) {
+  var classes = _ref.classes,
+      asignacion = _ref.asignacion,
+      isSelected = _ref.isSelected,
+      handleClick = _ref.handleClick;
+
+  var evaluacion = ['Pendiente', 'Satisfactoria', 'Insatisfactoria'];
+  var new_periodo = ['Invierno', 'Febrero-Junio', 'Verano', 'Agosto-Diciembre'];
+  var old_periodo = ['', 'Enero-Mayo', 'Verano', 'Agosto-Diciembre'];
+
+  var periodo = '';
+
+  var _date = asignacion.fecha_asignacion;
+  var date = new Date(_date);
+  var year = date.getFullYear();
+  var month = date.getMonth();
+  var periodo_string = '';
+
+  if (asignacion == null) return null;
+
+  if (year >= 2020) {
+    periodo = new_periodo;
+
+    if (month == 0) {
+      periodo_string = periodo[0];
+    } else if (month == 1) {
+      periodo_string = periodo[1];
+    } else if (month == 6) {
+      periodo_string = periodo[2];
+    } else {
+      periodo_string = periodo[3];
+    }
+  } else {
+    periodo = old_periodo;
+    if (month == 0) {
+      periodo_string = periodo[1];
+    } else if (month == 5) {
+      periodo_string = periodo[2];
+    } else {
+      periodo_string = periodo[3];
+    }
+  }
+
+  return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+    'div',
+    { onClick: handleClick, className: (isSelected ? classes.selected : classes.itemWrapper) + ' row valign-wrapper py-2 px-2 mb-0' },
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      'div',
+      { className: 'col s10' },
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'label',
+        { className: classes.periodo + ' blue-tec' },
+        asignacion.estudiante.nombre_completo
+      ),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'label',
+        { className: classes.colab + ' truncate blue-tec-dark' },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__icons__["m" /* PersonIcon */], { className: classes.iconLabel }),
+        asignacion.estudiante.semestre_actual,
+        '\xB0 ',
+        asignacion.estudiante.carrera.siglas_carrera,
+        ' | Evaluaci\xF3n: Satisfactorio'
+      )
+    ),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      'div',
+      { className: 'col s2' },
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__icons__["p" /* RightArrowIcon */], { className: 'hide ' + classes.icon + ' ' + (isSelected ? classes.itemIcon : '') + ' ' })
+    )
+  );
+};
+
+var maxWidth = 1000;
+
+var styles = function styles(theme) {
+  return _defineProperty({
+    itemWrapper: {
+      borderBottom: '1px solid rgba(34,  63, 147, 0.2)',
+      '&:hover': {
+        background: "#223f9320"
+      }
+    },
+
+    selected: {
+      background: "#223f9320"
+    },
+
+    iconLocation: {
+      fontSize: '12px'
+    },
+
+    itemIcon: {
+      display: "inline-block !important"
+    },
+
+    icon: {
+      color: "#223f93",
+      fontSize: '17px',
+      marginRight: '0.5rem'
+    },
+
+    iconLabel: {
+      color: "#223f93",
+      fontSize: '12px',
+      marginRight: '0.5rem'
+    },
+
+    periodo: {
+      fontSize: '20px',
+      fontWeight: 'bold'
+    },
+
+    colab: {
+      fontSize: '12px'
+    }
+
+  }, '@media (max-width: ' + maxWidth + 'px)', {});
+};
+
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_1__material_ui_core_styles__["withStyles"])(styles)(ItemBecario));
 
 /***/ }),
 /* 487 */

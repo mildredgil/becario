@@ -70790,142 +70790,7 @@ var styles = function styles(theme) {
 /* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__["withStyles"])(styles)(CrearAsignModal));
 
 /***/ }),
-/* 464 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__material_ui_core_styles__ = __webpack_require__(23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__material_ui_core_styles___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__material_ui_core_styles__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__icons__ = __webpack_require__(79);
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-
-
-
-
-var ItemBecario = function ItemBecario(_ref) {
-  var classes = _ref.classes,
-      asignacion = _ref.asignacion,
-      isSelected = _ref.isSelected,
-      handleClick = _ref.handleClick;
-
-  var evaluacion = ['Pendiente', 'Satisfactoria', 'Insatisfactoria'];
-  var new_periodo = ['Invierno', 'Febrero-Junio', 'Verano', 'Agosto-Diciembre'];
-  var old_periodo = ['', 'Enero-Mayo', 'Verano', 'Agosto-Diciembre'];
-
-  var periodo = '';
-
-  var _date = asignacion.fecha_asignacion;
-  var date = new Date(_date);
-  var year = date.getFullYear();
-  var month = date.getMonth();
-  var periodo_string = '';
-
-  if (year >= 2020) {
-    periodo = new_periodo;
-
-    if (month == 0) {
-      periodo_string = periodo[0];
-    } else if (month == 1) {
-      periodo_string = periodo[1];
-    } else if (month == 6) {
-      periodo_string = periodo[2];
-    } else {
-      periodo_string = periodo[3];
-    }
-  } else {
-    periodo = old_periodo;
-    if (month == 0) {
-      periodo_string = periodo[1];
-    } else if (month == 5) {
-      periodo_string = periodo[2];
-    } else {
-      periodo_string = periodo[3];
-    }
-  }
-
-  return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-    'div',
-    { onClick: handleClick, className: (isSelected ? classes.selected : classes.itemWrapper) + ' row valign-wrapper py-2 px-2 mb-0' },
-    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-      'div',
-      { className: 'col s10' },
-      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        'label',
-        { className: classes.periodo + ' blue-tec' },
-        asignacion.estudiante.nombre_completo
-      ),
-      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
-      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        'label',
-        { className: classes.colab + ' truncate blue-tec-dark' },
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__icons__["m" /* PersonIcon */], { className: classes.iconLabel }),
-        asignacion.estudiante.semestre_actual,
-        '\xB0 ',
-        asignacion.estudiante.carrera.siglas_carrera,
-        ' | Evaluaci\xF3n: Satisfactorio'
-      )
-    ),
-    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-      'div',
-      { className: 'col s2' },
-      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__icons__["p" /* RightArrowIcon */], { className: 'hide ' + classes.icon + ' ' + (isSelected ? classes.itemIcon : '') + ' ' })
-    )
-  );
-};
-
-var maxWidth = 1000;
-
-var styles = function styles(theme) {
-  return _defineProperty({
-    itemWrapper: {
-      borderBottom: '1px solid rgba(34,  63, 147, 0.2)',
-      '&:hover': {
-        background: "#223f9320"
-      }
-    },
-
-    selected: {
-      background: "#223f9320"
-    },
-
-    iconLocation: {
-      fontSize: '12px'
-    },
-
-    itemIcon: {
-      display: "inline-block !important"
-    },
-
-    icon: {
-      color: "#223f93",
-      fontSize: '17px',
-      marginRight: '0.5rem'
-    },
-
-    iconLabel: {
-      color: "#223f93",
-      fontSize: '12px',
-      marginRight: '0.5rem'
-    },
-
-    periodo: {
-      fontSize: '20px',
-      fontWeight: 'bold'
-    },
-
-    colab: {
-      fontSize: '12px'
-    }
-
-  }, '@media (max-width: ' + maxWidth + 'px)', {});
-};
-
-/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_1__material_ui_core_styles__["withStyles"])(styles)(ItemBecario));
-
-/***/ }),
+/* 464 */,
 /* 465 */,
 /* 466 */,
 /* 467 */,
@@ -70966,29 +70831,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__cardAdministrator__ = __webpack_require__(490);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__itemBecario__ = __webpack_require__(464);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__reglamentoModal__ = __webpack_require__(435);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__crearAsignModal__ = __webpack_require__(463);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__material_ui_core_styles__ = __webpack_require__(23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__material_ui_core_styles___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__material_ui_core_styles__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__theme__ = __webpack_require__(58);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__material_ui_core_Select__ = __webpack_require__(57);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__material_ui_core_Select___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__material_ui_core_Select__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__material_ui_core_FormControl__ = __webpack_require__(82);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__material_ui_core_FormControl___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9__material_ui_core_FormControl__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__material_ui_core_OutlinedInput__ = __webpack_require__(84);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__material_ui_core_OutlinedInput___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10__material_ui_core_OutlinedInput__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__material_ui_core_MenuItem__ = __webpack_require__(80);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__material_ui_core_MenuItem___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11__material_ui_core_MenuItem__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__material_ui_core_InputLabel__ = __webpack_require__(83);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__material_ui_core_InputLabel___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_12__material_ui_core_InputLabel__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__material_ui_core_Button__ = __webpack_require__(31);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__material_ui_core_Button___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_13__material_ui_core_Button__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__icons__ = __webpack_require__(79);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__reglamentoModal__ = __webpack_require__(435);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__crearAsignModal__ = __webpack_require__(463);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__theme__ = __webpack_require__(58);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__material_ui_core_Select__ = __webpack_require__(57);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__material_ui_core_Select___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__material_ui_core_Select__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__material_ui_core_FormControl__ = __webpack_require__(82);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__material_ui_core_FormControl___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__material_ui_core_FormControl__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__material_ui_core_OutlinedInput__ = __webpack_require__(84);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__material_ui_core_OutlinedInput___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9__material_ui_core_OutlinedInput__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__material_ui_core_MenuItem__ = __webpack_require__(80);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__material_ui_core_MenuItem___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10__material_ui_core_MenuItem__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__material_ui_core_InputLabel__ = __webpack_require__(83);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__material_ui_core_InputLabel___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11__material_ui_core_InputLabel__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__material_ui_core_Button__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__material_ui_core_Button___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_12__material_ui_core_Button__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__icons__ = __webpack_require__(79);
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 
 
 
@@ -71060,62 +70923,62 @@ var Home = function Home(_ref) {
   };
 
   periodoOptions.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-    __WEBPACK_IMPORTED_MODULE_11__material_ui_core_MenuItem___default.a,
+    __WEBPACK_IMPORTED_MODULE_10__material_ui_core_MenuItem___default.a,
     { classes: { root: classes.options }, value: 0 },
     new_periodo[0]
   ));
   periodoOptions.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-    __WEBPACK_IMPORTED_MODULE_11__material_ui_core_MenuItem___default.a,
+    __WEBPACK_IMPORTED_MODULE_10__material_ui_core_MenuItem___default.a,
     { classes: { root: classes.options }, value: 1 },
     new_periodo[1]
   ));
   periodoOptions.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-    __WEBPACK_IMPORTED_MODULE_11__material_ui_core_MenuItem___default.a,
+    __WEBPACK_IMPORTED_MODULE_10__material_ui_core_MenuItem___default.a,
     { classes: { root: classes.options }, value: 2 },
     new_periodo[2]
   ));
   periodoOptions.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-    __WEBPACK_IMPORTED_MODULE_11__material_ui_core_MenuItem___default.a,
+    __WEBPACK_IMPORTED_MODULE_10__material_ui_core_MenuItem___default.a,
     { classes: { root: classes.options }, value: 3 },
     new_periodo[3]
   ));
   yearOptions.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-    __WEBPACK_IMPORTED_MODULE_11__material_ui_core_MenuItem___default.a,
+    __WEBPACK_IMPORTED_MODULE_10__material_ui_core_MenuItem___default.a,
     { classes: { root: classes.options }, value: 2013 },
     '2013'
   ));
   yearOptions.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-    __WEBPACK_IMPORTED_MODULE_11__material_ui_core_MenuItem___default.a,
+    __WEBPACK_IMPORTED_MODULE_10__material_ui_core_MenuItem___default.a,
     { classes: { root: classes.options }, value: 2014 },
     '2014'
   ));
   yearOptions.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-    __WEBPACK_IMPORTED_MODULE_11__material_ui_core_MenuItem___default.a,
+    __WEBPACK_IMPORTED_MODULE_10__material_ui_core_MenuItem___default.a,
     { classes: { root: classes.options }, value: 2015 },
     '2015'
   ));
   yearOptions.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-    __WEBPACK_IMPORTED_MODULE_11__material_ui_core_MenuItem___default.a,
+    __WEBPACK_IMPORTED_MODULE_10__material_ui_core_MenuItem___default.a,
     { classes: { root: classes.options }, value: 2016 },
     '2016'
   ));
   yearOptions.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-    __WEBPACK_IMPORTED_MODULE_11__material_ui_core_MenuItem___default.a,
+    __WEBPACK_IMPORTED_MODULE_10__material_ui_core_MenuItem___default.a,
     { classes: { root: classes.options }, value: 2017 },
     '2017'
   ));
   yearOptions.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-    __WEBPACK_IMPORTED_MODULE_11__material_ui_core_MenuItem___default.a,
+    __WEBPACK_IMPORTED_MODULE_10__material_ui_core_MenuItem___default.a,
     { classes: { root: classes.options }, value: 2018 },
     '2018'
   ));
   yearOptions.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-    __WEBPACK_IMPORTED_MODULE_11__material_ui_core_MenuItem___default.a,
+    __WEBPACK_IMPORTED_MODULE_10__material_ui_core_MenuItem___default.a,
     { classes: { root: classes.options }, value: 2019 },
     '2019'
   ));
   yearOptions.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-    __WEBPACK_IMPORTED_MODULE_11__material_ui_core_MenuItem___default.a,
+    __WEBPACK_IMPORTED_MODULE_10__material_ui_core_MenuItem___default.a,
     { classes: { root: classes.options }, value: 2020 },
     '2020'
   ));
@@ -71154,8 +71017,8 @@ var Home = function Home(_ref) {
     setYear(event.target.value);
   };
   return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-    __WEBPACK_IMPORTED_MODULE_6__material_ui_core_styles__["MuiThemeProvider"],
-    { theme: __WEBPACK_IMPORTED_MODULE_7__theme__["a" /* default */] },
+    __WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__["MuiThemeProvider"],
+    { theme: __WEBPACK_IMPORTED_MODULE_6__theme__["a" /* default */] },
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       'div',
       { className: 'container' },
@@ -71178,11 +71041,11 @@ var Home = function Home(_ref) {
             'div',
             { className: 'col s3 align-right' },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              __WEBPACK_IMPORTED_MODULE_13__material_ui_core_Button___default.a,
+              __WEBPACK_IMPORTED_MODULE_12__material_ui_core_Button___default.a,
               {
                 variant: 'contained',
                 color: 'primary' },
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_14__icons__["j" /* ListIcon */], { className: 'white-text ' + classes.labelCheck }),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_13__icons__["j" /* ListIcon */], { className: 'white-text ' + classes.labelCheck }),
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'span',
                 { className: classes.labelLogin },
@@ -71209,22 +71072,7 @@ var Home = function Home(_ref) {
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'div',
               { className: 'row mb-0 ' + classes.paddingRight20 },
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'div',
-                { className: classes.itemsWrapper + ' col s12 card my-0' },
-                estudiante && estudiante.solicitudes_becarias.map(function (asignacion, index) {
-                  if (index == indexSelected) {
-                    console.log(true, index);
-                    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__itemBecario__["a" /* default */], { isSelected: true, handleClick: function handleClick(e) {
-                        return selectAsignacion(index);
-                      }, key: index, asignacion: asignacion });
-                  } else {
-                    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__itemBecario__["a" /* default */], { isSelected: false, handleClick: function handleClick(e) {
-                        return selectAsignacion(index);
-                      }, key: index, asignacion: asignacion });
-                  }
-                })
-              )
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { className: classes.itemsWrapper + ' col s12 card my-0' })
             )
           )
         ),
@@ -71239,12 +71087,12 @@ var Home = function Home(_ref) {
         )
       )
     ),
-    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__reglamentoModal__["default"], null),
-    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__crearAsignModal__["a" /* default */], { open: openCrearAsign, handleClose: handleCloseCrearAsign })
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__reglamentoModal__["default"], null),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__crearAsignModal__["a" /* default */], { open: openCrearAsign, handleClose: handleCloseCrearAsign })
   );
 };
 
-var StyledSelect = Object(__WEBPACK_IMPORTED_MODULE_6__material_ui_core_styles__["withStyles"])({
+var StyledSelect = Object(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__["withStyles"])({
   outlined: {
     padding: '18.5px 14px',
     borderRadius: 0,
@@ -71252,7 +71100,7 @@ var StyledSelect = Object(__WEBPACK_IMPORTED_MODULE_6__material_ui_core_styles__
     fontSize: '14px',
     color: '#B7B7B7'
   }
-})(__WEBPACK_IMPORTED_MODULE_8__material_ui_core_Select___default.a);
+})(__WEBPACK_IMPORTED_MODULE_7__material_ui_core_Select___default.a);
 var maxWidth = 1000;
 
 var styles = function styles(theme) {
@@ -71288,7 +71136,7 @@ var styles = function styles(theme) {
   }, '@media (max-width: ' + maxWidth + 'px)', {});
 };
 
-var _Home = Object(__WEBPACK_IMPORTED_MODULE_6__material_ui_core_styles__["withStyles"])(styles)(Home);
+var _Home = Object(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__["withStyles"])(styles)(Home);
 
 if (document.getElementById('homeAdministrator')) {
   var _estudiante = document.getElementById('estudiante');

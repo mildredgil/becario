@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import CardAdministrator from './cardAdministrator';
-import ItemBecario from './itemBecario';
 import ReglamentoModal from './reglamentoModal';
 import CrearAsignModal from './crearAsignModal';
 import { withStyles } from '@material-ui/core/styles';
@@ -108,21 +107,7 @@ const Home = ({classes, estudiante_html}) => {
             <div  className={`row `}>
               <div className={`row mb-0 ${classes.paddingRight20}`}>
                 <div className={`${classes.itemsWrapper} col s12 card my-0`}>
-                {
-                  estudiante && 
-                  estudiante.solicitudes_becarias.map((asignacion, index) => {
-                    if(index == indexSelected) {
-                      console.log(true, index);
-                      return (
-                        <ItemBecario isSelected={true} handleClick={(e) => selectAsignacion(index)} key={index} asignacion={asignacion}/>
-                      )   
-                    } else {
-                      return (
-                        <ItemBecario isSelected={false} handleClick={(e) => selectAsignacion(index)} key={index} asignacion={asignacion}/>
-                      )   
-                    }                  
-                  })
-                }
+                
                 </div>
               </div>
             </div>
