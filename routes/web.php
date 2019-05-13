@@ -27,6 +27,10 @@ Route::get('/login', function () {
   return view('login');
 });
 
+Route::get('/loginAdmin', function () {
+  return view('loginAdmin');
+});
+
 Route::get('/homeAdministrator', function () {
   $estudiante = Estudiante::where('id', 3)->with("carrera", "solicitudesBecarias.colaborador.departamento")->first();
 
