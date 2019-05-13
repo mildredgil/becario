@@ -93,13 +93,7 @@ const Home = ({classes, estudiante_html}) => {
               <span className={classes.labelLogin}>Becarios | Agosto-Diciembre 2019</span>
             </div>
             <div className="col s3 align-right">
-<<<<<<< HEAD
               <Button variant="contained" color="primary" onClick={handleOpenEvaluacion}>
-=======
-              <Button
-                  variant="contained"
-                  color="primary">
->>>>>>> 45d0591338c577c74e8f7ffc0d191bc66c32c41e
                   <ListIcon className={`white-text ${classes.labelCheck}`}/>
                   <span className={classes.labelLogin}>Evaluar alumnos</span>
               </Button>
