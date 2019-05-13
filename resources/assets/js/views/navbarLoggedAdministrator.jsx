@@ -7,15 +7,15 @@ import defaultTheme from '../theme';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import PerfilColaboradores from './perfilColaboradores';
-import Fab from '@material-ui/core/Fab';
 import {AddIcon} from './icons';
 import ReglamentoModal from './reglamentoModal';
 import ImportarCSV from './importarCSV';
 import SolicitudBecaria from './solicitudBecModal';
-import { PowerIcon, PersonEditIcon, UpLoadIcon, DescriptionIcon } from './icons';
+import { PowerIcon, PersonEditIcon, UpLoadIcon, DescriptionIcon, CreateIcon, DeleteIcon } from './icons';
 
 const NavBar = ({ classes }) => {
     const [anchorEl, setAnchorEl] = React.useState(null);
+    const [anchorEl2, setAnchorEl2] = React.useState(null);
     const [open, setOpen] = React.useState(false);
     const [openReglamento, setOpenReglamento] = React.useState(false);
     const [openSolicitudBec, setOpenSolicitudBec] = React.useState(false);
@@ -29,12 +29,29 @@ const NavBar = ({ classes }) => {
       setAnchorEl(null);
       //window.location.replace("/login");
     };
+
+    const handleClick2 = event => {
+      setAnchorEl2(event.currentTarget);
+    };
+  
+    const handleClose2 = () => {
+      setAnchorEl2(null);
+      //window.location.replace("/login");
+    };
   
     const handleOpenPerfil = () => {
       setOpen(true);
     };
   
     const handleClosePerfil = () => {
+      setOpen(false);
+    };
+
+    const handleOpenEdit = () => {
+      setOpen(true);
+    };
+  
+    const handleCloseEdit = () => {
       setOpen(false);
     };
   
@@ -70,22 +87,35 @@ const NavBar = ({ classes }) => {
               <div className={`col s10 offset-s1 white-text ${classes.nav}`}>
                 Asignación Becaria
               </div> 
-              <div className={`col s1 white-text nav right-align`}>
-                        <Fab variant="extended" size="small" color="secondary" aria-label="Delete" className={classes.fab}
-                            onClick={handleOpenImport} className="valign-wrapper">
-                            <UpLoadIcon className={`blue-tec ${classes.addIcon}`} />
-                            <label className={`blue-tec ${classes.becarioStyle}`}>
-                            </label>
-                        </Fab>
-                          </div>
-                          <div className={`col s1 white-text nav right-align`}>
-                            <Fab variant="extended" size="small" color="secondary" aria-label="Delete" className={classes.fab}
-                                onClick={handleOpenSolicitud} className="valign-wrapper">
-                                <AddIcon className={`blue-tec ${classes.addIcon}`} />
-                                <label className={`blue-tec ${classes.becarioStyle}`}>
-                                </label>
-                            </Fab>
-                </div>
+              <div className={`col s1  white-text nav center-align ${classes.nav}`}>
+                <Button
+                  aria-owns={anchorEl2 ? 'simple-menu2' : undefined}
+                  aria-haspopup="true"
+                  onClick={handleClick2}
+                  classes={{ root: classes.padding }}
+                >
+                  <CreateIcon className={classes.createLabel} />
+                </Button>
+                <Menu
+                  id="simple-menu2"
+                  anchorEl={anchorEl2}
+                  open={Boolean(anchorEl2)}
+                  onClose={handleClose2}
+                >
+                  <MenuItem onClick={handleOpenEdit} className="valign-wrapper">
+                    <AddIcon className={classes.iconLabel} />
+                    Crear asignación
+                </MenuItem>
+                <MenuItem onClick={handleOpenReglamento} className="valign-wrapper">
+                    <DeleteIcon className={classes.iconLabel} />
+                    Borrar asignación
+                  </MenuItem>
+                  <MenuItem onClick={handleClose} className="valign-wrapper">
+                    <UpLoadIcon className={classes.iconLabel} />
+                    Importar .csv
+                </MenuItem>
+                </Menu>
+              </div>
               <div className={`col s1  white-text nav center-align ${classes.nav}`}>
                 <Button
                   aria-owns={anchorEl ? 'simple-menu' : undefined}
@@ -175,8 +205,15 @@ const NavBar = ({ classes }) => {
   
     iconLabel: {
       fontSize: '18px',
-      marginRight: '0.5rem'
+      marginRight: '0.5rem',
     },
+
+    createLabel: {
+      fontSize: '22px',
+      marginRight: '0.5rem',
+      fill: 'white',
+    },
+    
   
     [`@media (max-width: ${maxWidth}px)`]: {
   
