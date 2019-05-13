@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import { withStyles } from '@material-ui/core/styles';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import defaultTheme from '../theme';
-import Button from '@material-ui/core/Button';
 import ModalLoginColaborador from './modalLoginColaborador';
 import ModalLoginEstudiante from './modalLoginEstudiante';
 
