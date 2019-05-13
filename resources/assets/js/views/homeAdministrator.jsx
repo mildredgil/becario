@@ -244,7 +244,7 @@ if (document.getElementById('homeAdministrator')) {
 
   if(estudiante != "") {
     estudiante_obj = JSON.parse(_estudiante.value);
-    _estudiante.parentNode.removeChild(_estudiante);
+    //_estudiante.parentNode.removeChild(_estudiante);
   } else {
     estudiante = null;
   }

@@ -6,7 +6,6 @@ import { MuiThemeProvider } from '@material-ui/core/styles';
 import defaultTheme from '../theme';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import PerfilColaboradores from './perfilColaboradores';
 import {AddIcon} from './icons';
 import ReglamentoModal from './reglamentoModal';
 import ImportarCSV from './importarCSV';
@@ -149,7 +148,6 @@ const NavBar = ({ classes }) => {
             </div>
           </div>
         </nav>
-        <PerfilColaboradores open={open} handleClose={handleClosePerfil} />
         <ReglamentoModal open={openReglamento} handleClose={handleCloseReglamento} />
         <SolicitudBecaria open={openSolicitudBec} handleClose={handleCloseSolicitud} />
         <ImportarCSV open={openImportarCSV} handleClose={handleCloseImport} />
