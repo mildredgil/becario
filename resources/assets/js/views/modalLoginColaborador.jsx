@@ -9,11 +9,13 @@ import { CloseIcon } from './icons';
 import axios from 'axios';
 import validator from 'validator';
 
+
 const ModalLoginColaborador = ({ classes, open, handleClose }) => {
   const [inputName, setInputName] = React.useState('');
   const [inputPassword, setInputPassword] = React.useState('');
   const [isErrorName, setErrorName] = React.useState(false);
   const [isErrorPWD, setErrorPWD] = React.useState(false);
+  const [onChange, setChange] = React.useState(false);
 
   const onChangeName = (event) => {
     setInputName(event.target.value);
@@ -24,11 +26,12 @@ const ModalLoginColaborador = ({ classes, open, handleClose }) => {
   }
 
   const onSave = () => {
-    if ((!validator.isLength(inputName, { min: 9, max: 9 })) || (!validator.matches(inputName, /^[cC]\d{8}/)))
+    if ((!validator.isLength(inputName, { min: 9, max: 9 })) || (!validator.matches(inputName, /^[lL]\d{8}/)))
       setErrorName(true);
     else
       setErrorName(false);
     setErrorPWD(validator.isEmpty(inputPassword));
+    setChange(true);
   }
 
   React.useEffect(() => {
@@ -36,7 +39,7 @@ const ModalLoginColaborador = ({ classes, open, handleClose }) => {
     if ((!isErrorName && !isErrorPWD)) {
       login();
     }
-  }, [isErrorName, isErrorPWD]);
+  }, [isErrorName, isErrorPWD, onChange]);
 
   const login = () => {
 

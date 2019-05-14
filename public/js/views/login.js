@@ -75873,6 +75873,11 @@ var ModalLoginColaborador = function ModalLoginColaborador(_ref) {
       isErrorPWD = _React$useState8[0],
       setErrorPWD = _React$useState8[1];
 
+  var _React$useState9 = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(false),
+      _React$useState10 = _slicedToArray(_React$useState9, 2),
+      onChange = _React$useState10[0],
+      setChange = _React$useState10[1];
+
   var onChangeName = function onChangeName(event) {
     setInputName(event.target.value);
   };
@@ -75882,8 +75887,9 @@ var ModalLoginColaborador = function ModalLoginColaborador(_ref) {
   };
 
   var onSave = function onSave() {
-    if (!__WEBPACK_IMPORTED_MODULE_8_validator___default.a.isLength(inputName, { min: 9, max: 9 }) || !__WEBPACK_IMPORTED_MODULE_8_validator___default.a.matches(inputName, /^[cC]\d{8}/)) setErrorName(true);else setErrorName(false);
+    if (!__WEBPACK_IMPORTED_MODULE_8_validator___default.a.isLength(inputName, { min: 9, max: 9 }) || !__WEBPACK_IMPORTED_MODULE_8_validator___default.a.matches(inputName, /^[lL]\d{8}/)) setErrorName(true);else setErrorName(false);
     setErrorPWD(__WEBPACK_IMPORTED_MODULE_8_validator___default.a.isEmpty(inputPassword));
+    setChange(true);
   };
 
   __WEBPACK_IMPORTED_MODULE_0_react___default.a.useEffect(function () {
@@ -75891,7 +75897,7 @@ var ModalLoginColaborador = function ModalLoginColaborador(_ref) {
     if (!isErrorName && !isErrorPWD) {
       login();
     }
-  }, [isErrorName, isErrorPWD]);
+  }, [isErrorName, isErrorPWD, onChange]);
 
   var login = function login() {
 
@@ -76115,6 +76121,11 @@ var ModalLoginColaborador = function ModalLoginColaborador(_ref) {
       isErrorPWD = _React$useState8[0],
       setErrorPWD = _React$useState8[1];
 
+  var _React$useState9 = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(false),
+      _React$useState10 = _slicedToArray(_React$useState9, 2),
+      onChange = _React$useState10[0],
+      setChange = _React$useState10[1];
+
   var onChangeName = function onChangeName(event) {
     setInputName(event.target.value);
   };
@@ -76126,6 +76137,7 @@ var ModalLoginColaborador = function ModalLoginColaborador(_ref) {
   var onSave = function onSave() {
     if (!__WEBPACK_IMPORTED_MODULE_9_validator___default.a.isLength(inputName, { min: 9, max: 9 }) || !__WEBPACK_IMPORTED_MODULE_9_validator___default.a.matches(inputName, /^[aA]\d{8}/)) setErrorName(true);else setErrorName(false);
     setErrorPWD(__WEBPACK_IMPORTED_MODULE_9_validator___default.a.isEmpty(inputPassword));
+    setChange(true);
   };
 
   __WEBPACK_IMPORTED_MODULE_0_react___default.a.useEffect(function () {
@@ -76133,7 +76145,7 @@ var ModalLoginColaborador = function ModalLoginColaborador(_ref) {
     if (!isErrorName && !isErrorPWD) {
       login();
     }
-  }, [isErrorName, isErrorPWD]);
+  }, [isErrorName, isErrorPWD, onChange]);
 
   var login = function login() {
     __WEBPACK_IMPORTED_MODULE_8_axios___default.a.post("/get/login", {

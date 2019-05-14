@@ -15,6 +15,7 @@ const ModalLoginColaborador = ({ classes, open, handleClose }) => {
   const [inputPassword, setInputPassword] = React.useState('');
   const [isErrorName, setErrorName] = React.useState(false);
   const [isErrorPWD, setErrorPWD] = React.useState(false);
+  const [onChange, setChange] = React.useState(false);
 
   const onChangeName = (event) => {
     setInputName(event.target.value);
@@ -30,6 +31,7 @@ const ModalLoginColaborador = ({ classes, open, handleClose }) => {
     else
       setErrorName(false);
     setErrorPWD(validator.isEmpty(inputPassword));
+    setChange(true);
   }
 
   React.useEffect(() => {
@@ -37,7 +39,7 @@ const ModalLoginColaborador = ({ classes, open, handleClose }) => {
     if ((!isErrorName && !isErrorPWD)) {
       login();
     }
-  }, [isErrorName, isErrorPWD]);
+  }, [isErrorName, isErrorPWD, onChange]);
 
   const login = () => {
       axios.post("/get/login", {
@@ -50,7 +52,7 @@ const ModalLoginColaborador = ({ classes, open, handleClose }) => {
       .catch(function (error) {
         console.log(error);
       });
-    }
+  }
 
   return (
     <MuiThemeProvider theme={defaultTheme}>

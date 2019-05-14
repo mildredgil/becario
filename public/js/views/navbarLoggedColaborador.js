@@ -72666,6 +72666,7 @@ var PerfilColaboradores = function PerfilColaboradores(_ref) {
     }).then(function (response) {
       setColaborador(response.data.colaborador);
       alert("Peticion exitosa");
+      handleClose();
     }).catch(function (error) {
       console.log(error);
       alert("Hubo un error. Intente de nuevo más tarde.");
@@ -73130,14 +73131,14 @@ var SolicitudBecaria = function SolicitudBecaria(_ref) {
                         ),
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'div',
-                            { className: 'row red center-align' },
+                            { className: (ifSearchTrue ? 'white' : 'green') + ' row mb-0  center-align ' + classes.wholeRow },
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                 'div',
-                                { className: 'col s12 mb-2 mt-4' },
+                                { className: 'col s12 mb-4 mt-4' },
                                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                    'div',
-                                    { className: 'col s6' },
-                                    'No se encontr\xF3 el alumno'
+                                    'h5',
+                                    { className: 'white-text center-align my-0' },
+                                    ifSearchTrue ? "" : "Alumno Encontrado"
                                 )
                             )
                         )

@@ -93,11 +93,11 @@ const SolicitudBecaria = ({ classes, open, handleClose }) => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="row red center-align">
-                                <div className="col s12 mb-2 mt-4">
-                                    <div className="col s6">
-                                        No se encontró el alumno
-                                    </div>
+                            <div className={`${ifSearchTrue ? 'white': 'green'} row mb-0  center-align ${classes.wholeRow}`}>
+                                <div className="col s12 mb-4 mt-4">
+                                    <h5 className="white-text center-align my-0">
+                                    {ifSearchTrue ? "" : "Alumno Encontrado"}
+                                    </h5>
                                 </div>
                             </div>
                         </div>
