@@ -15,6 +15,7 @@ const NavBar = ({ classes, estudiante_html }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [open, setOpen] = React.useState(false);
   const [openReglamento, setOpenReglamento] = React.useState(false);
+  const [estudiante, setEstudiante] = React.useState(estudiante_html);
 
   const handleClick = event => {
     setAnchorEl(event.currentTarget);
@@ -94,7 +95,7 @@ const NavBar = ({ classes, estudiante_html }) => {
           </div>
         </div>
       </nav>
-      <PerfilEstudiantes open={open} handleClose={handleClosePerfil} estudiante={estudiante_html} />
+      <PerfilEstudiantes open={open} handleClose={handleClosePerfil} estudiante={estudiante} setEstudiante={setEstudiante} />
       <ReglamentoModal open={openReglamento} handleClose={handleCloseReglamento} />
     </MuiThemeProvider>
   );

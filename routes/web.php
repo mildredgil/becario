@@ -74,6 +74,9 @@ Route::group(['middleware' => 'auth'], function () {
       'colaborador' => $colaborador
     ]);
   });
+
+  Route::post('/student/save/profile', 'EstudianteController@saveProfile');	
+  
 });
 
 Route::get('encrypt', function () {
