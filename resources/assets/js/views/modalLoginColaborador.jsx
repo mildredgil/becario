@@ -6,11 +6,16 @@ import { withStyles } from '@material-ui/core/styles';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import defaultTheme from '../theme';
 import { CloseIcon } from './icons';
-import axios from 'axios'; 
+import axios from 'axios';
+import validator from 'validator';
+
 
 const ModalLoginColaborador = ({ classes, open, handleClose }) => {
   const [inputName, setInputName] = React.useState('');
   const [inputPassword, setInputPassword] = React.useState('');
+  const [isErrorName, setErrorName] = React.useState(false);
+  const [isErrorPWD, setErrorPWD] = React.useState(false);
+  const [onChange, setChange] = React.useState(false);
 
   const onChangeName = (event) => {
     setInputName(event.target.value);
@@ -20,17 +25,34 @@ const ModalLoginColaborador = ({ classes, open, handleClose }) => {
     setInputPassword(event.target.value);
   }
 
+  const onSave = () => {
+    if ((!validator.isLength(inputName, { min: 9, max: 9 })) || (!validator.matches(inputName, /^[lL]\d{8}/)))
+      setErrorName(true);
+    else
+      setErrorName(false);
+    setErrorPWD(validator.isEmpty(inputPassword));
+    setChange(true);
+  }
+
+  React.useEffect(() => {
+    console.log(((!isErrorName && !isErrorPWD)), isErrorName, isErrorPWD);
+    if ((!isErrorName && !isErrorPWD)) {
+      login();
+    }
+  }, [isErrorName, isErrorPWD, onChange]);
+
   const login = () => {
+
     axios.post("/get/login", {
       username: inputName,
       password: inputPassword
     })
-    .then(function (response) {
-      window.location.replace('/');
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+      .then(function (response) {
+        window.location.replace('/');
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 
   return (
@@ -44,7 +66,7 @@ const ModalLoginColaborador = ({ classes, open, handleClose }) => {
           <div className="card">
             <div className={`row margin-0`}>
               <div className={`col s12 ${classes.modalWrapper}`}>
-                <CloseIcon style={{cursor:'pointer',}} className={classes.closeIcon} onClick={handleClose} />
+                <CloseIcon style={{ cursor: 'pointer', }} className={classes.closeIcon} onClick={handleClose} />
                 <div className="row">
                   <div className="col s12">
                     <label className={classes.labelHeader}>
@@ -67,6 +89,8 @@ const ModalLoginColaborador = ({ classes, open, handleClose }) => {
                       onChange={onChangeName}
                       margin="normal"
                       variant="outlined"
+                      error={isErrorName}
+                      helperText={isErrorName && 'Usuario incorrecto.'}
                     />
                   </div>
                 </div>
@@ -82,12 +106,14 @@ const ModalLoginColaborador = ({ classes, open, handleClose }) => {
                       onChange={onChangePassword}
                       margin="normal"
                       variant="outlined"
+                      error={isErrorPWD}
+                      helperText={isErrorPWD && 'Este campo es requerido.'}
                     />
                   </div>
                 </div>
                 <div className="row no-margin">
                   <div className="col s12">
-                    <Button fullWidth variant="contained" color="primary" onClick={login}>
+                    <Button fullWidth variant="contained" color="primary" onClick={onSave}>
                       Iniciar Sesión
                      </Button>
                   </div>

@@ -23,12 +23,16 @@ const LoginAdmin = ({ classes }) => {
   }
 
   const onSave = () => {
-    if((!validator.isLength(inputName,{min: 9, max: 9})) || (!validator.matches(inputName, /^[aA]\d{8}/)))
-      setErrorName(true);
-    else
-      setErrorName(false);
+    setErrorName(validator.isEmpty(inputName));
     setErrorPWD(validator.isEmpty(inputPassword));
   }
+
+  React.useEffect(() => {
+    console.log(((!isErrorName && !isErrorPWD)), isErrorName, isErrorPWD);
+    if ((!isErrorName && !isErrorPWD)) {
+      login();
+    }
+  }, [isErrorName, isErrorPWD]);
 
   const login = () => {
     axios.post("/get/login", {
@@ -96,7 +100,7 @@ const LoginAdmin = ({ classes }) => {
               <div className="row no-margin">
                 <div className="col s12">
                   {/*<Button fullWidth variant="contained" color="primary" href="" onClick={onSave}>*/}
-                  <Button fullWidth variant="contained" color="primary" href="" onClick={login}>
+                  <Button fullWidth variant="contained" color="primary" href="" onClick={onSave}>
                       Iniciar Sesión
                   </Button>
                 </div>

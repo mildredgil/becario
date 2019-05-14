@@ -126,10 +126,6 @@ const NavBar = ({ classes }) => {
                     <DeleteIcon className={classes.iconLabel} />
                     Borrar asignación
                   </MenuItem>
-                  <MenuItem onClick={handleOpenImport} className="valign-wrapper">
-                    <UpLoadIcon className={classes.iconLabel} />
-                    Importar .csv
-                </MenuItem>
                 </Menu>
               </div>
               <div className={`col s1  white-text nav center-align ${classes.nav}`}>
@@ -168,7 +164,6 @@ const NavBar = ({ classes }) => {
         <ReglamentoModal open={openReglamento} handleClose={handleCloseReglamento} />
         <BorrarAsignModal open={openBorrarAsig} handleClose={handleCloseDelete} />
         <CrearAsignModal open={openCrearAsig} handleClose={handleCloseCreate} />
-        <ImportarCSV open={openImportarCSV} handleClose={handleCloseImport} />
       </MuiThemeProvider>
     );
   }

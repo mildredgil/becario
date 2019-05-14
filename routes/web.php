@@ -95,7 +95,10 @@ Route::group(['middleware' => 'auth'], function () {
   Route::post('/student/save/profile',  'EstudianteController@saveProfile');	
   Route::post('/colab/save/profile',    'ColaboradorController@saveProfile');	
   
-  Route::post('/save/evaluations',    'ColaboradorController@saveEvaluations');	
+  Route::post('/save/evaluations',      'ColaboradorController@saveEvaluations');
+  
+  Route::post('/create/assignments',    'AdministradorController@createAssignment');
+  Route::post('/delete/assignments',    'AdministradorController@deleteAssignment');
 });
 
 Route::get('encrypt', function () {

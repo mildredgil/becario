@@ -37,6 +37,7 @@ const PerfilColaboradores = ({ classes, open, handleClose, colaborador, setColab
     .then(function (response) {
       setColaborador(response.data.colaborador);
       alert("Peticion exitosa");
+      handleClose();
     })
     .catch(function (error) {
       console.log(error);

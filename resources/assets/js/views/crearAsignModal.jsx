@@ -5,21 +5,49 @@ import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import defaultTheme from '../theme';
+import axios from 'axios'; 
 import { PersonIcon, InfoIcon, PersonEditIcon, CloseIcon, CheckIcon } from './icons';
 
 const CrearAsignModal = ({ classes, open, handleClose }) => {
-    const [ifSearchTrue, setIfSearchTrue] = React.useState(true);
-    const searchClick = (event) => {
+    const [ifSearchTrue, setIfSearchTrue] = React.useState(null);
+    const [mensaje, setMensaje] = React.useState('');
+    const [inputMatricula, setInputMatricula] = React.useState('');
+    const [inputNomina, setInputNomina] = React.useState('');
+
+
+    console.log(ifSearchTrue);
+    const onChangeMatricula = (event) => {
+      setInputMatricula(event.target.value);
+    }
+
+    const onChangeNomina = (event) => {
+      setInputNomina(event.target.value);
+    }
+
+    const searchClick = () => {
+      axios.post("/create/assignments", {
+        matricula: inputMatricula,
+        nomina: inputNomina
+      })
+      .then(function (response) {
+        console.log(response);
+        setIfSearchTrue(response.data.status);
+        setMensaje(response.data.message);
+        console.log(response);
+        //window.location.replace('/');
+      })
+      .catch(function (error) {
+        setMensaje(error.data.message);
         setIfSearchTrue(false);
+        console.log(error);
+      });
     }
 
     React.useEffect(()=> {
       if(open == false){
-        setIfSearchTrue(true);  
+        setIfSearchTrue(false);  
       }
-    }, [open]);
-
-    React   
+    }, [open]); 
     
     return (
         <MuiThemeProvider theme={defaultTheme}>
@@ -49,7 +77,8 @@ const CrearAsignModal = ({ classes, open, handleClose }) => {
                               fullWidth
                               id="outlined-bare"
                               classes={{ root: classes.labelText }}
-                              defaultValue=""
+                              value={inputMatricula}
+                              onChange={onChangeMatricula}
                               variant="outlined"
                           />
                         </div>
@@ -58,7 +87,8 @@ const CrearAsignModal = ({ classes, open, handleClose }) => {
                               fullWidth
                               id="outlined-bare"
                               classes={{ root: classes.labelText }}
-                              defaultValue=""
+                              value={inputNomina}
+                              onChange={onChangeNomina}
                               variant="outlined"
                           />
                         </div>
@@ -74,13 +104,15 @@ const CrearAsignModal = ({ classes, open, handleClose }) => {
                         </div>
                       </div>
                     </div> 
+                    {mensaje != '' ? 
                     <div className={`${ifSearchTrue ? 'green': 'red'} row mb-0  center-align ${classes.wholeRow}`}>
                       <div className="col s12 mb-4 mt-4">
                         <h5 className="white-text center-align my-0">
-                          {ifSearchTrue ? "Alumno Encontrado" : "No se encontró el alumno"}
+                          {mensaje}
                         </h5>
                       </div>
                     </div>
+                    : ''}
                 </div>
             </Modal>
         </MuiThemeProvider>
