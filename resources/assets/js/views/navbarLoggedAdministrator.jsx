@@ -87,7 +87,7 @@ const NavBar = ({ classes }) => {
       })
       .then(function (response) {
         console.log(response);
-        window.location.replace('/');
+        window.location.replace('/loginAdmin');
       })
       .catch(function (error) {
         console.log(error);

@@ -3081,7 +3081,8 @@ var _Modal = _interopRequireDefault(__webpack_require__(283));
 var _ModalManager = _interopRequireDefault(__webpack_require__(109));
 
 /***/ }),
-/* 41 */
+/* 41 */,
+/* 42 */
 /***/ (function(module, exports) {
 
 var g;
@@ -3108,7 +3109,7 @@ module.exports = g;
 
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3195,7 +3196,7 @@ function createBreakpoints(breakpoints) {
 }
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3448,7 +3449,7 @@ var RuleList = function () {
 exports['default'] = RuleList;
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports) {
 
 function _interopRequireWildcard(obj) {
@@ -3479,7 +3480,7 @@ function _interopRequireWildcard(obj) {
 module.exports = _interopRequireWildcard;
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3500,7 +3501,7 @@ Object.defineProperty(exports, "default", {
 var _InputBase = _interopRequireDefault(__webpack_require__(318));
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3524,7 +3525,6 @@ var _default = Tablelvl2Context;
 exports.default = _default;
 
 /***/ }),
-/* 47 */,
 /* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -4235,7 +4235,7 @@ var _isPlainObject = _interopRequireDefault(__webpack_require__(147));
 
 var _warning = _interopRequireDefault(__webpack_require__(14));
 
-var _createBreakpoints = _interopRequireDefault(__webpack_require__(42));
+var _createBreakpoints = _interopRequireDefault(__webpack_require__(43));
 
 var _createMixins = _interopRequireDefault(__webpack_require__(149));
 
@@ -5457,7 +5457,7 @@ var _Grow = _interopRequireDefault(__webpack_require__(335));
 "use strict";
 
 
-var _interopRequireWildcard = __webpack_require__(44);
+var _interopRequireWildcard = __webpack_require__(45);
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -6576,7 +6576,7 @@ Object.defineProperty(exports, 'SheetsManager', {
   }
 });
 
-var _RuleList = __webpack_require__(43);
+var _RuleList = __webpack_require__(44);
 
 Object.defineProperty(exports, 'RuleList', {
   enumerable: true,
@@ -6847,7 +6847,7 @@ var _linkRule = __webpack_require__(98);
 
 var _linkRule2 = _interopRequireDefault(_linkRule);
 
-var _RuleList = __webpack_require__(43);
+var _RuleList = __webpack_require__(44);
 
 var _RuleList2 = _interopRequireDefault(_RuleList);
 
@@ -33025,7 +33025,7 @@ exports.unstable_getFirstCallbackNode = unstable_getFirstCallbackNode;
   })();
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(42)))
 
 /***/ }),
 /* 144 */
@@ -34930,7 +34930,7 @@ if (typeof self !== 'undefined') {
 var result = Object(__WEBPACK_IMPORTED_MODULE_0__ponyfill_js__["a" /* default */])(root);
 /* harmony default export */ __webpack_exports__["default"] = (result);
 
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(41), __webpack_require__(167)(module)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(42), __webpack_require__(167)(module)))
 
 /***/ }),
 /* 167 */
@@ -35014,7 +35014,7 @@ exports['default'] = function (str) {
 
   return CSS.escape(str);
 };
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(42)))
 
 /***/ }),
 /* 170 */
@@ -35034,7 +35034,7 @@ if (global[ns] == null) global[ns] = 0;
 // we use a counter. Also it is more accurate, because user can manually reevaluate
 // the module.
 exports['default'] = global[ns]++;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(42)))
 
 /***/ }),
 /* 171 */
@@ -35524,7 +35524,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _RuleList = __webpack_require__(43);
+var _RuleList = __webpack_require__(44);
 
 var _RuleList2 = _interopRequireDefault(_RuleList);
 
@@ -35592,7 +35592,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _RuleList = __webpack_require__(43);
+var _RuleList = __webpack_require__(44);
 
 var _RuleList2 = _interopRequireDefault(_RuleList);
 
@@ -35862,7 +35862,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _RuleList = __webpack_require__(43);
+var _RuleList = __webpack_require__(44);
 
 var _RuleList2 = _interopRequireDefault(_RuleList);
 
@@ -37324,7 +37324,7 @@ function jssPropsSort() {
 "use strict";
 
 
-var _interopRequireWildcard = __webpack_require__(44);
+var _interopRequireWildcard = __webpack_require__(45);
 
 var _interopRequireDefault = __webpack_require__(0);
 
@@ -38509,7 +38509,7 @@ var BUTTON_HOVER_COLOR = '#101010';
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_50__InputAdornment__ = __webpack_require__(344);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_50__InputAdornment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_50__InputAdornment__);
 /* unused harmony reexport InputAdornment */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_51__InputBase__ = __webpack_require__(45);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_51__InputBase__ = __webpack_require__(46);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_51__InputBase___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_51__InputBase__);
 /* unused harmony reexport InputBase */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_52__InputLabel__ = __webpack_require__(84);
@@ -50189,7 +50189,7 @@ var _classnames = _interopRequireDefault(__webpack_require__(6));
 
 var _utils = __webpack_require__(8);
 
-var _InputBase = _interopRequireDefault(__webpack_require__(45));
+var _InputBase = _interopRequireDefault(__webpack_require__(46));
 
 var _withStyles = _interopRequireDefault(__webpack_require__(5));
 
@@ -52515,7 +52515,7 @@ var _utils = __webpack_require__(8);
 
 var _withStyles = _interopRequireDefault(__webpack_require__(5));
 
-var _createBreakpoints = __webpack_require__(42);
+var _createBreakpoints = __webpack_require__(43);
 
 var _requirePropFactory = _interopRequireDefault(__webpack_require__(328));
 
@@ -53964,7 +53964,7 @@ exports.default = _default;
 "use strict";
 
 
-var _interopRequireWildcard = __webpack_require__(44);
+var _interopRequireWildcard = __webpack_require__(45);
 
 var _interopRequireDefault = __webpack_require__(0);
 
@@ -53975,7 +53975,7 @@ exports.default = void 0;
 
 var _propTypes = _interopRequireDefault(__webpack_require__(2));
 
-var _createBreakpoints = __webpack_require__(42);
+var _createBreakpoints = __webpack_require__(43);
 
 var _withWidth = _interopRequireWildcard(__webpack_require__(79));
 
@@ -54169,7 +54169,7 @@ var _hoistNonReactStatics = _interopRequireDefault(__webpack_require__(53));
 
 var _withTheme = _interopRequireDefault(__webpack_require__(29));
 
-var _createBreakpoints = __webpack_require__(42);
+var _createBreakpoints = __webpack_require__(43);
 
 var _getThemeProps2 = _interopRequireDefault(__webpack_require__(102));
 
@@ -54384,7 +54384,7 @@ var _propTypes = _interopRequireDefault(__webpack_require__(2));
 
 var _warning = _interopRequireDefault(__webpack_require__(14));
 
-var _createBreakpoints = __webpack_require__(42);
+var _createBreakpoints = __webpack_require__(43);
 
 var _helpers = __webpack_require__(15);
 
@@ -54739,7 +54739,7 @@ var _classnames = _interopRequireDefault(__webpack_require__(6));
 
 var _utils = __webpack_require__(8);
 
-var _InputBase = _interopRequireDefault(__webpack_require__(45));
+var _InputBase = _interopRequireDefault(__webpack_require__(46));
 
 var _withStyles = _interopRequireDefault(__webpack_require__(5));
 
@@ -58373,7 +58373,7 @@ var _classnames = _interopRequireDefault(__webpack_require__(6));
 
 var _utils = __webpack_require__(8);
 
-var _InputBase = _interopRequireDefault(__webpack_require__(45));
+var _InputBase = _interopRequireDefault(__webpack_require__(46));
 
 var _NotchedOutline = _interopRequireDefault(__webpack_require__(370));
 
@@ -61720,7 +61720,7 @@ Popper.Defaults = Defaults;
 /* harmony default export */ __webpack_exports__["default"] = (Popper);
 //# sourceMappingURL=popper.js.map
 
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(41)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(42)))
 
 /***/ }),
 /* 373 */
@@ -65004,7 +65004,7 @@ var _SwipeableDrawer = _interopRequireDefault(__webpack_require__(398));
 "use strict";
 
 
-var _interopRequireWildcard = __webpack_require__(44);
+var _interopRequireWildcard = __webpack_require__(45);
 
 var _interopRequireDefault = __webpack_require__(0);
 
@@ -66535,7 +66535,7 @@ var _utils = __webpack_require__(8);
 
 var _withStyles = _interopRequireDefault(__webpack_require__(5));
 
-var _Tablelvl2Context = _interopRequireDefault(__webpack_require__(46));
+var _Tablelvl2Context = _interopRequireDefault(__webpack_require__(47));
 
 var styles = {
   /* Styles applied to the root element. */
@@ -66631,7 +66631,7 @@ var _colorManipulator = __webpack_require__(28);
 
 var _TableContext = _interopRequireDefault(__webpack_require__(132));
 
-var _Tablelvl2Context = _interopRequireDefault(__webpack_require__(46));
+var _Tablelvl2Context = _interopRequireDefault(__webpack_require__(47));
 
 var styles = function styles(theme) {
   return {
@@ -66888,7 +66888,7 @@ var _utils = __webpack_require__(8);
 
 var _withStyles = _interopRequireDefault(__webpack_require__(5));
 
-var _Tablelvl2Context = _interopRequireDefault(__webpack_require__(46));
+var _Tablelvl2Context = _interopRequireDefault(__webpack_require__(47));
 
 var styles = {
   /* Styles applied to the root element. */
@@ -66995,7 +66995,7 @@ var _utils = __webpack_require__(8);
 
 var _withStyles = _interopRequireDefault(__webpack_require__(5));
 
-var _Tablelvl2Context = _interopRequireDefault(__webpack_require__(46));
+var _Tablelvl2Context = _interopRequireDefault(__webpack_require__(47));
 
 var styles = {
   /* Styles applied to the root element. */
@@ -67110,7 +67110,7 @@ var _utils = __webpack_require__(8);
 
 var _withStyles = _interopRequireDefault(__webpack_require__(5));
 
-var _InputBase = _interopRequireDefault(__webpack_require__(45));
+var _InputBase = _interopRequireDefault(__webpack_require__(46));
 
 var _MenuItem = _interopRequireDefault(__webpack_require__(82));
 
@@ -67709,7 +67709,7 @@ var _utils = __webpack_require__(8);
 
 var _withStyles = _interopRequireDefault(__webpack_require__(5));
 
-var _Tablelvl2Context = _interopRequireDefault(__webpack_require__(46));
+var _Tablelvl2Context = _interopRequireDefault(__webpack_require__(47));
 
 var styles = function styles(theme) {
   return {
@@ -70061,7 +70061,7 @@ var _withMobileDialog = _interopRequireDefault(__webpack_require__(433));
 "use strict";
 
 
-var _interopRequireWildcard = __webpack_require__(44);
+var _interopRequireWildcard = __webpack_require__(45);
 
 var _interopRequireDefault = __webpack_require__(0);
 
@@ -70310,7 +70310,12 @@ exports.default = _default;
 
 /***/ }),
 /* 436 */,
-/* 437 */
+/* 437 */,
+/* 438 */,
+/* 439 */,
+/* 440 */,
+/* 441 */,
+/* 442 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -70520,11 +70525,6 @@ var styles = function styles(theme) {
 /* harmony default export */ __webpack_exports__["default"] = (Object(__WEBPACK_IMPORTED_MODULE_3__material_ui_core_styles__["withStyles"])(styles)(ReglamentoModal));
 
 /***/ }),
-/* 438 */,
-/* 439 */,
-/* 440 */,
-/* 441 */,
-/* 442 */,
 /* 443 */,
 /* 444 */,
 /* 445 */,
@@ -70657,7 +70657,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__cardColaborador__ = __webpack_require__(559);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__itemPeriodo__ = __webpack_require__(560);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__reglamentoModal__ = __webpack_require__(437);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__reglamentoModal__ = __webpack_require__(442);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__theme__ = __webpack_require__(80);
