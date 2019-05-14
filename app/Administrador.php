@@ -15,7 +15,7 @@ class Administrador extends Model {
   }
 
   public function getSolicitudesAttribute() {
-    return Solicitud_Becaria::where("aprovada", 1)->get();
+    return Solicitud_Becaria::where("aprovada", 1)->with("estudiante.carrera", "colaborador.departamento")->get();
   }
 
   /*public function getAsignacionesAttribute() {
