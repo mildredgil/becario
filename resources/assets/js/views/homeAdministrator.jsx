@@ -69,6 +69,7 @@ const Home = ({classes, admin_html}) => {
   }, [asignaciones]);
 
   console.log(selectedAsignacion);
+  console.log(asignaciones);
 
   const selectAsignacion = (index) => {
     setSelectedAsignacion(asignaciones[index]);
