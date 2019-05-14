@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import defaultTheme from '../theme';
-import { SchoolIcon, EmailIcon, LocationIcon, PhoneIcon, PersonIcon, InfoIcon, PersonEditIcon, CloseIcon, CheckIcon, SearchIcon } from './icons';
+import { SchoolIcon, EmailIcon, DescriptionIcon, UpLoadIcon, PersonIcon, InfoIcon, PersonEditIcon, CloseIcon, CheckIcon, SearchIcon } from './icons';
 
 const ImportarCSV = ({ classes, open, handleClose }) => {
     const [ifSearchTrue, setIfSearchTrue] = React.useState(true);
@@ -33,74 +33,54 @@ const ImportarCSV = ({ classes, open, handleClose }) => {
                         <CloseIcon onClick={handleClose} className= {classes.closeIcon}/>
                         <div className="row margin-0">
                             <div className={`col s12 valign-wrapper`}>
-                                <PersonEditIcon className={classes.iconEditLabel} />
-                                <label className={`${classes.title} blue-tec`}>Solicitud becaria</label>
+                                <UpLoadIcon className={classes.iconEditLabel} />
+                                <label className={`${classes.title} blue-tec`}>Importar</label>
                             </div>
-                            <div className="col s6 mb-2 mt-4 valign-wrapper">
-                                <PersonIcon className={classes.iconLabel} />
-                                <label>Nombre</label>
-                            </div>
-                            <div className="col s6 mb-2 mt-4 valign-wrapper">
-                                <InfoIcon className={classes.iconInfo} />
-                                <label>Matrícula</label>
-                            </div>
-                            <div className="col s6">
-                                <TextField
-                                    fullWidth
-                                    id="outlined-bare"
-                                    classes={{ root: classes.labelText }}
-                                    defaultValue="Lorena Gomez"
-                                    InputProps={{
-                                        readOnly: true,
-                                        disabled: true,
-                                    }}
-                                    variant="outlined"
-                                />
-                            </div>
-                            <div className="col s6">
-                                <TextField
-                                    fullWidth
-                                    id="outlined-bare"
-                                    classes={{ root: classes.labelText }}
-                                    defaultValue="A01176573"
-                                    InputProps={{
-                                        readOnly: true,
-                                        disabled: true,
-                                    }}
-                                    variant="outlined"
-                                />
-                            </div>
-                            
-                            <div className="row center-align">
-                                <div className="col s12 mb-2 mt-4">
-                                <div className="col s6">
+                        </div>
+                            <div className={`row valign-wrapper`}>
+                                <div className="col s6 left-align">
+                                    <span className={classes.labelLogin}>Tabla colaboradores</span>
+                                </div>
+                                <div className="col s6 center-align">
                                     <Button
                                         onClick={searchClick}
                                         variant="contained"
                                         color="primary">
-                                        <SearchIcon className={`white-text ${classes.labelSearch}`}/>
-                                        <span className={classes.labelLogin}>Buscar</span>
+                                        <DescriptionIcon className={`white-text ${classes.labelSearch}`}/>
+                                        <span className={classes.labelUpload}>Subir archivo</span>
                                     </Button>
+                                </div> 
+                            </div>                           
+                            <div className="row valign-wrapper">
+                                <div className="col s6 left-align">
+                                    <span className={classes.labelLogin}>Tabla estudiantes</span>
                                 </div>
-                                    <div className="col s6">
+                                <div className="col s6 center-align">
+                                <Button
+                                    variant="contained"
+                                    color="primary">
+                                    <DescriptionIcon className={`white-text ${classes.labelSearch}`}/>
+                                    <span className={classes.labelUpload}>Subir archivo</span>
+                                </Button>
+                                </div>
+                            </div>
+                            <div className="row valign-wrapper">
+                                <div className="col s12">
+                                <label className={classes.labelLittle}>Nota: Los archivos deben ser tipo ".csv".</label>
+                                </div> 
+                            </div>
+                            <div className="row valign-wrapper">
+                                <div className="col s12 mb-2 mt-4">
+                                    <div className="col s12 center-align">
                                     <Button
-                                        disabled = {ifSearchTrue}
                                         variant="contained"
                                         color="primary">
                                         <CheckIcon className={`white-text ${classes.labelCheck}`}/>
-                                        <span className={classes.labelLogin}>Aceptar</span>
+                                        <span className={classes.labelLogin}>Generar asignación automática</span>
                                     </Button>
                                     </div>
                                 </div>
                             </div>
-                            <div className="row red center-align">
-                                <div className="col s12 mb-2 mt-4">
-                                    <div className="col s6">
-                                        No se encontró el alumno
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div> 
                 </div>
             </Modal>
@@ -169,11 +149,11 @@ const styles = theme => ({
       },
 
     containerWidth: {
-        maxWidth: '50%',
+        maxWidth: '40%',
     },
 
     labelSearch: {
-        fontSize: '20px',
+        fontSize: '15px',
         marginRight: '0.5rem',
     },
 
@@ -185,6 +165,16 @@ const styles = theme => ({
     labelLogin:{
         fontFamily : 'Nunito',
         fontSize: '20px', 
+    },
+
+    labelUpload: {
+        fontFamily : 'Nunito',
+        fontSize: '15px',
+    },
+
+    labelLittle:{
+        fontFamily : 'Nunito',
+        fontSize: '15px',
     },
 
    

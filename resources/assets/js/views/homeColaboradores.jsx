@@ -100,7 +100,7 @@ const Home = ({ classes, colaborador_html }) => {
         <div className={`row ${classes.margin40}`}>
           <div className={`col s12 blue-tec mb-2 ${classes.titleHistory} px-0`}>
             <div className="col s9">
-              <span className={classes.labelLogin}>Becarios | Agosto-Diciembre 2019</span>
+              Becarios | Agosto-Diciembre 2019
             </div>
             <div className="col s3 align-right px-0">
               <Button className="valign-wrapper" style={{ float: 'right', }} variant="contained" color="primary" onClick={handleOpenEvaluacion}>

@@ -13,6 +13,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 import Button from '@material-ui/core/Button';
 import {ListIcon} from './icons';
+import ItemAdministrator from './itemAdministrator';
+
 
 const Home = ({classes, estudiante_html}) => {
   const [estudiante, setEstudiante] = React.useState(false);
@@ -88,26 +90,15 @@ const Home = ({classes, estudiante_html}) => {
       <div className="container">
         <div className={`row ${classes.margin40}`}>
           <div className={`col s12 blue-tec mb-2 ${classes.titleHistory}`}>
-            <div className="col s9">
-              <span className={classes.labelLogin}>Becarios | Agosto-Diciembre 2019</span>
-            </div>
-            <div className="col s3 align-right">
-              <Button
-                  variant="contained"
-                  color="primary">
-                  <ListIcon className={`white-text ${classes.labelCheck}`}/>
-                  <span className={classes.labelLogin}>Evaluar alumnos</span>
-              </Button>
-            </div>
+              Asignaciones | Agosto-Diciembre 2019
           </div>
         </div> 
         <div  className={`row `}>
           <div className="col s4">
-          <span className={classes.labelLogin}>Solicitudes pendientes</span>
             <div  className={`row `}>
               <div className={`row mb-0 ${classes.paddingRight20}`}>
                 <div className={`${classes.itemsWrapper} col s12 card my-0`}>
-                
+                  <ItemAdministrator asignacion={null} isSelected={true} handleClick={null}/>    
                 </div>
               </div>
             </div>
@@ -139,13 +130,18 @@ const maxWidth = 1000;
 const styles = theme => ({
   itemsWrapper: {
     overflowY: 'scroll',
-    height: '330px',
+    height: '370px',
   },
 
   margin40: {
     marginTop: '40px',
     marginBottom: '40px'
   },
+
+  labelLogin:{
+    fontFamily : 'Nunito',
+    fontSize: '20px', 
+},
 
   paddingRight20: {
     paddingRight: '20px',
@@ -155,10 +151,10 @@ const styles = theme => ({
     fontSize: '30px',
   },
 
-  labelLogin:{
-    fontFamily : 'Nunito',
-    fontSize: '20px', 
-  },
+  labelSearch: {
+    fontSize: '20px',
+    marginRight: '0.5rem',
+},
 
   labelCheck: {
     fontSize: '20px',
