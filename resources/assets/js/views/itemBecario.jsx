@@ -8,13 +8,13 @@ const ItemBecario = ({classes, asignacion, isSelected, handleClick}) => {
   const old_periodo = ['', 'Enero-Mayo', 'Verano', 'Agosto-Diciembre'];
   
   let periodo = '';
-  
+   
   let _date = asignacion.fecha_asignacion;
   let date = new Date(_date);
   let year = date.getFullYear();
   let month = date.getMonth();
   let periodo_string = '';
-
+ 
   if(year >= 2020) {
     periodo = new_periodo;
 
@@ -37,7 +37,8 @@ const ItemBecario = ({classes, asignacion, isSelected, handleClick}) => {
       periodo_string = periodo[3];
     }
   }
-
+  console.log(asignacion.estudiante);
+  console.log(true, asignacion.id);
   return (
     <div onClick={handleClick} className={`${isSelected ? classes.selected :classes.itemWrapper} row valign-wrapper py-2 px-2 mb-0`}>
       <div className="col s10">
@@ -45,7 +46,7 @@ const ItemBecario = ({classes, asignacion, isSelected, handleClick}) => {
         <br/>
         <label className={`${classes.colab} truncate blue-tec-dark`}>
           <PersonIcon className={classes.iconLabel}/>
-          {asignacion.estudiante.semestre_actual}° {asignacion.estudiante.carrera.siglas_carrera} | Evaluación: Satisfactorio
+          {asignacion.estudiante.semestre_actual}° {asignacion.estudiante.carrera.siglas_carrera} | Evaluación: {evaluacion[asignacion.evaluacion]}
         </label>
       </div>
       <div className={`col s2`}>

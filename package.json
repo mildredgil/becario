@@ -50,6 +50,6 @@
         "react-swipeable-views-utils": "^0.13.0",
         "simple-react-validator": "0.0.8",
         "socket.io": "^2.0.4",
-        "validator": "^10.10.0"
+        "validator": "^10.11.0"
     }
 }

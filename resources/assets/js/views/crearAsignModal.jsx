@@ -1,12 +1,11 @@
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import Modal from '@material-ui/core/Modal';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import defaultTheme from '../theme';
-import { SchoolIcon, EmailIcon, LocationIcon, PhoneIcon, PersonIcon, InfoIcon, PersonEditIcon, CloseIcon, CheckIcon, SearchIcon } from './icons';
+import { PersonIcon, InfoIcon, PersonEditIcon, CloseIcon, CheckIcon } from './icons';
 
 const CrearAsignModal = ({ classes, open, handleClose }) => {
     const [ifSearchTrue, setIfSearchTrue] = React.useState(true);
@@ -15,11 +14,12 @@ const CrearAsignModal = ({ classes, open, handleClose }) => {
     }
 
     React.useEffect(()=> {
-        if(open == false){
-            setIfSearchTrue(true);  
-        }
-      }, [open]);
-    
+      if(open == false){
+        setIfSearchTrue(true);  
+      }
+    }, [open]);
+
+    React   
     
     return (
         <MuiThemeProvider theme={defaultTheme}>
@@ -29,60 +29,58 @@ const CrearAsignModal = ({ classes, open, handleClose }) => {
                 classes={{ root: classes.modalRoot }}
             >
                 <div className={`container ${classes.containerWidth}`}>
-                    <div className="card px-5 py-3">
-                        <CloseIcon onClick={handleClose} className= {classes.closeIcon}/>
-                        <div className="row margin-0">
-                            <div className={`col s12 center-align valign-wrapper`}>
-                                <PersonEditIcon className={classes.iconEditLabel} />
-                                <label className={`${classes.title} blue-tec`}>Crear Asignación</label>
-                            </div>
-                            <div className="col s6 mb-2 mt-4 valign-wrapper">
-                                <PersonIcon className={classes.iconLabel} />
-                                <label>Matricula Alumno</label>
-                            </div>
-                            <div className="col s6 mb-2 mt-4 valign-wrapper">
-                                <InfoIcon className={classes.iconInfo} />
-                                <label>Nómina Colaborador</label>
-                            </div>
-                            <div className="col s6">
-                                <TextField
-                                    fullWidth
-                                    id="outlined-bare"
-                                    classes={{ root: classes.labelText }}
-                                    defaultValue=""
-                                    variant="outlined"
-                                />
-                            </div>
-                            <div className="col s6">
-                                <TextField
-                                    fullWidth
-                                    id="outlined-bare"
-                                    classes={{ root: classes.labelText }}
-                                    defaultValue=""
-                                    variant="outlined"
-                                />
-                            </div>
-                            
-                            <div className="row center-align">
-                                <div className="col s12 mb-2 mt-4">
-                                    <div className="col s2 offset-s5">
-                                        <Button onClick={searchClick} variant="contained" className={`${classes.labelCheckV}`}>
-                                            <CheckIcon className={` ${classes.labelSearch}`}/>
-                                            <span className={classes.labelLogin}>Crear</span>
-                                        </Button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="row red center-align">
-                                <div className="col s12 mb-2 mt-4">
-                                    <div className="col s6">
-                                        No se encontró el alumno
-                                    </div>
+                    <div className="card px-5 py-3 my-0">
+                      <CloseIcon onClick={handleClose} className= {classes.closeIcon}/>
+                      <div className="row margin-0">
+                        <div className={`col s12 center-align valign-wrapper`}>
+                            <PersonEditIcon className={classes.iconEditLabel} />
+                            <label className={`${classes.title} blue-tec`}>Crear Asignación</label>
+                        </div>
+                        <div className="col s6 mb-2 mt-4 valign-wrapper">
+                            <PersonIcon className={classes.iconLabel} />
+                            <label>Matricula Alumno</label>
+                        </div>
+                        <div className="col s6 mb-2 mt-4 valign-wrapper">
+                            <InfoIcon className={classes.iconInfo} />
+                            <label>Nómina Colaborador</label>
+                        </div>
+                        <div className="col s6">
+                          <TextField
+                              fullWidth
+                              id="outlined-bare"
+                              classes={{ root: classes.labelText }}
+                              defaultValue=""
+                              variant="outlined"
+                          />
+                        </div>
+                        <div className="col s6">
+                          <TextField
+                              fullWidth
+                              id="outlined-bare"
+                              classes={{ root: classes.labelText }}
+                              defaultValue=""
+                              variant="outlined"
+                          />
+                        </div>
+                        <div className="row center-align mb-0">
+                            <div className="col s12 mb-2 mt-4">
+                                <div className="col s2 offset-s5">
+                                    <Button onClick={searchClick} variant="contained" className={`${classes.labelCheckV}`}>
+                                        <CheckIcon className={`white-text ${classes.labelSearch}`}/>
+                                        <span className={`white-text ${classes.labelLogin}`}>Crear</span>
+                                    </Button>
                                 </div>
                             </div>
                         </div>
+                      </div>
                     </div> 
+                    <div className={`${ifSearchTrue ? 'green': 'red'} row mb-0  center-align ${classes.wholeRow}`}>
+                      <div className="col s12 mb-4 mt-4">
+                        <h5 className="white-text center-align my-0">
+                          {ifSearchTrue ? "Alumno Encontrado" : "No se encontró el alumno"}
+                        </h5>
+                      </div>
+                    </div>
                 </div>
             </Modal>
         </MuiThemeProvider>
@@ -169,7 +167,10 @@ const styles = theme => ({
         fontSize: '20px', 
     },
 
-   
+    wholeRow: {
+      marginBottom: '0px !important',
+      position: 'relative'
+    },   
 
     [`@media (max-width: ${maxWidth}px)`]: {
 

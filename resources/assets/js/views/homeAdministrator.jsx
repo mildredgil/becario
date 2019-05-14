@@ -7,15 +7,12 @@ import { withStyles } from '@material-ui/core/styles';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import defaultTheme from '../theme';
 import Select from '@material-ui/core/Select';
-import FormControl from '@material-ui/core/FormControl';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
 import MenuItem from '@material-ui/core/MenuItem';
-import InputLabel from '@material-ui/core/InputLabel';
-import Button from '@material-ui/core/Button';
-import {ListIcon} from './icons';
+import ItemAdministrator from './itemAdministrator';
 
-const Home = ({classes, estudiante_html}) => {
-  const [estudiante, setEstudiante] = React.useState(false);
+
+const Home = ({classes, admin_html}) => {
+  const [admin, setAdmin] = React.useState(false);
   const [selectedAsignacion, setSelectedAsignacion] = React.useState(false);
   const [asignaciones, setAsignaciones] = React.useState([]);
   const [indexSelected, setIndexSelected] = React.useState(0);
@@ -48,20 +45,22 @@ const Home = ({classes, estudiante_html}) => {
   yearOptions.push(<MenuItem classes={{ root: classes.options}} value={2018}>2018</MenuItem>);
   yearOptions.push(<MenuItem classes={{ root: classes.options}} value={2019}>2019</MenuItem>);
   yearOptions.push(<MenuItem classes={{ root: classes.options}} value={2020}>2020</MenuItem>);
+  
+  //Load admin
   React.useEffect(()=> {
     
-    if(estudiante_html != null){
-      setEstudiante(estudiante_html);
+    if(admin_html != null){
+      setAdmin(admin_html);
       let _asignaciones = asignaciones;
 
-      estudiante_html.solicitudes_becarias.map(function(asignacion) {
+      admin_html.solicitudes.map(function(asignacion) {
         _asignaciones.push(asignacion);  
       });
 
       setAsignaciones(_asignaciones);
     }
     
-  }, [estudiante_html]);
+  }, [admin_html]);
 
   React.useEffect(()=> {
     if(asignaciones.length > 0) {
@@ -88,26 +87,15 @@ const Home = ({classes, estudiante_html}) => {
       <div className="container">
         <div className={`row ${classes.margin40}`}>
           <div className={`col s12 blue-tec mb-2 ${classes.titleHistory}`}>
-            <div className="col s9">
-              <span className={classes.labelLogin}>Becarios | Agosto-Diciembre 2019</span>
-            </div>
-            <div className="col s3 align-right">
-              <Button
-                  variant="contained"
-                  color="primary">
-                  <ListIcon className={`white-text ${classes.labelCheck}`}/>
-                  <span className={classes.labelLogin}>Evaluar alumnos</span>
-              </Button>
-            </div>
+              Asignaciones | Agosto-Diciembre 2019
           </div>
         </div> 
         <div  className={`row `}>
           <div className="col s4">
-          <span className={classes.labelLogin}>Solicitudes pendientes</span>
             <div  className={`row `}>
               <div className={`row mb-0 ${classes.paddingRight20}`}>
                 <div className={`${classes.itemsWrapper} col s12 card my-0`}>
-                
+                  <ItemAdministrator asignacion={null} isSelected={true} handleClick={null}/>    
                 </div>
               </div>
             </div>
@@ -139,13 +127,18 @@ const maxWidth = 1000;
 const styles = theme => ({
   itemsWrapper: {
     overflowY: 'scroll',
-    height: '330px',
+    height: '370px',
   },
 
   margin40: {
     marginTop: '40px',
     marginBottom: '40px'
   },
+
+  labelLogin:{
+    fontFamily : 'Nunito',
+    fontSize: '20px', 
+},
 
   paddingRight20: {
     paddingRight: '20px',
@@ -155,10 +148,10 @@ const styles = theme => ({
     fontSize: '30px',
   },
 
-  labelLogin:{
-    fontFamily : 'Nunito',
-    fontSize: '20px', 
-  },
+  labelSearch: {
+    fontSize: '20px',
+    marginRight: '0.5rem',
+},
 
   labelCheck: {
     fontSize: '20px',
@@ -173,15 +166,15 @@ const styles = theme => ({
 const _Home = withStyles(styles)(Home);
 
 if (document.getElementById('homeAdministrator')) {
-  let _estudiante = document.getElementById('estudiante');
-  let estudiante_obj = null;
+  let _admin = document.getElementById('admin');
+  let admin_obj = null;
 
-  if(estudiante != "") {
-    estudiante_obj = JSON.parse(_estudiante.value);
-    //_estudiante.parentNode.removeChild(_estudiante);
+  if(admin != "") {
+    admin_obj = JSON.parse(_admin.value);
+    //_admin.parentNode.removeChild(_admin);
   } else {
-    estudiante = null;
+    admin = null;
   }
 
-  ReactDOM.render(<_Home estudiante_html={estudiante_obj}/>, document.getElementById('homeAdministrator'));
+  ReactDOM.render(<_Home admin_html={admin_obj}/>, document.getElementById('homeAdministrator'));
 }

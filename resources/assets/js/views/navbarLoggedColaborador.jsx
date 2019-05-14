@@ -11,13 +11,15 @@ import Fab from '@material-ui/core/Fab';
 import { AddIcon } from './icons';
 import ReglamentoModal from './reglamentoModal';
 import SolicitudBecaria from './solicitudBecModal';
-import { PowerIcon, PersonEditIcon, UpLoadIcon, DescriptionIcon } from './icons';
+import { PowerIcon, PersonEditIcon, DescriptionIcon } from './icons';
+import axios from 'axios'; 
 
 const NavBar = ({ classes, colaborador_html }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [open, setOpen] = React.useState(false);
   const [openReglamento, setOpenReglamento] = React.useState(false);
   const [openSolicitudBec, setOpenSolicitudBec] = React.useState(false);
+  const [colaborador, setColaborador] = React.useState(colaborador_html);
 
   const handleClick = event => {
     setAnchorEl(event.currentTarget);
@@ -51,6 +53,18 @@ const NavBar = ({ classes, colaborador_html }) => {
   const handleCloseSolicitud = () => {
     setOpenSolicitudBec(false);
   };
+
+  const logout = () => {
+    axios.post("/logout", {
+    })
+    .then(function (response) {
+      console.log(response);
+      window.location.replace('/');
+    })
+    .catch(function (error) {
+      console.log(error);    
+    });
+  }
 
   return (
     <MuiThemeProvider theme={defaultTheme}>
@@ -87,22 +101,22 @@ const NavBar = ({ classes, colaborador_html }) => {
                 <MenuItem onClick={handleOpenPerfil} className="valign-wrapper">
                   <PersonEditIcon className={classes.iconLabel} />
                   Perfil
-              </MenuItem>
+                </MenuItem>
                 <MenuItem onClick={handleOpenReglamento} className="valign-wrapper">
                   <DescriptionIcon className={classes.iconLabel} />
                   Reglamento
                 </MenuItem>
-                <MenuItem onClick={handleClose} className="valign-wrapper">
+                <MenuItem onClick={logout} className="valign-wrapper">
                   <PowerIcon className={classes.iconLabel} />
                   Cerrar Sesión
-              </MenuItem>
+                </MenuItem>
               </Menu>
             </div>
             <img className={classes.logo} src="/img/tec-logo-letras.png" />
           </div>
         </div>
       </nav>
-      <PerfilColaboradores open={open} handleClose={handleClosePerfil} colaborador={colaborador_html} />
+      <PerfilColaboradores open={open} handleClose={handleClosePerfil} colaborador={colaborador} setColaborador={setColaborador} />
       <ReglamentoModal open={openReglamento} handleClose={handleCloseReglamento} />
       <SolicitudBecaria open={openSolicitudBec} handleClose={handleCloseSolicitud} />
     </MuiThemeProvider>

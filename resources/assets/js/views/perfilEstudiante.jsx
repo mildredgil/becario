@@ -6,147 +6,170 @@ import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import defaultTheme from '../theme';
-import { SchoolIcon, EmailIcon, LocationIcon, PhoneIcon, PersonIcon, InfoIcon, PersonEditIcon, CloseIcon, CheckIcon } from './icons';
+import axios from 'axios'; 
+import { SchoolIcon, EmailIcon, PhoneIcon, PersonIcon, InfoIcon, PersonEditIcon, CloseIcon, CheckIcon } from './icons';
 
-const PerfilEstudiantes = ({ classes, open, handleClose, estudiante }) => {
+const PerfilEstudiantes = ({ classes, open, handleClose, estudiante,  setEstudiante }) => {
+  const [inputPhone, setInputPhone] = React.useState(estudiante.celular);
+  const semestre = ['','Primero', 'Segundo', 'Tercero', 'Cuarto', 'Quinto', 'Sexto', 'Septimo', 'Octavo', 'Noveno'];
 
-    const semestre = ['','Primero', 'Segundo', 'Tercero', 'Cuarto', 'Quinto', 'Sexto', 'Septimo', 'Octavo', 'Noveno'];
-    console.log(estudiante);
+  //Reiniciar la variable inputPhone, cuando se abra el modal
+  React.useEffect(()=> {
+    setInputPhone(estudiante.celular);
+  }, [open]);
+  
+  const onChangePhone = (event) => {
+    setInputPhone(event.target.value);
+  }
+
+  //Guardar el numero del estudiante.
+  const saveProfile = () => {
+    axios.post("/student/save/profile", {
+      celular: inputPhone 
+    })
+    .then(function (response) {
+      setEstudiante(response.data.estudiante);
+      alert("Peticion exitosa");
+    })
+    .catch(function (error) {
+      alert("Hubo un error. Intente de nuevo más tarde.");
+    });
+  }
+
+  console.log(estudiante);
+
     return (
-        <MuiThemeProvider theme={defaultTheme}>
-            <Modal
-                open={open}
-                onClose={handleClose}
-                classes={{ root: classes.modalRoot }}
-            >
-                <div className={`container ${classes.containerWidth}`}>
-                    <div className="card px-5 py-3">
-                        <CloseIcon onClick={handleClose} className= {classes.closeIcon}/>
-                        <div className="row margin-0">
-                            <div className={`col s12 valign-wrapper`}>
-                                <PersonEditIcon className={classes.iconEditLabel} />
-                                <label className={`${classes.title} blue-tec`}>Información personal</label>
-                            </div>
-                            <div className="col s6 mb-2 mt-4 valign-wrapper">
-                                <PersonIcon className={classes.iconLabel} />
-                                <label>Nombre</label>
-                            </div>
-                            <div className="col s6 mb-2 mt-4 valign-wrapper">
-                                <InfoIcon className={classes.iconInfo} />
-                                <label>Matrícula</label>
-                            </div>
-                            <div className="col s6">
-                                <TextField
-                                    fullWidth
-                                    id="outlined-bare"
-                                    classes={{ root: classes.labelText }}
-                                    defaultValue={estudiante.nombre_completo}
-                                    InputProps={{
-                                        readOnly: true,
-                                        disabled: true,
-                                    }}
-                                    variant="outlined"
-                                />
-                            </div>
-                            <div className="col s6">
-                                <TextField
-                                    fullWidth
-                                    id="outlined-bare"
-                                    classes={{ root: classes.labelText }}
-                                    defaultValue={estudiante.matricula}
-                                    InputProps={{
-                                        readOnly: true,
-                                        disabled: true,
-                                    }}
-                                    variant="outlined"
-                                />
-                            </div>
-                            <div className="col s6 mb-2 mt-4 valign-wrapper">
-                                <SchoolIcon className={classes.iconSchool} />
-                                <label>Carrera</label>
-                            </div>
-                            <div className="col s6 mb-2 mt-4 valign-wrapper">
-                                <InfoIcon className={classes.iconInfo} />
-                                <label >Semestre</label>
-                            </div>
-                            <div className="col s6">
-                                <TextField
-                                    fullWidth
-                                    id="outlined-bare"
-                                    classes={{ root: classes.labelText }}
-                                    defaultValue={estudiante.carrera.siglas_carrera}
-                                    InputProps={{
-                                        readOnly: true,
-                                        disabled: true,
-                                    }}
-                                    variant="outlined"
-                                />
-                            </div>
-                            <div className="col s6">
-                                <TextField
-                                    fullWidth
-                                    id="outlined-bare"
-                                    classes={{ root: classes.labelText }}
-                                    defaultValue={semestre[estudiante.semestre_actual]}
-                                    InputProps={{
-                                        readOnly: true,
-                                        disabled: true,
-                                    }}
-                                    variant="outlined"
-                                />
-                            </div>
-                            <div className="col s6 mb-2 mt-4 valign-wrapper">
-                                <EmailIcon className={classes.iconLabel} />
-                                <label>Correo</label>
-                            </div>
-                            <div className="col s6 mb-2 mt-4 valign-wrapper">
-                                <PhoneIcon className={classes.iconInfo} />
-                                <label >Teléfono</label>
-                            </div>
-                        </div>
-                        <div className="row no-margin">
-                            <div className="col s6">
-                                <TextField
-                                    fullWidth
-                                    id="outlined-bare"
-                                    classes={{ root: classes.labelText }}
-                                    defaultValue={estudiante.email}
-                                    InputProps={{
-                                        readOnly: true,
-                                        disabled: true,
-                                    }}
-                                    variant="outlined"
-                                />
-                            </div>
-                            <div className="col s6">
-                                <TextField
-                                    fullWidth
-                                    id="outlined-bare"
-                                    classes={{ root: classes.labelText }}
-                                    defaultValue={estudiante.celular}
-                                    InputProps={{
-                                        readOnly: false,
-                                        disabled: false,
-                                    }}
-                                    variant="outlined"
-                                />
-                            </div>
-                        </div>
-                        <div className="row center-align">
-                            <div className="col s12 mb-2 mt-4">
-                                <Button
-                                    variant="contained"
-                                    color="primary"
-                                    href="/homeEstudiante">
-                                    <CheckIcon className={`white-text ${classes.labelCheck}`}/>
-                                    <span className={classes.labelLogin}>Guardar</span>
-                                </Button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </Modal>
-        </MuiThemeProvider>
+      <MuiThemeProvider theme={defaultTheme}>
+        <Modal
+            open={open}
+            onClose={handleClose}
+            classes={{ root: classes.modalRoot }}
+        >
+          <div className={`container ${classes.containerWidth}`}>
+              <div className="card px-5 py-3">
+                  <CloseIcon onClick={handleClose} className= {classes.closeIcon}/>
+                  <div className="row margin-0">
+                      <div className={`col s12 valign-wrapper`}>
+                          <PersonEditIcon className={classes.iconEditLabel} />
+                          <label className={`${classes.title} blue-tec`}>Información personal</label>
+                      </div>
+                      <div className="col s6 mb-2 mt-4 valign-wrapper">
+                          <PersonIcon className={classes.iconLabel} />
+                          <label>Nombre</label>
+                      </div>
+                      <div className="col s6 mb-2 mt-4 valign-wrapper">
+                          <InfoIcon className={classes.iconInfo} />
+                          <label>Matrícula</label>
+                      </div>
+                      <div className="col s6">
+                          <TextField
+                              fullWidth
+                              id="outlined-bare"
+                              classes={{ root: classes.labelText }}
+                              defaultValue={estudiante.nombre_completo}
+                              InputProps={{
+                                  readOnly: true,
+                                  disabled: true,
+                              }}
+                              variant="outlined"
+                          />
+                      </div>
+                      <div className="col s6">
+                          <TextField
+                              fullWidth
+                              id="outlined-bare"
+                              classes={{ root: classes.labelText }}
+                              defaultValue={estudiante.matricula}
+                              InputProps={{
+                                  readOnly: true,
+                                  disabled: true,
+                              }}
+                              variant="outlined"
+                          />
+                      </div>
+                      <div className="col s6 mb-2 mt-4 valign-wrapper">
+                          <SchoolIcon className={classes.iconSchool} />
+                          <label>Carrera</label>
+                      </div>
+                      <div className="col s6 mb-2 mt-4 valign-wrapper">
+                          <InfoIcon className={classes.iconInfo} />
+                          <label >Semestre</label>
+                      </div>
+                      <div className="col s6">
+                          <TextField
+                              fullWidth
+                              id="outlined-bare"
+                              classes={{ root: classes.labelText }}
+                              defaultValue={estudiante.carrera.siglas_carrera}
+                              InputProps={{
+                                  readOnly: true,
+                                  disabled: true,
+                              }}
+                              variant="outlined"
+                          />
+                      </div>
+                      <div className="col s6">
+                          <TextField
+                              fullWidth
+                              id="outlined-bare"
+                              classes={{ root: classes.labelText }}
+                              defaultValue={semestre[estudiante.semestre_actual]}
+                              InputProps={{
+                                  readOnly: true,
+                                  disabled: true,
+                              }}
+                              variant="outlined"
+                          />
+                      </div>
+                      <div className="col s6 mb-2 mt-4 valign-wrapper">
+                          <EmailIcon className={classes.iconLabel} />
+                          <label>Correo</label>
+                      </div>
+                      <div className="col s6 mb-2 mt-4 valign-wrapper">
+                          <PhoneIcon className={classes.iconInfo} />
+                          <label >Teléfono</label>
+                      </div>
+                  </div>
+                  <div className="row no-margin">
+                      <div className="col s6">
+                          <TextField
+                              fullWidth
+                              id="outlined-bare"
+                              classes={{ root: classes.labelText }}
+                              defaultValue={estudiante.email}
+                              InputProps={{
+                                  readOnly: true,
+                                  disabled: true,
+                              }}
+                              variant="outlined"
+                          />
+                      </div>
+                      <div className="col s6">
+                          <TextField
+                              fullWidth
+                              id="outlined-bare"
+                              classes={{ root: classes.labelText }}
+                              value={inputPhone}
+                              onChange={onChangePhone}
+                              variant="outlined"
+                          />
+                      </div>
+                  </div>
+                  <div className="row center-align">
+                      <div className="col s12 mb-2 mt-4">
+                          <Button
+                          onClick={saveProfile}
+                          variant="contained"
+                          color="primary">
+                            <CheckIcon className={`white-text ${classes.labelCheck}`}/>
+                            <span className={classes.labelLogin}>Guardar</span>
+                          </Button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+        </Modal>
+      </MuiThemeProvider>
     );
 }
 

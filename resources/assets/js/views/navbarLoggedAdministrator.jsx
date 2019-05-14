@@ -11,7 +11,7 @@ import CrearAsignModal from './crearAsignModal';
 import {AddIcon} from './icons';
 import ReglamentoModal from './reglamentoModal';
 import ImportarCSV from './importarCSV';
-import SolicitudBecaria from './solicitudBecModal';
+import axios from 'axios';
 import { PowerIcon, PersonEditIcon, UpLoadIcon, DescriptionIcon, CreateIcon, DeleteIcon } from './icons';
 
 const NavBar = ({ classes }) => {
@@ -80,6 +80,19 @@ const NavBar = ({ classes }) => {
     const handleCloseImport = () => {
       setOpenImportarCSV(false);
     };
+
+    
+    const logout = () => {
+      axios.post("/logout", {
+      })
+      .then(function (response) {
+        console.log(response);
+        window.location.replace('/loginAdmin');
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    }
   
     return (
       <MuiThemeProvider theme={defaultTheme}>
@@ -88,15 +101,16 @@ const NavBar = ({ classes }) => {
             <div className="row valign-wrapper">
               <div className={`col s10 offset-s1 white-text ${classes.nav}`}>
                 Asignación Becaria
+                <label className={classes.navRole}>Administrador</label>
               </div> 
               <div className={`col s1  white-text nav center-align ${classes.nav}`}>
                 <Button
                   aria-owns={anchorEl2 ? 'simple-menu2' : undefined}
                   aria-haspopup="true"
                   onClick={handleClick2}
-                  classes={{ root: classes.padding }}
+                  classes={{ root: classes.editIcon }}
                 >
-                  <CreateIcon className={classes.createLabel} />
+                  <CreateIcon className={`${classes.createLabel}`} />
                 </Button>
                 <Menu
                   id="simple-menu2"
@@ -133,15 +147,15 @@ const NavBar = ({ classes }) => {
                   open={Boolean(anchorEl)}
                   onClose={handleClose}
                 >
-                  <MenuItem onClick={handleOpenPerfil} className="valign-wrapper">
+                  {/*<MenuItem onClick={handleOpenPerfil} className="valign-wrapper">
                     <PersonEditIcon className={classes.iconLabel} />
                     Perfil
-                </MenuItem>
-                <MenuItem onClick={handleOpenReglamento} className="valign-wrapper">
+                  </MenuItem>*/}
+                  <MenuItem onClick={handleOpenReglamento} className="valign-wrapper">
                     <DescriptionIcon className={classes.iconLabel} />
                     Reglamento
                   </MenuItem>
-                  <MenuItem onClick={handleClose} className="valign-wrapper">
+                  <MenuItem onClick={logout} className="valign-wrapper">
                     <PowerIcon className={classes.iconLabel} />
                     Cerrar Sesión
                 </MenuItem>
@@ -173,31 +187,44 @@ const NavBar = ({ classes }) => {
       letterSpacing: '12px',
       textTransform: 'uppercase',
       fontWeight: 'lighter', 
-      },
+    },
+
+    navRole:{
+      fontSize: '16px',
+      fontFamily: 'Nunito',
+      letterSpacing: '6px',
+      textTransform: 'uppercase',
+      fontWeight: 'lighter', 
+    },
       
     containerExtended: {
       width: '90%',
       margin: '0 auto',
-      },
+    },
       
     icon: {
       cursor: 'pointer',
-      },
+    },
       
     padding: {
       padding: '0px',
-      },
+    },
+
+    editIcon: {
+      padding: '0px',
+      height: '-webkit-fill-available',
+    },
   
-      becarioStyle: {
+    becarioStyle: {
       cursor: 'pointer',
-          letterSpacing: '3px',
-          fontSize: '14px',
-      },
+      letterSpacing: '3px',
+      fontSize: '14px',
+    },
       
-      addIcon:{
-          fontSize: '18px',
-          marginRight: '0px',
-      },
+    addIcon:{
+      fontSize: '18px',
+      marginRight: '0px',
+    },
   
     logo: {
       width: '60px',
@@ -212,7 +239,6 @@ const NavBar = ({ classes }) => {
 
     createLabel: {
       fontSize: '22px',
-      marginRight: '0.5rem',
       fill: 'white',
     },
     

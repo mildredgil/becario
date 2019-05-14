@@ -6,15 +6,16 @@ import { MuiThemeProvider } from '@material-ui/core/styles';
 import defaultTheme from '../theme';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import PerfilColaboradores from './perfilColaboradores';
 import PerfilEstudiantes from './perfilEstudiante';
 import ReglamentoModal from './reglamentoModal';
 import { PowerIcon, PersonEditIcon, DescriptionIcon } from './icons';
+import axios from 'axios'; 
 
 const NavBar = ({ classes, estudiante_html }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [open, setOpen] = React.useState(false);
   const [openReglamento, setOpenReglamento] = React.useState(false);
+  const [estudiante, setEstudiante] = React.useState(estudiante_html);
 
   const handleClick = event => {
     setAnchorEl(event.currentTarget);
@@ -40,6 +41,18 @@ const NavBar = ({ classes, estudiante_html }) => {
   const handleCloseReglamento = () => {
     setOpenReglamento(false);
   };
+
+  const logout = () => {
+    axios.post("/logout", {
+    })
+    .then(function (response) {
+      console.log(response);
+      window.location.replace('/');
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
 
   return (
     <MuiThemeProvider theme={defaultTheme}>
@@ -72,7 +85,7 @@ const NavBar = ({ classes, estudiante_html }) => {
                   <DescriptionIcon className={classes.iconLabel} />
                   Reglamento
                 </MenuItem>
-                <MenuItem onClick={handleClose} className="valign-wrapper">
+                <MenuItem onClick={ logout} className="valign-wrapper">
                   <PowerIcon className={classes.iconLabel} />
                   Cerrar Sesión
                 </MenuItem>
@@ -82,7 +95,7 @@ const NavBar = ({ classes, estudiante_html }) => {
           </div>
         </div>
       </nav>
-      <PerfilEstudiantes open={open} handleClose={handleClosePerfil} estudiante={estudiante_html} />
+      <PerfilEstudiantes open={open} handleClose={handleClosePerfil} estudiante={estudiante} setEstudiante={setEstudiante} />
       <ReglamentoModal open={openReglamento} handleClose={handleCloseReglamento} />
     </MuiThemeProvider>
   );
