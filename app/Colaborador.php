@@ -2,8 +2,11 @@
 
 namespace App;
 
+
 use Illuminate\Database\Eloquent\Model;
+
 use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 class Colaborador extends Model
 {   
@@ -16,4 +19,10 @@ class Colaborador extends Model
   public function departamento() {
     return $this->belongsTo('App\Departamento', 'id_departamento');
   }
+
+  public function solicitudesBecarias() {
+		
+		return $this->hasMany('App\Solicitud_Becaria', 'id_colaborador')->orderBy('fecha_asignacion', 'desc');
+		
+	}
 }

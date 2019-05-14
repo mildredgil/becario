@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import CardEstudiante from './cardEstudiante';
-import ItemBecario from './itemBecario';
+import CardAdministrator from './cardAdministrator';
 import ReglamentoModal from './reglamentoModal';
+import CrearAsignModal from './crearAsignModal';
 import { withStyles } from '@material-ui/core/styles';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import defaultTheme from '../theme';
@@ -25,6 +25,17 @@ const Home = ({classes, estudiante_html}) => {
   const periodoOptions = [];
   const yearOptions = [];
   const [selectYear, setYear] = React.useState(0);
+
+  const [openCrearAsign, setOpenCrearAsign] = React.useState(false);
+
+  const handleOpenCrearAsign = () => {
+    setOpenCrearAsign(true);
+  };
+
+  const handleCloseCrearAsign = () => {
+    setOpenCrearAsign(false);
+  };
+
   periodoOptions.push(<MenuItem classes={{ root: classes.options}} value={0}>{new_periodo[0]}</MenuItem>);
   periodoOptions.push(<MenuItem classes={{ root: classes.options}} value={1}>{new_periodo[1]}</MenuItem>);
   periodoOptions.push(<MenuItem classes={{ root: classes.options}} value={2}>{new_periodo[2]}</MenuItem>);
@@ -92,82 +103,24 @@ const Home = ({classes, estudiante_html}) => {
         </div> 
         <div  className={`row `}>
           <div className="col s4">
+          <span className={classes.labelLogin}>Solicitudes pendientes</span>
             <div  className={`row `}>
-              <div className="col s6">
-                <FormControl variant="outlined" fullWidth={true} margin="normal">
-                <InputLabel
-                  htmlFor="lada"
-                >
-                  Periodo
-                </InputLabel>
-                <StyledSelect
-                  value={periodo}
-                  onChange={onChangePeriod}
-                  input={
-                    <OutlinedInput
-                      name="lada"
-                      id="lada"
-                      labelWidth={48}
-                    />
-                  }
-                  //MenuProps={{classes:{paper: maxHeight}}}
-                >
-                  {periodoOptions}
-                </StyledSelect>
-                </FormControl>
-              </div>
-              <div className="col s6">
-                <FormControl variant="outlined" fullWidth={true} margin="normal">
-                <InputLabel
-                  htmlFor="lada"
-                >
-                  Año
-                </InputLabel>
-                <StyledSelect
-                  value={selectYear}
-                  onChange={onChangeYear}
-                  input={
-                    <OutlinedInput
-                      name="lada"
-                      id="lada"
-                      labelWidth={48}
-                    />
-                  }
-                  //MenuProps={{classes:{paper: maxHeight}}}
-                >
-                  {yearOptions}
-                </StyledSelect>
-                </FormControl>
-              </div>
               <div className={`row mb-0 ${classes.paddingRight20}`}>
                 <div className={`${classes.itemsWrapper} col s12 card my-0`}>
-                {
-                  estudiante && 
-                  estudiante.solicitudes_becarias.map((asignacion, index) => {
-                    if(index == indexSelected) {
-                      console.log(true, index);
-                      return (
-                        <ItemBecario isSelected={true} handleClick={(e) => selectAsignacion(index)} key={index} asignacion={asignacion}/>
-                      )   
-                    } else {
-                      return (
-                        <ItemBecario isSelected={false} handleClick={(e) => selectAsignacion(index)} key={index} asignacion={asignacion}/>
-                      )   
-                    }                  
-                  })
-                }
+                
                 </div>
               </div>
             </div>
           </div>
           <div className="col s8">
           <div className="row mb-0">
-            <CardEstudiante asignacion={selectedAsignacion}/>
+            <CardAdministrator asignacion={selectedAsignacion}/>
           </div>
         </div>  
         </div>
       </div>
       <ReglamentoModal/>
+      <CrearAsignModal open={openCrearAsign} handleClose={handleCloseCrearAsign} />
     </MuiThemeProvider>
   );
 }
@@ -186,7 +139,7 @@ const maxWidth = 1000;
 const styles = theme => ({
   itemsWrapper: {
     overflowY: 'scroll',
-    height: '300px',
+    height: '330px',
   },
 
   margin40: {
@@ -225,7 +178,7 @@ if (document.getElementById('homeAdministrator')) {
 
   if(estudiante != "") {
     estudiante_obj = JSON.parse(_estudiante.value);
-    _estudiante.parentNode.removeChild(_estudiante);
+    //_estudiante.parentNode.removeChild(_estudiante);
   } else {
     estudiante = null;
   }

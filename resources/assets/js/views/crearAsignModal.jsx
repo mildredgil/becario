@@ -32,28 +32,24 @@ const CrearAsignModal = ({ classes, open, handleClose }) => {
                     <div className="card px-5 py-3">
                         <CloseIcon onClick={handleClose} className= {classes.closeIcon}/>
                         <div className="row margin-0">
-                            <div className={`col s12 valign-wrapper`}>
+                            <div className={`col s12 center-align valign-wrapper`}>
                                 <PersonEditIcon className={classes.iconEditLabel} />
-                                <label className={`${classes.title} blue-tec`}>Solicitud becaria</label>
+                                <label className={`${classes.title} blue-tec`}>Crear Asignación</label>
                             </div>
                             <div className="col s6 mb-2 mt-4 valign-wrapper">
                                 <PersonIcon className={classes.iconLabel} />
-                                <label>Nombre</label>
+                                <label>Matricula Alumno</label>
                             </div>
                             <div className="col s6 mb-2 mt-4 valign-wrapper">
                                 <InfoIcon className={classes.iconInfo} />
-                                <label>Matrícula</label>
+                                <label>Nómina Colaborador</label>
                             </div>
                             <div className="col s6">
                                 <TextField
                                     fullWidth
                                     id="outlined-bare"
                                     classes={{ root: classes.labelText }}
-                                    defaultValue="Lorena Gomez"
-                                    InputProps={{
-                                        readOnly: true,
-                                        disabled: true,
-                                    }}
+                                    defaultValue=""
                                     variant="outlined"
                                 />
                             </div>
@@ -62,37 +58,22 @@ const CrearAsignModal = ({ classes, open, handleClose }) => {
                                     fullWidth
                                     id="outlined-bare"
                                     classes={{ root: classes.labelText }}
-                                    defaultValue="A01176573"
-                                    InputProps={{
-                                        readOnly: true,
-                                        disabled: true,
-                                    }}
+                                    defaultValue=""
                                     variant="outlined"
                                 />
                             </div>
                             
                             <div className="row center-align">
                                 <div className="col s12 mb-2 mt-4">
-                                <div className="col s6">
-                                    <Button
-                                        onClick={searchClick}
-                                        variant="contained"
-                                        color="primary">
-                                        <SearchIcon className={`white-text ${classes.labelSearch}`}/>
-                                        <span className={classes.labelLogin}>Buscar</span>
-                                    </Button>
-                                </div>
-                                    <div className="col s6">
-                                    <Button
-                                        disabled = {ifSearchTrue}
-                                        variant="contained"
-                                        color="primary">
-                                        <CheckIcon className={`white-text ${classes.labelCheck}`}/>
-                                        <span className={classes.labelLogin}>Aceptar</span>
-                                    </Button>
+                                    <div className="col s2 offset-s5">
+                                        <Button onClick={searchClick} variant="contained" className={`${classes.labelCheckV}`}>
+                                            <CheckIcon className={` ${classes.labelSearch}`}/>
+                                            <span className={classes.labelLogin}>Crear</span>
+                                        </Button>
                                     </div>
                                 </div>
                             </div>
+
                             <div className="row red center-align">
                                 <div className="col s12 mb-2 mt-4">
                                     <div className="col s6">
@@ -177,9 +158,10 @@ const styles = theme => ({
         marginRight: '0.5rem',
     },
 
-    labelCheck: {
+    labelCheckV: {
         fontSize: '16px',
         marginRight: '0.5rem',
+        backgroundColor: '#223F93',
     },
 
     labelLogin:{

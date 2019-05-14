@@ -44,7 +44,7 @@
 <div style="width: 100%; margin: auto;" class="row">
 </div>  
 <div id="homeColaborador"></div>   
-<input id="estudiante" type="hidden" value="{{ $estudiante }}" />
+<input id="colaborador" type="hidden" value="{{ $colaborador }}" />
 @endsection
 @section('js')
 <script src="{{ asset('/js/views/homeColaboradores.js') }}"></script>

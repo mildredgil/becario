@@ -34,6 +34,13 @@ Route::get('/login', function () {
 
 Route::post('/logout', 'Auth\LoginController@logout');	
 Route::post('/get/login', 'Auth\LoginController@postLogin');	
+Route::get('/loginAdmin', function () {
+  return view('loginAdmin');
+});
+
+Route::get('/homeAdministrator', function () {
+  $estudiante = Estudiante::where('id', 3)->with("carrera", "solicitudesBecarias.colaborador.departamento")->first();
+});
 
 Route::group(['middleware' => 'auth'], function () {
   
@@ -50,19 +57,10 @@ Route::group(['middleware' => 'auth'], function () {
   });
 
   Route::get('/homeEstudiante', 'EstudianteController@index');	
-  /*Route::get('/homeEstudiante', function () {
-    $user = Auth::user();
-    dd($user);
+  
+  Route::get('/homeAdministrador', function () {
     $estudiante = Estudiante::where('id', 3)->with("carrera", "solicitudesBecarias.colaborador.departamento")->first();
-
-    return view('homeEstudiante', [
-      'estudiante' => $estudiante
-    ]);
-  });*/
-
-  Route::get('/homeAdministrator', function () {
-    $estudiante = Estudiante::where('id', 3)->with("carrera", "solicitudesBecarias.colaborador.departamento")->first();
-
+    
     return view('homeAdministrator', [
       'estudiante' => $estudiante
     ]);
@@ -121,7 +119,13 @@ Route::get('/colaboradores/users', function () {
   }
 });
 
-Route::get('/admins/users', function () {
+Route::get('/algoritmo/users', function () {
+  $colaboradores = Colaborador::where('id', '>', 0)->get();
+  $estudiantes = Estudiante::where('id', '>', 0)->get();  
+});
+
+
+Route::get('/colaboradores/admin', function () {
   $colaboradores = Colaborador::where('id', '>', 0)->get();
 
   foreach($colaboradores as $colaborador) {

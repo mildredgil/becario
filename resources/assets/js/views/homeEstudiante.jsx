@@ -46,7 +46,7 @@ const Home = ({classes, estudiante_html}) => {
       <div className="container">
         <div className={`row ${classes.margin40}`}>
           <div className={`col s12 blue-tec mb-2 ${classes.titleHistory}`}>
-          Historial | Agosto-Diciembre 2019
+          Becario | Agosto-Diciembre 2019
           </div>
           <div className="col s4">
             <div className={`row mb-0 ${classes.paddingRight20}`}>
@@ -115,7 +115,7 @@ if (document.getElementById('content')) {
 
   if(estudiante != "") {
     estudiante_obj = JSON.parse(_estudiante.value);
-    _estudiante.parentNode.removeChild(_estudiante);
+    //_estudiante.parentNode.removeChild(_estudiante);
   } else {
     estudiante = null;
   }

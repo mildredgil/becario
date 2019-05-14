@@ -8,8 +8,13 @@ import { MuiThemeProvider } from '@material-ui/core/styles';
 import defaultTheme from '../theme';
 import { SchoolIcon, EmailIcon, LocationIcon, PhoneIcon, PersonIcon, InfoIcon, PersonEditIcon, CloseIcon, CheckIcon } from './icons';
 
-const PerfilColaboradores = ({ classes, open, handleClose }) => {
-
+const PerfilColaboradores = ({ classes, open, handleClose, colaborador }) => {
+    
+    if(colaborador == false) {
+        return null;
+      } else {
+          console.log(colaborador);
+      }
 
     return (
         <MuiThemeProvider theme={defaultTheme}>
@@ -43,7 +48,7 @@ const PerfilColaboradores = ({ classes, open, handleClose }) => {
                                     fullWidth
                                     id="outlined-bare"
                                     classes={{ root: classes.labelText }}
-                                    defaultValue="Lorena Gomez"
+                                    defaultValue={colaborador.nombre_completo}
                                     InputProps={{
                                         readOnly: true,
                                         disabled: true,
@@ -56,7 +61,7 @@ const PerfilColaboradores = ({ classes, open, handleClose }) => {
                                     fullWidth
                                     id="outlined-bare"
                                     classes={{ root: classes.labelText }}
-                                    defaultValue="Ciencias Computacionales"
+                                    defaultValue={colaborador.departamento.nombre_departamento}
                                     InputProps={{
                                         readOnly: true,
                                         disabled: true,
@@ -81,7 +86,7 @@ const PerfilColaboradores = ({ classes, open, handleClose }) => {
                                     fullWidth
                                     id="outlined-bare"
                                     classes={{ root: classes.labelText }}
-                                    defaultValue="Cetec torre sur 301"
+                                    defaultValue={colaborador.oficina}
                                     variant="outlined"
                                 />
                             </div>
@@ -90,7 +95,7 @@ const PerfilColaboradores = ({ classes, open, handleClose }) => {
                                     fullWidth
                                     id="outlined-bare"
                                     classes={{ root: classes.labelText }}
-                                    defaultValue="lorena.gomez@tec.mx"
+                                    defaultValue={colaborador.email}
                                     InputProps={{
                                         readOnly: true,
                                         disabled: true,
@@ -111,7 +116,7 @@ const PerfilColaboradores = ({ classes, open, handleClose }) => {
                                     fullWidth
                                     id="outlined-bare"
                                     classes={{ root: classes.labelText }}
-                                    defaultValue="52818181818"
+                                    defaultValue={colaborador.celular}
                                     variant="outlined"
                                 />
                             </div>
