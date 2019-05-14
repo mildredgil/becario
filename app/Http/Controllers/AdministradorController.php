@@ -147,4 +147,36 @@ class AdministradorController extends Controller
 
     return response()->json($response);
   }
+
+  public function deleteAssignment(Request $request) {
+    $user = Auth::user();
+    if($user->assignable_type == User::ADMINISTRADOR) {
+      $estudiante = Estudiante::where('matricula', $request->input('matricula'))->first();
+      $colaborador = Colaborador::where('nomina', $request->input('nomina'))->first();
+      
+      if($estudiante != null && $colaborador != null) {
+        //Verificar que el estudiante pueda ser asignable.
+        $asignacion = Solicitud_Becaria::where("id_estudiante", $estudiante->id)
+        ->where("id_colaborador", $colaborador->id)
+        ->first();
+        
+        if($asignacion != null) {
+          $asignacion->delete();
+          $response['message']  = 'Asignación exitosamente borrada';  
+          $response['status']  = true;
+        } else {
+          $response['message']  = 'La asignación no existe';  
+          $response['status']  = false;
+        }
+      } else {
+        $response['message']  = 'Estudiante o Colaborador no encontrado';  
+        $response['status']  = false;
+      }
+    } else {
+      $response['message']  = 'Administrador no encontrado';
+      $response['status']  = false;
+    }
+
+    return response()->json($response);
+  }
 }

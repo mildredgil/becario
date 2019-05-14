@@ -72974,10 +72974,13 @@ if (document.getElementById('nav')) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__ = __webpack_require__(24);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__theme__ = __webpack_require__(80);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__icons__ = __webpack_require__(81);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_axios__ = __webpack_require__(442);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_axios__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__icons__ = __webpack_require__(81);
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -72994,18 +72997,54 @@ var BorrarAsignModal = function BorrarAsignModal(_ref) {
         open = _ref.open,
         handleClose = _ref.handleClose;
 
-    var _React$useState = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(true),
+    var _React$useState = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(null),
         _React$useState2 = _slicedToArray(_React$useState, 2),
         ifSearchTrue = _React$useState2[0],
         setIfSearchTrue = _React$useState2[1];
 
-    var searchClick = function searchClick(event) {
-        setIfSearchTrue(false);
+    var _React$useState3 = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(''),
+        _React$useState4 = _slicedToArray(_React$useState3, 2),
+        mensaje = _React$useState4[0],
+        setMensaje = _React$useState4[1];
+
+    var _React$useState5 = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(''),
+        _React$useState6 = _slicedToArray(_React$useState5, 2),
+        inputMatricula = _React$useState6[0],
+        setInputMatricula = _React$useState6[1];
+
+    var _React$useState7 = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(''),
+        _React$useState8 = _slicedToArray(_React$useState7, 2),
+        inputNomina = _React$useState8[0],
+        setInputNomina = _React$useState8[1];
+
+    console.log(ifSearchTrue);
+    var onChangeMatricula = function onChangeMatricula(event) {
+        setInputMatricula(event.target.value);
+    };
+
+    var onChangeNomina = function onChangeNomina(event) {
+        setInputNomina(event.target.value);
+    };
+
+    var searchClick = function searchClick() {
+        __WEBPACK_IMPORTED_MODULE_7_axios___default.a.post("/delete/assignments", {
+            matricula: inputMatricula,
+            nomina: inputNomina
+        }).then(function (response) {
+            console.log(response);
+            setIfSearchTrue(response.data.status);
+            setMensaje(response.data.message);
+            console.log(response);
+        }).catch(function (error) {
+            setMensaje(error.data.message);
+            setIfSearchTrue(false);
+            console.log(error);
+        });
     };
 
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.useEffect(function () {
         if (open == false) {
-            setIfSearchTrue(true);
+            setIfSearchTrue(false);
         }
     }, [open]);
 
@@ -73024,15 +73063,15 @@ var BorrarAsignModal = function BorrarAsignModal(_ref) {
                 { className: 'container ' + classes.containerWidth },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
-                    { className: 'card px-5 py-3' },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["c" /* CloseIcon */], { onClick: handleClose, className: classes.closeIcon }),
+                    { className: 'card px-5 py-3 my-0' },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8__icons__["c" /* CloseIcon */], { onClick: handleClose, className: classes.closeIcon }),
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'div',
                         { className: 'row margin-0' },
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'div',
                             { className: 'col s12 center-align valign-wrapper' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["l" /* PersonEditIcon */], { className: classes.iconEditLabel }),
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8__icons__["l" /* PersonEditIcon */], { className: classes.iconEditLabel }),
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                 'label',
                                 { className: classes.title + ' blue-tec' },
@@ -73042,7 +73081,7 @@ var BorrarAsignModal = function BorrarAsignModal(_ref) {
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'div',
                             { className: 'col s6 mb-2 mt-4 valign-wrapper' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["m" /* PersonIcon */], { className: classes.iconLabel }),
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8__icons__["m" /* PersonIcon */], { className: classes.iconLabel }),
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                 'label',
                                 null,
@@ -73052,7 +73091,7 @@ var BorrarAsignModal = function BorrarAsignModal(_ref) {
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'div',
                             { className: 'col s6 mb-2 mt-4 valign-wrapper' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["i" /* InfoIcon */], { className: classes.iconInfo }),
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8__icons__["i" /* InfoIcon */], { className: classes.iconInfo }),
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                 'label',
                                 null,
@@ -73066,11 +73105,8 @@ var BorrarAsignModal = function BorrarAsignModal(_ref) {
                                 fullWidth: true,
                                 id: 'outlined-bare',
                                 classes: { root: classes.labelText },
-                                defaultValue: 'A01281459',
-                                InputProps: {
-                                    readOnly: true,
-                                    disabled: true
-                                },
+                                value: inputMatricula,
+                                onChange: onChangeMatricula,
                                 variant: 'outlined'
                             })
                         ),
@@ -73081,11 +73117,8 @@ var BorrarAsignModal = function BorrarAsignModal(_ref) {
                                 fullWidth: true,
                                 id: 'outlined-bare',
                                 classes: { root: classes.labelText },
-                                defaultValue: 'L00483610',
-                                InputProps: {
-                                    readOnly: true,
-                                    disabled: true
-                                },
+                                value: inputNomina,
+                                onChange: onChangeNomina,
                                 variant: 'outlined'
                             })
                         ),
@@ -73100,8 +73133,8 @@ var BorrarAsignModal = function BorrarAsignModal(_ref) {
                                     { className: 'col s2 offset-s5' },
                                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                         __WEBPACK_IMPORTED_MODULE_4__material_ui_core_Button___default.a,
-                                        { variant: 'contained', className: '' + classes.labelCheckR },
-                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["c" /* CloseIcon */], { className: 'white-text ' + classes.labelSearch }),
+                                        { onClick: searchClick, variant: 'contained', className: '' + classes.labelCheckR },
+                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8__icons__["c" /* CloseIcon */], { className: 'white-text ' + classes.labelSearch }),
                                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                             'span',
                                             { className: ' white-text ' + classes.labelLogin },
@@ -73110,22 +73143,22 @@ var BorrarAsignModal = function BorrarAsignModal(_ref) {
                                     )
                                 )
                             )
-                        ),
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'div',
-                            { className: (ifSearchTrue ? 'green' : 'white') + ' row mb-0  center-align ' + classes.wholeRow },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'div',
-                                { className: 'col s12 mb-4 mt-4' },
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                    'h5',
-                                    { className: 'white-text center-align my-0' },
-                                    ifSearchTrue ? "Alumno Encontrado" : ""
-                                )
-                            )
                         )
                     )
-                )
+                ),
+                mensaje != '' ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'div',
+                    { className: (ifSearchTrue ? 'green' : 'red') + ' row mb-0  center-align ' + classes.wholeRow },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { className: 'col s12 mb-4 mt-4' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'h5',
+                            { className: 'white-text center-align my-0' },
+                            mensaje
+                        )
+                    )
+                ) : ''
             )
         )
     );
@@ -73210,6 +73243,11 @@ var styles = function styles(theme) {
         labelLogin: {
             fontFamily: 'Nunito',
             fontSize: '20px'
+        },
+
+        wholeRow: {
+            marginBottom: '0px !important',
+            position: 'relative'
         }
 
     }, '@media (max-width: ' + maxWidth + 'px)', {});
