@@ -6,10 +6,14 @@ import { withStyles } from '@material-ui/core/styles';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import defaultTheme from '../theme';
 import axios from 'axios';
+import validator from 'validator';
+import { isValid } from 'date-fns/esm';
 
 const LoginAdmin = ({ classes }) => {
   const [inputName, setInputName] = React.useState('');
   const [inputPassword, setInputPassword] = React.useState('');
+  const [isErrorName, setErrorName] = React.useState(false);
+  const [isErrorPWD, setErrorPWD] = React.useState(false);
 
   const onChangeName = (event) => {
     setInputName(event.target.value);
@@ -17,6 +21,14 @@ const LoginAdmin = ({ classes }) => {
 
   const onChangePassword = (event) => {
     setInputPassword(event.target.value);
+  }
+
+  const onSave = () => {
+    if((!validator.isLength(inputName,{min: 9, max: 9})) || (!validator.matches(inputName, /^[aA]\d{8}/)))
+      setErrorName(true);
+    else
+      setErrorName(false);
+    setErrorPWD(validator.isEmpty(inputPassword));
   }
 
   const login = () => {
@@ -74,6 +86,8 @@ const LoginAdmin = ({ classes }) => {
                     onChange={onChangeName}
                     margin="normal"
                     variant="outlined"
+                    error={isErrorName}
+                    helperText={isErrorName && 'Usuario incorrecto.'}
                   />
                 </div>
               </div>
@@ -89,12 +103,14 @@ const LoginAdmin = ({ classes }) => {
                     onChange={onChangePassword}
                     margin="normal"
                     variant="outlined"
+                    error={isErrorPWD}
+                    helperText={isErrorPWD && 'Este campo es requerido.'}
                   />
                 </div>
               </div>
               <div className="row no-margin">
                 <div className="col s12">
-                  <Button fullWidth variant="contained" color="primary" href="/homeColaborador">
+                  <Button fullWidth variant="contained" color="primary" href="" onClick={onSave}>
                     Iniciar Sesión
                 </Button>
                 </div>

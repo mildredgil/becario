@@ -45,7 +45,7 @@ const ItemBecario = ({classes, asignacion, isSelected, handleClick}) => {
         <br/>
         <label className={`${classes.colab} truncate blue-tec-dark`}>
           <PersonIcon className={classes.iconLabel}/>
-          {asignacion.estudiante.semestre_actual}° {asignacion.estudiante.carrera.siglas_carrera} | Evaluación: Satisfactorio
+          {asignacion.estudiante.semestre_actual}° {asignacion.estudiante.carrera.siglas_carrera} | Evaluación: {evaluacion[asignacion.evaluacion]}
         </label>
       </div>
       <div className={`col s2`}>
