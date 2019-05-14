@@ -6010,12 +6010,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /* unused harmony export SatisfiedIcon */
 /* unused harmony export SaveIcon */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "q", function() { return SchoolIcon; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "r", function() { return SearchIcon; });
+/* unused harmony export SearchIcon */
 /* unused harmony export ShoppingIcon */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "s", function() { return SupervisorIcon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "r", function() { return SupervisorIcon; });
 /* unused harmony export TwitterIcon */
 /* unused harmony export UpArrowIcon */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "t", function() { return UpLoadIcon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "s", function() { return UpLoadIcon; });
 /* unused harmony export WAIcon */
 /* unused harmony export WAIcon2 */
 /* unused harmony export WebIcon */
@@ -72956,24 +72956,21 @@ if (document.getElementById('nav')) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__material_ui_core_TextField__ = __webpack_require__(137);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__material_ui_core_TextField___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__material_ui_core_TextField__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__material_ui_core_Modal__ = __webpack_require__(41);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__material_ui_core_Modal___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__material_ui_core_Modal__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__material_ui_core_Button__ = __webpack_require__(33);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__material_ui_core_Button___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__material_ui_core_Button__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__ = __webpack_require__(24);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__theme__ = __webpack_require__(80);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_axios__ = __webpack_require__(442);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_axios__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__icons__ = __webpack_require__(81);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__material_ui_core_TextField__ = __webpack_require__(137);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__material_ui_core_TextField___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__material_ui_core_TextField__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__material_ui_core_Modal__ = __webpack_require__(41);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__material_ui_core_Modal___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__material_ui_core_Modal__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__material_ui_core_Button__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__material_ui_core_Button___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__material_ui_core_Button__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__material_ui_core_styles__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__material_ui_core_styles___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__material_ui_core_styles__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__theme__ = __webpack_require__(80);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_axios__ = __webpack_require__(442);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_axios__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__icons__ = __webpack_require__(81);
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 
 
 
@@ -73020,7 +73017,7 @@ var BorrarAsignModal = function BorrarAsignModal(_ref) {
     };
 
     var searchClick = function searchClick() {
-        __WEBPACK_IMPORTED_MODULE_7_axios___default.a.post("/delete/assignments", {
+        __WEBPACK_IMPORTED_MODULE_6_axios___default.a.post("/delete/assignments", {
             matricula: inputMatricula,
             nomina: inputNomina
         }).then(function (response) {
@@ -73042,10 +73039,10 @@ var BorrarAsignModal = function BorrarAsignModal(_ref) {
     }, [open]);
 
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        __WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__["MuiThemeProvider"],
-        { theme: __WEBPACK_IMPORTED_MODULE_6__theme__["a" /* default */] },
+        __WEBPACK_IMPORTED_MODULE_4__material_ui_core_styles__["MuiThemeProvider"],
+        { theme: __WEBPACK_IMPORTED_MODULE_5__theme__["a" /* default */] },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            __WEBPACK_IMPORTED_MODULE_3__material_ui_core_Modal___default.a,
+            __WEBPACK_IMPORTED_MODULE_2__material_ui_core_Modal___default.a,
             {
                 open: open,
                 onClose: handleClose,
@@ -73057,14 +73054,14 @@ var BorrarAsignModal = function BorrarAsignModal(_ref) {
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
                     { className: 'card px-5 py-3 my-0' },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8__icons__["c" /* CloseIcon */], { onClick: handleClose, className: classes.closeIcon }),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["c" /* CloseIcon */], { onClick: handleClose, className: classes.closeIcon }),
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'div',
                         { className: 'row margin-0' },
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'div',
                             { className: 'col s12 center-align valign-wrapper' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8__icons__["l" /* PersonEditIcon */], { className: classes.iconEditLabel }),
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["l" /* PersonEditIcon */], { className: classes.iconEditLabel }),
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                 'label',
                                 { className: classes.title + ' blue-tec' },
@@ -73074,7 +73071,7 @@ var BorrarAsignModal = function BorrarAsignModal(_ref) {
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'div',
                             { className: 'col s6 mb-2 mt-4 valign-wrapper' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8__icons__["m" /* PersonIcon */], { className: classes.iconLabel }),
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["m" /* PersonIcon */], { className: classes.iconLabel }),
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                 'label',
                                 null,
@@ -73084,7 +73081,7 @@ var BorrarAsignModal = function BorrarAsignModal(_ref) {
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'div',
                             { className: 'col s6 mb-2 mt-4 valign-wrapper' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8__icons__["i" /* InfoIcon */], { className: classes.iconInfo }),
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["i" /* InfoIcon */], { className: classes.iconInfo }),
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                 'label',
                                 null,
@@ -73094,7 +73091,7 @@ var BorrarAsignModal = function BorrarAsignModal(_ref) {
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'div',
                             { className: 'col s6' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__material_ui_core_TextField___default.a, {
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__material_ui_core_TextField___default.a, {
                                 fullWidth: true,
                                 id: 'outlined-bare',
                                 classes: { root: classes.labelText },
@@ -73106,7 +73103,7 @@ var BorrarAsignModal = function BorrarAsignModal(_ref) {
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'div',
                             { className: 'col s6' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__material_ui_core_TextField___default.a, {
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__material_ui_core_TextField___default.a, {
                                 fullWidth: true,
                                 id: 'outlined-bare',
                                 classes: { root: classes.labelText },
@@ -73125,9 +73122,9 @@ var BorrarAsignModal = function BorrarAsignModal(_ref) {
                                     'div',
                                     { className: 'col s2 offset-s5' },
                                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                        __WEBPACK_IMPORTED_MODULE_4__material_ui_core_Button___default.a,
+                                        __WEBPACK_IMPORTED_MODULE_3__material_ui_core_Button___default.a,
                                         { onClick: searchClick, variant: 'contained', className: '' + classes.labelCheckR },
-                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8__icons__["c" /* CloseIcon */], { className: 'white-text ' + classes.labelSearch }),
+                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["c" /* CloseIcon */], { className: 'white-text ' + classes.labelSearch }),
                                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                             'span',
                                             { className: ' white-text ' + classes.labelLogin },
@@ -73246,7 +73243,7 @@ var styles = function styles(theme) {
     }, '@media (max-width: ' + maxWidth + 'px)', {});
 };
 
-/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__["withStyles"])(styles)(BorrarAsignModal));
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_4__material_ui_core_styles__["withStyles"])(styles)(BorrarAsignModal));
 
 /***/ }),
 /* 556 */
@@ -73324,7 +73321,7 @@ var ImportarCSV = function ImportarCSV(_ref) {
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'div',
                             { className: 'col s12 valign-wrapper' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["t" /* UpLoadIcon */], { className: classes.iconEditLabel }),
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["s" /* UpLoadIcon */], { className: classes.iconEditLabel }),
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                 'label',
                                 { className: classes.title + ' blue-tec' },

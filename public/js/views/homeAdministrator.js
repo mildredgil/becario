@@ -6010,12 +6010,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /* unused harmony export SatisfiedIcon */
 /* unused harmony export SaveIcon */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "q", function() { return SchoolIcon; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "r", function() { return SearchIcon; });
+/* unused harmony export SearchIcon */
 /* unused harmony export ShoppingIcon */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "s", function() { return SupervisorIcon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "r", function() { return SupervisorIcon; });
 /* unused harmony export TwitterIcon */
 /* unused harmony export UpArrowIcon */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "t", function() { return UpLoadIcon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "s", function() { return UpLoadIcon; });
 /* unused harmony export WAIcon */
 /* unused harmony export WAIcon2 */
 /* unused harmony export WebIcon */
@@ -73066,7 +73066,7 @@ var CardAdministrator = function CardAdministrator(_ref) {
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
             { className: 'col s3 valign-wrapper' },
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__icons__["s" /* SupervisorIcon */], { className: classes.iconSchool }),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__icons__["r" /* SupervisorIcon */], { className: classes.iconSchool }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'label',
               null,

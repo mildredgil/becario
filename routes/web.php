@@ -99,6 +99,8 @@ Route::group(['middleware' => 'auth'], function () {
   
   Route::post('/create/assignments',    'AdministradorController@createAssignment');
   Route::post('/delete/assignments',    'AdministradorController@deleteAssignment');
+
+  Route::post('/create/request',    'ColaboradorController@createRequest');
 });
 
 Route::get('encrypt', function () {
