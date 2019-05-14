@@ -6048,12 +6048,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /* unused harmony export SatisfiedIcon */
 /* unused harmony export SaveIcon */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "q", function() { return SchoolIcon; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "r", function() { return SearchIcon; });
+/* unused harmony export SearchIcon */
 /* unused harmony export ShoppingIcon */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "s", function() { return SupervisorIcon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "r", function() { return SupervisorIcon; });
 /* unused harmony export TwitterIcon */
 /* unused harmony export UpArrowIcon */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "t", function() { return UpLoadIcon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "s", function() { return UpLoadIcon; });
 /* unused harmony export WAIcon */
 /* unused harmony export WAIcon2 */
 /* unused harmony export WebIcon */
@@ -71048,6 +71048,12 @@ exports.default = _default;
 /* 443 */
 /***/ (function(module, exports, __webpack_require__) {
 
+module.exports = __webpack_require__(450);
+
+/***/ }),
+/* 444 */
+/***/ (function(module, exports, __webpack_require__) {
+
 "use strict";
 
 
@@ -71137,7 +71143,7 @@ module.exports = exports.default;
 module.exports.default = exports.default;
 
 /***/ }),
-/* 444 */
+/* 445 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -71250,12 +71256,6 @@ decimal['pt-BR'] = decimal['pt-PT']; // see #862
 alpha['pl-Pl'] = alpha['pl-PL'];
 alphanumeric['pl-Pl'] = alphanumeric['pl-PL'];
 decimal['pl-Pl'] = decimal['pl-PL'];
-
-/***/ }),
-/* 445 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(450);
 
 /***/ }),
 /* 446 */
@@ -72940,7 +72940,7 @@ var _isURL = _interopRequireDefault(__webpack_require__(485));
 
 var _isMACAddress = _interopRequireDefault(__webpack_require__(486));
 
-var _isIP = _interopRequireDefault(__webpack_require__(443));
+var _isIP = _interopRequireDefault(__webpack_require__(444));
 
 var _isIPRange = _interopRequireDefault(__webpack_require__(487));
 
@@ -73309,7 +73309,7 @@ var _isByteLength = _interopRequireDefault(__webpack_require__(470));
 
 var _isFQDN = _interopRequireDefault(__webpack_require__(448));
 
-var _isIP = _interopRequireDefault(__webpack_require__(443));
+var _isIP = _interopRequireDefault(__webpack_require__(444));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -73444,7 +73444,7 @@ var _assertString = _interopRequireDefault(__webpack_require__(16));
 
 var _isFQDN = _interopRequireDefault(__webpack_require__(448));
 
-var _isIP = _interopRequireDefault(__webpack_require__(443));
+var _isIP = _interopRequireDefault(__webpack_require__(444));
 
 var _merge = _interopRequireDefault(__webpack_require__(83));
 
@@ -73632,7 +73632,7 @@ exports.default = isIPRange;
 
 var _assertString = _interopRequireDefault(__webpack_require__(16));
 
-var _isIP = _interopRequireDefault(__webpack_require__(443));
+var _isIP = _interopRequireDefault(__webpack_require__(444));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -73700,7 +73700,7 @@ exports.locales = void 0;
 
 var _assertString = _interopRequireDefault(__webpack_require__(16));
 
-var _alpha = __webpack_require__(444);
+var _alpha = __webpack_require__(445);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -73733,7 +73733,7 @@ exports.locales = void 0;
 
 var _assertString = _interopRequireDefault(__webpack_require__(16));
 
-var _alpha = __webpack_require__(444);
+var _alpha = __webpack_require__(445);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -73982,7 +73982,7 @@ exports.locales = void 0;
 
 var _assertString = _interopRequireDefault(__webpack_require__(16));
 
-var _alpha = __webpack_require__(444);
+var _alpha = __webpack_require__(445);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -74020,7 +74020,7 @@ var _assertString = _interopRequireDefault(__webpack_require__(16));
 
 var _includes = _interopRequireDefault(__webpack_require__(449));
 
-var _alpha = __webpack_require__(444);
+var _alpha = __webpack_require__(445);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -75810,7 +75810,7 @@ module.exports.default = exports.default;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__material_ui_core_styles__ = __webpack_require__(24);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__material_ui_core_styles___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__material_ui_core_styles__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__theme__ = __webpack_require__(80);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_axios__ = __webpack_require__(445);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_axios__ = __webpack_require__(443);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_axios__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__icons__ = __webpack_require__(81);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_validator__ = __webpack_require__(478);
@@ -76181,7 +76181,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__icons__ = __webpack_require__(81);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__reglamentoModal__ = __webpack_require__(468);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__importarCSV__ = __webpack_require__(556);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_axios__ = __webpack_require__(445);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_axios__ = __webpack_require__(443);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_12_axios__);
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
@@ -76509,12 +76509,15 @@ if (document.getElementById('nav')) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__material_ui_core_styles__ = __webpack_require__(24);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__material_ui_core_styles___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__material_ui_core_styles__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__theme__ = __webpack_require__(80);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_axios__ = __webpack_require__(445);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_axios__ = __webpack_require__(443);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_axios__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__icons__ = __webpack_require__(81);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_validator__ = __webpack_require__(478);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_validator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_validator__);
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -76551,6 +76554,21 @@ var BorrarAsignModal = function BorrarAsignModal(_ref) {
         inputNomina = _React$useState8[0],
         setInputNomina = _React$useState8[1];
 
+    var _React$useState9 = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(false),
+        _React$useState10 = _slicedToArray(_React$useState9, 2),
+        isErrorName = _React$useState10[0],
+        setErrorName = _React$useState10[1];
+
+    var _React$useState11 = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(false),
+        _React$useState12 = _slicedToArray(_React$useState11, 2),
+        isErrorNom = _React$useState12[0],
+        setErrorNom = _React$useState12[1];
+
+    var _React$useState13 = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(false),
+        _React$useState14 = _slicedToArray(_React$useState13, 2),
+        onChange = _React$useState14[0],
+        setChange = _React$useState14[1];
+
     console.log(ifSearchTrue);
     var onChangeMatricula = function onChangeMatricula(event) {
         setInputMatricula(event.target.value);
@@ -76560,7 +76578,7 @@ var BorrarAsignModal = function BorrarAsignModal(_ref) {
         setInputNomina(event.target.value);
     };
 
-    var searchClick = function searchClick() {
+    var create = function create() {
         __WEBPACK_IMPORTED_MODULE_6_axios___default.a.post("/delete/assignments", {
             matricula: inputMatricula,
             nomina: inputNomina
@@ -76575,6 +76593,22 @@ var BorrarAsignModal = function BorrarAsignModal(_ref) {
             console.log(error);
         });
     };
+    var searchClick = function searchClick() {
+        if (!__WEBPACK_IMPORTED_MODULE_8_validator___default.a.isLength(inputMatricula, { min: 9, max: 9 }) || !__WEBPACK_IMPORTED_MODULE_8_validator___default.a.matches(inputMatricula, /^[aA]\d{8}/)) setErrorName(true);else {
+            setErrorName(false);
+        }
+
+        if (!__WEBPACK_IMPORTED_MODULE_8_validator___default.a.isLength(inputNomina, { min: 9, max: 9 }) || !__WEBPACK_IMPORTED_MODULE_8_validator___default.a.matches(inputNomina, /^[lL]\d{8}/)) setErrorNom(true);else {
+            setErrorName(false);
+        }
+        setChange(true);
+    };
+
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.useEffect(function () {
+        if (!isErrorName && !isErrorNom) {
+            create();
+        }
+    }, [isErrorName, isErrorNom, onChange]);
 
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.useEffect(function () {
         if (open == false) {
@@ -76641,7 +76675,9 @@ var BorrarAsignModal = function BorrarAsignModal(_ref) {
                                 classes: { root: classes.labelText },
                                 value: inputMatricula,
                                 onChange: onChangeMatricula,
-                                variant: 'outlined'
+                                variant: 'outlined',
+                                error: isErrorName,
+                                helperText: isErrorName && 'Matrícula incorrecta.'
                             })
                         ),
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -76653,7 +76689,9 @@ var BorrarAsignModal = function BorrarAsignModal(_ref) {
                                 classes: { root: classes.labelText },
                                 value: inputNomina,
                                 onChange: onChangeNomina,
-                                variant: 'outlined'
+                                variant: 'outlined',
+                                error: isErrorNom,
+                                helperText: isErrorNom && 'Este campo es requerido.'
                             })
                         ),
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -76865,7 +76903,7 @@ var ImportarCSV = function ImportarCSV(_ref) {
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'div',
                             { className: 'col s12 valign-wrapper' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["t" /* UpLoadIcon */], { className: classes.iconEditLabel }),
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["s" /* UpLoadIcon */], { className: classes.iconEditLabel }),
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                 'label',
                                 { className: classes.title + ' blue-tec' },

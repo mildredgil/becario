@@ -6048,12 +6048,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /* unused harmony export SatisfiedIcon */
 /* unused harmony export SaveIcon */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "q", function() { return SchoolIcon; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "r", function() { return SearchIcon; });
+/* unused harmony export SearchIcon */
 /* unused harmony export ShoppingIcon */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "s", function() { return SupervisorIcon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "r", function() { return SupervisorIcon; });
 /* unused harmony export TwitterIcon */
 /* unused harmony export UpArrowIcon */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "t", function() { return UpLoadIcon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "s", function() { return UpLoadIcon; });
 /* unused harmony export WAIcon */
 /* unused harmony export WAIcon2 */
 /* unused harmony export WebIcon */
@@ -71048,6 +71048,12 @@ exports.default = _default;
 /* 443 */
 /***/ (function(module, exports, __webpack_require__) {
 
+module.exports = __webpack_require__(450);
+
+/***/ }),
+/* 444 */
+/***/ (function(module, exports, __webpack_require__) {
+
 "use strict";
 
 
@@ -71137,7 +71143,7 @@ module.exports = exports.default;
 module.exports.default = exports.default;
 
 /***/ }),
-/* 444 */
+/* 445 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -71250,12 +71256,6 @@ decimal['pt-BR'] = decimal['pt-PT']; // see #862
 alpha['pl-Pl'] = alpha['pl-PL'];
 alphanumeric['pl-Pl'] = alphanumeric['pl-PL'];
 decimal['pl-Pl'] = decimal['pl-PL'];
-
-/***/ }),
-/* 445 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(450);
 
 /***/ }),
 /* 446 */
@@ -72940,7 +72940,7 @@ var _isURL = _interopRequireDefault(__webpack_require__(485));
 
 var _isMACAddress = _interopRequireDefault(__webpack_require__(486));
 
-var _isIP = _interopRequireDefault(__webpack_require__(443));
+var _isIP = _interopRequireDefault(__webpack_require__(444));
 
 var _isIPRange = _interopRequireDefault(__webpack_require__(487));
 
@@ -73309,7 +73309,7 @@ var _isByteLength = _interopRequireDefault(__webpack_require__(470));
 
 var _isFQDN = _interopRequireDefault(__webpack_require__(448));
 
-var _isIP = _interopRequireDefault(__webpack_require__(443));
+var _isIP = _interopRequireDefault(__webpack_require__(444));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -73444,7 +73444,7 @@ var _assertString = _interopRequireDefault(__webpack_require__(16));
 
 var _isFQDN = _interopRequireDefault(__webpack_require__(448));
 
-var _isIP = _interopRequireDefault(__webpack_require__(443));
+var _isIP = _interopRequireDefault(__webpack_require__(444));
 
 var _merge = _interopRequireDefault(__webpack_require__(83));
 
@@ -73632,7 +73632,7 @@ exports.default = isIPRange;
 
 var _assertString = _interopRequireDefault(__webpack_require__(16));
 
-var _isIP = _interopRequireDefault(__webpack_require__(443));
+var _isIP = _interopRequireDefault(__webpack_require__(444));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -73700,7 +73700,7 @@ exports.locales = void 0;
 
 var _assertString = _interopRequireDefault(__webpack_require__(16));
 
-var _alpha = __webpack_require__(444);
+var _alpha = __webpack_require__(445);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -73733,7 +73733,7 @@ exports.locales = void 0;
 
 var _assertString = _interopRequireDefault(__webpack_require__(16));
 
-var _alpha = __webpack_require__(444);
+var _alpha = __webpack_require__(445);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -73982,7 +73982,7 @@ exports.locales = void 0;
 
 var _assertString = _interopRequireDefault(__webpack_require__(16));
 
-var _alpha = __webpack_require__(444);
+var _alpha = __webpack_require__(445);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -74020,7 +74020,7 @@ var _assertString = _interopRequireDefault(__webpack_require__(16));
 
 var _includes = _interopRequireDefault(__webpack_require__(449));
 
-var _alpha = __webpack_require__(444);
+var _alpha = __webpack_require__(445);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -75810,7 +75810,7 @@ module.exports.default = exports.default;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__material_ui_core_styles__ = __webpack_require__(24);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__material_ui_core_styles___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__material_ui_core_styles__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__theme__ = __webpack_require__(80);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_axios__ = __webpack_require__(445);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_axios__ = __webpack_require__(443);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_axios__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__icons__ = __webpack_require__(81);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_validator__ = __webpack_require__(478);
@@ -76625,7 +76625,7 @@ var CardAdministrator = function CardAdministrator(_ref) {
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
             { className: 'col s3 valign-wrapper' },
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__icons__["s" /* SupervisorIcon */], { className: classes.iconSchool }),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__icons__["r" /* SupervisorIcon */], { className: classes.iconSchool }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'label',
               null,

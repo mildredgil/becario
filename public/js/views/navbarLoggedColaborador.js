@@ -6010,12 +6010,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /* unused harmony export SatisfiedIcon */
 /* unused harmony export SaveIcon */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "q", function() { return SchoolIcon; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "r", function() { return SearchIcon; });
+/* unused harmony export SearchIcon */
 /* unused harmony export ShoppingIcon */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "s", function() { return SupervisorIcon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "r", function() { return SupervisorIcon; });
 /* unused harmony export TwitterIcon */
 /* unused harmony export UpArrowIcon */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "t", function() { return UpLoadIcon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "s", function() { return UpLoadIcon; });
 /* unused harmony export WAIcon */
 /* unused harmony export WAIcon2 */
 /* unused harmony export WebIcon */
@@ -70980,14 +70980,14 @@ var _default = (0, _withTheme.default)()(Zoom);
 exports.default = _default;
 
 /***/ }),
-/* 443 */,
-/* 444 */,
-/* 445 */
+/* 443 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(450);
 
 /***/ }),
+/* 444 */,
+/* 445 */,
 /* 446 */,
 /* 447 */,
 /* 448 */,
@@ -72338,7 +72338,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__icons__ = __webpack_require__(81);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__reglamentoModal__ = __webpack_require__(468);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__solicitudBecModal__ = __webpack_require__(552);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_axios__ = __webpack_require__(445);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_axios__ = __webpack_require__(443);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_12_axios__);
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
@@ -72606,7 +72606,7 @@ if (document.getElementById('nav')) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__material_ui_core_styles__ = __webpack_require__(24);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__material_ui_core_styles___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__material_ui_core_styles__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__theme__ = __webpack_require__(80);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_axios__ = __webpack_require__(445);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_axios__ = __webpack_require__(443);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_axios__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__icons__ = __webpack_require__(81);
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
@@ -72961,17 +72961,17 @@ var styles = function styles(theme) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__material_ui_core_TextField__ = __webpack_require__(138);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__material_ui_core_TextField___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__material_ui_core_TextField__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__material_ui_core_Modal__ = __webpack_require__(41);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__material_ui_core_Modal___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__material_ui_core_Modal__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__material_ui_core_Button__ = __webpack_require__(33);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__material_ui_core_Button___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__material_ui_core_Button__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__ = __webpack_require__(24);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__theme__ = __webpack_require__(80);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__material_ui_core_TextField__ = __webpack_require__(138);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__material_ui_core_TextField___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__material_ui_core_TextField__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__material_ui_core_Modal__ = __webpack_require__(41);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__material_ui_core_Modal___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__material_ui_core_Modal__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__material_ui_core_Button__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__material_ui_core_Button___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__material_ui_core_Button__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__material_ui_core_styles__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__material_ui_core_styles___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__material_ui_core_styles__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__theme__ = __webpack_require__(80);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_axios__ = __webpack_require__(443);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_axios__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__icons__ = __webpack_require__(81);
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
@@ -72992,26 +72992,60 @@ var SolicitudBecaria = function SolicitudBecaria(_ref) {
         open = _ref.open,
         handleClose = _ref.handleClose;
 
-    var _React$useState = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(true),
+    var _React$useState = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(null),
         _React$useState2 = _slicedToArray(_React$useState, 2),
         ifSearchTrue = _React$useState2[0],
         setIfSearchTrue = _React$useState2[1];
 
-    var searchClick = function searchClick(event) {
-        setIfSearchTrue(false);
+    var _React$useState3 = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(''),
+        _React$useState4 = _slicedToArray(_React$useState3, 2),
+        mensaje = _React$useState4[0],
+        setMensaje = _React$useState4[1];
+
+    var _React$useState5 = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(''),
+        _React$useState6 = _slicedToArray(_React$useState5, 2),
+        inputMatricula = _React$useState6[0],
+        setInputMatricula = _React$useState6[1];
+
+    var _React$useState7 = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(''),
+        _React$useState8 = _slicedToArray(_React$useState7, 2),
+        inputNomina = _React$useState8[0],
+        setInputNomina = _React$useState8[1];
+
+    var onChangeMatricula = function onChangeMatricula(event) {
+        setInputMatricula(event.target.value);
+    };
+
+    var onChangeNomina = function onChangeNomina(event) {
+        setInputNomina(event.target.value);
+    };
+
+    var searchClick = function searchClick() {
+        __WEBPACK_IMPORTED_MODULE_6_axios___default.a.post("/create/request", {
+            matricula: inputMatricula
+        }).then(function (response) {
+            console.log(response);
+            setIfSearchTrue(response.data.status);
+            setMensaje(response.data.message);
+            console.log(response);
+        }).catch(function (error) {
+            setMensaje(error.data.message);
+            setIfSearchTrue(false);
+            console.log(error);
+        });
     };
 
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.useEffect(function () {
         if (open == false) {
-            setIfSearchTrue(true);
+            setIfSearchTrue(false);
         }
     }, [open]);
 
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        __WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__["MuiThemeProvider"],
-        { theme: __WEBPACK_IMPORTED_MODULE_6__theme__["a" /* default */] },
+        __WEBPACK_IMPORTED_MODULE_4__material_ui_core_styles__["MuiThemeProvider"],
+        { theme: __WEBPACK_IMPORTED_MODULE_5__theme__["a" /* default */] },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            __WEBPACK_IMPORTED_MODULE_3__material_ui_core_Modal___default.a,
+            __WEBPACK_IMPORTED_MODULE_2__material_ui_core_Modal___default.a,
             {
                 open: open,
                 onClose: handleClose,
@@ -73022,7 +73056,7 @@ var SolicitudBecaria = function SolicitudBecaria(_ref) {
                 { className: 'container ' + classes.containerWidth },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
-                    { className: 'card px-5 py-3' },
+                    { className: 'card px-5 py-3 my-0' },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["c" /* CloseIcon */], { onClick: handleClose, className: classes.closeIcon }),
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'div',
@@ -73060,90 +73094,64 @@ var SolicitudBecaria = function SolicitudBecaria(_ref) {
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'div',
                             { className: 'col s6' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__material_ui_core_TextField___default.a, {
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__material_ui_core_TextField___default.a, {
                                 fullWidth: true,
                                 id: 'outlined-bare',
                                 classes: { root: classes.labelText },
-                                defaultValue: '',
-                                InputProps: {
-                                    readOnly: true,
-                                    disabled: false
-                                },
+                                value: inputMatricula,
+                                onChange: onChangeMatricula,
                                 variant: 'outlined'
                             })
                         ),
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'div',
                             { className: 'col s6' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__material_ui_core_TextField___default.a, {
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__material_ui_core_TextField___default.a, {
                                 fullWidth: true,
                                 id: 'outlined-bare',
                                 classes: { root: classes.labelText },
-                                defaultValue: '',
-                                InputProps: {
-                                    readOnly: true,
-                                    disabled: false
-                                },
+                                value: inputNomina,
+                                onChange: onChangeNomina,
                                 variant: 'outlined'
                             })
                         ),
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'div',
-                            { className: 'row center-align' },
+                            { className: 'row center-align mb-0' },
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                 'div',
                                 { className: 'col s12 mb-2 mt-4' },
                                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                     'div',
-                                    { className: 'col s6' },
+                                    { className: 'col s2 offset-s5' },
                                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                        __WEBPACK_IMPORTED_MODULE_4__material_ui_core_Button___default.a,
-                                        {
-                                            onClick: searchClick,
-                                            variant: 'contained',
-                                            color: 'primary' },
-                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["r" /* SearchIcon */], { className: 'white-text ' + classes.labelSearch }),
+                                        __WEBPACK_IMPORTED_MODULE_3__material_ui_core_Button___default.a,
+                                        { onClick: searchClick, variant: 'contained', className: '' + classes.labelCheckV },
+                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["b" /* CheckIcon */], { className: 'white-text ' + classes.labelSearch }),
                                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                             'span',
-                                            { className: classes.labelLogin },
-                                            'Buscar'
+                                            { className: 'white-text ' + classes.labelLogin },
+                                            'Crear'
                                         )
                                     )
-                                ),
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                    'div',
-                                    { className: 'col s6' },
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                        __WEBPACK_IMPORTED_MODULE_4__material_ui_core_Button___default.a,
-                                        {
-                                            disabled: ifSearchTrue,
-                                            variant: 'contained',
-                                            color: 'primary' },
-                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["b" /* CheckIcon */], { className: 'white-text ' + classes.labelCheck }),
-                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                            'span',
-                                            { className: classes.labelLogin },
-                                            'Aceptar'
-                                        )
-                                    )
-                                )
-                            )
-                        ),
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'div',
-                            { className: (ifSearchTrue ? 'white' : 'green') + ' row mb-0  center-align ' + classes.wholeRow },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'div',
-                                { className: 'col s12 mb-4 mt-4' },
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                    'h5',
-                                    { className: 'white-text center-align my-0' },
-                                    ifSearchTrue ? "" : "Alumno Encontrado"
                                 )
                             )
                         )
                     )
-                )
+                ),
+                mensaje != '' ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'div',
+                    { className: (ifSearchTrue ? 'green' : 'red') + ' row mb-0  center-align ' + classes.wholeRow },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { className: 'col s12 mb-4 mt-4' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'h5',
+                            { className: 'white-text center-align my-0' },
+                            mensaje
+                        )
+                    )
+                ) : ''
             )
         )
     );
@@ -73214,6 +73222,12 @@ var styles = function styles(theme) {
             maxWidth: '50%'
         },
 
+        labelCheckV: {
+            fontSize: '16px',
+            marginRight: '0.5rem',
+            backgroundColor: '#223F93'
+        },
+
         labelSearch: {
             fontSize: '20px',
             marginRight: '0.5rem'
@@ -73227,12 +73241,17 @@ var styles = function styles(theme) {
         labelLogin: {
             fontFamily: 'Nunito',
             fontSize: '20px'
+        },
+
+        wholeRow: {
+            marginBottom: '0px !important',
+            position: 'relative'
         }
 
     }, '@media (max-width: ' + maxWidth + 'px)', {});
 };
 
-/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__["withStyles"])(styles)(SolicitudBecaria));
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_4__material_ui_core_styles__["withStyles"])(styles)(SolicitudBecaria));
 
 /***/ })
 /******/ ]);
