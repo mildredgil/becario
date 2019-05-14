@@ -7,12 +7,16 @@ import { MuiThemeProvider } from '@material-ui/core/styles';
 import defaultTheme from '../theme';
 import axios from 'axios'; 
 import { PersonIcon, InfoIcon, PersonEditIcon, CloseIcon } from './icons';
+import validator from 'validator';
 
 const BorrarAsignModal = ({ classes, open, handleClose }) => {   
   const [ifSearchTrue, setIfSearchTrue] = React.useState(null);
   const [mensaje, setMensaje] = React.useState('');
   const [inputMatricula, setInputMatricula] = React.useState('');
-  const [inputNomina, setInputNomina] = React.useState('');
+	const [inputNomina, setInputNomina] = React.useState('');
+	const [isErrorName, setErrorName] = React.useState(false);
+	const [isErrorNom, setErrorNom] = React.useState(false);
+	const [onChange, setChange] = React.useState(false);
 
   console.log(ifSearchTrue);
   const onChangeMatricula = (event) => {
@@ -21,10 +25,10 @@ const BorrarAsignModal = ({ classes, open, handleClose }) => {
 
   const onChangeNomina = (event) => {
     setInputNomina(event.target.value);
-  }
-
-  const searchClick = () => {
-    axios.post("/delete/assignments", {
+	}
+	
+	const create = () => {
+		axios.post("/delete/assignments", {
       matricula: inputMatricula,
       nomina: inputNomina
     })
@@ -39,7 +43,27 @@ const BorrarAsignModal = ({ classes, open, handleClose }) => {
       setIfSearchTrue(false);
       console.log(error);
     });
-  }
+	}
+	const searchClick = () => {
+		if ((!validator.isLength(inputMatricula, { min: 9, max: 9 })) || (!validator.matches(inputMatricula, /^[aA]\d{8}/)))
+			setErrorName(true);
+		else{
+			setErrorName(false);
+		}
+
+		if ((!validator.isLength(inputNomina, { min: 9, max: 9 })) || (!validator.matches(inputNomina, /^[lL]\d{8}/)))
+			setErrorNom(true);
+		else{
+			setErrorName(false);
+		}
+		setChange(true);
+	}
+	
+	React.useEffect(() => {
+		if ((!isErrorName && !isErrorNom)) {
+			create();
+		}
+	}, [isErrorName, isErrorNom, onChange]);
 
   React.useEffect(()=> {
     if(open == false){
@@ -78,7 +102,9 @@ const BorrarAsignModal = ({ classes, open, handleClose }) => {
                                 classes={{ root: classes.labelText }}
                                 value={inputMatricula}
                                 onChange={onChangeMatricula}
-                                variant="outlined"
+																variant="outlined"
+																error={isErrorName}
+                             		helperText={isErrorName && 'Matrícula incorrecta.'}
                             />
                         </div>
                         <div className="col s6">
@@ -88,7 +114,9 @@ const BorrarAsignModal = ({ classes, open, handleClose }) => {
                                 classes={{ root: classes.labelText }}
                                 value={inputNomina}
                                 onChange={onChangeNomina}
-                                variant="outlined"
+																variant="outlined"
+																error={isErrorNom}
+                     						helperText={isErrorNom && 'Este campo es requerido.'}
                             />
                         </div>
                         <div className="row center-align">
