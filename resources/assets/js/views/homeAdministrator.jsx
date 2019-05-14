@@ -7,17 +7,12 @@ import { withStyles } from '@material-ui/core/styles';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import defaultTheme from '../theme';
 import Select from '@material-ui/core/Select';
-import FormControl from '@material-ui/core/FormControl';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
 import MenuItem from '@material-ui/core/MenuItem';
-import InputLabel from '@material-ui/core/InputLabel';
-import Button from '@material-ui/core/Button';
-import {ListIcon} from './icons';
 import ItemAdministrator from './itemAdministrator';
 
 
-const Home = ({classes, estudiante_html}) => {
-  const [estudiante, setEstudiante] = React.useState(false);
+const Home = ({classes, admin_html}) => {
+  const [admin, setAdmin] = React.useState(false);
   const [selectedAsignacion, setSelectedAsignacion] = React.useState(false);
   const [asignaciones, setAsignaciones] = React.useState([]);
   const [indexSelected, setIndexSelected] = React.useState(0);
@@ -50,20 +45,22 @@ const Home = ({classes, estudiante_html}) => {
   yearOptions.push(<MenuItem classes={{ root: classes.options}} value={2018}>2018</MenuItem>);
   yearOptions.push(<MenuItem classes={{ root: classes.options}} value={2019}>2019</MenuItem>);
   yearOptions.push(<MenuItem classes={{ root: classes.options}} value={2020}>2020</MenuItem>);
+  
+  //Load admin
   React.useEffect(()=> {
     
-    if(estudiante_html != null){
-      setEstudiante(estudiante_html);
+    if(admin_html != null){
+      setAdmin(admin_html);
       let _asignaciones = asignaciones;
 
-      estudiante_html.solicitudes_becarias.map(function(asignacion) {
+      admin_html.solicitudes.map(function(asignacion) {
         _asignaciones.push(asignacion);  
       });
 
       setAsignaciones(_asignaciones);
     }
     
-  }, [estudiante_html]);
+  }, [admin_html]);
 
   React.useEffect(()=> {
     if(asignaciones.length > 0) {
@@ -169,15 +166,15 @@ const styles = theme => ({
 const _Home = withStyles(styles)(Home);
 
 if (document.getElementById('homeAdministrator')) {
-  let _estudiante = document.getElementById('estudiante');
-  let estudiante_obj = null;
+  let _admin = document.getElementById('admin');
+  let admin_obj = null;
 
-  if(estudiante != "") {
-    estudiante_obj = JSON.parse(_estudiante.value);
-    //_estudiante.parentNode.removeChild(_estudiante);
+  if(admin != "") {
+    admin_obj = JSON.parse(_admin.value);
+    //_admin.parentNode.removeChild(_admin);
   } else {
-    estudiante = null;
+    admin = null;
   }
 
-  ReactDOM.render(<_Home estudiante_html={estudiante_obj}/>, document.getElementById('homeAdministrator'));
+  ReactDOM.render(<_Home admin_html={admin_obj}/>, document.getElementById('homeAdministrator'));
 }

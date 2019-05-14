@@ -42,15 +42,14 @@ class LoginController extends Controller {
    // Attempt to log the user in
    
    $credentials = $request->only('username', 'password');
-    
+   
     if (Auth::attempt($credentials)) {
       $response['user']  = Auth::user();
       return response()->json($response);
     } else {
       return response()->json([
-        'username' => $username,
-        'password' => $password,
-        'error' => $this->failedLoginMessage
+        'username' => $request->input('username'),
+        'password' => $request->input('password')
       ], 401);
     }
   }

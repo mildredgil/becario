@@ -42,7 +42,6 @@ class AdministradorController extends Controller
       case User::ADMINISTRADOR:
         $user_admin = Auth::user()->assignable;
         $administrador = Administrador::where('id', $user_admin->id)
-        ->with("departamento", "solicitudesBecarias.estudiante.carrera")
         ->first();
 
         return view('homeAdministrator', [

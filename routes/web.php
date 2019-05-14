@@ -35,13 +35,32 @@ Route::get('/login', function () {
         return redirect()->route('homeColaborador');
         break;
       case User::ADMINISTRADOR:
-        return redirect()->route('homeAdministrator');
+        return redirect()->route('homeAdministrador');
         break;
     }
   }
   
   return view('login');
 })->name('login');
+
+Route::get('/loginAdmin', function () {
+  if (Auth::check()) {
+    $user = Auth::user();
+    switch($user->assignable_type){
+      case User::ESTUDIANTE:
+        return redirect()->route('homeEstudiante');
+        break;
+      case User::COLABORADOR:
+        return redirect()->route('homeColaborador');
+        break;
+      case User::ADMINISTRADOR:
+        return redirect()->route('homeAdministrador');
+        break;
+    }
+  }
+  
+  return view('loginAdmin');
+})->name('loginAdmin');
 
 Route::get('/home', function () {
   if (Auth::check()) {
@@ -65,10 +84,6 @@ Route::get('/home', function () {
 
 Route::post('/logout', 'Auth\LoginController@logout');	
 Route::post('/get/login', 'Auth\LoginController@postLogin');	
-
-Route::get('/loginAdmin', function () {
-  return view('loginAdmin');
-});
 
 Route::group(['middleware' => 'auth'], function () {
   //vistas de los home de usuarios
@@ -146,4 +161,25 @@ Route::get('/colaboradores/admin', function () {
 
     var_dump($user);
   }
+});
+
+Route::get('/user/admin', function () {
+  $administradores = User::whereIn('id', [48])->get();
+
+  $user = User::create([
+    'assignable_id' => 1, 
+    'username' => 'admin',
+    'password' => bcrypt('admin'),
+    'assignable_type' => User::ADMINISTRADOR
+  ]); 
+
+  dd($user);
+  //$administradores = User::where('assignable_type', '=', User::ADMINISTRADOR)->get();
+  
+  /*foreach($administradores as $administrador) {
+    $administrador->password = bcrypt($administrador->contrasena);
+    $administrador->save();
+    var_dump($administrador);
+  }
+  dd($administradores);*/
 });

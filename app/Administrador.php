@@ -2,12 +2,23 @@
 
 namespace App;
 
+use App\Solitud_Becaria;
 use Illuminate\Database\Eloquent\Model;
 
 class Administrador extends Model {
-  protected $table = 'administrator';
+  protected $table = 'administrador';
+  protected $hidden = ['password'];
+  protected $appends = array("solicitudes");
   
   public function users() {
     return $this->belongsTo('App\User', 'id_user');
   }
+
+  public function getSolicitudesAttribute() {
+    return Solicitud_Becaria::where("aprovada", 1)->get();
+  }
+
+  /*public function getAsignacionesAttribute() {
+    return Solicitud_Becaria::where("aprovada", 0)->get();
+  }*/
 }

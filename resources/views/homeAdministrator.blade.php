@@ -2,7 +2,7 @@
 
 @section('content')    
   <div id="homeAdministrator"></div>  
-  <input id="estudiante" type="hidden" value="{{ $estudiante }}" />
+  <input id="admin" type="hidden" value="{{ $administrador }}" />
 @endsection
 
 @section('js')
