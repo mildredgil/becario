@@ -12,6 +12,17 @@ class Solicitud_Becaria extends Model
   const VERANO   = 3;
   const AGO_DIC  = 4;
   
+  protected $fillable = [
+    'aprovada',
+    'id_colaborador',
+    'id_estudiante',
+    'periodo',
+    'fecha',
+    'fecha_asignacion',
+    'fecha_aceptacion',
+    'evaluacion'
+  ];            
+
   public function estudiante() {
       return $this->belongsTo('App\Estudiante', 'id_estudiante');
   }
