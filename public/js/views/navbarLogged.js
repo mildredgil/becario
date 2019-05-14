@@ -72602,6 +72602,7 @@ var PerfilEstudiantes = function PerfilEstudiantes(_ref) {
         }).then(function (response) {
             setEstudiante(response.data.estudiante);
             alert("Peticion exitosa");
+            handleClose();
         }).catch(function (error) {
             alert("Hubo un error. Intente de nuevo más tarde.");
         });

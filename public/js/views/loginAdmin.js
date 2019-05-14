@@ -75145,9 +75145,16 @@ var LoginAdmin = function LoginAdmin(_ref) {
   };
 
   var onSave = function onSave() {
-    if (__WEBPACK_IMPORTED_MODULE_7_validator___default.a.isEmpty(inputName)) setErrorName(true);else setErrorName(false);
+    setErrorName(__WEBPACK_IMPORTED_MODULE_7_validator___default.a.isEmpty(inputName));
     setErrorPWD(__WEBPACK_IMPORTED_MODULE_7_validator___default.a.isEmpty(inputPassword));
   };
+
+  __WEBPACK_IMPORTED_MODULE_0_react___default.a.useEffect(function () {
+    console.log(!isErrorName && !isErrorPWD, isErrorName, isErrorPWD);
+    if (!isErrorName && !isErrorPWD) {
+      login();
+    }
+  }, [isErrorName, isErrorPWD]);
 
   var login = function login() {
     __WEBPACK_IMPORTED_MODULE_6_axios___default.a.post("/get/login", {
@@ -75243,7 +75250,7 @@ var LoginAdmin = function LoginAdmin(_ref) {
                 { className: 'col s12' },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                   __WEBPACK_IMPORTED_MODULE_3__material_ui_core_Button___default.a,
-                  { fullWidth: true, variant: 'contained', color: 'primary', href: '', onClick: login },
+                  { fullWidth: true, variant: 'contained', color: 'primary', href: '', onClick: onSave },
                   'Iniciar Sesi\xF3n'
                 )
               )
