@@ -8,7 +8,8 @@ import { CloseIcon, CheckIcon} from './icons';
 
 const CardAdministrator = ({classes, asignacion}) => {
   let evaluacion = ['Pendiente', 'Satisfactorio', 'Insatisfactorio'];
-
+  const semestre = ['','Primero', 'Segundo', 'Tercero', 'Cuarto', 'Quinto', 'Sexto', 'Septimo', 'Octavo', 'Noveno'];
+  
   if(asignacion == false) {
     return null;
   }
@@ -34,10 +35,10 @@ const CardAdministrator = ({classes, asignacion}) => {
           </div>
           <div className="row margin-0">
             <div className="col s6">
-              <label className={classes.labelText}>Jaime Andrés Montemayor Molina</label>
+              <label className={classes.labelText}>{asignacion.estudiante.nombre_completo}</label>
             </div>
             <div className="col s6">
-              <label className={classes.labelText}>Lorena Gomez Martinez</label>
+              <label className={classes.labelText}>{asignacion.colaborador.nombre_completo}</label>
             </div>
           </div>
           <div className={`row margin-0 ${classes.paddingTop20}`}>
@@ -55,21 +56,21 @@ const CardAdministrator = ({classes, asignacion}) => {
             </div>
             <div className="col s3 valign-wrapper">
               <SupervisorIcon className={classes.iconSchool}/>
-              <label >Núm. Becarios</label>
+              <label >Carga</label>
             </div>
           </div>
           <div className="row margin-0">
             <div className="col s3">
-              <label className={classes.labelText}>A01176573</label>
+              <label className={classes.labelText}>{asignacion.estudiante.matricula}</label>
             </div>
             <div className="col s3">
-              <label className={classes.labelText}>SEXTO</label>
+              <label className={classes.labelText}>{semestre[asignacion.estudiante.semestre_actual]}</label>
             </div>
             <div className="col s3">
-              <label className={classes.labelText}>L01176573</label>
+              <label className={classes.labelText}>{asignacion.colaborador.nomina}</label>
             </div>
             <div className="col s3">
-              <label className={classes.labelText}>5</label>
+              <label className={classes.labelText}>{asignacion.colaborador.carga}</label>
             </div>
           </div>
           <div className={`row margin-0 ${classes.paddingTop20}`}>
@@ -84,10 +85,10 @@ const CardAdministrator = ({classes, asignacion}) => {
           </div>
           <div className="row margin-0">
             <div className="col s6">
-              <label className={classes.labelText}>ITC</label>
+              <label className={classes.labelText}>{asignacion.estudiante.carrera.siglas_carrera}</label>
             </div>
             <div className="col s6">
-              <label className={classes.labelText}>Computación</label>
+              <label className={classes.labelText}>{asignacion.colaborador.departamento.nombre_departamento}</label>
             </div>
           </div>
           <div className= "row mt-5">

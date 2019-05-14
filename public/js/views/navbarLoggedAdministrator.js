@@ -72276,6 +72276,8 @@ var CrearAsignModal = function CrearAsignModal(_ref) {
         }
     }, [open]);
 
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a;
+
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         __WEBPACK_IMPORTED_MODULE_4__material_ui_core_styles__["MuiThemeProvider"],
         { theme: __WEBPACK_IMPORTED_MODULE_5__theme__["a" /* default */] },
@@ -72381,7 +72383,7 @@ var CrearAsignModal = function CrearAsignModal(_ref) {
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'h5',
                             { className: 'white-text center-align my-0' },
-                            ifSearchTrue ? "No se encontró el alumno" : "Alumno Encontrado"
+                            ifSearchTrue ? "Alumno Encontrado" : "No se encontró el alumno"
                         )
                     )
                 )

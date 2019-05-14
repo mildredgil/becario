@@ -41,11 +41,11 @@ const ItemAdministrator = ({classes, asignacion, isSelected, handleClick}) => {
   return (
     <div onClick={handleClick} className={`${isSelected ? classes.selected :classes.itemWrapper} hoverable row valign-wrapper py-2 px-2 mb-0`}>
       <div className="col s10">
-        <label className={`${classes.periodo} blue-tec`}>Colaborador: Lorena Gomez</label>
+        <label className={`${classes.periodo} blue-tec`}>Colaborador: {asignacion.colaborador.nombre_completo} </label>
         <br/>
         <label className={`${classes.colab} truncate blue-tec-dark`}>
           <PersonIcon className={classes.iconLabel}/>
-          Alumno: Jaime Andrés Montemayor Molina
+          Alumno: {asignacion.estudiante.nombre_completo}
         </label>
       </div>
       <div className={`col s2`}>
