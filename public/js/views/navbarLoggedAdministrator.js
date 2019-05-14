@@ -76504,9 +76504,12 @@ if (document.getElementById('nav')) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_axios__ = __webpack_require__(443);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_axios__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__icons__ = __webpack_require__(81);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_validator__ = __webpack_require__(478);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_validator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_validator__);
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -76543,6 +76546,21 @@ var BorrarAsignModal = function BorrarAsignModal(_ref) {
         inputNomina = _React$useState8[0],
         setInputNomina = _React$useState8[1];
 
+    var _React$useState9 = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(false),
+        _React$useState10 = _slicedToArray(_React$useState9, 2),
+        isErrorName = _React$useState10[0],
+        setErrorName = _React$useState10[1];
+
+    var _React$useState11 = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(false),
+        _React$useState12 = _slicedToArray(_React$useState11, 2),
+        isErrorNom = _React$useState12[0],
+        setErrorNom = _React$useState12[1];
+
+    var _React$useState13 = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(false),
+        _React$useState14 = _slicedToArray(_React$useState13, 2),
+        onChange = _React$useState14[0],
+        setChange = _React$useState14[1];
+
     console.log(ifSearchTrue);
     var onChangeMatricula = function onChangeMatricula(event) {
         setInputMatricula(event.target.value);
@@ -76552,7 +76570,7 @@ var BorrarAsignModal = function BorrarAsignModal(_ref) {
         setInputNomina(event.target.value);
     };
 
-    var searchClick = function searchClick() {
+    var create = function create() {
         __WEBPACK_IMPORTED_MODULE_6_axios___default.a.post("/delete/assignments", {
             matricula: inputMatricula,
             nomina: inputNomina
@@ -76567,6 +76585,22 @@ var BorrarAsignModal = function BorrarAsignModal(_ref) {
             console.log(error);
         });
     };
+    var searchClick = function searchClick() {
+        if (!__WEBPACK_IMPORTED_MODULE_8_validator___default.a.isLength(inputMatricula, { min: 9, max: 9 }) || !__WEBPACK_IMPORTED_MODULE_8_validator___default.a.matches(inputMatricula, /^[aA]\d{8}/)) setErrorName(true);else {
+            setErrorName(false);
+        }
+
+        if (!__WEBPACK_IMPORTED_MODULE_8_validator___default.a.isLength(inputNomina, { min: 9, max: 9 }) || !__WEBPACK_IMPORTED_MODULE_8_validator___default.a.matches(inputNomina, /^[lL]\d{8}/)) setErrorNom(true);else {
+            setErrorName(false);
+        }
+        setChange(true);
+    };
+
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.useEffect(function () {
+        if (!isErrorName && !isErrorNom) {
+            create();
+        }
+    }, [isErrorName, isErrorNom, onChange]);
 
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.useEffect(function () {
         if (open == false) {
@@ -76633,7 +76667,9 @@ var BorrarAsignModal = function BorrarAsignModal(_ref) {
                                 classes: { root: classes.labelText },
                                 value: inputMatricula,
                                 onChange: onChangeMatricula,
-                                variant: 'outlined'
+                                variant: 'outlined',
+                                error: isErrorName,
+                                helperText: isErrorName && 'Matrícula incorrecta.'
                             })
                         ),
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -76645,7 +76681,9 @@ var BorrarAsignModal = function BorrarAsignModal(_ref) {
                                 classes: { root: classes.labelText },
                                 value: inputNomina,
                                 onChange: onChangeNomina,
-                                variant: 'outlined'
+                                variant: 'outlined',
+                                error: isErrorNom,
+                                helperText: isErrorNom && 'Este campo es requerido.'
                             })
                         ),
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
