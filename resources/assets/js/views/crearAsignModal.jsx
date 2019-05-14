@@ -45,7 +45,7 @@ const CrearAsignModal = ({ classes, open, handleClose }) => {
 
     React.useEffect(()=> {
       if(open == false){
-        setIfSearchTrue(true);  
+        setIfSearchTrue(false);  
       }
     }, [open]); 
     
@@ -108,7 +108,6 @@ const CrearAsignModal = ({ classes, open, handleClose }) => {
                     <div className={`${ifSearchTrue ? 'green': 'red'} row mb-0  center-align ${classes.wholeRow}`}>
                       <div className="col s12 mb-4 mt-4">
                         <h5 className="white-text center-align my-0">
-                          {/*ifSearchTrue ? "Alumno Encontrado" : "No se encontró el alumno"*/}
                           {mensaje}
                         </h5>
                       </div>

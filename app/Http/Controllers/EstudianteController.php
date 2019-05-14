@@ -44,7 +44,7 @@ class EstudianteController extends Controller
         return redirect()->route('homeColaborador');
         break;
       case User::ADMINISTRADOR:
-        return redirect()->route('homeAdministrator');
+        return redirect()->route('homeAdministrador');
         break;
       default: 
         return redirect()->route('login');
