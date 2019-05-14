@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import Modal from '@material-ui/core/Modal';
 import Button from '@material-ui/core/Button';
@@ -22,25 +21,12 @@ const ModalLoginColaborador = ({ classes, open, handleClose }) => {
   }
 
   const login = () => {
-    console.log("hi");
-		/*axios({
-			method: 'post',
-      url:  "/get/login",    
-      data: JSON.stringify({
-        username: inputName,
-        password: inputPassword
-      })
-		}).then((response) => {
-      console.log(response);
-		}).catch((err) =>  {
-			//console.log(err);
-    });*/
     axios.post("/get/login", {
       username: inputName,
       password: inputPassword
     })
     .then(function (response) {
-      console.log(response);
+      window.location.replace('/');
     })
     .catch(function (error) {
       console.log(error);
@@ -101,9 +87,9 @@ const ModalLoginColaborador = ({ classes, open, handleClose }) => {
                 </div>
                 <div className="row no-margin">
                   <div className="col s12">
-                    <Button fullWidth variant="contained" color="primary" href="/homeColaborador">
+                    <Button fullWidth variant="contained" color="primary" onClick={login}>
                       Iniciar Sesión
-                </Button>
+                     </Button>
                   </div>
                 </div>
               </div>

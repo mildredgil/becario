@@ -6,10 +6,10 @@ import { MuiThemeProvider } from '@material-ui/core/styles';
 import defaultTheme from '../theme';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import PerfilColaboradores from './perfilColaboradores';
 import PerfilEstudiantes from './perfilEstudiante';
 import ReglamentoModal from './reglamentoModal';
 import { PowerIcon, PersonEditIcon, DescriptionIcon } from './icons';
+import axios from 'axios'; 
 
 const NavBar = ({ classes }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -40,6 +40,18 @@ const NavBar = ({ classes }) => {
   const handleCloseReglamento = () => {
     setOpenReglamento(false);
   };
+
+  const logout = () => {
+    axios.post("/logout", {
+    })
+    .then(function (response) {
+      console.log(response);
+      window.location.replace('/');
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
 
   return (
     <MuiThemeProvider theme={defaultTheme}>
@@ -72,7 +84,7 @@ const NavBar = ({ classes }) => {
                   <DescriptionIcon className={classes.iconLabel} />
                   Reglamento
                 </MenuItem>
-                <MenuItem onClick={handleClose} className="valign-wrapper">
+                <MenuItem onClick={ logout} className="valign-wrapper">
                   <PowerIcon className={classes.iconLabel} />
                   Cerrar Sesión
                 </MenuItem>

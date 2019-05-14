@@ -1,9 +1,7 @@
 <?php
-
-//use Auth;
-
 namespace App\Http\Controllers\Auth;
 
+use Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
@@ -27,8 +25,8 @@ class LoginController extends Controller {
    * Where to redirect users after login.
    *
    * @var string
-   */
-  protected $redirectTo = '/home';
+   */ 
+  protected $redirectTo = '/homeEstudiante';
 
   /**
    * Create a new controller instance.
@@ -36,38 +34,31 @@ class LoginController extends Controller {
    * @return void
    */
   public function __construct()
-  {
-      $this->middleware('guest')->except('logout');
+  { 
+    //$this->middleware('guest', ['except' => ['logout', 'userLogout']]);
   }
 
   public function postLogin(Request $request) {
-    $username = $request->input('email');
-    $password = $request->input('password');
-
-    if( ! auth()->attempt(['username' => $username, 'password' => $password], true)) {
-      dd("lo hiciste");
+   // Attempt to log the user in
+   
+   $credentials = $request->only('username', 'password');
+    
+    if (Auth::attempt($credentials)) {
+      $response['user']  = Auth::user();
+      return response()->json($response);
+    } else {
       return response()->json([
-        'email' => $username,
+        'username' => $username,
         'password' => $password,
         'error' => $this->failedLoginMessage
       ], 401);
-    } 
-    
-    $user = authUser();
-    request()->session()->regenerate();
-
-    $token = auth('api')->setTTL(1440)->login($user);
-
-    if($user->confirmed == 0) {
-      $response['message'] = trans('messages.verify_message');
-      $response['user'] = $user;
-      $response['token'] = $token;
-    } else {
-      /* Prepare the response data. */
-      $response['user']  = $user;
-      $response['token'] = $token;
     }
+  }
 
+  public function logout() {
+    Auth::logout();
+    $response['message']  = 'success';
+            
     return response()->json($response);
   }
 }

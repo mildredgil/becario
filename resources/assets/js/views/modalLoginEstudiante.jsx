@@ -7,6 +7,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import defaultTheme from '../theme';
 import { CloseIcon } from './icons';
+import axios from 'axios'; 
 
 const ModalLoginColaborador = ({ classes, open, handleClose }) => {
   const [inputName, setInputName] = React.useState('');
@@ -21,25 +22,12 @@ const ModalLoginColaborador = ({ classes, open, handleClose }) => {
   }
 
   const login = () => {
-    console.log("hi");
-		/*axios({
-			method: 'post',
-      url:  "/get/login",    
-      data: JSON.stringify({
-        username: inputName,
-        password: inputPassword
-      })
-		}).then((response) => {
-      console.log(response);
-		}).catch((err) =>  {
-			//console.log(err);
-    });*/
     axios.post("/get/login", {
       username: inputName,
       password: inputPassword
     })
     .then(function (response) {
-      console.log(response);
+      window.location.replace('/');
     })
     .catch(function (error) {
       console.log(error);
@@ -100,7 +88,7 @@ const ModalLoginColaborador = ({ classes, open, handleClose }) => {
                 </div>
                 <div className="row no-margin">
                   <div className="col s12">
-                    <Button fullWidth variant="contained" color="primary" href="/homeEstudiante">
+                    <Button fullWidth variant="contained" color="primary" onClick={login}>
                       Iniciar Sesión
                 </Button>
                   </div>
