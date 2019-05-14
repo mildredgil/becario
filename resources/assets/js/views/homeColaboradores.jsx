@@ -191,7 +191,7 @@ const Home = ({ classes, colaborador_html }) => {
         </div>
       </div>
       <ReglamentoModal />
-      <EvaluacionModal open={openEvaluacion} handleClose={handleCloseEvaluacion} />
+      {asignaciones.length > 0 ? <EvaluacionModal open={openEvaluacion} handleClose={handleCloseEvaluacion} asignaciones={asignaciones} /> : ''}
     </MuiThemeProvider>
   );
 }

@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 use App\Colaborador;
+use App\Solicitud_Becaria;
 
 class ColaboradorController extends Controller
 {
@@ -66,6 +67,30 @@ class ColaboradorController extends Controller
       $colaborador->oficina = $request->input('oficina') != '' ? $request->input('oficina') : $colaborador->oficina;
       $colaborador->celular = $request->input('celular') != '' ? $request->input('celular') : $colaborador->celular;
       $colaborador->save();
+      
+      $response['colaborador']  = $colaborador;
+      return response()->json($response);
+    } else {
+      $response['message']  = 'Colaborador no encontrado';
+      return response()->json($response);
+    }
+  }
+
+  public function saveEvaluations(Request $request) {
+    $user = Auth::user();
+    
+    if($user->assignable_type == User::COLABORADOR) {
+      $id_Colaborador = $user->assignable->id;
+
+      foreach($request->input("evaluaciones") as $evaluacion){
+        $asignaciones = Solicitud_Becaria::where('id', $evaluacion['id'])->first();
+        $asignaciones->evaluacion = $evaluacion['evaluacion'];
+        $asignaciones->save();        
+      }
+      
+      $colaborador = Colaborador::where('id', $id_Colaborador)
+      ->with("departamento", "solicitudesBecarias.estudiante.carrera")
+      ->first();
       
       $response['colaborador']  = $colaborador;
       return response()->json($response);

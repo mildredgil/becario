@@ -94,6 +94,8 @@ Route::group(['middleware' => 'auth'], function () {
   //Guardar perfiles
   Route::post('/student/save/profile',  'EstudianteController@saveProfile');	
   Route::post('/colab/save/profile',    'ColaboradorController@saveProfile');	
+  
+  Route::post('/save/evaluations',    'ColaboradorController@saveEvaluations');	
 });
 
 Route::get('encrypt', function () {
