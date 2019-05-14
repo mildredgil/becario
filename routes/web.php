@@ -59,6 +59,7 @@ Route::group(['middleware' => 'auth'], function () {
   Route::get('/homeEstudiante', 'EstudianteController@index');	
   
   Route::get('/homeAdministrador', function () {
+    
     $estudiante = Estudiante::where('id', 3)->with("carrera", "solicitudesBecarias.colaborador.departamento")->first();
     
     return view('homeAdministrator', [
@@ -67,11 +68,11 @@ Route::group(['middleware' => 'auth'], function () {
   });
 
   Route::get('/homeColaborador', function () {
-      $estudiante = Estudiante::where('id', 3)->with("carrera", "solicitudesBecarias.colaborador.departamento")->first();
-    
-      return view('homeColaborador', [
-        'estudiante' => $estudiante
-      ]);
+    $colaborador = Colaborador::where('id', 3)->with("departamento", "solicitudesBecarias.estudiante.carrera")->first();
+  
+    return view('homeColaborador', [
+      'colaborador' => $colaborador
+    ]);
   });
 });
 

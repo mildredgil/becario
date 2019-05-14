@@ -86,7 +86,7 @@ const CardEstudiante = ({classes, asignacion}) => {
               <label className={`${classes.status} blue-tec`}> {evaluacion[asignacion.evaluacion]}</label>
           </div>
           <div className="col s8 right-align py-3">
-            <Button variant="contained"  color="primary" href="mailto:A00820397@itesm.mx">
+            <Button variant="contained"  color="primary" href={"mailto:" + asignacion.estudiante.email}>
               <EmailIcon className={`white-text ${classes.icon}`} />
               <span className={classes.labelLogin}>Enviar correo</span>
             </Button>

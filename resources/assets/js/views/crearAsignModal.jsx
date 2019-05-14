@@ -67,8 +67,8 @@ const CrearAsignModal = ({ classes, open, handleClose }) => {
                                 <div className="col s12 mb-2 mt-4">
                                     <div className="col s2 offset-s5">
                                         <Button onClick={searchClick} variant="contained" className={`${classes.labelCheckV}`}>
-                                            <CheckIcon className={` ${classes.labelSearch}`}/>
-                                            <span className={classes.labelLogin}>Crear</span>
+                                            <CheckIcon className={`white-text ${classes.labelSearch}`}/>
+                                            <span className={`white-text ${classes.labelLogin}`}>Crear</span>
                                         </Button>
                                     </div>
                                 </div>
