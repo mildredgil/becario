@@ -70,7 +70,7 @@ const CardAdministrator = ({classes, asignacion}) => {
               <label className={classes.labelText}>{asignacion.colaborador.nomina}</label>
             </div>
             <div className="col s3">
-              <label className={classes.labelText}>{asignacion.colaborador.carga}</label>
+              <label className={classes.labelText}>3</label>
             </div>
           </div>
           <div className={`row margin-0 ${classes.paddingTop20}`}>
