@@ -10,12 +10,12 @@ import { PersonIcon, InfoIcon, PersonEditIcon, CloseIcon, CheckIcon } from './ic
 const CrearAsignModal = ({ classes, open, handleClose }) => {
     const [ifSearchTrue, setIfSearchTrue] = React.useState(true);
     const searchClick = (event) => {
-        setIfSearchTrue(false);
+        setIfSearchTrue(true);
     }
 
     React.useEffect(()=> {
       if(open == false){
-        setIfSearchTrue(true);  
+        setIfSearchTrue(false);  
       }
     }, [open]);
 
@@ -74,10 +74,10 @@ const CrearAsignModal = ({ classes, open, handleClose }) => {
                         </div>
                       </div>
                     </div> 
-                    <div className={`${ifSearchTrue ? 'green': 'red'} row mb-0  center-align ${classes.wholeRow}`}>
+                    <div className={`${ifSearchTrue ? 'green': 'white'} row mb-0  center-align ${classes.wholeRow}`}>
                       <div className="col s12 mb-4 mt-4">
                         <h5 className="white-text center-align my-0">
-                          {ifSearchTrue ? "Alumno Encontrado" : "No se encontró el alumno"}
+                          {ifSearchTrue ? "Alumno Encontrado" : ""}
                         </h5>
                       </div>
                     </div>

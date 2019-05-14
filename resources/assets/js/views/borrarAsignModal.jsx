@@ -9,6 +9,16 @@ import defaultTheme from '../theme';
 import { SchoolIcon, EmailIcon, LocationIcon, PhoneIcon, PersonIcon, InfoIcon, PersonEditIcon, CloseIcon, CheckIcon, SearchIcon } from './icons';
 
 const BorrarAsignModal = ({ classes, open, handleClose }) => {    
+    const [ifSearchTrue, setIfSearchTrue] = React.useState(true);
+    const searchClick = (event) => {
+        setIfSearchTrue(false);
+    }
+
+    React.useEffect(()=> {
+      if(open == false){
+        setIfSearchTrue(true);  
+      }
+    }, [open]);
     
     return (
         <MuiThemeProvider theme={defaultTheme}>
@@ -70,11 +80,11 @@ const BorrarAsignModal = ({ classes, open, handleClose }) => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="row red center-align">
-                                <div className="col s12 mb-2 mt-4">
-                                    <div className="col s6">
-                                        No se encontró el alumno
-                                    </div>
+                            <div className={`${ifSearchTrue ? 'green': 'white'} row mb-0  center-align ${classes.wholeRow}`}>
+                                <div className="col s12 mb-4 mt-4">
+                                    <h5 className="white-text center-align my-0">
+                                    {ifSearchTrue ? "Alumno Encontrado" : ""}
+                                    </h5>
                                 </div>
                             </div>
                         </div>
