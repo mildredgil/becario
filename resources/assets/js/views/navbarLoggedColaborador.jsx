@@ -11,7 +11,7 @@ import Fab from '@material-ui/core/Fab';
 import { AddIcon } from './icons';
 import ReglamentoModal from './reglamentoModal';
 import SolicitudBecaria from './solicitudBecModal';
-import { PowerIcon, PersonEditIcon, UpLoadIcon, DescriptionIcon } from './icons';
+import { PowerIcon, PersonEditIcon, DescriptionIcon } from './icons';
 import axios from 'axios'; 
 
 const NavBar = ({ classes, colaborador_html }) => {
@@ -19,6 +19,7 @@ const NavBar = ({ classes, colaborador_html }) => {
   const [open, setOpen] = React.useState(false);
   const [openReglamento, setOpenReglamento] = React.useState(false);
   const [openSolicitudBec, setOpenSolicitudBec] = React.useState(false);
+  const [colaborador, setColaborador] = React.useState(colaborador_html);
 
   const handleClick = event => {
     setAnchorEl(event.currentTarget);
@@ -115,7 +116,7 @@ const NavBar = ({ classes, colaborador_html }) => {
           </div>
         </div>
       </nav>
-      <PerfilColaboradores open={open} handleClose={handleClosePerfil} colaborador={colaborador_html} />
+      <PerfilColaboradores open={open} handleClose={handleClosePerfil} colaborador={colaborador} setColaborador={setColaborador} />
       <ReglamentoModal open={openReglamento} handleClose={handleCloseReglamento} />
       <SolicitudBecaria open={openSolicitudBec} handleClose={handleCloseSolicitud} />
     </MuiThemeProvider>

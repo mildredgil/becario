@@ -59,9 +59,12 @@ class ColaboradorController extends Controller
    
     if($user->assignable_type == User::COLABORADOR) {
       $id_Colaborador = $user->assignable->id;
-      $colaborador = Colaborador::where('id', $id_Colaborador)->with("carrera", "solicitudesBecarias.colaborador.departamento")->first();
+      $colaborador = Colaborador::where('id', $id_Colaborador)
+        ->with("departamento", "solicitudesBecarias.estudiante.carrera")
+        ->first();
       
-      $colaborador->celular = $request->input('celular');
+      $colaborador->oficina = $request->input('oficina') != '' ? $request->input('oficina') : $colaborador->oficina;
+      $colaborador->celular = $request->input('celular') != '' ? $request->input('celular') : $colaborador->celular;
       $colaborador->save();
       
       $response['colaborador']  = $colaborador;

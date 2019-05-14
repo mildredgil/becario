@@ -71191,13 +71191,13 @@ module.exports = Cancel;
 
 
 /***/ }),
-/* 445 */,
-/* 446 */
+/* 445 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(448);
 
 /***/ }),
+/* 446 */,
 /* 447 */,
 /* 448 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -72807,7 +72807,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__icons__ = __webpack_require__(83);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__reglamentoModal__ = __webpack_require__(439);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__solicitudBecModal__ = __webpack_require__(498);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_axios__ = __webpack_require__(446);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_axios__ = __webpack_require__(445);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_12_axios__);
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
@@ -72852,6 +72852,11 @@ var NavBar = function NavBar(_ref) {
       _React$useState8 = _slicedToArray(_React$useState7, 2),
       openSolicitudBec = _React$useState8[0],
       setOpenSolicitudBec = _React$useState8[1];
+
+  var _React$useState9 = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(colaborador_html),
+      _React$useState10 = _slicedToArray(_React$useState9, 2),
+      colaborador = _React$useState10[0],
+      setColaborador = _React$useState10[1];
 
   var handleClick = function handleClick(event) {
     setAnchorEl(event.currentTarget);
@@ -72976,7 +72981,7 @@ var NavBar = function NavBar(_ref) {
         )
       )
     ),
-    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__perfilColaboradores__["a" /* default */], { open: open, handleClose: handleClosePerfil, colaborador: colaborador_html }),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__perfilColaboradores__["a" /* default */], { open: open, handleClose: handleClosePerfil, colaborador: colaborador, setColaborador: setColaborador }),
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_10__reglamentoModal__["default"], { open: openReglamento, handleClose: handleCloseReglamento }),
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_11__solicitudBecModal__["a" /* default */], { open: openSolicitudBec, handleClose: handleCloseSolicitud })
   );
@@ -73061,18 +73066,20 @@ if (document.getElementById('nav')) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__material_ui_core_TextField__ = __webpack_require__(88);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__material_ui_core_TextField___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__material_ui_core_TextField__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__material_ui_core_Modal__ = __webpack_require__(41);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__material_ui_core_Modal___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__material_ui_core_Modal__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__material_ui_core_Button__ = __webpack_require__(32);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__material_ui_core_Button___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__material_ui_core_Button__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__ = __webpack_require__(24);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__theme__ = __webpack_require__(69);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__material_ui_core_TextField__ = __webpack_require__(88);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__material_ui_core_TextField___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__material_ui_core_TextField__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__material_ui_core_Modal__ = __webpack_require__(41);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__material_ui_core_Modal___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__material_ui_core_Modal__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__material_ui_core_Button__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__material_ui_core_Button___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__material_ui_core_Button__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__material_ui_core_styles__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__material_ui_core_styles___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__material_ui_core_styles__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__theme__ = __webpack_require__(69);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_axios__ = __webpack_require__(445);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_axios__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__icons__ = __webpack_require__(83);
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
@@ -73086,296 +73093,334 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 var PerfilColaboradores = function PerfilColaboradores(_ref) {
-    var classes = _ref.classes,
-        open = _ref.open,
-        handleClose = _ref.handleClose,
-        colaborador = _ref.colaborador;
+  var classes = _ref.classes,
+      open = _ref.open,
+      handleClose = _ref.handleClose,
+      colaborador = _ref.colaborador,
+      setColaborador = _ref.setColaborador;
+
+  var _React$useState = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(colaborador.celular),
+      _React$useState2 = _slicedToArray(_React$useState, 2),
+      inputPhone = _React$useState2[0],
+      setInputPhone = _React$useState2[1];
+
+  var _React$useState3 = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(colaborador.oficina),
+      _React$useState4 = _slicedToArray(_React$useState3, 2),
+      inputOffice = _React$useState4[0],
+      setInputOffice = _React$useState4[1];
+
+  //Reiniciar la variable inputPhone y inputOffice, cuando se abra el modal
 
 
-    if (colaborador == false) {
-        return null;
-    } else {
-        console.log(colaborador);
-    }
+  __WEBPACK_IMPORTED_MODULE_0_react___default.a.useEffect(function () {
+    setInputPhone(colaborador.celular);
+    setInputOffice(colaborador.oficina);
+  }, [open]);
 
-    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        __WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__["MuiThemeProvider"],
-        { theme: __WEBPACK_IMPORTED_MODULE_6__theme__["a" /* default */] },
+  //Funciones que actualizan los inputs.
+  var onChangePhone = function onChangePhone(event) {
+    setInputPhone(event.target.value);
+  };
+
+  var onChangeOffice = function onChangeOffice(event) {
+    setInputOffice(event.target.value);
+  };
+
+  //Guardar el numero y oficina del Colaborador.
+  var saveProfile = function saveProfile() {
+    console.log(inputOffice);
+    __WEBPACK_IMPORTED_MODULE_6_axios___default.a.post("/colab/save/profile", {
+      celular: inputPhone,
+      oficina: inputOffice
+    }).then(function (response) {
+      setColaborador(response.data.colaborador);
+      alert("Peticion exitosa");
+    }).catch(function (error) {
+      console.log(error);
+      alert("Hubo un error. Intente de nuevo más tarde.");
+    });
+  };
+
+  return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+    __WEBPACK_IMPORTED_MODULE_4__material_ui_core_styles__["MuiThemeProvider"],
+    { theme: __WEBPACK_IMPORTED_MODULE_5__theme__["a" /* default */] },
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      __WEBPACK_IMPORTED_MODULE_2__material_ui_core_Modal___default.a,
+      {
+        open: open,
+        onClose: handleClose,
+        classes: { root: classes.modalRoot }
+      },
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'div',
+        { className: 'container ' + classes.containerWidth },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            __WEBPACK_IMPORTED_MODULE_3__material_ui_core_Modal___default.a,
-            {
-                open: open,
-                onClose: handleClose,
-                classes: { root: classes.modalRoot }
-            },
+          'div',
+          { className: 'card px-5 py-3' },
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["c" /* CloseIcon */], { onClick: handleClose, className: classes.closeIcon }),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'div',
+            { className: 'row margin-0' },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'div',
-                { className: 'container ' + classes.containerWidth },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'div',
-                    { className: 'card px-5 py-3' },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["c" /* CloseIcon */], { onClick: handleClose, className: classes.closeIcon }),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'div',
-                        { className: 'row margin-0' },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'div',
-                            { className: 'col s12 valign-wrapper' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["l" /* PersonEditIcon */], { className: classes.iconEditLabel }),
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'label',
-                                { className: classes.title + ' blue-tec' },
-                                'Informaci\xF3n personal'
-                            )
-                        )
-                    ),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'div',
-                        { className: 'row margin-0' },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'div',
-                            { className: 'col s6 mb-2 mt-4 valign-wrapper' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["m" /* PersonIcon */], { className: classes.iconLabel }),
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'label',
-                                null,
-                                'Nombre'
-                            )
-                        ),
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'div',
-                            { className: 'col s6 mb-2 mt-4 valign-wrapper' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["i" /* InfoIcon */], { className: classes.iconInfo }),
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'label',
-                                null,
-                                'Departamento'
-                            )
-                        )
-                    ),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'div',
-                        { className: 'row margin-0' },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'div',
-                            { className: 'col s6' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__material_ui_core_TextField___default.a, {
-                                fullWidth: true,
-                                id: 'outlined-bare',
-                                classes: { root: classes.labelText },
-                                defaultValue: colaborador.nombre_completo,
-                                InputProps: {
-                                    readOnly: true,
-                                    disabled: true
-                                },
-                                variant: 'outlined'
-                            })
-                        ),
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'div',
-                            { className: 'col s6' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__material_ui_core_TextField___default.a, {
-                                fullWidth: true,
-                                id: 'outlined-bare',
-                                classes: { root: classes.labelText },
-                                defaultValue: colaborador.departamento.nombre_departamento,
-                                InputProps: {
-                                    readOnly: true,
-                                    disabled: true
-                                },
-                                variant: 'outlined'
-                            })
-                        )
-                    ),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'div',
-                        { className: 'row margin-0' },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'div',
-                            { className: 'col s6 mb-2 mt-4 valign-wrapper' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["i" /* InfoIcon */], { className: classes.iconInfo }),
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'label',
-                                null,
-                                'Oficina'
-                            )
-                        ),
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'div',
-                            { className: 'col s6 mb-2 mt-4 valign-wrapper' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["h" /* EmailIcon */], { className: classes.iconLabel }),
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'label',
-                                null,
-                                'Correo Electr\xF3nico'
-                            )
-                        )
-                    ),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'div',
-                        { className: 'row margin-0' },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'div',
-                            { className: 'col s6' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__material_ui_core_TextField___default.a, {
-                                fullWidth: true,
-                                id: 'outlined-bare',
-                                classes: { root: classes.labelText },
-                                defaultValue: colaborador.oficina,
-                                variant: 'outlined'
-                            })
-                        ),
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'div',
-                            { className: 'col s6' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__material_ui_core_TextField___default.a, {
-                                fullWidth: true,
-                                id: 'outlined-bare',
-                                classes: { root: classes.labelText },
-                                defaultValue: colaborador.email,
-                                InputProps: {
-                                    readOnly: true,
-                                    disabled: true
-                                },
-                                variant: 'outlined'
-                            })
-                        )
-                    ),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'div',
-                        { className: 'row margin-0' },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'div',
-                            { className: 'col s6 mb-2 mt-4 valign-wrapper' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["n" /* PhoneIcon */], { className: classes.iconInfo }),
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'label',
-                                null,
-                                'Tel\xE9fono'
-                            )
-                        )
-                    ),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'div',
-                        { className: 'row margin-0' },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'div',
-                            { className: 'col s6' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__material_ui_core_TextField___default.a, {
-                                fullWidth: true,
-                                id: 'outlined-bare',
-                                classes: { root: classes.labelText },
-                                defaultValue: colaborador.celular,
-                                variant: 'outlined'
-                            })
-                        )
-                    ),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'div',
-                        { className: 'row center-align' },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'div',
-                            { className: 'col s12 mb-2 mt-4' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                __WEBPACK_IMPORTED_MODULE_4__material_ui_core_Button___default.a,
-                                {
-                                    variant: 'contained',
-                                    color: 'primary',
-                                    href: '/homeColaborador' },
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["b" /* CheckIcon */], { className: 'white-text ' + classes.labelCheck }),
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                    'span',
-                                    { className: classes.labelLogin },
-                                    'Guardar'
-                                )
-                            )
-                        )
-                    )
-                )
+              'div',
+              { className: 'col s12 valign-wrapper' },
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["l" /* PersonEditIcon */], { className: classes.iconEditLabel }),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'label',
+                { className: classes.title + ' blue-tec' },
+                'Informaci\xF3n personal'
+              )
             )
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'div',
+            { className: 'row margin-0' },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'div',
+              { className: 'col s6 mb-2 mt-4 valign-wrapper' },
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["m" /* PersonIcon */], { className: classes.iconLabel }),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'label',
+                null,
+                'Nombre'
+              )
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'div',
+              { className: 'col s6 mb-2 mt-4 valign-wrapper' },
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["i" /* InfoIcon */], { className: classes.iconInfo }),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'label',
+                null,
+                'Departamento'
+              )
+            )
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'div',
+            { className: 'row margin-0' },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'div',
+              { className: 'col s6' },
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__material_ui_core_TextField___default.a, {
+                fullWidth: true,
+                id: 'outlined-bare',
+                classes: { root: classes.labelText },
+                defaultValue: colaborador.nombre_completo,
+                InputProps: {
+                  readOnly: true,
+                  disabled: true
+                },
+                variant: 'outlined'
+              })
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'div',
+              { className: 'col s6' },
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__material_ui_core_TextField___default.a, {
+                fullWidth: true,
+                id: 'outlined-bare',
+                classes: { root: classes.labelText },
+                defaultValue: colaborador.departamento.nombre_departamento,
+                InputProps: {
+                  readOnly: true,
+                  disabled: true
+                },
+                variant: 'outlined'
+              })
+            )
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'div',
+            { className: 'row margin-0' },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'div',
+              { className: 'col s6 mb-2 mt-4 valign-wrapper' },
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["i" /* InfoIcon */], { className: classes.iconInfo }),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'label',
+                null,
+                'Oficina'
+              )
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'div',
+              { className: 'col s6 mb-2 mt-4 valign-wrapper' },
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["h" /* EmailIcon */], { className: classes.iconLabel }),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'label',
+                null,
+                'Correo Electr\xF3nico'
+              )
+            )
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'div',
+            { className: 'row margin-0' },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'div',
+              { className: 'col s6' },
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__material_ui_core_TextField___default.a, {
+                fullWidth: true,
+                id: 'outlined-bare',
+                classes: { root: classes.labelText },
+                variant: 'outlined',
+                value: inputOffice,
+                onChange: onChangeOffice
+              })
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'div',
+              { className: 'col s6' },
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__material_ui_core_TextField___default.a, {
+                fullWidth: true,
+                id: 'outlined-bare',
+                classes: { root: classes.labelText },
+                defaultValue: colaborador.email,
+                InputProps: {
+                  readOnly: true,
+                  disabled: true
+                },
+                variant: 'outlined'
+              })
+            )
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'div',
+            { className: 'row margin-0' },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'div',
+              { className: 'col s6 mb-2 mt-4 valign-wrapper' },
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["n" /* PhoneIcon */], { className: classes.iconInfo }),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'label',
+                null,
+                'Tel\xE9fono'
+              )
+            )
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'div',
+            { className: 'row margin-0' },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'div',
+              { className: 'col s6' },
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__material_ui_core_TextField___default.a, {
+                fullWidth: true,
+                id: 'outlined-bare',
+                classes: { root: classes.labelText },
+                variant: 'outlined',
+                value: inputPhone,
+                onChange: onChangePhone
+              })
+            )
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'div',
+            { className: 'row center-align' },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'div',
+              { className: 'col s12 mb-2 mt-4' },
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                __WEBPACK_IMPORTED_MODULE_3__material_ui_core_Button___default.a,
+                {
+                  onClick: saveProfile,
+                  variant: 'contained',
+                  color: 'primary' },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["b" /* CheckIcon */], { className: 'white-text ' + classes.labelCheck }),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  'span',
+                  { className: classes.labelLogin },
+                  'Guardar'
+                )
+              )
+            )
+          )
         )
-    );
+      )
+    )
+  );
 };
 
 var maxWidth = 1000;
 
 var styles = function styles(theme) {
-    return _defineProperty({
+  return _defineProperty({
 
-        modalWrapper: {
-            padding: "25px !Important"
-        },
+    modalWrapper: {
+      padding: "25px !Important"
+    },
 
-        modalRoot: {
-            top: '20%'
-        },
+    modalRoot: {
+      top: '20%'
+    },
 
-        title: {
-            fontSize: '30px',
-            fontWeight: 'bold'
-        },
+    title: {
+      fontSize: '30px',
+      fontWeight: 'bold'
+    },
 
-        icon: {
-            fontSize: '17px',
-            marginRight: '0.5rem'
-        },
+    icon: {
+      fontSize: '17px',
+      marginRight: '0.5rem'
+    },
 
-        labelText: {
-            fontSize: '14px',
-            color: '#000'
-        },
+    labelText: {
+      fontSize: '14px',
+      color: '#000'
+    },
 
-        iconLabel: {
-            color: "#101010",
-            fontSize: '14px',
-            marginRight: '0.5rem'
-        },
-        iconEditLabel: {
-            color: "#223f93",
-            fontSize: '30px',
-            marginRight: '0.5rem'
-        },
+    iconLabel: {
+      color: "#101010",
+      fontSize: '14px',
+      marginRight: '0.5rem'
+    },
+    iconEditLabel: {
+      color: "#223f93",
+      fontSize: '30px',
+      marginRight: '0.5rem'
+    },
 
-        iconSchool: {
-            color: "#101010",
-            fontSize: '18px',
-            marginRight: '0.5rem'
-        },
+    iconSchool: {
+      color: "#101010",
+      fontSize: '18px',
+      marginRight: '0.5rem'
+    },
 
-        iconInfo: {
-            color: "#101010",
-            fontSize: '18px',
-            marginRight: '0.5rem'
-        },
+    iconInfo: {
+      color: "#101010",
+      fontSize: '18px',
+      marginRight: '0.5rem'
+    },
 
-        closeIcon: {
-            cursor: 'pointer',
-            color: 'black',
-            position: 'absolute',
-            right: '12px',
-            top: '12px',
-            fontSize: '18px'
-        },
+    closeIcon: {
+      cursor: 'pointer',
+      color: 'black',
+      position: 'absolute',
+      right: '12px',
+      top: '12px',
+      fontSize: '18px'
+    },
 
-        containerWidth: {
-            maxWidth: '50%'
-        },
+    containerWidth: {
+      maxWidth: '50%'
+    },
 
-        labelLogin: {
-            fontFamily: 'Nunito',
-            fontSize: '20px',
-            marginRight: '0.5rem'
-        },
+    labelLogin: {
+      fontFamily: 'Nunito',
+      fontSize: '20px',
+      marginRight: '0.5rem'
+    },
 
-        labelCheck: {
-            fontSize: '16px',
-            marginRight: '0.5rem'
-        }
+    labelCheck: {
+      fontSize: '16px',
+      marginRight: '0.5rem'
+    }
 
-    }, '@media (max-width: ' + maxWidth + 'px)', {});
+  }, '@media (max-width: ' + maxWidth + 'px)', {});
 };
 
-/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__["withStyles"])(styles)(PerfilColaboradores));
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_4__material_ui_core_styles__["withStyles"])(styles)(PerfilColaboradores));
 
 /***/ })
 /******/ ]);

@@ -76,19 +76,9 @@ Route::group(['middleware' => 'auth'], function () {
   Route::get('/homeColaborador',    'ColaboradorController@index')->name('homeColaborador');		
   Route::get('/homeAdministrador',  'AdministradorController@index')->name('homeAdministrador');		
   
-  Route::post('/student/save/profile', 'EstudianteController@saveProfile');	
-});
-
-Route::get('/homeU', function () {
-  $user = User::find(3);
-
-  $assignable = $user->assignable;
-  dd($assignable);
-  $estudiante = User::where('id', 3)->user;
-  
-  return view('homeAdministrator', [
-    'estudiante' => $estudiante
-  ]);
+  //Guardar perfiles
+  Route::post('/student/save/profile',  'EstudianteController@saveProfile');	
+  Route::post('/colab/save/profile',    'ColaboradorController@saveProfile');	
 });
 
 Route::get('encrypt', function () {
