@@ -72818,12 +72818,6 @@ var NavBar = function NavBar(_ref) {
                 { onClick: handleOpenDelete, className: 'valign-wrapper' },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_9__icons__["e" /* DeleteIcon */], { className: classes.iconLabel }),
                 'Borrar asignaci\xF3n'
-              ),
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                __WEBPACK_IMPORTED_MODULE_6__material_ui_core_MenuItem___default.a,
-                { onClick: handleOpenImport, className: 'valign-wrapper' },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_9__icons__["t" /* UpLoadIcon */], { className: classes.iconLabel }),
-                'Importar .csv'
               )
             )
           ),
@@ -72872,8 +72866,7 @@ var NavBar = function NavBar(_ref) {
     ),
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_10__reglamentoModal__["default"], { open: openReglamento, handleClose: handleCloseReglamento }),
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__borrarAsignModal__["a" /* default */], { open: openBorrarAsig, handleClose: handleCloseDelete }),
-    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8__crearAsignModal__["a" /* default */], { open: openCrearAsig, handleClose: handleCloseCreate }),
-    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_11__importarCSV__["a" /* default */], { open: openImportarCSV, handleClose: handleCloseImport })
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8__crearAsignModal__["a" /* default */], { open: openCrearAsig, handleClose: handleCloseCreate })
   );
 };
 
@@ -73534,7 +73527,7 @@ var styles = function styles(theme) {
     }, '@media (max-width: ' + maxWidth + 'px)', {});
 };
 
-/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__["withStyles"])(styles)(ImportarCSV));
+/* unused harmony default export */ var _unused_webpack_default_export = (Object(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__["withStyles"])(styles)(ImportarCSV));
 
 /***/ })
 /******/ ]);
