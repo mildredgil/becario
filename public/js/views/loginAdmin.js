@@ -75136,6 +75136,11 @@ var LoginAdmin = function LoginAdmin(_ref) {
       isErrorPWD = _React$useState8[0],
       setErrorPWD = _React$useState8[1];
 
+  var _React$useState9 = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(false),
+      _React$useState10 = _slicedToArray(_React$useState9, 2),
+      onChange = _React$useState10[0],
+      setChange = _React$useState10[1];
+
   var onChangeName = function onChangeName(event) {
     setInputName(event.target.value);
   };
@@ -75147,6 +75152,7 @@ var LoginAdmin = function LoginAdmin(_ref) {
   var onSave = function onSave() {
     setErrorName(__WEBPACK_IMPORTED_MODULE_7_validator___default.a.isEmpty(inputName));
     setErrorPWD(__WEBPACK_IMPORTED_MODULE_7_validator___default.a.isEmpty(inputPassword));
+    setChange(true);
   };
 
   __WEBPACK_IMPORTED_MODULE_0_react___default.a.useEffect(function () {
@@ -75154,7 +75160,7 @@ var LoginAdmin = function LoginAdmin(_ref) {
     if (!isErrorName && !isErrorPWD) {
       login();
     }
-  }, [isErrorName, isErrorPWD]);
+  }, [isErrorName, isErrorPWD, onChange]);
 
   var login = function login() {
     __WEBPACK_IMPORTED_MODULE_6_axios___default.a.post("/get/login", {

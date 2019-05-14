@@ -45,7 +45,8 @@ const CrearAsignModal = ({ classes, open, handleClose }) => {
         setIfSearchTrue(false);
         console.log(error);
       });
-		}
+    }
+    
     const searchClick = () => {
 			if ((!validator.isLength(inputMatricula, { min: 9, max: 9 })) || (!validator.matches(inputMatricula, /^[aA]\d{8}/)))
 				setErrorName(true);
@@ -59,7 +60,14 @@ const CrearAsignModal = ({ classes, open, handleClose }) => {
 				setErrorName(false);
 			}
 			setChange(true);
-		}
+    }
+    
+    const close = () => {
+      handleClose();
+      setMensaje('');
+      setInputMatricula('');
+      setInputNomina('');
+    }
 		
 		React.useEffect(() => {
 			if ((!isErrorName && !isErrorNom)) {
@@ -77,12 +85,12 @@ const CrearAsignModal = ({ classes, open, handleClose }) => {
         <MuiThemeProvider theme={defaultTheme}>
             <Modal
                 open={open}
-                onClose={handleClose}
+                onClose={close}
                 classes={{ root: classes.modalRoot }}
             >
                 <div className={`container ${classes.containerWidth}`}>
                     <div className="card px-5 py-3 my-0">
-                      <CloseIcon onClick={handleClose} className= {classes.closeIcon}/>
+                      <CloseIcon onClick={close} className= {classes.closeIcon}/>
                       <div className="row margin-0">
                         <div className={`col s12 center-align valign-wrapper`}>
                             <PersonEditIcon className={classes.iconEditLabel} />

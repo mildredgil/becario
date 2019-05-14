@@ -75895,6 +75895,7 @@ var CrearAsignModal = function CrearAsignModal(_ref) {
             console.log(error);
         });
     };
+
     var searchClick = function searchClick() {
         if (!__WEBPACK_IMPORTED_MODULE_8_validator___default.a.isLength(inputMatricula, { min: 9, max: 9 }) || !__WEBPACK_IMPORTED_MODULE_8_validator___default.a.matches(inputMatricula, /^[aA]\d{8}/)) setErrorName(true);else {
             setErrorName(false);
@@ -75904,6 +75905,13 @@ var CrearAsignModal = function CrearAsignModal(_ref) {
             setErrorName(false);
         }
         setChange(true);
+    };
+
+    var close = function close() {
+        handleClose();
+        setMensaje('');
+        setInputMatricula('');
+        setInputNomina('');
     };
 
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.useEffect(function () {
@@ -75925,7 +75933,7 @@ var CrearAsignModal = function CrearAsignModal(_ref) {
             __WEBPACK_IMPORTED_MODULE_2__material_ui_core_Modal___default.a,
             {
                 open: open,
-                onClose: handleClose,
+                onClose: close,
                 classes: { root: classes.modalRoot }
             },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -75934,7 +75942,7 @@ var CrearAsignModal = function CrearAsignModal(_ref) {
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
                     { className: 'card px-5 py-3 my-0' },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["c" /* CloseIcon */], { onClick: handleClose, className: classes.closeIcon }),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["c" /* CloseIcon */], { onClick: close, className: classes.closeIcon }),
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'div',
                         { className: 'row margin-0' },

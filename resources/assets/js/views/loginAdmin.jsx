@@ -13,6 +13,7 @@ const LoginAdmin = ({ classes }) => {
   const [inputPassword, setInputPassword] = React.useState('');
   const [isErrorName, setErrorName] = React.useState(false);
   const [isErrorPWD, setErrorPWD] = React.useState(false);
+  const [onChange, setChange] = React.useState(false);
 
   const onChangeName = (event) => {
     setInputName(event.target.value);
@@ -25,6 +26,7 @@ const LoginAdmin = ({ classes }) => {
   const onSave = () => {
     setErrorName(validator.isEmpty(inputName));
     setErrorPWD(validator.isEmpty(inputPassword));
+    setChange(true);
   }
 
   React.useEffect(() => {
@@ -32,7 +34,7 @@ const LoginAdmin = ({ classes }) => {
     if ((!isErrorName && !isErrorPWD)) {
       login();
     }
-  }, [isErrorName, isErrorPWD]);
+  }, [isErrorName, isErrorPWD, onChange]);
 
   const login = () => {
     axios.post("/get/login", {
