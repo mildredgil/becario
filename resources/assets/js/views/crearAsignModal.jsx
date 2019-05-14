@@ -77,7 +77,7 @@ const CrearAsignModal = ({ classes, open, handleClose }) => {
                     <div className={`${ifSearchTrue ? 'green': 'white'} row mb-0  center-align ${classes.wholeRow}`}>
                       <div className="col s12 mb-4 mt-4">
                         <h5 className="white-text center-align my-0">
-                          {ifSearchTrue ? "Alumno Encontrado" : ""}
+                          {ifSearchTrue ? "Asignación realizada" : ""}
                         </h5>
                       </div>
                     </div>

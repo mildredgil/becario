@@ -48,11 +48,7 @@ const BorrarAsignModal = ({ classes, open, handleClose }) => {
                                     fullWidth
                                     id="outlined-bare"
                                     classes={{ root: classes.labelText }}
-                                    defaultValue="A01281459"
-                                    InputProps={{
-                                        readOnly: true,
-                                        disabled: true,
-                                    }}
+                                    defaultValue=""
                                     variant="outlined"
                                 />
                             </div>
@@ -61,11 +57,7 @@ const BorrarAsignModal = ({ classes, open, handleClose }) => {
                                     fullWidth
                                     id="outlined-bare"
                                     classes={{ root: classes.labelText }}
-                                    defaultValue="L00483610"
-                                    InputProps={{
-                                        readOnly: true,
-                                        disabled: true,
-                                    }}
+                                    defaultValue=""
                                     variant="outlined"
                                 />
                             </div>
@@ -73,17 +65,17 @@ const BorrarAsignModal = ({ classes, open, handleClose }) => {
                             <div className="row center-align">
                                 <div className="col s12 mb-2 mt-4">
                                     <div className="col s2 offset-s5">
-                                        <Button  variant="contained" className={`${classes.labelCheckR}`}>
+                                        <Button onClick={searchClick} variant="contained" className={`${classes.labelCheckR}`}>
                                             <CloseIcon className={`white-text ${classes.labelSearch}`}/>
                                             <span className={` white-text ${classes.labelLogin}`}>Borrar</span>
                                         </Button>
                                     </div>
                                 </div>
                             </div>
-                            <div className={`${ifSearchTrue ? 'green': 'white'} row mb-0  center-align ${classes.wholeRow}`}>
+                            <div className={`${ifSearchTrue ? 'white': 'green'} row mb-0  center-align ${classes.wholeRow}`}>
                                 <div className="col s12 mb-4 mt-4">
                                     <h5 className="white-text center-align my-0">
-                                    {ifSearchTrue ? "Alumno Encontrado" : ""}
+                                    {ifSearchTrue ? "" :  "Asignación eliminada"}
                                     </h5>
                                 </div>
                             </div>

@@ -70777,7 +70777,7 @@ var CrearAsignModal = function CrearAsignModal(_ref) {
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'h5',
                             { className: 'white-text center-align my-0' },
-                            ifSearchTrue ? "Alumno Encontrado" : ""
+                            ifSearchTrue ? "Asignación realizada" : ""
                         )
                     )
                 )
