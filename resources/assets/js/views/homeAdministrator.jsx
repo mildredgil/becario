@@ -11,7 +11,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import ItemAdministrator from './itemAdministrator';
 
 
-const Home = ({classes, admin_html}) => {
+const Home = ({ classes, admin_html }) => {
   const [admin, setAdmin] = React.useState(false);
   const [selectedAsignacion, setSelectedAsignacion] = React.useState(false);
   const [asignaciones, setAsignaciones] = React.useState([]);
@@ -33,37 +33,37 @@ const Home = ({classes, admin_html}) => {
     setOpenCrearAsign(false);
   };
 
-  periodoOptions.push(<MenuItem classes={{ root: classes.options}} value={0}>{new_periodo[0]}</MenuItem>);
-  periodoOptions.push(<MenuItem classes={{ root: classes.options}} value={1}>{new_periodo[1]}</MenuItem>);
-  periodoOptions.push(<MenuItem classes={{ root: classes.options}} value={2}>{new_periodo[2]}</MenuItem>);
-  periodoOptions.push(<MenuItem classes={{ root: classes.options}} value={3}>{new_periodo[3]}</MenuItem>);
-  yearOptions.push(<MenuItem classes={{ root: classes.options}} value={2013}>2013</MenuItem>);
-  yearOptions.push(<MenuItem classes={{ root: classes.options}} value={2014}>2014</MenuItem>);
-  yearOptions.push(<MenuItem classes={{ root: classes.options}} value={2015}>2015</MenuItem>);
-  yearOptions.push(<MenuItem classes={{ root: classes.options}} value={2016}>2016</MenuItem>);
-  yearOptions.push(<MenuItem classes={{ root: classes.options}} value={2017}>2017</MenuItem>);
-  yearOptions.push(<MenuItem classes={{ root: classes.options}} value={2018}>2018</MenuItem>);
-  yearOptions.push(<MenuItem classes={{ root: classes.options}} value={2019}>2019</MenuItem>);
-  yearOptions.push(<MenuItem classes={{ root: classes.options}} value={2020}>2020</MenuItem>);
-  
+  periodoOptions.push(<MenuItem classes={{ root: classes.options }} value={0}>{new_periodo[0]}</MenuItem>);
+  periodoOptions.push(<MenuItem classes={{ root: classes.options }} value={1}>{new_periodo[1]}</MenuItem>);
+  periodoOptions.push(<MenuItem classes={{ root: classes.options }} value={2}>{new_periodo[2]}</MenuItem>);
+  periodoOptions.push(<MenuItem classes={{ root: classes.options }} value={3}>{new_periodo[3]}</MenuItem>);
+  yearOptions.push(<MenuItem classes={{ root: classes.options }} value={2013}>2013</MenuItem>);
+  yearOptions.push(<MenuItem classes={{ root: classes.options }} value={2014}>2014</MenuItem>);
+  yearOptions.push(<MenuItem classes={{ root: classes.options }} value={2015}>2015</MenuItem>);
+  yearOptions.push(<MenuItem classes={{ root: classes.options }} value={2016}>2016</MenuItem>);
+  yearOptions.push(<MenuItem classes={{ root: classes.options }} value={2017}>2017</MenuItem>);
+  yearOptions.push(<MenuItem classes={{ root: classes.options }} value={2018}>2018</MenuItem>);
+  yearOptions.push(<MenuItem classes={{ root: classes.options }} value={2019}>2019</MenuItem>);
+  yearOptions.push(<MenuItem classes={{ root: classes.options }} value={2020}>2020</MenuItem>);
+
   //Load admin
-  React.useEffect(()=> {
-    
-    if(admin_html != null){
+  React.useEffect(() => {
+
+    if (admin_html != null) {
       setAdmin(admin_html);
       let _asignaciones = asignaciones;
 
-      admin_html.solicitudes.map(function(asignacion) {
-        _asignaciones.push(asignacion);  
+      admin_html.solicitudes.map(function (asignacion) {
+        _asignaciones.push(asignacion);
       });
 
       setAsignaciones(_asignaciones);
     }
-    
+
   }, [admin_html]);
 
-  React.useEffect(()=> {
-    if(asignaciones.length > 0) {
+  React.useEffect(() => {
+    if (asignaciones.length > 0) {
       setSelectedAsignacion(asignaciones[0]);
     }
   }, [asignaciones]);
@@ -78,37 +78,54 @@ const Home = ({classes, admin_html}) => {
 
   const onChangePeriod = (event) => {
     setPeriodo(event.target.value);
-  } 
+  }
 
   const onChangeYear = (event) => {
     setYear(event.target.value);
-  } 
+  }
   return (
     <MuiThemeProvider theme={defaultTheme}>
       <div className="container">
         <div className={`row ${classes.margin40}`}>
           <div className={`col s12 blue-tec mb-2 ${classes.titleHistory}`}>
-              Asignaciones | Agosto-Diciembre 2019
+            Asignaciones | Becario - Colaborador
           </div>
-        </div> 
-        <div  className={`row `}>
+        </div>
+        <div className={`row `}>
           <div className="col s4">
-            <div  className={`row `}>
+            <div className={`row `}>
               <div className={`row mb-0 ${classes.paddingRight20}`}>
                 <div className={`${classes.itemsWrapper} col s12 card my-0`}>
-                  <ItemAdministrator asignacion={null} isSelected={true} handleClick={null}/>    
+                  {
+                    asignaciones.map((asignacion, index) => {
+                      if (asignacion.estudiante != null) {
+                        if (index == indexSelected) {
+                          console.log(true, index);
+                          console.log(true, asignacion);
+                          return (
+                            <ItemAdministrator isSelected={true} handleClick={(e) => selectAsignacion(index)} key={index} asignacion={asignacion} />
+                          )
+                        } else {
+                          return (
+                            <ItemAdministrator isSelected={false} handleClick={(e) => selectAsignacion(index)} key={index} asignacion={asignacion} />
+                          )
+                        }
+                      }
+                    })
+                  }
+                  
                 </div>
               </div>
             </div>
           </div>
           <div className="col s8">
-          <div className="row mb-0">
-            <CardAdministrator asignacion={selectedAsignacion}/>
+            <div className="row mb-0">
+              <CardAdministrator asignacion={selectedAsignacion} />
+            </div>
           </div>
-        </div>  
         </div>
       </div>
-      <ReglamentoModal/>
+      <ReglamentoModal />
       <CrearAsignModal open={openCrearAsign} handleClose={handleCloseCrearAsign} />
     </MuiThemeProvider>
   );
@@ -136,10 +153,10 @@ const styles = theme => ({
     marginBottom: '40px'
   },
 
-  labelLogin:{
-    fontFamily : 'Nunito',
-    fontSize: '20px', 
-},
+  labelLogin: {
+    fontFamily: 'Nunito',
+    fontSize: '20px',
+  },
 
   paddingRight20: {
     paddingRight: '20px',
@@ -152,7 +169,7 @@ const styles = theme => ({
   labelSearch: {
     fontSize: '20px',
     marginRight: '0.5rem',
-},
+  },
 
   labelCheck: {
     fontSize: '20px',
@@ -160,7 +177,7 @@ const styles = theme => ({
   },
 
   [`@media (max-width: ${maxWidth}px)`]: {
-   
+
   }
 });
 
@@ -170,12 +187,12 @@ if (document.getElementById('homeAdministrator')) {
   let _admin = document.getElementById('admin');
   let admin_obj = null;
 
-  if(admin != "") {
+  if (admin != "") {
     admin_obj = JSON.parse(_admin.value);
     //_admin.parentNode.removeChild(_admin);
   } else {
     admin = null;
   }
 
-  ReactDOM.render(<_Home admin_html={admin_obj}/>, document.getElementById('homeAdministrator'));
+  ReactDOM.render(<_Home admin_html={admin_obj} />, document.getElementById('homeAdministrator'));
 }
