@@ -29,13 +29,26 @@ class EstudianteController extends Controller
    * @return \Illuminate\Http\Response
    */
   public function index() {
-    $user = Auth::user()->assignable;
+    $user = Auth::user();
 
-    $estudiante = Estudiante::where('id', $user->id)->with("carrera", "solicitudesBecarias.colaborador.departamento")->first();
-    
-    return view('homeEstudiante', [
-      'estudiante' => $estudiante
-    ]);
+    switch($user->assignable_type){
+      case User::ESTUDIANTE:
+        $user = Auth::user()->assignable;
+        $estudiante = Estudiante::where('id', $user->id)->with("carrera", "solicitudesBecarias.colaborador.departamento")->first();
+      
+        return view('homeEstudiante', [
+          'estudiante' => $estudiante
+        ]);
+        break;
+      case User::COLABORADOR:
+        return redirect()->route('homeColaborador');
+        break;
+      case User::ADMINISTRADOR:
+        return redirect()->route('homeAdministrator');
+        break;
+      default: 
+        return redirect()->route('login');
+    }
   }
 
   public function saveProfile(Request $request) {

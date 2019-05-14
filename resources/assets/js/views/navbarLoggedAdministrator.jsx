@@ -80,6 +80,19 @@ const NavBar = ({ classes }) => {
     const handleCloseImport = () => {
       setOpenImportarCSV(false);
     };
+
+    
+    const logout = () => {
+      axios.post("/logout", {
+      })
+      .then(function (response) {
+        console.log(response);
+        window.location.replace('/');
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    }
   
     return (
       <MuiThemeProvider theme={defaultTheme}>

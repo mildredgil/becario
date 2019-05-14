@@ -3,7 +3,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import defaultTheme from '../theme';
 import Button from '@material-ui/core/Button';
-import {SchoolIcon, EmailIcon, LocationIcon, PhoneIcon, PersonIcon, InfoIcon} from './icons';
+import {SchoolIcon, EmailIcon, PhoneIcon, PersonIcon, InfoIcon} from './icons';
 
 const CardEstudiante = ({classes, asignacion}) => {
   const evaluacion = ['Pendiente', 'Satisfactoria', 'Insatisfactoria'];

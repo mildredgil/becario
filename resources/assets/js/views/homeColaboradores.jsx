@@ -111,8 +111,8 @@ const Home = ({ classes, colaborador_html }) => {
           </div>
         </div>
         <div className={`row `}>
-          <div className="col s4">
-            <div className={`row `}>
+          <div className={`col s4 ${classes.paddingRight20}`}>
+            <div className={`row margin-0`}>
               <div className="col s6">
                 <FormControl variant="outlined" fullWidth={true} margin="normal">
                   <InputLabel
@@ -159,7 +159,8 @@ const Home = ({ classes, colaborador_html }) => {
                   </StyledSelect>
                 </FormControl>
               </div>
-              <div className={`row mb-0 ${classes.paddingRight20}`}>
+            </div>    
+            <div className={`row mb-0`}>
                 <div className={`${classes.itemsWrapper} col s12 card my-0`}>
                   {
                     colaborador &&
@@ -181,11 +182,10 @@ const Home = ({ classes, colaborador_html }) => {
                   }
                 </div>
               </div>
-            </div>
           </div>
           <div className="col s8">
             <div className="row mb-0">
-              <CardEstudiante asignacion={selectedAsignacion} />
+              {selectedAsignacion.estudiante && <CardEstudiante asignacion={selectedAsignacion} />}
             </div>
           </div>
         </div>

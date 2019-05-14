@@ -26,57 +26,69 @@ Route::get('/', function () {
 
 Route::get('/login', function () {
   if (Auth::check()) {
-    return redirect('/homeEstudiante');
+    $user = Auth::user();
+    switch($user->assignable_type){
+      case User::ESTUDIANTE:
+        return redirect()->route('homeEstudiante');
+        break;
+      case User::COLABORADOR:
+        return redirect()->route('homeColaborador');
+        break;
+      case User::ADMINISTRADOR:
+        return redirect()->route('homeAdministrator');
+        break;
+    }
   }
   
   return view('login');
 })->name('login');
 
+Route::get('/home', function () {
+  if (Auth::check()) {
+    $user = Auth::user();
+    
+    switch($user->assignable_type){
+      case User::ESTUDIANTE:
+        return redirect()->route('homeEstudiante');
+        break;
+      case User::COLABORADOR:
+        return redirect()->route('homeColaborador');
+        break;
+      case User::ADMINISTRADOR:
+        return redirect()->route('homeAdministrador');
+        break;
+    }
+  } else {
+    return redirect()->route('login');
+  }
+})->name('home');
+
 Route::post('/logout', 'Auth\LoginController@logout');	
 Route::post('/get/login', 'Auth\LoginController@postLogin');	
+
 Route::get('/loginAdmin', function () {
   return view('loginAdmin');
 });
 
-Route::get('/homeAdministrator', function () {
-  $estudiante = Estudiante::where('id', 3)->with("carrera", "solicitudesBecarias.colaborador.departamento")->first();
+Route::group(['middleware' => 'auth'], function () {
+  //vistas de los home de usuarios
+  Route::get('/homeEstudiante',     'EstudianteController@index')->name('homeEstudiante');	
+  Route::get('/homeColaborador',    'ColaboradorController@index')->name('homeColaborador');		
+  Route::get('/homeAdministrador',  'AdministradorController@index')->name('homeAdministrador');		
+  
+  Route::post('/student/save/profile', 'EstudianteController@saveProfile');	
 });
 
-Route::group(['middleware' => 'auth'], function () {
-  
-  Route::get('/homeU', function () {
-    $user = User::find(3);
+Route::get('/homeU', function () {
+  $user = User::find(3);
 
-    $assignable = $user->assignable;
-    dd($assignable);
-    $estudiante = User::where('id', 3)->user;
-    
-    return view('homeAdministrator', [
-      'estudiante' => $estudiante
-    ]);
-  });
-
-  Route::get('/homeEstudiante', 'EstudianteController@index');	
+  $assignable = $user->assignable;
+  dd($assignable);
+  $estudiante = User::where('id', 3)->user;
   
-  Route::get('/homeAdministrador', function () {
-    
-    $estudiante = Estudiante::where('id', 3)->with("carrera", "solicitudesBecarias.colaborador.departamento")->first();
-    
-    return view('homeAdministrator', [
-      'estudiante' => $estudiante
-    ]);
-  });
-
-  Route::get('/homeColaborador', function () {
-    $colaborador = Colaborador::where('id', 3)->with("departamento", "solicitudesBecarias.estudiante.carrera")->first();
-  
-    return view('homeColaborador', [
-      'colaborador' => $colaborador
-    ]);
-  });
-
-  Route::post('/student/save/profile', 'EstudianteController@saveProfile');	
-  
+  return view('homeAdministrator', [
+    'estudiante' => $estudiante
+  ]);
 });
 
 Route::get('encrypt', function () {
