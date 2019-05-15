@@ -72430,6 +72430,45 @@ var Home = function Home(_ref) {
       openEvaluacion = _React$useState18[0],
       setOpenEvaluacion = _React$useState18[1];
 
+  var _React$useState19 = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(''),
+      _React$useState20 = _slicedToArray(_React$useState19, 2),
+      periodo_string = _React$useState20[0],
+      setPeriodoString = _React$useState20[1];
+
+  __WEBPACK_IMPORTED_MODULE_0_react___default.a.useEffect(function () {
+    periodoSelected();
+  }, [selectedAsignacion]);
+
+  var periodoSelected = function periodoSelected() {
+    var periodo = '';
+    var _date = selectedAsignacion.fecha_asignacion;
+    var date = new Date(_date);
+    var year = date.getFullYear();
+    var month = date.getMonth();
+    if (year >= 2020) {
+      periodo = new_periodo;
+
+      if (month == 0) {
+        setPeriodoString(periodo[0]);
+      } else if (month == 1) {
+        setPeriodoString(periodo[1]);
+      } else if (month == 6) {
+        setPeriodoString(periodo[2]);
+      } else {
+        setPeriodoString(periodo[3]);
+      }
+    } else {
+      periodo = old_periodo;
+      if (month == 0) {
+        setPeriodoString(periodo[1]);
+      } else if (month == 5) {
+        setPeriodoString(periodo[2]);
+      } else {
+        setPeriodoString(periodo[3]);
+      }
+    }
+  };
+
   var handleOpenEvaluacion = function handleOpenEvaluacion() {
     setOpenEvaluacion(true);
   };
@@ -72496,6 +72535,7 @@ var Home = function Home(_ref) {
   __WEBPACK_IMPORTED_MODULE_0_react___default.a.useEffect(function () {
     if (asignaciones.length > 0) {
       setSelectedAsignacion(asignaciones[0]);
+      periodoSelected();
     }
   }, [asignaciones]);
 
@@ -72528,7 +72568,10 @@ var Home = function Home(_ref) {
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
             { className: 'col s9' },
-            'Becarios | Agosto-Diciembre 2019'
+            'Becarios | ',
+            periodo_string,
+            ' ',
+            yearSelected
           ),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',

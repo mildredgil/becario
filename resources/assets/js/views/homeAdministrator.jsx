@@ -22,8 +22,44 @@ const Home = ({ classes, admin_html }) => {
   const periodoOptions = [];
   const yearOptions = [];
   const [selectYear, setYear] = React.useState(0);
-
+  const[periodo_string, setPeriodoString] = React.useState('');
+  const [year, setYearPeriodo] = React.useState(0);
   const [openCrearAsign, setOpenCrearAsign] = React.useState(false);
+
+  React.useEffect(()=> {
+    periodoSelected();
+  }, [selectedAsignacion]);
+
+  const periodoSelected = () => {
+    let periodo = '';
+    let _date = selectedAsignacion.fecha_asignacion;
+    let date = new Date(_date);
+    let year = date.getFullYear();
+    let month = date.getMonth();
+    setYearPeriodo(year);
+    if(year >= 2020) {
+      periodo = new_periodo;
+
+      if(month == 0) {
+        setPeriodoString(periodo[0]);
+      } else if (month == 1) {
+        setPeriodoString(periodo[1]);
+      } else if (month == 6) {
+        setPeriodoString(periodo[2]);
+      } else {
+        setPeriodoString(periodo[3]);
+      }
+    } else {
+      periodo = old_periodo;
+      if (month == 0) {
+        setPeriodoString(periodo[1]);
+      } else if (month == 5) {
+        setPeriodoString(periodo[2]);
+      } else {
+        setPeriodoString(periodo[3]);
+      }
+    }
+  }
 
   const handleOpenCrearAsign = () => {
     setOpenCrearAsign(true);
@@ -33,7 +69,7 @@ const Home = ({ classes, admin_html }) => {
     setOpenCrearAsign(false);
   };
 
-  periodoOptions.push(<MenuItem classes={{ root: classes.options }} value={0}>{new_periodo[0]}</MenuItem>);
+  /*periodoOptions.push(<MenuItem classes={{ root: classes.options }} value={0}>{new_periodo[0]}</MenuItem>);
   periodoOptions.push(<MenuItem classes={{ root: classes.options }} value={1}>{new_periodo[1]}</MenuItem>);
   periodoOptions.push(<MenuItem classes={{ root: classes.options }} value={2}>{new_periodo[2]}</MenuItem>);
   periodoOptions.push(<MenuItem classes={{ root: classes.options }} value={3}>{new_periodo[3]}</MenuItem>);
@@ -44,7 +80,7 @@ const Home = ({ classes, admin_html }) => {
   yearOptions.push(<MenuItem classes={{ root: classes.options }} value={2017}>2017</MenuItem>);
   yearOptions.push(<MenuItem classes={{ root: classes.options }} value={2018}>2018</MenuItem>);
   yearOptions.push(<MenuItem classes={{ root: classes.options }} value={2019}>2019</MenuItem>);
-  yearOptions.push(<MenuItem classes={{ root: classes.options }} value={2020}>2020</MenuItem>);
+  yearOptions.push(<MenuItem classes={{ root: classes.options }} value={2020}>2020</MenuItem>);*/
 
   //Load admin
   React.useEffect(() => {
@@ -65,6 +101,7 @@ const Home = ({ classes, admin_html }) => {
   React.useEffect(() => {
     if (asignaciones.length > 0) {
       setSelectedAsignacion(asignaciones[0]);
+      periodoSelected();
     }
   }, [asignaciones]);
 
@@ -88,7 +125,7 @@ const Home = ({ classes, admin_html }) => {
       <div className="container">
         <div className={`row ${classes.margin40}`}>
           <div className={`col s12 blue-tec mb-2 ${classes.titleHistory}`}>
-            Asignaciones | Becario - Colaborador
+            Asignaciones | {periodo_string} {year}
           </div>
         </div>
         <div className={`row `}>

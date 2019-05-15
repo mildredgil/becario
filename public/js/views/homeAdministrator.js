@@ -75867,10 +75867,12 @@ var CrearAsignModal = function CrearAsignModal(_ref) {
 
     var _React$useState13 = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(false),
         _React$useState14 = _slicedToArray(_React$useState13, 2),
-        onChange = _React$useState14[0],
-        setChange = _React$useState14[1];
+        onChangeState = _React$useState14[0],
+        setChangeState = _React$useState14[1];
 
-    console.log(ifSearchTrue);
+    //console.log(ifSearchTrue);
+
+
     var onChangeMatricula = function onChangeMatricula(event) {
         setInputMatricula(event.target.value);
     };
@@ -75879,32 +75881,34 @@ var CrearAsignModal = function CrearAsignModal(_ref) {
         setInputNomina(event.target.value);
     };
 
-    var create = function create() {
-        __WEBPACK_IMPORTED_MODULE_6_axios___default.a.post("/create/assignments", {
-            matricula: inputMatricula,
-            nomina: inputNomina
-        }).then(function (response) {
-            console.log(response);
-            setIfSearchTrue(response.data.status);
-            setMensaje(response.data.message);
-            console.log(response);
-            //window.location.replace('/');
-        }).catch(function (error) {
-            setMensaje(error.data.message);
-            setIfSearchTrue(false);
-            console.log(error);
+    /*const create = () => {
+    	axios.post("/create/assignments", {
+          matricula: inputMatricula,
+          nomina: inputNomina
+        })
+        .then(function (response) {
+          console.log('response', response);
+          setIfSearchTrue(response.data.status);
+          setMensaje(response.data.message);
+          console.log(response);
+          //window.location.replace('/');
+        })
+        .catch(function (error) {
+          setMensaje(error.data.message);
+          setIfSearchTrue(false);
+          console.log('error', error);
         });
-    };
+      }*/
 
-    var searchClick = function searchClick() {
+    var searchClickA = function searchClickA() {
         if (!__WEBPACK_IMPORTED_MODULE_8_validator___default.a.isLength(inputMatricula, { min: 9, max: 9 }) || !__WEBPACK_IMPORTED_MODULE_8_validator___default.a.matches(inputMatricula, /^[aA]\d{8}/)) setErrorName(true);else {
             setErrorName(false);
         }
 
         if (!__WEBPACK_IMPORTED_MODULE_8_validator___default.a.isLength(inputNomina, { min: 9, max: 9 }) || !__WEBPACK_IMPORTED_MODULE_8_validator___default.a.matches(inputNomina, /^[lL]\d{8}/)) setErrorNom(true);else {
-            setErrorName(false);
+            setErrorNom(false);
         }
-        setChange(true);
+        setChangeState(true);
     };
 
     var close = function close() {
@@ -75915,14 +75919,33 @@ var CrearAsignModal = function CrearAsignModal(_ref) {
     };
 
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.useEffect(function () {
+        console.log(!isErrorName && !isErrorNom, isErrorName, isErrorNom, onChangeState);
         if (!isErrorName && !isErrorNom) {
-            create();
+            createM();
         }
-    }, [isErrorName, isErrorNom, onChange]);
+    }, [isErrorName, isErrorNom, onChangeState]);
+
+    var createM = function createM() {
+        __WEBPACK_IMPORTED_MODULE_6_axios___default.a.post("/create/assignments", {
+            matricula: inputMatricula,
+            nomina: inputNomina
+        }).then(function (response) {
+            console.log('response', response);
+            setIfSearchTrue(response.data.status);
+            setMensaje(response.data.message);
+            console.log(response);
+            //window.location.replace('/');
+        }).catch(function (error) {
+            setMensaje(error.data.message);
+            setIfSearchTrue(false);
+            console.log('error', error);
+        });
+    };
 
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.useEffect(function () {
         if (open == false) {
             setIfSearchTrue(false);
+            close();
         }
     }, [open]);
 
@@ -76015,7 +76038,7 @@ var CrearAsignModal = function CrearAsignModal(_ref) {
                                     { className: 'col s2 offset-s5' },
                                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                         __WEBPACK_IMPORTED_MODULE_3__material_ui_core_Button___default.a,
-                                        { onClick: searchClick, variant: 'contained', className: '' + classes.labelCheckV },
+                                        { variant: 'contained', className: '' + classes.labelCheckV, href: '', onClick: searchClickA },
                                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["b" /* CheckIcon */], { className: 'white-text ' + classes.labelSearch }),
                                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                             'span',
@@ -76247,10 +76270,55 @@ var Home = function Home(_ref) {
       selectYear = _React$useState12[0],
       setYear = _React$useState12[1];
 
-  var _React$useState13 = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(false),
+  var _React$useState13 = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(''),
       _React$useState14 = _slicedToArray(_React$useState13, 2),
-      openCrearAsign = _React$useState14[0],
-      setOpenCrearAsign = _React$useState14[1];
+      periodo_string = _React$useState14[0],
+      setPeriodoString = _React$useState14[1];
+
+  var _React$useState15 = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(0),
+      _React$useState16 = _slicedToArray(_React$useState15, 2),
+      year = _React$useState16[0],
+      setYearPeriodo = _React$useState16[1];
+
+  var _React$useState17 = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(false),
+      _React$useState18 = _slicedToArray(_React$useState17, 2),
+      openCrearAsign = _React$useState18[0],
+      setOpenCrearAsign = _React$useState18[1];
+
+  __WEBPACK_IMPORTED_MODULE_0_react___default.a.useEffect(function () {
+    periodoSelected();
+  }, [selectedAsignacion]);
+
+  var periodoSelected = function periodoSelected() {
+    var periodo = '';
+    var _date = selectedAsignacion.fecha_asignacion;
+    var date = new Date(_date);
+    var year = date.getFullYear();
+    var month = date.getMonth();
+    setYearPeriodo(year);
+    if (year >= 2020) {
+      periodo = new_periodo;
+
+      if (month == 0) {
+        setPeriodoString(periodo[0]);
+      } else if (month == 1) {
+        setPeriodoString(periodo[1]);
+      } else if (month == 6) {
+        setPeriodoString(periodo[2]);
+      } else {
+        setPeriodoString(periodo[3]);
+      }
+    } else {
+      periodo = old_periodo;
+      if (month == 0) {
+        setPeriodoString(periodo[1]);
+      } else if (month == 5) {
+        setPeriodoString(periodo[2]);
+      } else {
+        setPeriodoString(periodo[3]);
+      }
+    }
+  };
 
   var handleOpenCrearAsign = function handleOpenCrearAsign() {
     setOpenCrearAsign(true);
@@ -76260,66 +76328,18 @@ var Home = function Home(_ref) {
     setOpenCrearAsign(false);
   };
 
-  periodoOptions.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-    __WEBPACK_IMPORTED_MODULE_8__material_ui_core_MenuItem___default.a,
-    { classes: { root: classes.options }, value: 0 },
-    new_periodo[0]
-  ));
-  periodoOptions.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-    __WEBPACK_IMPORTED_MODULE_8__material_ui_core_MenuItem___default.a,
-    { classes: { root: classes.options }, value: 1 },
-    new_periodo[1]
-  ));
-  periodoOptions.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-    __WEBPACK_IMPORTED_MODULE_8__material_ui_core_MenuItem___default.a,
-    { classes: { root: classes.options }, value: 2 },
-    new_periodo[2]
-  ));
-  periodoOptions.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-    __WEBPACK_IMPORTED_MODULE_8__material_ui_core_MenuItem___default.a,
-    { classes: { root: classes.options }, value: 3 },
-    new_periodo[3]
-  ));
-  yearOptions.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-    __WEBPACK_IMPORTED_MODULE_8__material_ui_core_MenuItem___default.a,
-    { classes: { root: classes.options }, value: 2013 },
-    '2013'
-  ));
-  yearOptions.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-    __WEBPACK_IMPORTED_MODULE_8__material_ui_core_MenuItem___default.a,
-    { classes: { root: classes.options }, value: 2014 },
-    '2014'
-  ));
-  yearOptions.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-    __WEBPACK_IMPORTED_MODULE_8__material_ui_core_MenuItem___default.a,
-    { classes: { root: classes.options }, value: 2015 },
-    '2015'
-  ));
-  yearOptions.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-    __WEBPACK_IMPORTED_MODULE_8__material_ui_core_MenuItem___default.a,
-    { classes: { root: classes.options }, value: 2016 },
-    '2016'
-  ));
-  yearOptions.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-    __WEBPACK_IMPORTED_MODULE_8__material_ui_core_MenuItem___default.a,
-    { classes: { root: classes.options }, value: 2017 },
-    '2017'
-  ));
-  yearOptions.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-    __WEBPACK_IMPORTED_MODULE_8__material_ui_core_MenuItem___default.a,
-    { classes: { root: classes.options }, value: 2018 },
-    '2018'
-  ));
-  yearOptions.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-    __WEBPACK_IMPORTED_MODULE_8__material_ui_core_MenuItem___default.a,
-    { classes: { root: classes.options }, value: 2019 },
-    '2019'
-  ));
-  yearOptions.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-    __WEBPACK_IMPORTED_MODULE_8__material_ui_core_MenuItem___default.a,
-    { classes: { root: classes.options }, value: 2020 },
-    '2020'
-  ));
+  /*periodoOptions.push(<MenuItem classes={{ root: classes.options }} value={0}>{new_periodo[0]}</MenuItem>);
+  periodoOptions.push(<MenuItem classes={{ root: classes.options }} value={1}>{new_periodo[1]}</MenuItem>);
+  periodoOptions.push(<MenuItem classes={{ root: classes.options }} value={2}>{new_periodo[2]}</MenuItem>);
+  periodoOptions.push(<MenuItem classes={{ root: classes.options }} value={3}>{new_periodo[3]}</MenuItem>);
+  yearOptions.push(<MenuItem classes={{ root: classes.options }} value={2013}>2013</MenuItem>);
+  yearOptions.push(<MenuItem classes={{ root: classes.options }} value={2014}>2014</MenuItem>);
+  yearOptions.push(<MenuItem classes={{ root: classes.options }} value={2015}>2015</MenuItem>);
+  yearOptions.push(<MenuItem classes={{ root: classes.options }} value={2016}>2016</MenuItem>);
+  yearOptions.push(<MenuItem classes={{ root: classes.options }} value={2017}>2017</MenuItem>);
+  yearOptions.push(<MenuItem classes={{ root: classes.options }} value={2018}>2018</MenuItem>);
+  yearOptions.push(<MenuItem classes={{ root: classes.options }} value={2019}>2019</MenuItem>);
+  yearOptions.push(<MenuItem classes={{ root: classes.options }} value={2020}>2020</MenuItem>);*/
 
   //Load admin
   __WEBPACK_IMPORTED_MODULE_0_react___default.a.useEffect(function () {
@@ -76339,6 +76359,7 @@ var Home = function Home(_ref) {
   __WEBPACK_IMPORTED_MODULE_0_react___default.a.useEffect(function () {
     if (asignaciones.length > 0) {
       setSelectedAsignacion(asignaciones[0]);
+      periodoSelected();
     }
   }, [asignaciones]);
 
@@ -76369,7 +76390,10 @@ var Home = function Home(_ref) {
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'div',
           { className: 'col s12 blue-tec mb-2 ' + classes.titleHistory },
-          'Asignaciones | Becario - Colaborador'
+          'Asignaciones | ',
+          periodo_string,
+          ' ',
+          year
         )
       ),
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -76669,7 +76693,7 @@ var CardAdministrator = function CardAdministrator(_ref) {
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'label',
               { className: classes.labelText },
-              asignacion.colaborador.carga
+              '3'
             )
           )
         ),

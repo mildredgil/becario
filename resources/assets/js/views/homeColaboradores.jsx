@@ -28,6 +28,42 @@ const Home = ({ classes, colaborador_html }) => {
   const [yearSelected, setYearSelected] = React.useState(0);
   const [selectYear, setYear] = React.useState(0);
   const [openEvaluacion, setOpenEvaluacion] = React.useState(false);
+  const[periodo_string, setPeriodoString] = React.useState('');
+
+  React.useEffect(()=> {
+    periodoSelected();
+  }, [selectedAsignacion]);
+
+  const periodoSelected = () => {
+    let periodo = '';
+    let _date = selectedAsignacion.fecha_asignacion;
+    let date = new Date(_date);
+    let year = date.getFullYear();
+    let month = date.getMonth();
+    if(year >= 2020) {
+      periodo = new_periodo;
+
+      if(month == 0) {
+        setPeriodoString(periodo[0]);
+      } else if (month == 1) {
+        setPeriodoString(periodo[1]);
+      } else if (month == 6) {
+        setPeriodoString(periodo[2]);
+      } else {
+        setPeriodoString(periodo[3]);
+      }
+    } else {
+      periodo = old_periodo;
+      if (month == 0) {
+        setPeriodoString(periodo[1]);
+      } else if (month == 5) {
+        setPeriodoString(periodo[2]);
+      } else {
+        setPeriodoString(periodo[3]);
+      }
+    }
+  }
+  
 
   const handleOpenEvaluacion = () => {
     setOpenEvaluacion(true);
@@ -77,6 +113,7 @@ const Home = ({ classes, colaborador_html }) => {
   React.useEffect(() => {
     if (asignaciones.length > 0) {
       setSelectedAsignacion(asignaciones[0]);
+      periodoSelected();
     }
   }, [asignaciones]);
 
@@ -100,7 +137,7 @@ const Home = ({ classes, colaborador_html }) => {
         <div className={`row ${classes.margin40}`}>
           <div className={`col s12 blue-tec mb-2 ${classes.titleHistory} px-0`}>
             <div className="col s9">
-              Becarios | Agosto-Diciembre 2019
+              Becarios | {periodo_string} {yearSelected}
             </div>
             <div className="col s3 align-right px-0">
               <Button className="valign-wrapper" style={{ float: 'right', }} variant="contained" color="primary" onClick={handleOpenEvaluacion}>

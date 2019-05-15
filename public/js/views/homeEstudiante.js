@@ -70698,6 +70698,55 @@ var Home = function Home(_ref) {
       indexSelected = _React$useState8[0],
       setIndexSelected = _React$useState8[1];
 
+  var new_periodo = ['Invierno', 'Febrero-Junio', 'Verano', 'Agosto-Diciembre'];
+  var old_periodo = ['', 'Enero-Mayo', 'Verano', 'Agosto-Diciembre'];
+
+  var _React$useState9 = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(''),
+      _React$useState10 = _slicedToArray(_React$useState9, 2),
+      periodo_string = _React$useState10[0],
+      setPeriodo = _React$useState10[1];
+
+  var _React$useState11 = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(0),
+      _React$useState12 = _slicedToArray(_React$useState11, 2),
+      year = _React$useState12[0],
+      setYear = _React$useState12[1];
+  //let periodo_string = '';
+
+  __WEBPACK_IMPORTED_MODULE_0_react___default.a.useEffect(function () {
+    periodoSelected();
+  }, [selectedAsignacion]);
+
+  var periodoSelected = function periodoSelected() {
+    var periodo = '';
+    var _date = selectedAsignacion.fecha_asignacion;
+    var date = new Date(_date);
+    var year = date.getFullYear();
+    var month = date.getMonth();
+    setYear(year);
+    if (year >= 2020) {
+      periodo = new_periodo;
+
+      if (month == 0) {
+        setPeriodo(periodo[0]);
+      } else if (month == 1) {
+        setPeriodo(periodo[1]);
+      } else if (month == 6) {
+        setPeriodo(periodo[2]);
+      } else {
+        setPeriodo(periodo[3]);
+      }
+    } else {
+      periodo = old_periodo;
+      if (month == 0) {
+        setPeriodo(periodo[1]);
+      } else if (month == 5) {
+        setPeriodo(periodo[2]);
+      } else {
+        setPeriodo(periodo[3]);
+      }
+    }
+  };
+
   __WEBPACK_IMPORTED_MODULE_0_react___default.a.useEffect(function () {
 
     if (estudiante_html != null) {
@@ -70715,6 +70764,7 @@ var Home = function Home(_ref) {
   __WEBPACK_IMPORTED_MODULE_0_react___default.a.useEffect(function () {
     if (asignaciones.length > 0) {
       setSelectedAsignacion(asignaciones[0]);
+      periodoSelected();
     }
   }, [asignaciones]);
 
@@ -70737,7 +70787,10 @@ var Home = function Home(_ref) {
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'div',
           { className: 'col s12 blue-tec mb-2 ' + classes.titleHistory },
-          'Becario | Agosto-Diciembre 2019'
+          'Becario | ',
+          periodo_string,
+          ' ',
+          year
         ),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'div',
@@ -71111,7 +71164,6 @@ var ItemPeriodo = function ItemPeriodo(_ref) {
   var old_periodo = ['', 'Enero-Mayo', 'Verano', 'Agosto-Diciembre'];
 
   var periodo = '';
-
   var _date = asignacion.fecha_asignacion;
   var date = new Date(_date);
   var year = date.getFullYear();

@@ -73078,7 +73078,7 @@ var SolicitudBecaria = function SolicitudBecaria(_ref) {
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                 'label',
                                 null,
-                                'Nombre'
+                                'Matr\xEDcula'
                             )
                         ),
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -73088,7 +73088,7 @@ var SolicitudBecaria = function SolicitudBecaria(_ref) {
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                 'label',
                                 null,
-                                'Matr\xEDcula'
+                                'Nombre'
                             )
                         ),
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(

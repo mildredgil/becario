@@ -13,10 +13,10 @@ const BorrarAsignModal = ({ classes, open, handleClose }) => {
   const [ifSearchTrue, setIfSearchTrue] = React.useState(null);
   const [mensaje, setMensaje] = React.useState('');
   const [inputMatricula, setInputMatricula] = React.useState('');
-	const [inputNomina, setInputNomina] = React.useState('');
-	const [isErrorName, setErrorName] = React.useState(false);
-	const [isErrorNom, setErrorNom] = React.useState(false);
-	const [onChange, setChange] = React.useState(false);
+  const [inputNomina, setInputNomina] = React.useState('');
+  const [isErrorName, setErrorName] = React.useState(false);
+  const [isErrorNom, setErrorNom] = React.useState(false);
+  const [onChange, setChange] = React.useState(false);
 
   console.log(ifSearchTrue);
   const onChangeMatricula = (event) => {
@@ -54,7 +54,7 @@ const BorrarAsignModal = ({ classes, open, handleClose }) => {
 		if ((!validator.isLength(inputNomina, { min: 9, max: 9 })) || (!validator.matches(inputNomina, /^[lL]\d{8}/)))
 			setErrorNom(true);
 		else{
-			setErrorName(false);
+			setErrorNom(false);
 		}
 		setChange(true);
 	}
@@ -65,7 +65,7 @@ const BorrarAsignModal = ({ classes, open, handleClose }) => {
 		}
 	}, [isErrorName, isErrorNom, onChange]);
 
-  React.useEffect(()=> {
+  React.useEffect(() => {
     if(open == false){
       setIfSearchTrue(false);  
     }
@@ -102,9 +102,9 @@ const BorrarAsignModal = ({ classes, open, handleClose }) => {
                                 classes={{ root: classes.labelText }}
                                 value={inputMatricula}
                                 onChange={onChangeMatricula}
-																variant="outlined"
-																error={isErrorName}
-                             		helperText={isErrorName && 'Matrícula incorrecta.'}
+								variant="outlined"
+								error={isErrorName}
+                             	helperText={isErrorName && 'Matrícula incorrecta.'}
                             />
                         </div>
                         <div className="col s6">
@@ -114,9 +114,9 @@ const BorrarAsignModal = ({ classes, open, handleClose }) => {
                                 classes={{ root: classes.labelText }}
                                 value={inputNomina}
                                 onChange={onChangeNomina}
-																variant="outlined"
-																error={isErrorNom}
-                     						helperText={isErrorNom && 'Este campo es requerido.'}
+								variant="outlined"
+								error={isErrorNom}
+                     			helperText={isErrorNom && 'Este campo es requerido.'}
                             />
                         </div>
                         <div className="row center-align">

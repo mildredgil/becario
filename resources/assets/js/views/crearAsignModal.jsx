@@ -16,10 +16,10 @@ const CrearAsignModal = ({ classes, open, handleClose }) => {
 		const [inputNomina, setInputNomina] = React.useState('');
 		const [isErrorName, setErrorName] = React.useState(false);
 		const [isErrorNom, setErrorNom] = React.useState(false);
-		const [onChange, setChange] = React.useState(false);
+		const [onChangeState, setChangeState] = React.useState(false);
 
 
-    console.log(ifSearchTrue);
+    //console.log(ifSearchTrue);
     const onChangeMatricula = (event) => {
       setInputMatricula(event.target.value);
     }
@@ -28,13 +28,13 @@ const CrearAsignModal = ({ classes, open, handleClose }) => {
       setInputNomina(event.target.value);
 		}
 		
-		const create = () => {
+		/*const create = () => {
 			axios.post("/create/assignments", {
         matricula: inputMatricula,
         nomina: inputNomina
       })
       .then(function (response) {
-        console.log(response);
+        console.log('response', response);
         setIfSearchTrue(response.data.status);
         setMensaje(response.data.message);
         console.log(response);
@@ -43,11 +43,11 @@ const CrearAsignModal = ({ classes, open, handleClose }) => {
       .catch(function (error) {
         setMensaje(error.data.message);
         setIfSearchTrue(false);
-        console.log(error);
+        console.log('error', error);
       });
-    }
+    }*/
     
-    const searchClick = () => {
+    const searchClickA = () => {
 			if ((!validator.isLength(inputMatricula, { min: 9, max: 9 })) || (!validator.matches(inputMatricula, /^[aA]\d{8}/)))
 				setErrorName(true);
 			else{
@@ -57,9 +57,9 @@ const CrearAsignModal = ({ classes, open, handleClose }) => {
 			if ((!validator.isLength(inputNomina, { min: 9, max: 9 })) || (!validator.matches(inputNomina, /^[lL]\d{8}/)))
 				setErrorNom(true);
 			else{
-				setErrorName(false);
+				setErrorNom(false);
 			}
-			setChange(true);
+			setChangeState(true);
     }
     
     const close = () => {
@@ -70,14 +70,35 @@ const CrearAsignModal = ({ classes, open, handleClose }) => {
     }
 		
 		React.useEffect(() => {
+      console.log((!isErrorName && !isErrorNom), isErrorName, isErrorNom, onChangeState);
 			if ((!isErrorName && !isErrorNom)) {
-				create();
+				createM();
 			}
-		}, [isErrorName, isErrorNom, onChange]);
+    }, [isErrorName, isErrorNom, onChangeState]);
+    
+    const createM = () => {
+			axios.post("/create/assignments", {
+        matricula: inputMatricula,
+        nomina: inputNomina
+      })
+      .then(function (response) {
+        console.log('response', response);
+        setIfSearchTrue(response.data.status);
+        setMensaje(response.data.message);
+        console.log(response);
+        //window.location.replace('/');
+      })
+      .catch(function (error) {
+        setMensaje(error.data.message);
+        setIfSearchTrue(false);
+        console.log('error', error);
+      });
+    }
 
     React.useEffect(()=> {
       if(open == false){
-        setIfSearchTrue(false);  
+        setIfSearchTrue(false);
+        close();
       }
     }, [open]); 
     
@@ -131,7 +152,7 @@ const CrearAsignModal = ({ classes, open, handleClose }) => {
                         <div className="row center-align mb-0">
                             <div className="col s12 mb-2 mt-4">
                                 <div className="col s2 offset-s5">
-                                    <Button onClick={searchClick} variant="contained" className={`${classes.labelCheckV}`}>
+                                    <Button variant="contained" className={`${classes.labelCheckV}`} href="" onClick={searchClickA}>
                                         <CheckIcon className={`white-text ${classes.labelSearch}`}/>
                                         <span className={`white-text ${classes.labelLogin}`}>Crear</span>
                                     </Button>

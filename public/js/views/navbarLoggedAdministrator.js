@@ -75867,10 +75867,12 @@ var CrearAsignModal = function CrearAsignModal(_ref) {
 
     var _React$useState13 = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(false),
         _React$useState14 = _slicedToArray(_React$useState13, 2),
-        onChange = _React$useState14[0],
-        setChange = _React$useState14[1];
+        onChangeState = _React$useState14[0],
+        setChangeState = _React$useState14[1];
 
-    console.log(ifSearchTrue);
+    //console.log(ifSearchTrue);
+
+
     var onChangeMatricula = function onChangeMatricula(event) {
         setInputMatricula(event.target.value);
     };
@@ -75879,32 +75881,34 @@ var CrearAsignModal = function CrearAsignModal(_ref) {
         setInputNomina(event.target.value);
     };
 
-    var create = function create() {
-        __WEBPACK_IMPORTED_MODULE_6_axios___default.a.post("/create/assignments", {
-            matricula: inputMatricula,
-            nomina: inputNomina
-        }).then(function (response) {
-            console.log(response);
-            setIfSearchTrue(response.data.status);
-            setMensaje(response.data.message);
-            console.log(response);
-            //window.location.replace('/');
-        }).catch(function (error) {
-            setMensaje(error.data.message);
-            setIfSearchTrue(false);
-            console.log(error);
+    /*const create = () => {
+    	axios.post("/create/assignments", {
+          matricula: inputMatricula,
+          nomina: inputNomina
+        })
+        .then(function (response) {
+          console.log('response', response);
+          setIfSearchTrue(response.data.status);
+          setMensaje(response.data.message);
+          console.log(response);
+          //window.location.replace('/');
+        })
+        .catch(function (error) {
+          setMensaje(error.data.message);
+          setIfSearchTrue(false);
+          console.log('error', error);
         });
-    };
+      }*/
 
-    var searchClick = function searchClick() {
+    var searchClickA = function searchClickA() {
         if (!__WEBPACK_IMPORTED_MODULE_8_validator___default.a.isLength(inputMatricula, { min: 9, max: 9 }) || !__WEBPACK_IMPORTED_MODULE_8_validator___default.a.matches(inputMatricula, /^[aA]\d{8}/)) setErrorName(true);else {
             setErrorName(false);
         }
 
         if (!__WEBPACK_IMPORTED_MODULE_8_validator___default.a.isLength(inputNomina, { min: 9, max: 9 }) || !__WEBPACK_IMPORTED_MODULE_8_validator___default.a.matches(inputNomina, /^[lL]\d{8}/)) setErrorNom(true);else {
-            setErrorName(false);
+            setErrorNom(false);
         }
-        setChange(true);
+        setChangeState(true);
     };
 
     var close = function close() {
@@ -75915,14 +75919,33 @@ var CrearAsignModal = function CrearAsignModal(_ref) {
     };
 
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.useEffect(function () {
+        console.log(!isErrorName && !isErrorNom, isErrorName, isErrorNom, onChangeState);
         if (!isErrorName && !isErrorNom) {
-            create();
+            createM();
         }
-    }, [isErrorName, isErrorNom, onChange]);
+    }, [isErrorName, isErrorNom, onChangeState]);
+
+    var createM = function createM() {
+        __WEBPACK_IMPORTED_MODULE_6_axios___default.a.post("/create/assignments", {
+            matricula: inputMatricula,
+            nomina: inputNomina
+        }).then(function (response) {
+            console.log('response', response);
+            setIfSearchTrue(response.data.status);
+            setMensaje(response.data.message);
+            console.log(response);
+            //window.location.replace('/');
+        }).catch(function (error) {
+            setMensaje(error.data.message);
+            setIfSearchTrue(false);
+            console.log('error', error);
+        });
+    };
 
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.useEffect(function () {
         if (open == false) {
             setIfSearchTrue(false);
+            close();
         }
     }, [open]);
 
@@ -76015,7 +76038,7 @@ var CrearAsignModal = function CrearAsignModal(_ref) {
                                     { className: 'col s2 offset-s5' },
                                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                         __WEBPACK_IMPORTED_MODULE_3__material_ui_core_Button___default.a,
-                                        { onClick: searchClick, variant: 'contained', className: '' + classes.labelCheckV },
+                                        { variant: 'contained', className: '' + classes.labelCheckV, href: '', onClick: searchClickA },
                                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["b" /* CheckIcon */], { className: 'white-text ' + classes.labelSearch }),
                                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                             'span',
@@ -76599,7 +76622,7 @@ var BorrarAsignModal = function BorrarAsignModal(_ref) {
         }
 
         if (!__WEBPACK_IMPORTED_MODULE_8_validator___default.a.isLength(inputNomina, { min: 9, max: 9 }) || !__WEBPACK_IMPORTED_MODULE_8_validator___default.a.matches(inputNomina, /^[lL]\d{8}/)) setErrorNom(true);else {
-            setErrorName(false);
+            setErrorNom(false);
         }
         setChange(true);
     };

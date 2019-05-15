@@ -4,6 +4,7 @@ namespace App;
 
 use App\Solitud_Becaria;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Administrador extends Model {
   protected $table = 'administrador';

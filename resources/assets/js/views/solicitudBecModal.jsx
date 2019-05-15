@@ -63,11 +63,11 @@ const SolicitudBecaria = ({ classes, open, handleClose }) => {
                           </div>
                           <div className="col s6 mb-2 mt-4 valign-wrapper">
                               <PersonIcon className={classes.iconLabel} />
-                              <label>Nombre</label>
+                              <label>Matrícula</label>
                           </div>
                           <div className="col s6 mb-2 mt-4 valign-wrapper">
                               <InfoIcon className={classes.iconInfo} />
-                              <label>Matrícula</label>
+                              <label>Nombre</label>
                           </div>
                           <div className="col s6">
                               <TextField

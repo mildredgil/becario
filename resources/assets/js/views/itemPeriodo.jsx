@@ -8,7 +8,6 @@ const ItemPeriodo = ({classes, asignacion, isSelected, handleClick}) => {
   const old_periodo = ['', 'Enero-Mayo', 'Verano', 'Agosto-Diciembre'];
   
   let periodo = '';
-  
   let _date = asignacion.fecha_asignacion;
   let date = new Date(_date);
   let year = date.getFullYear();
