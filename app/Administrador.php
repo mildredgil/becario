@@ -4,7 +4,6 @@ namespace App;
 
 use App\Solitud_Becaria;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Administrador extends Model {
   protected $table = 'administrador';
@@ -16,10 +15,11 @@ class Administrador extends Model {
   }
 
   public function getSolicitudesAttribute() {
-    return Solicitud_Becaria::where("aprovada", 1)->with("estudiante.carrera", "colaborador.departamento")->get();
+    return Solicitud_Becaria::where("aprovada", 0)->with("estudiante.carrera", "colaborador.departamento")->get();
   }
 
   /*public function getAsignacionesAttribute() {
     return Solicitud_Becaria::where("aprovada", 0)->get();
+    ->withTrashed()
   }*/
 }
