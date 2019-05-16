@@ -74,9 +74,11 @@ const CrearAsignModal = ({ classes, open, handleClose }) => {
 		
 		React.useEffect(() => {
       console.log((!isErrorName && !isErrorNom), isErrorName, isErrorNom, onChangeState);
-			if ((!isErrorName && !isErrorNom)) {
-				createM();
-			}
+      if(onChangeState) {
+        if ((!isErrorName && !isErrorNom)) {
+          createM();
+        }
+      }
     }, [isErrorName, isErrorNom, onChangeState]);
     
     const createM = () => {

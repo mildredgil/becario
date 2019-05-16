@@ -100,6 +100,30 @@ class ColaboradorController extends Controller
       return response()->json($response);
     }
   }
+ 
+  public function findStudent(Request $request) {
+    $user = Auth::user();
+    
+    if($user->assignable_type == User::COLABORADOR) {
+      $estudiante = Estudiante::where('matricula', $request->input('matricula'))->first();
+
+      //validar que el estudiante exista
+      if($estudiante != null) {
+
+        //Verificar que el estudiante no haya sido asignado este periodo.
+        if($estudiante->estatus_assignable_sn == 0) {
+          $response['message']  = 'El estudiante fue encontrado con exito';  
+          $response['status']  = true;  
+        } else {
+          $response['message']  = 'El estudiante ya fue asignado';  
+          $response['status']  = false;  
+        }
+      } else {
+        $response['message']  = 'El estudiante con esa matricula no existe';  
+        $response['status']  = false;
+      }
+    }
+  }
 
   public function createRequest(Request $request) {
     $user = Auth::user();
@@ -158,10 +182,16 @@ class ColaboradorController extends Controller
               'fecha_aceptacion'  => $date,
               'evaluacion' => 0
             ]);
+            dd($asignacion);
+
+            $response['message']  = 'Solicitud creada con exito';  
+            $response['status']  = true;
+          } else {
+            $response['message']  = 'Ya existe la solicitud';  
+            $response['status']  = false;
           }        
 
-          $response['message']  = 'Solicitud creada con exito';  
-          $response['status']  = true;
+          
         }
       } else {
         $response['message']  = 'Estudiante no encontrado';  

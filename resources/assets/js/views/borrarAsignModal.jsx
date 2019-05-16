@@ -9,136 +9,128 @@ import axios from 'axios';
 import { PersonIcon, InfoIcon, PersonEditIcon, CloseIcon } from './icons';
 import validator from 'validator';
 
-const BorrarAsignModal = ({ classes, open, handleClose }) => {
-    const [ifSearchTrue, setIfSearchTrue] = React.useState(null);
-    const [mensaje, setMensaje] = React.useState('');
-    const [inputMatricula, setInputMatricula] = React.useState('');
-    const [inputNomina, setInputNomina] = React.useState('');
-    const [isErrorName, setErrorName] = React.useState(false);
-    const [isErrorNom, setErrorNom] = React.useState(false);
-    const [onChange, setChange] = React.useState(false);
+const BorrarAsignModal = ({ classes, open, handleClose }) => {   
+  const [ifSearchTrue, setIfSearchTrue] = React.useState(null);
+  const [mensaje, setMensaje] = React.useState('');
+  const [inputMatricula, setInputMatricula] = React.useState('');
+  const [inputNomina, setInputNomina] = React.useState('');
+  const [isErrorName, setErrorName] = React.useState(false);
+  const [isErrorNom, setErrorNom] = React.useState(false);
+  const [onChange, setChange] = React.useState(false);
 
-    const close = () => {
-        handleClose();
-        setErrorName(false);
-        setErrorNom(false);
-        setChange(false);
-        setMensaje('');
-        setInputMatricula('');
-        setInputNomina('');
+  console.log(ifSearchTrue);
+  const onChangeMatricula = (event) => {
+    setInputMatricula(event.target.value);
+  }
+
+  const onChangeNomina = (event) => {
+    setInputNomina(event.target.value);
+	}
+	
+	const create = () => {
+		axios.post("/delete/assignments", {
+      matricula: inputMatricula,
+      nomina: inputNomina
+    })
+    .then(function (response) {
+      console.log(response);
+      setIfSearchTrue(response.data.status);
+      setMensaje(response.data.message);
+      console.log(response);
+    })
+    .catch(function (error) {
+      setMensaje(error.data.message);
+      setIfSearchTrue(false);
+      console.log(error);
+    });
+	}
+	const searchClick = () => {
+		if ((!validator.isLength(inputMatricula, { min: 9, max: 9 })) || (!validator.matches(inputMatricula, /^[aA]\d{8}/)))
+			setErrorName(true);
+		else{
+			setErrorName(false);
+		}
+
+		if ((!validator.isLength(inputNomina, { min: 9, max: 9 })) || (!validator.matches(inputNomina, /^[lL]\d{8}/)))
+			setErrorNom(true);
+		else{
+			setErrorNom(false);
+		}
+		setChange(true);
+	}
+	
+	React.useEffect(() => {
+    if(onChange) {
+      if ((!isErrorName && !isErrorNom)) {
+        create();
+      }
     }
+	}, [isErrorName, isErrorNom, onChange]);
 
-    console.log(ifSearchTrue);
-    const onChangeMatricula = (event) => {
-        setInputMatricula(event.target.value);
+  React.useEffect(() => {
+    if(open == false){
+      setIfSearchTrue(false);  
+      setMensaje('');
+      setInputMatricula('');
+      setInputNomina('');
     }
-
-    const onChangeNomina = (event) => {
-        setInputNomina(event.target.value);
-    }
-    React.useEffect(() => {
-        if ((!isErrorName && !isErrorNom)) {
-            create();
-        }
-    }, [isErrorName, isErrorNom, onChange]);
-
-    const create = () => {
-        axios.post("/delete/assignments", {
-            matricula: inputMatricula,
-            nomina: inputNomina
-        })
-            .then(function (response) {
-                console.log(response);
-                setIfSearchTrue(response.data.status);
-                setMensaje(response.data.message);
-                console.log(response);
-            })
-            .catch(function (error) {
-                setMensaje(error.data.message);
-                setIfSearchTrue(false);
-                console.log(error);
-            });
-    }
-    const searchClick = () => {
-        if ((!validator.isLength(inputMatricula, { min: 9, max: 9 })) || (!validator.matches(inputMatricula, /^[aA]\d{8}/)))
-            setErrorName(true);
-        else {
-            setErrorName(false);
-        }
-
-        if ((!validator.isLength(inputNomina, { min: 9, max: 9 })) || (!validator.matches(inputNomina, /^[lL]\d{8}/)))
-            setErrorNom(true);
-        else {
-            setErrorNom(false);
-        }
-        setChange(true);
-    }
-
-
-
-    React.useEffect(() => {
-        if (open == false) {
-            setIfSearchTrue(false);
-            close();
-        }
-    }, [open]);
-
-
-    return (
-        <MuiThemeProvider theme={defaultTheme}>
-            <Modal
-                open={open}
-                onClose={close}
-                classes={{ root: classes.modalRoot }}
-            >
-                <div className={`container ${classes.containerWidth}`}>
-                    <div className="card px-5 py-3 my-0">
-                        <CloseIcon onClick={close} className={classes.closeIcon} />
-                        <div className="row margin-0">
-                            <div className={`col s12 center-align valign-wrapper`}>
-                                <PersonEditIcon className={classes.iconEditLabel} />
-                                <label className={`${classes.title} blue-tec`}>Borrar Asignación</label>
-                            </div>
-                            <div className="col s6 mb-2 mt-4 valign-wrapper">
-                                <PersonIcon className={classes.iconLabel} />
-                                <label>Matricula Alumno</label>
-                            </div>
-                            <div className="col s6 mb-2 mt-4 valign-wrapper">
-                                <InfoIcon className={classes.iconInfo} />
-                                <label>Nómina Colaborador</label>
-                            </div>
-                            <div className="col s6">
-                                <TextField
-                                    fullWidth
-                                    id="outlined-bare"
-                                    classes={{ root: classes.labelText }}
-                                    value={inputMatricula}
-                                    onChange={onChangeMatricula}
-                                    variant="outlined"
-                                    error={isErrorName}
-                                    helperText={isErrorName && 'Matrícula incorrecta.'}
-                                />
-                            </div>
-                            <div className="col s6">
-                                <TextField
-                                    fullWidth
-                                    id="outlined-bare"
-                                    classes={{ root: classes.labelText }}
-                                    value={inputNomina}
-                                    onChange={onChangeNomina}
-                                    variant="outlined"
-                                    error={isErrorNom}
-                                    helperText={isErrorNom && 'Este campo es requerido.'}
-                                />
-                            </div>
-                            <div className="row center-align">
-                                <div className="col s12 mb-2 mt-4">
-                                    <div className="col s2 offset-s5">
-                                        <Button onClick={searchClick} variant="contained" className={`${classes.labelCheckR}`}>
-                                            <CloseIcon className={`white-text ${classes.labelSearch}`} />
-                                            <span className={` white-text ${classes.labelLogin}`}>Borrar</span>
-                                        </Button>
-                                    </div>
+  }, [open]); 
+  
+  
+  return (
+      <MuiThemeProvider theme={defaultTheme}>
+          <Modal
+              open={open}
+              onClose={handleClose}
+              classes={{ root: classes.modalRoot }}
+          >
+              <div className={`container ${classes.containerWidth}`}>
+                  <div className="card px-5 py-3 my-0">
+                    <CloseIcon onClick={handleClose} className= {classes.closeIcon}/>
+                    <div className="row margin-0">
+                        <div className={`col s12 center-align valign-wrapper`}>
+                            <PersonEditIcon className={classes.iconEditLabel} />
+                            <label className={`${classes.title} blue-tec`}>Borrar Asignación</label>
+                        </div>
+                        <div className="col s6 mb-2 mt-4 valign-wrapper">
+                            <PersonIcon className={classes.iconLabel} />
+                            <label>Matricula Alumno</label>
+                        </div>
+                        <div className="col s6 mb-2 mt-4 valign-wrapper">
+                            <InfoIcon className={classes.iconInfo} />
+                            <label>Nómina Colaborador</label>
+                        </div>
+                        <div className="col s6">
+                            <TextField
+                              fullWidth
+                              id="outlined-bare"
+                              classes={{ root: classes.labelText }}
+                              value={inputMatricula}
+                              onChange={onChangeMatricula}
+              								variant="outlined"
+              								error={isErrorName}
+                           	  helperText={isErrorName && 'Matrícula incorrecta.'}
+                            />
+                        </div>
+                        <div className="col s6">
+                            <TextField
+                              fullWidth
+                              id="outlined-bare"
+                              classes={{ root: classes.labelText }}
+                              value={inputNomina}
+                              onChange={onChangeNomina}
+              								variant="outlined"
+              								error={isErrorNom}
+                     			helperText={isErrorNom && 'Este campo es requerido.'}
+                            />
+                        </div>
+                        <div className="row center-align">
+                            <div className="col s12 mb-2 mt-4">
+                                <div className="col s2 offset-s5">
+                                  <Button onClick={searchClick}  variant="contained" className={`${classes.labelCheckR}`}>
+                                    <CloseIcon className={`white-text ${classes.labelSearch}`}/>
+                                    <span className={` white-text ${classes.labelLogin}`}>Borrar</span>
+                                  </Button>
                                 </div>
                             </div>
                         </div>
@@ -153,6 +145,7 @@ const BorrarAsignModal = ({ classes, open, handleClose }) => {
                         </div>
                         : ''}
                 </div>
+              </div>
             </Modal>
         </MuiThemeProvider>
     );

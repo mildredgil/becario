@@ -95,11 +95,14 @@ Route::group(['middleware' => 'auth'], function () {
   Route::post('/student/save/profile',  'EstudianteController@saveProfile');	
   Route::post('/colab/save/profile',    'ColaboradorController@saveProfile');	
   
+  //Guardar evaluaciones
   Route::post('/save/evaluations',      'ColaboradorController@saveEvaluations');
   
+  //Crear y borrar asignaciones
   Route::post('/create/assignments',    'AdministradorController@createAssignment');
   Route::post('/delete/assignments',    'AdministradorController@deleteAssignment');
 
+  //Crear solicitud
   Route::post('/create/request',    'ColaboradorController@createRequest');
 });
 

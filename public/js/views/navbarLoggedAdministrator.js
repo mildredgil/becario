@@ -76226,16 +76226,6 @@ var BorrarAsignModal = function BorrarAsignModal(_ref) {
         onChange = _React$useState14[0],
         setChange = _React$useState14[1];
 
-    var close = function close() {
-        handleClose();
-        setErrorName(false);
-        setErrorNom(false);
-        setChange(false);
-        setMensaje('');
-        setInputMatricula('');
-        setInputNomina('');
-    };
-
     console.log(ifSearchTrue);
     var onChangeMatricula = function onChangeMatricula(event) {
         setInputMatricula(event.target.value);
@@ -76244,11 +76234,6 @@ var BorrarAsignModal = function BorrarAsignModal(_ref) {
     var onChangeNomina = function onChangeNomina(event) {
         setInputNomina(event.target.value);
     };
-    __WEBPACK_IMPORTED_MODULE_0_react___default.a.useEffect(function () {
-        if (!isErrorName && !isErrorNom) {
-            create();
-        }
-    }, [isErrorName, isErrorNom, onChange]);
 
     var create = function create() {
         __WEBPACK_IMPORTED_MODULE_6_axios___default.a.post("/delete/assignments", {
@@ -76277,9 +76262,19 @@ var BorrarAsignModal = function BorrarAsignModal(_ref) {
     };
 
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.useEffect(function () {
+        if (onChange) {
+            if (!isErrorName && !isErrorNom) {
+                create();
+            }
+        }
+    }, [isErrorName, isErrorNom, onChange]);
+
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.useEffect(function () {
         if (open == false) {
             setIfSearchTrue(false);
-            close();
+            setMensaje('');
+            setInputMatricula('');
+            setInputNomina('');
         }
     }, [open]);
 
@@ -76290,7 +76285,7 @@ var BorrarAsignModal = function BorrarAsignModal(_ref) {
             __WEBPACK_IMPORTED_MODULE_2__material_ui_core_Modal___default.a,
             {
                 open: open,
-                onClose: close,
+                onClose: handleClose,
                 classes: { root: classes.modalRoot }
             },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -76299,7 +76294,7 @@ var BorrarAsignModal = function BorrarAsignModal(_ref) {
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
                     { className: 'card px-5 py-3 my-0' },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["c" /* CloseIcon */], { onClick: close, className: classes.closeIcon }),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["c" /* CloseIcon */], { onClick: handleClose, className: classes.closeIcon }),
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'div',
                         { className: 'row margin-0' },
@@ -76383,21 +76378,21 @@ var BorrarAsignModal = function BorrarAsignModal(_ref) {
                                 )
                             )
                         )
-                    )
-                ),
-                mensaje != '' ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'div',
-                    { className: (ifSearchTrue ? 'green' : 'red') + ' row mb-0  center-align ' + classes.wholeRow },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    ),
+                    mensaje != '' ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'div',
-                        { className: 'col s12 mb-4 mt-4' },
+                        { className: (ifSearchTrue ? 'green' : 'red') + ' row mb-0  center-align ' + classes.wholeRow },
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'h5',
-                            { className: 'white-text center-align my-0' },
-                            mensaje
+                            'div',
+                            { className: 'col s12 mb-4 mt-4' },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                'h5',
+                                { className: 'white-text center-align my-0' },
+                                mensaje
+                            )
                         )
-                    )
-                ) : ''
+                    ) : ''
+                )
             )
         )
     );
@@ -76623,8 +76618,10 @@ var CrearAsignModal = function CrearAsignModal(_ref) {
 
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.useEffect(function () {
         console.log(!isErrorName && !isErrorNom, isErrorName, isErrorNom, onChangeState);
-        if (!isErrorName && !isErrorNom) {
-            createM();
+        if (onChangeState) {
+            if (!isErrorName && !isErrorNom) {
+                createM();
+            }
         }
     }, [isErrorName, isErrorNom, onChangeState]);
 
