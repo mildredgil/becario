@@ -1,8 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import CardAdministrator from './cardAdministrator';
-import ReglamentoModal from './reglamentoModal';
-import CrearAsignModal from './crearAsignModal';
 import { withStyles } from '@material-ui/core/styles';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import defaultTheme from '../theme';
@@ -171,8 +169,6 @@ const Home = ({ classes, admin_html }) => {
           </div>
         </div>
       </div>
-      <ReglamentoModal />
-      <CrearAsignModal open={openCrearAsign} handleClose={handleCloseCrearAsign} />
     </MuiThemeProvider>
   );
 }
