@@ -116,47 +116,47 @@ const CrearAsignModal = ({ classes, open, handleClose }) => {
                       <CloseIcon onClick={close} className= {classes.closeIcon}/>
                       <div className="row margin-0">
                         <div className={`col s12 center-align valign-wrapper`}>
-                            <PersonEditIcon className={classes.iconEditLabel} />
-                            <label className={`${classes.title} blue-tec`}>Crear Asignación</label>
+                          <PersonEditIcon className={classes.iconEditLabel} />
+                          <label className={`${classes.title} blue-tec`}>Crear Asignación</label>
                         </div>
                         <div className="col s6 mb-2 mt-4 valign-wrapper">
-                            <PersonIcon className={classes.iconLabel} />
-                            <label>Matricula Alumno</label>
+                          <PersonIcon className={classes.iconLabel} />
+                          <label>Matricula Alumno</label>
                         </div>
                         <div className="col s6 mb-2 mt-4 valign-wrapper">
-                            <InfoIcon className={classes.iconInfo} />
-                            <label>Nómina Colaborador</label>
+                          <InfoIcon className={classes.iconInfo} />
+                          <label>Nómina Colaborador</label>
                         </div>
                         <div className="col s6">
                           <TextField
-                              fullWidth
-                              id="outlined-bare"
-                              classes={{ root: classes.labelText }}
-                              value={inputMatricula}
-                              onChange={onChangeMatricula}
-                              variant="outlined"
-                              error={isErrorName}
-                              helperText={isErrorName && 'Matrícula incorrecta.'}
+                            fullWidth
+                            id="outlined-bare"
+                            classes={{ root: classes.labelText }}
+                            value={inputMatricula}
+                            onChange={onChangeMatricula}
+                            variant="outlined"
+                            error={isErrorName}
+                            helperText={isErrorName && 'Matrícula incorrecta.'}
                           />
                         </div>
                         <div className="col s6">
                           <TextField
-                              fullWidth
-                              id="outlined-bare"
-                              classes={{ root: classes.labelText }}
-                              value={inputNomina}
-                              onChange={onChangeNomina}
-															variant="outlined"
-															error={isErrorNom}
-                     					helperText={isErrorNom && 'Este campo es requerido.'}
+                            fullWidth
+                            id="outlined-bare"
+                            classes={{ root: classes.labelText }}
+                            value={inputNomina}
+                            onChange={onChangeNomina}
+														variant="outlined"
+														error={isErrorNom}
+                   					helperText={isErrorNom && 'Este campo es requerido.'}
                           />
                         </div>
                         <div className="row center-align mb-0">
                             <div className="col s12 mb-2 mt-4">
                                 <div className="col s2 offset-s5">
                                     <Button variant="contained" className={`${classes.labelCheckV}`} href="" onClick={searchClickA}>
-                                        <CheckIcon className={`white-text ${classes.labelSearch}`}/>
-                                        <span className={`white-text ${classes.labelLogin}`}>Crear</span>
+                                      <CheckIcon className={`white-text ${classes.labelSearch}`}/>
+                                      <span className={`white-text ${classes.labelLogin}`}>Crear</span>
                                     </Button>
                                 </div>
                             </div>

@@ -27,7 +27,7 @@ const BorrarAsignModal = ({ classes, open, handleClose }) => {
     setInputNomina(event.target.value);
 	}
 	
-	const create = () => {
+	const borrar = () => {
 		axios.post("/delete/assignments", {
       matricula: inputMatricula,
       nomina: inputNomina
@@ -43,7 +43,8 @@ const BorrarAsignModal = ({ classes, open, handleClose }) => {
       setIfSearchTrue(false);
       console.log(error);
     });
-	}
+  }
+  
 	const searchClick = () => {
 		if ((!validator.isLength(inputMatricula, { min: 9, max: 9 })) || (!validator.matches(inputMatricula, /^[aA]\d{8}/)))
 			setErrorName(true);
@@ -62,7 +63,7 @@ const BorrarAsignModal = ({ classes, open, handleClose }) => {
 	React.useEffect(() => {
     if(onChange) {
       if ((!isErrorName && !isErrorNom)) {
-        create();
+        borrar();
       }
     }
 	}, [isErrorName, isErrorNom, onChange]);

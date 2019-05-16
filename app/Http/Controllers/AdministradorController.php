@@ -188,8 +188,10 @@ class AdministradorController extends Controller
       //Verificar que exista la solicitud
       if($request != null) {
         $request->aprovada = 1;
-          $response['message']  = 'Aprobada';  
-          $response['status']  = true;
+        $request->save();
+
+        $response['message']  = 'Aprobada';  
+        $response['status']  = true;
         
       } else {
         $response['message']  = 'La solicitud no existe';  
