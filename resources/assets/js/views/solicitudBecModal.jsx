@@ -94,7 +94,17 @@ const SolicitudBecaria = ({ classes, open, handleClose }) => {
                                 <div className="col s2 offset-s5">
                                     <Button onClick={searchClick} variant="contained" className={`${classes.labelCheckV}`}>
                                         <CheckIcon className={`white-text ${classes.labelSearch}`}/>
-                                        <span className={`white-text ${classes.labelLogin}`}>Crear</span>
+                                        <span className={`white-text ${classes.labelLogin}`}>Buscar</span>
+                                    </Button>
+                                </div>
+                            </div>
+                          </div>
+                          <div className="row center-align mb-0">
+                            <div className="col s12 mb-2 mt-4">
+                                <div className="col s2 offset-s5">
+                                    <Button disabled={true} onClick={searchClick} variant="contained" className={`${classes.labelCheckV}`}>
+                                        <CheckIcon className={`white-text ${classes.labelSearch}`}/>
+                                        <span className={`white-text ${classes.labelLogin}`}>Aceptar</span>
                                     </Button>
                                 </div>
                             </div>

@@ -75920,8 +75920,10 @@ var CrearAsignModal = function CrearAsignModal(_ref) {
 
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.useEffect(function () {
         console.log(!isErrorName && !isErrorNom, isErrorName, isErrorNom, onChangeState);
-        if (!isErrorName && !isErrorNom) {
-            createM();
+        if (onChangeState) {
+            if (!isErrorName && !isErrorNom) {
+                createM();
+            }
         }
     }, [isErrorName, isErrorNom, onChangeState]);
 

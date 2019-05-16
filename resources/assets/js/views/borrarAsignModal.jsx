@@ -60,14 +60,19 @@ const BorrarAsignModal = ({ classes, open, handleClose }) => {
 	}
 	
 	React.useEffect(() => {
-		if ((!isErrorName && !isErrorNom)) {
-			create();
-		}
+    if(onChange) {
+      if ((!isErrorName && !isErrorNom)) {
+        create();
+      }
+    }
 	}, [isErrorName, isErrorNom, onChange]);
 
   React.useEffect(() => {
     if(open == false){
       setIfSearchTrue(false);  
+      setMensaje('');
+      setInputMatricula('');
+      setInputNomina('');
     }
   }, [open]); 
   
@@ -97,25 +102,25 @@ const BorrarAsignModal = ({ classes, open, handleClose }) => {
                         </div>
                         <div className="col s6">
                             <TextField
-                                fullWidth
-                                id="outlined-bare"
-                                classes={{ root: classes.labelText }}
-                                value={inputMatricula}
-                                onChange={onChangeMatricula}
-								variant="outlined"
-								error={isErrorName}
-                             	helperText={isErrorName && 'Matrícula incorrecta.'}
+                              fullWidth
+                              id="outlined-bare"
+                              classes={{ root: classes.labelText }}
+                              value={inputMatricula}
+                              onChange={onChangeMatricula}
+              								variant="outlined"
+              								error={isErrorName}
+                           	  helperText={isErrorName && 'Matrícula incorrecta.'}
                             />
                         </div>
                         <div className="col s6">
                             <TextField
-                                fullWidth
-                                id="outlined-bare"
-                                classes={{ root: classes.labelText }}
-                                value={inputNomina}
-                                onChange={onChangeNomina}
-								variant="outlined"
-								error={isErrorNom}
+                              fullWidth
+                              id="outlined-bare"
+                              classes={{ root: classes.labelText }}
+                              value={inputNomina}
+                              onChange={onChangeNomina}
+              								variant="outlined"
+              								error={isErrorNom}
                      			helperText={isErrorNom && 'Este campo es requerido.'}
                             />
                         </div>

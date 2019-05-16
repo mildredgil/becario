@@ -179,4 +179,50 @@ class AdministradorController extends Controller
 
     return response()->json($response);
   }
+
+  public function acceptRequest(Request $request) {
+    $user = Auth::user();
+    if($user->assignable_type == User::ADMINISTRADOR) {
+      $request = Solicitud_Becaria::find($request->input('id'));
+      
+      //Verificar que exista la solicitud
+      if($request != null) {
+        $request->aprovada = 1;
+          $response['message']  = 'Aprobada';  
+          $response['status']  = true;
+        
+      } else {
+        $response['message']  = 'La solicitud no existe';  
+        $response['status']  = false;
+      }
+    } else {
+      $response['message']  = 'Administrador no encontrado';
+      $response['status']  = false;
+    }
+
+    return response()->json($response);
+  }
+
+  public function denyRequest(Request $request) {
+    $user = Auth::user();
+    if($user->assignable_type == User::ADMINISTRADOR) {
+      $request = Solicitud_Becaria::find($request->input('id'));
+      
+      //Verificar que exista la solicitud
+      if($request != null) {
+        $request->delete();
+        $response['message']  = 'Aprobada';  
+        $response['status']  = true;
+        
+      } else {
+        $response['message']  = 'La solicitud no existe';  
+        $response['status']  = false;
+      }
+    } else {
+      $response['message']  = 'Administrador no encontrado';
+      $response['status']  = false;
+    }
+
+    return response()->json($response);
+  }
 }
