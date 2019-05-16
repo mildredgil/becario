@@ -64,6 +64,9 @@ const CrearAsignModal = ({ classes, open, handleClose }) => {
     
     const close = () => {
       handleClose();
+      setErrorName(false);
+      setErrorNom(false);
+      setChangeState(false);
       setMensaje('');
       setInputMatricula('');
       setInputNomina('');
