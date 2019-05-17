@@ -102,6 +102,10 @@ Route::group(['middleware' => 'auth'], function () {
   Route::post('/create/assignments',    'AdministradorController@createAssignment');
   Route::post('/delete/assignments',    'AdministradorController@deleteAssignment');
 
+  //Aceptar y rechazar solicitudes
+  Route::post('/accept/request',    'AdministradorController@acceptRequest');
+  Route::post('/deny/request',    'AdministradorController@denyRequest');
+
   //Crear solicitud
   Route::post('/create/request',    'ColaboradorController@createRequest');
 });

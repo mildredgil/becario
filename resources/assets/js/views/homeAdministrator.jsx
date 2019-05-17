@@ -11,7 +11,7 @@ import ItemAdministrator from './itemAdministrator';
 
 const Home = ({ classes, admin_html }) => {
   const [admin, setAdmin] = React.useState(false);
-  const [selectedAsignacion, setSelectedAsignacion] = React.useState(false);
+  const [selectedAsignacion, setSelectedAsignacion] = React.useState(null);
   const [asignaciones, setAsignaciones] = React.useState([]);
   const [indexSelected, setIndexSelected] = React.useState(0);
   const new_periodo = ['Invierno', 'Febrero-Junio', 'Verano', 'Agosto-Diciembre'];
@@ -24,8 +24,30 @@ const Home = ({ classes, admin_html }) => {
   const [year, setYearPeriodo] = React.useState(0);
   const [openCrearAsign, setOpenCrearAsign] = React.useState(false);
 
+  //Load admin
+  React.useEffect(() => {
+
+    if (admin_html != null) {
+      setAdmin(admin_html);
+      let _asignaciones = asignaciones;
+
+      admin_html.solicitudes.map(function (asignacion) {
+        _asignaciones.push(asignacion);
+      });
+
+      setAsignaciones(_asignaciones);
+
+      if (asignaciones.length > 0) {
+        setSelectedAsignacion(_asignaciones[0]);
+      }      
+    }
+
+  }, [admin_html]);
+
   React.useEffect(()=> {
-    periodoSelected();
+    if(selectedAsignacion != null) {
+      periodoSelected();
+    }
   }, [selectedAsignacion]);
 
   const periodoSelected = () => {
@@ -80,32 +102,6 @@ const Home = ({ classes, admin_html }) => {
   yearOptions.push(<MenuItem classes={{ root: classes.options }} value={2019}>2019</MenuItem>);
   yearOptions.push(<MenuItem classes={{ root: classes.options }} value={2020}>2020</MenuItem>);*/
 
-  //Load admin
-  React.useEffect(() => {
-
-    if (admin_html != null) {
-      setAdmin(admin_html);
-      let _asignaciones = asignaciones;
-
-      admin_html.solicitudes.map(function (asignacion) {
-        _asignaciones.push(asignacion);
-      });
-
-      setAsignaciones(_asignaciones);
-    }
-
-  }, [admin_html]);
-
-  React.useEffect(() => {
-    if (asignaciones.length > 0) {
-      setSelectedAsignacion(asignaciones[0]);
-      periodoSelected();
-    }
-  }, [asignaciones]);
-
-  console.log(selectedAsignacion);
-  console.log(asignaciones);
-
   const selectAsignacion = (index) => {
     setSelectedAsignacion(asignaciones[index]);
     setIndexSelected(index);
@@ -118,6 +114,21 @@ const Home = ({ classes, admin_html }) => {
   const onChangeYear = (event) => {
     setYear(event.target.value);
   }
+
+  const popAsignacionById = (id_asignacion) => {
+    const _asignaciones = asignaciones.filter(asignaciones => asignaciones.id != id_asignacion);
+    setAsignaciones(_asignaciones);
+  }
+
+  React.useEffect(() => {
+    if(indexSelected < asignaciones.length) {
+      setSelectedAsignacion(asignaciones[indexSelected]);
+    } else {
+      setSelectedAsignacion(asignaciones[indexSelected - 1]);
+      selectAsignacion(indexSelected - 1);
+    }
+  },[asignaciones]);
+
   return (
     <MuiThemeProvider theme={defaultTheme}>
       <div className="container">
@@ -135,8 +146,6 @@ const Home = ({ classes, admin_html }) => {
                     asignaciones.map((asignacion, index) => {
                       if (asignacion.estudiante != null) {
                         if (index == indexSelected) {
-                          console.log(true, index);
-                          console.log(true, asignacion);
                           return (
                             <ItemAdministrator isSelected={true} handleClick={(e) => selectAsignacion(index)} key={index} asignacion={asignacion} />
                           )
@@ -155,7 +164,7 @@ const Home = ({ classes, admin_html }) => {
           </div>
           <div className="col s8">
             <div className="row mb-0">
-              <CardAdministrator asignacion={selectedAsignacion} />
+              {selectedAsignacion != null ? <CardAdministrator asignacion={selectedAsignacion} pop={popAsignacionById} /> :  ''}
             </div>
           </div>
         </div>

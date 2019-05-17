@@ -3,17 +3,48 @@ import { withStyles } from '@material-ui/core/styles';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import defaultTheme from '../theme';
 import Button from '@material-ui/core/Button';
-import {SchoolIcon, EmailIcon, LocationIcon, InfoIcon, PersonIcon, SupervisorIcon} from './icons';
+import {SchoolIcon, InfoIcon, PersonIcon, SupervisorIcon} from './icons';
 import { CloseIcon, CheckIcon} from './icons';
+import axios from 'axios'; 
 
-const CardAdministrator = ({classes, asignacion}) => {
-  let evaluacion = ['Pendiente', 'Satisfactorio', 'Insatisfactorio'];
+const CardAdministrator = ({classes, asignacion, pop}) => {
   const semestre = ['','Primero', 'Segundo', 'Tercero', 'Cuarto', 'Quinto', 'Sexto', 'Septimo', 'Octavo', 'Noveno'];
-  
-  if(asignacion == false) {
-    return null;
+  const [mensaje, setMensaje] = React.useState('');
+
+  const aceptar = () => {
+		axios.post("/accept/request", {
+      id: asignacion.id,
+    })
+    .then(function (response) {
+      setMensaje(response.data.message);
+      console.log(response);
+      pop(asignacion.id);
+      alert(response.data.message);
+    })
+    .catch(function (error) {
+      setMensaje(error.data.message);
+      console.log(error);
+      alert(error.data.message);
+    });
   }
 
+  const rechazar = () => {
+		axios.post("/deny/request", {
+      id: asignacion.id,
+    })
+    .then(function (response) {
+      setMensaje(response.data.message);
+      console.log(response);
+      alert(response.data.message);
+      pop(asignacion.id);
+    })
+    .catch(function (error) {
+      setMensaje(error.data.message);
+      console.log(error);
+      alert(error.data.message);
+    });
+  }
+  
   return (
     <MuiThemeProvider theme={defaultTheme}>
       <div className="card my-0">
@@ -93,16 +124,16 @@ const CardAdministrator = ({classes, asignacion}) => {
           </div>
           <div className= "row mt-5">
           <div className="col s6 center-align">
-                <Button  variant="contained" className={`${classes.labelCheckV}`}>
-                    <CheckIcon className={`white-text ${classes.labelSearch}`}/>
-                    <span className={` white-text ${classes.labelLogin}`}>Aceptar</span>
-                </Button>
+            <Button onClick={aceptar} variant="contained" className={`${classes.labelCheckV}`}>
+                <CheckIcon className={`white-text ${classes.labelSearch}`}/>
+                <span className={` white-text ${classes.labelLogin}`}>Aceptar</span>
+            </Button>
           </div>
           <div className="col s6 center-align">
-                <Button  variant="contained" className={`${classes.labelCheckR}`}>
-                    <CloseIcon className={`white-text ${classes.labelSearch}`}/>
-                    <span className={` white-text ${classes.labelLogin}`}>Denegar</span>
-                </Button>
+            <Button onClick={rechazar} variant="contained" className={`${classes.labelCheckR}`}>
+                <CloseIcon className={`white-text ${classes.labelSearch}`}/>
+                <span className={` white-text ${classes.labelLogin}`}>Denegar</span>
+            </Button>
           </div>
           </div>
         </div>
@@ -145,6 +176,12 @@ const styles = theme => ({
   labelText:{
     fontSize: '20px',
     color: '#000',
+  },
+
+  
+  labelSearch: {
+    fontSize: '20px',
+    marginRight: '0.5rem',
   },
 
   paddingTop20: {
