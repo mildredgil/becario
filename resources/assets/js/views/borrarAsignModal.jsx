@@ -121,7 +121,7 @@ const BorrarAsignModal = ({ classes, open, handleClose }) => {
                               onChange={onChangeNomina}
               								variant="outlined"
               								error={isErrorNom}
-                     			helperText={isErrorNom && 'Este campo es requerido.'}
+                     			    helperText={isErrorNom && 'Este campo es requerido.'}
                             />
                         </div>
                         <div className="row center-align">
