@@ -1,3 +1,5 @@
+Documentación Técnica
+
 En este documento explicaremos las tecnologías requeridas para el desarrollo e implementación del proyecto. 
 Estas tecnologías fueron las siguientes:
 
@@ -11,11 +13,11 @@ PHP
 GitHub
 Composer
 
-React: es un ambiente para Javascript y requiere de ciertas colecciones de Maps y Sets que en ciertos buscadores o en dispositivos viejos puede que no se proporcionen de manera nativa.
+React: es un ambiente para Javascript y requiere de ciertas colecciones de Maps y Sets que en ciertos buscadores o en dispositivos viejos puede que no se proporcionen de manera nativa. Al estar implementando Javascript, un lenguaje orientado a objetos, podemos argumentar que el desarrollo usa esta metodología. En React se puede observar los beneficios del diseño orientado a objetos a través de sus componentes reusables que encapsulan información y funcionalidades establecidas por el desarrollador.
 
 Composer: Es un manager de Dependencias para PHP. No tiene pre requisitos de sistema o hardware.
 
-Laravel: es un framework que requiere de PHP mayor a la versión 5.4 y menor a la versión 7.0
+Laravel: es un framework que requiere de PHP mayor a la versión 5.4 y menor a la versión 7.0. La forma en que este framework administra los datos recibidos de la base de datos es mediante la creación de clases (objetos)  que los encapsulan y que permiten su manipulación por medio de estructuras, además de que cada uno tiene métodos e interactúan entre ellos para el desarrollo de la aplicación y solicitudes de los usuarios.
 
 GitHub: es un control de cambios que permite trabajar en distintos framework en equipo. Requiere mínimo un procesador Intel Core 2 Duo de 1.6 GHz o mejor. Por lo menos 1GB RAM para Windows/Mac OS X. Por lo menos 512MB RAM para Linux. Windows: Vista en adelante. OS X: Snow Leopard 10.6.3 en adelante. Ubuntu, Debian, Fedora, CentOS o SuSE Linux.
 
@@ -68,23 +70,3 @@ php artisan serve
 Abra el Browser (Chrome recomendado) con el url siguiente: http://localhost:8000
 Debería poder estar visualizando nuestro Sistema de Asignación de Becarios en el login para Alumnos/Colaboradores.
 Para acceder a la liga de Administrador escriba sobre el url la extensión “http://localhost:8000/loginAdmin”
-
-Por qué utilizamos todo esto?
-
-Laravel
-
-La razón de haber escogido precisamente estas fue que dentro de uno de los dos equipos que integramos este proyecto una de nuestras compañeras (Mildred Gil) ya tenía experiencia profesional con las herramientas y nos pareció lo más realizable.
-
-Fuera de ella, los demás teníamos poca o nada experiencia con estas tecnologías. La decisión más sencilla fue tomar GitHub como nuestro control de cambios, para poder coordinar un mejor trabajo en equipo donde todos pudiéramos estar trabajando un mismo workframe.
-
-Una vez decidido eso, cada uno de los integrantes de este equipo de amms, que fue el equipo de desarrolladores instalamos Composer, Node.js, la mayoria ya teniamos XAMPP para levantar un servidor de MySQL que habíamos instalado para la clase de Bases de datos junto con MySQLWorkbench. Además de que XAMPP ya tiene instalado PHP.
-
-Una vez todo arriba, utilizamos un editor de texto como Visual Studio Code para el desarrollo de todos los archivos donde estábamos creando todo lo necesario.
-
-Tenemos archivos en php para los scripts de generación de tablas en laravel y otros archivos de configuración. Una vez creados en Laravel, hicimos migración de las tablas a MySQL Workbench, desde donde trabajamos con todos los inserts, y exportamos el código de estos scripts de inserts para volver a colocar en la carpeta compartida en GitHub.
-
-Finalmente React lo utilizamos para pasar los scripts en CSS de extensión .jsx a archivos .js que pudiésemos después levantar en el browser para hacer todas las pantallas. 
-
-
-
-
