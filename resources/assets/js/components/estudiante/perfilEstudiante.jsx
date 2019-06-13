@@ -5,9 +5,10 @@ import Modal from '@material-ui/core/Modal';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import { MuiThemeProvider } from '@material-ui/core/styles';
-import defaultTheme from '../theme';
 import axios from 'axios'; 
-import { SchoolIcon, EmailIcon, PhoneIcon, PersonIcon, InfoIcon, PersonEditIcon, CloseIcon, CheckIcon } from './icons';
+
+import defaultTheme from '../../theme';
+import { SchoolIcon, EmailIcon, PhoneIcon, PersonIcon, InfoIcon, PersonEditIcon, CloseIcon, CheckIcon } from '../../icons';
 
 const PerfilEstudiantes = ({ classes, open, handleClose, estudiante,  setEstudiante }) => {
   const [inputPhone, setInputPhone] = React.useState(estudiante.celular);

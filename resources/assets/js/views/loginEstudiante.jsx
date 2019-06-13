@@ -3,8 +3,9 @@ import ReactDOM from 'react-dom';
 import { withStyles } from '@material-ui/core/styles';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import defaultTheme from '../theme';
-import ModalLoginColaborador from './modalLoginColaborador';
-import ModalLoginEstudiante from './modalLoginEstudiante';
+
+import ModalLoginColaborador from '../components/login/modalLoginColaborador';
+import ModalLoginEstudiante from '../components/login/modalLoginEstudiante';
 
 const LoginButton = ({ classes }) => {
   const [hoverC, isHoverC] = React.useState(false);

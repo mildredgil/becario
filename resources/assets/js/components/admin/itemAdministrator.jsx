@@ -1,14 +1,16 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import {RightArrowIcon, PersonIcon} from './icons';
 
-const ItemPeriodo = ({classes, asignacion, isSelected, handleClick}) => {
+import {RightArrowIcon, PersonIcon} from '../../icons';
+
+const ItemAdministrator = ({classes, asignacion, isSelected, handleClick}) => {
   const evaluacion = ['Pendiente', 'Satisfactoria', 'Insatisfactoria'];
   const new_periodo = ['Invierno', 'Febrero-Junio', 'Verano', 'Agosto-Diciembre'];
   const old_periodo = ['', 'Enero-Mayo', 'Verano', 'Agosto-Diciembre'];
   
   let periodo = '';
-  let _date = asignacion.fecha_asignacion;
+  
+  /*let _date = asignacion.fecha_asignacion;
   let date = new Date(_date);
   let year = date.getFullYear();
   let month = date.getMonth();
@@ -35,16 +37,16 @@ const ItemPeriodo = ({classes, asignacion, isSelected, handleClick}) => {
     } else {
       periodo_string = periodo[3];
     }
-  }
+  }*/
 
   return (
     <div onClick={handleClick} className={`${isSelected ? classes.selected :classes.itemWrapper} hoverable row valign-wrapper py-2 px-2 mb-0`}>
       <div className="col s10">
-        <label className={`${classes.periodo} blue-tec`}>{periodo_string} {year}</label>
+        <label className={`${classes.periodo} blue-tec`}>Colaborador: {asignacion.colaborador.nombre_completo} </label>
         <br/>
         <label className={`${classes.colab} truncate blue-tec-dark`}>
           <PersonIcon className={classes.iconLabel}/>
-          {asignacion.colaborador.nombre_completo} | Evaluación: {evaluacion[asignacion.evaluacion]}
+          Alumno: {asignacion.estudiante.nombre_completo}
         </label>
       </div>
       <div className={`col s2`}>
@@ -104,4 +106,4 @@ const styles = theme => ({
   }
 });
 
-export default withStyles(styles)(ItemPeriodo);
+export default withStyles(styles)(ItemAdministrator);

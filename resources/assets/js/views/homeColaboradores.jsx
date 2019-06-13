@@ -1,19 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import CardEstudiante from './cardEstudiante';
-import ItemBecario from './itemBecario';
-import ReglamentoModal from './reglamentoModal';
-import EvaluacionModal from './evaluacionModal';
 import { withStyles } from '@material-ui/core/styles';
 import { MuiThemeProvider } from '@material-ui/core/styles';
-import defaultTheme from '../theme';
 import Select from '@material-ui/core/Select';
 import FormControl from '@material-ui/core/FormControl';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 import Button from '@material-ui/core/Button';
-import { ListIcon } from './icons';
+
+import CardEstudiante from '../components/colaborador/cardEstudiante';
+import ItemBecario from '../components/colaborador/itemBecario';
+import ReglamentoModal from '../components/reglamentoModal';
+import EvaluacionModal from '../components/colaborador/evaluacionModal';
+import defaultTheme from '../theme';
+import { ListIcon } from '../icons';
 
 const Home = ({ classes, colaborador_html }) => {
   const [colaborador, setColaborador] = React.useState(false);

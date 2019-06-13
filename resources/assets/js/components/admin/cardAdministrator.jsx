@@ -1,11 +1,11 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { MuiThemeProvider } from '@material-ui/core/styles';
-import defaultTheme from '../theme';
 import Button from '@material-ui/core/Button';
-import {SchoolIcon, InfoIcon, PersonIcon, SupervisorIcon} from './icons';
-import { CloseIcon, CheckIcon} from './icons';
 import axios from 'axios'; 
+
+import defaultTheme from '../../theme';
+import {CloseIcon, CheckIcon, SchoolIcon, InfoIcon, PersonIcon, SupervisorIcon} from '../../icons';
 
 const CardAdministrator = ({classes, asignacion, pop}) => {
   const semestre = ['','Primero', 'Segundo', 'Tercero', 'Cuarto', 'Quinto', 'Sexto', 'Septimo', 'Octavo', 'Noveno'];

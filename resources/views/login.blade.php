@@ -16,5 +16,5 @@
 
 @section('js')
 
-<script src="{{ asset('/js/views/login.js') }}"></script>
+<script src="{{ asset('/js/views/loginEstudiante.js') }}"></script>
 @endsection

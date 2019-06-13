@@ -3,9 +3,10 @@ import Modal from '@material-ui/core/Modal';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import { MuiThemeProvider } from '@material-ui/core/styles';
-import defaultTheme from '../theme';
-import {PersonIcon, PersonEditIcon, CloseIcon, CheckIcon } from './icons';
 import axios from 'axios'; 
+
+import defaultTheme from '../../theme';
+import {PersonIcon, PersonEditIcon, CloseIcon, CheckIcon } from '../../icons';
 
 const EvaluacionAlumno = (props) => {
   const {classes, asignacion, index, evaluaciones, setEvaluaciones} = props;

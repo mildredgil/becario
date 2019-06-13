@@ -1,15 +1,19 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { MuiThemeProvider } from '@material-ui/core/styles';
-import defaultTheme from '../theme';
 import Button from '@material-ui/core/Button';
-import {SchoolIcon, EmailIcon, LocationIcon, PhoneIcon, PersonIcon} from './icons';
 
-const CardColaborador = ({classes, asignacion}) => {
-  let evaluacion = ['Pendiente', 'Satisfactorio', 'Insatisfactorio'];
+import defaultTheme from '../../theme';
+import {SchoolIcon, EmailIcon, PhoneIcon, PersonIcon, InfoIcon} from '../../icons';
 
+const CardEstudiante = ({classes, asignacion}) => {
+  const evaluacion = ['Pendiente', 'Satisfactoria', 'Insatisfactoria'];
+  const semestre = ['','Primero', 'Segundo', 'Tercero', 'Cuarto', 'Quinto', 'Sexto', 'Septimo', 'Octavo', 'Noveno'];
+  
   if(asignacion == false) {
     return null;
+  } else {
+    console.log(asignacion);
   }
 
   return (
@@ -18,54 +22,61 @@ const CardColaborador = ({classes, asignacion}) => {
         <div className="px-3 py-3">  
           <div className="row margin-0">
             <div className="col s12">
-              <label className={classes.title}>Información Colaborador</label>
+              <label className={classes.title}>Información Estudiante</label>
             </div>
           </div>
           <div className={`row margin-0 ${classes.paddingTop20}`}>
-            <div className="col s6 valign-wrapper">
+          <div className="col s3 valign-wrapper">
+              <InfoIcon className={classes.iconInfo}/>
+              <label>Matrícula</label>
+            </div>
+            <div className="col s9 valign-wrapper">
               <PersonIcon className={classes.iconLabel}/>
               <label>Nombre</label>
             </div>
-            <div className="col s6 valign-wrapper">
-              <SchoolIcon className={classes.iconSchool}/>
-              <label>Departamento</label>
-            </div>
           </div>
           <div className="row margin-0">
-            <div className="col s6">
-              <label className={classes.labelText}>{asignacion.colaborador.nombre_completo}</label>
+          <div className="col s3">
+              <label className={classes.labelText}>{asignacion.estudiante.matricula}</label>
             </div>
-            <div className="col s6">
-              <label className={classes.labelText}>{asignacion.colaborador.departamento.nombre_departamento}</label>
+            <div className="col s9">
+              <label className={classes.labelText}>{asignacion.estudiante.nombre_completo}</label>
             </div>
           </div>
           <div className={`row margin-0 ${classes.paddingTop20}`}>
-            <div className="col s6 valign-wrapper">
-              <LocationIcon className={classes.iconLabel}/>
-              <label>Oficina</label>
-            </div>
-            <div className="col s6 valign-wrapper">
-              <EmailIcon className={classes.iconLabel}/>
-              <label >Correo Electrónico</label>
-            </div>
-          </div>
-          <div className="row margin-0">
-            <div className="col s6">
-              <label className={classes.labelText}>{asignacion.colaborador.oficina}</label>
-            </div>
-            <div className="col s6">
-              <label className={classes.labelText}>{asignacion.colaborador.email}</label>
-            </div>
-          </div>
-          <div className={`row margin-0 ${classes.paddingTop20}`}>
-            <div className="col s6 valign-wrapper">
+          <div className="col s3 valign-wrapper">
               <PhoneIcon className={classes.iconLabel}/>
               <label>Teléfono</label>
             </div>
+          <div className="col s9 valign-wrapper">
+              <EmailIcon className={classes.iconLabel}/>
+              <label>Correo</label>
+            </div>
           </div>
           <div className="row margin-0">
-            <div className="col s6">
-              <label className={classes.labelText}>{asignacion.colaborador.celular}</label>
+          <div className="col s3">
+              <label className={classes.labelText}>{asignacion.estudiante.celular}</label>
+            </div>
+          <div className="col s9">
+              <label className={classes.labelText}>{asignacion.estudiante.email}</label>
+            </div>
+          </div>
+          <div className={`row margin-0 ${classes.paddingTop20}`}>
+          <div className="col s3 valign-wrapper">
+              <InfoIcon className={classes.iconInfo}/>
+              <label >Semestre</label>
+           </div>
+          <div className="col s9 valign-wrapper">
+              <SchoolIcon className={classes.iconSchool}/>
+              <label>Carrera</label>
+            </div>
+          </div>
+          <div className="row margin-0">
+          <div className="col s3">
+              <label className={classes.labelText}>{semestre[asignacion.estudiante.semestre_actual]}</label>
+            </div>
+            <div className="col s9">
+              <label className={classes.labelText}>{asignacion.estudiante.carrera.carrera_nombre}</label>
             </div>
           </div>
         </div>
@@ -73,10 +84,10 @@ const CardColaborador = ({classes, asignacion}) => {
           <div className="col s4 py-3">
               <label className={`blue-tec-dark`}>Evaluación: </label>
               <br/>
-              <label className={`${classes.status} blue-tec`}>{evaluacion[asignacion.evaluacion]}</label>
+              <label className={`${classes.status} blue-tec`}> {evaluacion[asignacion.evaluacion]}</label>
           </div>
           <div className="col s8 right-align py-3">
-            <Button variant="contained"  color="primary" href={"mailto:" + asignacion.colaborador.email}>
+            <Button variant="contained"  color="primary" href={"mailto:" + asignacion.estudiante.email}>
               <EmailIcon className={`white-text ${classes.icon}`} />
               <span className={classes.labelLogin}>Enviar correo</span>
             </Button>
@@ -111,6 +122,12 @@ const styles = theme => ({
     fontSize: '18px',
     marginRight: '0.5rem'
   }, 
+  
+  iconInfo: {
+    color:"#101010",
+    fontSize: '18px',
+    marginRight: '0.5rem'
+  }, 
 
   title: {
     fontSize: '30px',
@@ -131,6 +148,10 @@ const styles = theme => ({
     fontSize: '20px'
   },
 
+  containerWidth: {
+		maxWidth: '40%',
+  },
+  
   labelLogin: {
     fontFamily : 'Nunito',
   },
@@ -140,4 +161,4 @@ const styles = theme => ({
   }
 });
 
-export default withStyles(styles)(CardColaborador);
+export default withStyles(styles)(CardEstudiante);

@@ -4,9 +4,10 @@ import Modal from '@material-ui/core/Modal';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import { MuiThemeProvider } from '@material-ui/core/styles';
-import defaultTheme from '../theme';
 import axios from 'axios'; 
-import { PersonIcon, InfoIcon, PersonEditIcon, CloseIcon, CheckIcon, SearchIcon } from './icons';
+
+import defaultTheme from '../../theme';
+import { PersonIcon, InfoIcon, PersonEditIcon, CloseIcon, CheckIcon, SearchIcon } from '../../icons';
 
 const SolicitudBecaria = ({ classes, open, handleClose }) => {
   const [ifSearchTrue, setIfSearchTrue] = React.useState(null);

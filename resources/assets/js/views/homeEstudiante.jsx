@@ -1,11 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import CardColaborador from './cardColaborador';
-import ItemPeriodo from './itemPeriodo';
-import ReglamentoModal from './reglamentoModal';
 import { withStyles } from '@material-ui/core/styles';
 import { MuiThemeProvider } from '@material-ui/core/styles';
+
 import defaultTheme from '../theme';
+import CardColaborador from '../components/estudiante/cardColaborador';
+import ItemPeriodo from '../components/estudiante/itemPeriodo';
+import ReglamentoModal from '../components/reglamentoModal';
 
 const Home = ({classes, estudiante_html}) => {
   const [estudiante, setEstudiante] = React.useState(false);

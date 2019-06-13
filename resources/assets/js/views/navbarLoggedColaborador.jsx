@@ -3,16 +3,16 @@ import ReactDOM from 'react-dom';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import { MuiThemeProvider } from '@material-ui/core/styles';
-import defaultTheme from '../theme';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import PerfilColaboradores from './perfilColaboradores';
 import Fab from '@material-ui/core/Fab';
-import { AddIcon } from './icons';
-import ReglamentoModal from './reglamentoModal';
-import SolicitudBecaria from './solicitudBecModal';
-import { PowerIcon, PersonEditIcon, DescriptionIcon } from './icons';
 import axios from 'axios'; 
+
+import defaultTheme from '../theme';
+import PerfilColaboradores from '../components/colaborador/perfilColaboradores';
+import ReglamentoModal from '../components/reglamentoModal';
+import SolicitudBecaria from '../components/colaborador/solicitudBecModal';
+import { AddIcon, PowerIcon, PersonEditIcon, DescriptionIcon } from '../icons';
 
 const NavBar = ({ classes, colaborador_html }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);

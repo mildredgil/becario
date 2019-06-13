@@ -3,16 +3,17 @@ import ReactDOM from 'react-dom';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import { MuiThemeProvider } from '@material-ui/core/styles';
-import defaultTheme from '../theme';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import BorrarAsignModal from './borrarAsignModal';
-import CrearAsignModal from './crearAsignModal';
-import {AddIcon} from './icons';
-import ReglamentoModal from './reglamentoModal';
-import ImportarCSV from './importarCSV';
 import axios from 'axios';
-import { PowerIcon, PersonEditIcon, UpLoadIcon, DescriptionIcon, CreateIcon, DeleteIcon } from './icons';
+
+import defaultTheme from '../theme';
+import BorrarAsignModal from '../components/admin/borrarAsignModal';
+import CrearAsignModal from '../components/admin/crearAsignModal';
+import {AddIcon} from '../icons';
+import ReglamentoModal from '../components/reglamentoModal';
+import ImportarCSV from '../components/admin/importarCSV';
+import { PowerIcon, PersonEditIcon, UpLoadIcon, DescriptionIcon, CreateIcon, DeleteIcon } from '../icons';
 
 const NavBar = ({ classes }) => {
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -143,10 +144,10 @@ const NavBar = ({ classes }) => {
                   open={Boolean(anchorEl)}
                   onClose={handleClose}
                 >
-                  {/*<MenuItem onClick={handleOpenPerfil} className="valign-wrapper">
-                    <PersonEditIcon className={classes.iconLabel} />
-                    Perfil
-                  </MenuItem>*/}
+                  <MenuItem onClick={handleOpenImport} className="valign-wrapper">
+                    <UpLoadIcon className={classes.iconLabel} />
+                    CSV
+                  </MenuItem>
                   <MenuItem onClick={handleOpenReglamento} className="valign-wrapper">
                     <DescriptionIcon className={classes.iconLabel} />
                     Reglamento
@@ -164,6 +165,7 @@ const NavBar = ({ classes }) => {
         <ReglamentoModal open={openReglamento} handleClose={handleCloseReglamento} />
         <BorrarAsignModal open={openBorrarAsig} handleClose={handleCloseDelete} />
         <CrearAsignModal open={openCrearAsig} handleClose={handleCloseCreate} />
+        <ImportarCSV open={openImportarCSV} handleClose={handleCloseImport} />
       </MuiThemeProvider>
     );
   }

@@ -1,6 +1,7 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import {RightArrowIcon, PersonIcon} from './icons';
+
+import {RightArrowIcon, PersonIcon} from '../../icons';
 
 const ItemBecario = ({classes, asignacion, isSelected, handleClick}) => {
   const evaluacion = ['Pendiente', 'Satisfactoria', 'Insatisfactoria'];

@@ -4,10 +4,11 @@ import Modal from '@material-ui/core/Modal';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import { MuiThemeProvider } from '@material-ui/core/styles';
-import defaultTheme from '../theme';
-import { CloseIcon } from './icons';
 import axios from 'axios';
 import validator from 'validator';
+
+import defaultTheme from '../../theme';
+import { CloseIcon } from '../../icons';
 
 
 const ModalLoginColaborador = ({ classes, open, handleClose }) => {

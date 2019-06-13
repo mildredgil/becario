@@ -4,9 +4,10 @@ import Modal from '@material-ui/core/Modal';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import { MuiThemeProvider } from '@material-ui/core/styles';
-import defaultTheme from '../theme';
 import axios from 'axios'; 
-import {EmailIcon, PhoneIcon, PersonIcon, InfoIcon, PersonEditIcon, CloseIcon, CheckIcon } from './icons';
+
+import defaultTheme from '../../theme';
+import {EmailIcon, PhoneIcon, PersonIcon, InfoIcon, PersonEditIcon, CloseIcon, CheckIcon } from '../../icons';
 
 const PerfilColaboradores = ({ classes, open, handleClose, colaborador, setColaborador }) => {
   const [inputPhone, setInputPhone] = React.useState(colaborador.celular);

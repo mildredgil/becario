@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Modal from '@material-ui/core/Modal';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import { MuiThemeProvider } from '@material-ui/core/styles';
+
 import defaultTheme from '../theme';
-import {DownloadIcon, CloseIcon} from './icons';
+import {DownloadIcon, CloseIcon} from '../icons';
 
 const ReglamentoModal = ({classes, open, handleClose}) => {
   

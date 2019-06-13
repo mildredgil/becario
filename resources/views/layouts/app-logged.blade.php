@@ -70,7 +70,7 @@
         ]) !!};
     </script>
     <script src="{{ asset('/js/materialize.min.js') }}"></script>
-    <script src="{{ asset('/js/views/navbarLogged.js') }}"></script>
+    <script src="{{ asset('/js/views/navbarLoggedEstudiante.js') }}"></script>
     <script src="{{ asset('/js/views/footer.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     

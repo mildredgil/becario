@@ -3,13 +3,14 @@ import ReactDOM from 'react-dom';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import { MuiThemeProvider } from '@material-ui/core/styles';
-import defaultTheme from '../theme';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import PerfilEstudiantes from './perfilEstudiante';
-import ReglamentoModal from './reglamentoModal';
-import { PowerIcon, PersonEditIcon, DescriptionIcon } from './icons';
 import axios from 'axios'; 
+
+import PerfilEstudiantes from '../components/estudiante/perfilEstudiante';
+import ReglamentoModal from '../components/reglamentoModal';
+import { PowerIcon, PersonEditIcon, DescriptionIcon } from '../icons';
+import defaultTheme from '../theme';
 
 const NavBar = ({ classes, estudiante_html }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);

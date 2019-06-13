@@ -1,12 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import CardAdministrator from './cardAdministrator';
 import { withStyles } from '@material-ui/core/styles';
 import { MuiThemeProvider } from '@material-ui/core/styles';
-import defaultTheme from '../theme';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-import ItemAdministrator from './itemAdministrator';
+
+import defaultTheme from '../theme';
+import ItemAdministrator from '../components/admin/itemAdministrator';
+import CardAdministrator from '../components/admin/cardAdministrator';
 
 
 const Home = ({ classes, admin_html }) => {
