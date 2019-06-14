@@ -10,9 +10,10 @@ import validator from 'validator';
 import defaultTheme from '../../theme';
 import { CloseIcon } from '../../icons';
 
-const ModalLoginColaborador = ({ classes, open, handleClose }) => {
+const ModalRegister = ({ classes, open, handleClose }) => {
   const [inputName, setInputName] = React.useState('');
   const [inputPassword, setInputPassword] = React.useState('');
+  const [inputConfirmPassword, setInputConfirmPassword] = React.useState('');
   const [isErrorName, setErrorName] = React.useState(false);
   const [isErrorPWD, setErrorPWD] = React.useState(false);
   const [onChange, setChange] = React.useState(false);
@@ -25,8 +26,12 @@ const ModalLoginColaborador = ({ classes, open, handleClose }) => {
     setInputPassword(event.target.value);
   }
 
+  const onChangeConfirmPassword = (event) => {
+    setInputConfirmPassword(event.target.value);
+  }
+
   const onSave = () => {
-    if ((!validator.isLength(inputName, { min: 9, max: 9 })) || (!validator.matches(inputName, /^[aA]\d{8}/)))
+    if ((!validator.isLength(inputName, { min: 9, max: 9 })) || (!validator.matches(inputName, /^[lL]\d{8}/)))
       setErrorName(true);
     else
       setErrorName(false);
@@ -69,7 +74,7 @@ const ModalLoginColaborador = ({ classes, open, handleClose }) => {
                 <div className="row">
                   <div className="col s12 center-align">
                     <label className={classes.titleHeader}>
-                      Inicio
+                      Registro
                     </label>
                   </div>
                   <div className="col s12">
@@ -79,7 +84,7 @@ const ModalLoginColaborador = ({ classes, open, handleClose }) => {
                     <br></br>
                     <label className={classes.labelText}>
                       En esta plataforma encontrarás con quién realizarás tu servicio becario este Verano 2019.
-                      </label>
+                    </label>
                   </div>
                 </div>
                 <div className="row no-margin">
@@ -115,11 +120,28 @@ const ModalLoginColaborador = ({ classes, open, handleClose }) => {
                     />
                   </div>
                 </div>
+                <div className="row">
+                  <div className="col s12 center-align">
+                    <TextField
+                      classes={{ focused: classes.colorFocused }}
+                      fullWidth
+                      id="password"
+                      label="Confirmar Contraseña:"
+                      type="password"
+                      value={inputConfirmPassword}
+                      onChange={onChangeConfirmPassword}
+                      margin="normal"
+                      variant="outlined"
+                      error={isErrorPWD}
+                      helperText={isErrorPWD && 'Este campo es requerido.'}
+                    />
+                  </div>
+                </div>
                 <div className="row no-margin">
                   <div className="col s12">
                     <Button fullWidth variant="contained" color="primary" onClick={onSave}>
-                      Iniciar Sesión
-                </Button>
+                      Registrarse
+                    </Button>
                   </div>
                 </div>
               </div>
@@ -148,11 +170,15 @@ const styles = theme => ({
     textAlign: 'center',
   },
 
+  titleHeader: {
+    fontSize: '24px',
+    color: '#000',
+  },
+
   labelText: {
     fontSize: '14px',
     color: '#000',
   },
-  
   closeIcon: {
     color: 'black',
     position: 'absolute',
@@ -160,14 +186,8 @@ const styles = theme => ({
     top: '12px',
     fontSize: '18px',
   },
-  
   modalRoot: {
     top: '20%',
-  },
-
-  titleHeader: {
-    fontSize: '24px',
-    color: '#000',
   },
 
   containerWidth: {
@@ -179,4 +199,4 @@ const styles = theme => ({
   }
 });
 
-export default withStyles(styles)(ModalLoginColaborador);
+export default withStyles(styles)(ModalRegister);

@@ -4,7 +4,7 @@ import { MuiThemeProvider } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 
 import defaultTheme from '../../theme';
-import {SchoolIcon, EmailIcon, PhoneIcon, PersonIcon, InfoIcon} from '../../icons';
+import {SchoolIcon, EmailIcon, PhoneIcon, PersonIcon, InfoIcon, CloseIcon, CheckIcon} from '../../icons';
 
 const CardEstudiante = ({classes, asignacion}) => {
   const evaluacion = ['Pendiente', 'Satisfactoria', 'Insatisfactoria'];
@@ -78,6 +78,20 @@ const CardEstudiante = ({classes, asignacion}) => {
             <div className="col s9">
               <label className={classes.labelText}>{asignacion.estudiante.carrera.carrera_nombre}</label>
             </div>
+          </div>
+        </div>
+        <div className="row margin-0 valign-wrapper px-3"> 
+          <div className="col s6 center-align py-3">
+            <Button variant="contained"  color="primary" className="green">
+              <CheckIcon className={`white-text ${classes.iconLabel}`} />
+              <span className={classes.labelLogin}>Aceptar</span>
+            </Button>
+          </div>
+          <div className="col s6 center-align py-3">
+            <Button variant="contained"  color="primary" className="red">
+              <CloseIcon className={`white-text ${classes.iconLabel}`} />
+              <span className={classes.labelLogin}>Rechazar</span>
+            </Button>
           </div>
         </div>
         <div className="row margin-0 blue-tec-light-b valign-wrapper px-3">

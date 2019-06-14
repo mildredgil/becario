@@ -72957,6 +72957,38 @@ var CardEstudiante = function CardEstudiante(_ref) {
       ),
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
+        { className: 'row margin-0 valign-wrapper px-3' },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'div',
+          { className: 'col s6 center-align py-3' },
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            __WEBPACK_IMPORTED_MODULE_2__material_ui_core_Button___default.a,
+            { variant: 'contained', color: 'primary', className: 'green' },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__icons__["b" /* CheckIcon */], { className: 'white-text ' + classes.iconLabel }),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'span',
+              { className: classes.labelLogin },
+              'Aceptar'
+            )
+          )
+        ),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'div',
+          { className: 'col s6 center-align py-3' },
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            __WEBPACK_IMPORTED_MODULE_2__material_ui_core_Button___default.a,
+            { variant: 'contained', color: 'primary', className: 'red' },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__icons__["c" /* CloseIcon */], { className: 'white-text ' + classes.iconLabel }),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'span',
+              { className: classes.labelLogin },
+              'Rechazar'
+            )
+          )
+        )
+      ),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'div',
         { className: 'row margin-0 blue-tec-light-b valign-wrapper px-3' },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'div',

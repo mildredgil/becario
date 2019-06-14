@@ -73071,7 +73071,24 @@ var SolicitudBecaria = function SolicitudBecaria(_ref) {
                                 { className: classes.title + ' blue-tec' },
                                 'Solicitud becaria'
                             )
-                        ),
+                        )
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { className: 'row margin-0' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'div',
+                            { className: 'col s12' },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                'label',
+                                null,
+                                'Puedes hacer la busqueda por por el nombre y matricula del alumno si lo conoces, o bien buscar opciones por carrera y/o semestre'
+                            )
+                        )
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { className: 'row margin-0' },
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'div',
                             { className: 'col s6 mb-2 mt-4 valign-wrapper' },
@@ -73091,7 +73108,11 @@ var SolicitudBecaria = function SolicitudBecaria(_ref) {
                                 null,
                                 'Nombre'
                             )
-                        ),
+                        )
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { className: 'row margin-0' },
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'div',
                             { className: 'col s6' },
@@ -73115,48 +73136,120 @@ var SolicitudBecaria = function SolicitudBecaria(_ref) {
                                 onChange: onChangeNomina,
                                 variant: 'outlined'
                             })
-                        ),
+                        )
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { className: 'row center-align mb-0 mt-5' },
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'div',
-                            { className: 'row center-align mb-0' },
+                            { className: 'col s6 center-align' },
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'div',
-                                { className: 'col s12 mb-2 mt-4' },
+                                __WEBPACK_IMPORTED_MODULE_3__material_ui_core_Button___default.a,
+                                { onClick: searchClick, variant: 'contained', className: '' + classes.labelCheckV },
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["b" /* CheckIcon */], { className: 'white-text ' + classes.labelSearch }),
                                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                    'div',
-                                    { className: 'col s2 offset-s5' },
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                        __WEBPACK_IMPORTED_MODULE_3__material_ui_core_Button___default.a,
-                                        { onClick: searchClick, variant: 'contained', className: '' + classes.labelCheckV },
-                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["b" /* CheckIcon */], { className: 'white-text ' + classes.labelSearch }),
-                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                            'span',
-                                            { className: 'white-text ' + classes.labelLogin },
-                                            'Buscar'
-                                        )
-                                    )
+                                    'span',
+                                    { className: 'white-text ' + classes.labelLogin },
+                                    'Buscar'
                                 )
                             )
                         ),
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'div',
-                            { className: 'row center-align mb-0' },
+                            { className: 'col s6 center-align' },
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'div',
-                                { className: 'col s12 mb-2 mt-4' },
+                                __WEBPACK_IMPORTED_MODULE_3__material_ui_core_Button___default.a,
+                                { disabled: true, onClick: searchClick, variant: 'contained', className: '' + classes.labelCheckV },
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["b" /* CheckIcon */], { className: 'white-text ' + classes.labelSearch }),
                                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                    'div',
-                                    { className: 'col s2 offset-s5' },
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                        __WEBPACK_IMPORTED_MODULE_3__material_ui_core_Button___default.a,
-                                        { disabled: true, onClick: searchClick, variant: 'contained', className: '' + classes.labelCheckV },
-                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["b" /* CheckIcon */], { className: 'white-text ' + classes.labelSearch }),
-                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                            'span',
-                                            { className: 'white-text ' + classes.labelLogin },
-                                            'Aceptar'
-                                        )
-                                    )
+                                    'span',
+                                    { className: 'white-text ' + classes.labelLogin },
+                                    'Aceptar'
+                                )
+                            )
+                        )
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { className: 'row margin-0' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'div',
+                            { className: 'col s6 mb-2 mt-4 valign-wrapper' },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["m" /* PersonIcon */], { className: classes.iconLabel }),
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                'label',
+                                null,
+                                'Semestre'
+                            )
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'div',
+                            { className: 'col s6 mb-2 mt-4 valign-wrapper' },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["i" /* InfoIcon */], { className: classes.iconInfo }),
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                'label',
+                                null,
+                                'Carrera'
+                            )
+                        )
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { className: 'row margin-0' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'div',
+                            { className: 'col s6' },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__material_ui_core_TextField___default.a, {
+                                fullWidth: true,
+                                id: 'outlined-bare',
+                                classes: { root: classes.labelText },
+                                value: inputMatricula,
+                                onChange: onChangeMatricula,
+                                variant: 'outlined'
+                            })
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'div',
+                            { className: 'col s6' },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__material_ui_core_TextField___default.a, {
+                                fullWidth: true,
+                                id: 'outlined-bare',
+                                classes: { root: classes.labelText },
+                                value: inputNomina,
+                                onChange: onChangeNomina,
+                                variant: 'outlined'
+                            })
+                        )
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { className: 'row center-align mb-0 mt-5' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'div',
+                            { className: 'col s6 center-align' },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                __WEBPACK_IMPORTED_MODULE_3__material_ui_core_Button___default.a,
+                                { onClick: searchClick, variant: 'contained', className: '' + classes.labelCheckV },
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["b" /* CheckIcon */], { className: 'white-text ' + classes.labelSearch }),
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                    'span',
+                                    { className: 'white-text ' + classes.labelLogin },
+                                    'Buscar'
+                                )
+                            )
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'div',
+                            { className: 'col s6 center-align' },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                __WEBPACK_IMPORTED_MODULE_3__material_ui_core_Button___default.a,
+                                { disabled: true, onClick: searchClick, variant: 'contained', className: '' + classes.labelCheckV },
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__icons__["b" /* CheckIcon */], { className: 'white-text ' + classes.labelSearch }),
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                    'span',
+                                    { className: 'white-text ' + classes.labelLogin },
+                                    'Aceptar'
                                 )
                             )
                         )

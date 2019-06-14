@@ -58,58 +58,107 @@ const SolicitudBecaria = ({ classes, open, handleClose }) => {
                   <div className="card px-5 py-3 my-0">
                       <CloseIcon onClick={handleClose} className= {classes.closeIcon}/>
                       <div className="row margin-0">
-                          <div className={`col s12 valign-wrapper`}>
-                              <PersonEditIcon className={classes.iconEditLabel} />
-                              <label className={`${classes.title} blue-tec`}>Solicitud becaria</label>
-                          </div>
-                          <div className="col s6 mb-2 mt-4 valign-wrapper">
-                              <PersonIcon className={classes.iconLabel} />
-                              <label>Matrícula</label>
-                          </div>
-                          <div className="col s6 mb-2 mt-4 valign-wrapper">
-                              <InfoIcon className={classes.iconInfo} />
-                              <label>Nombre</label>
-                          </div>
-                          <div className="col s6">
-                              <TextField
-                                  fullWidth
-                                  id="outlined-bare"
-                                  classes={{ root: classes.labelText }}
-                                  value={inputMatricula}
-                                  onChange={onChangeMatricula}
-                                  variant="outlined"
-                              />
-                          </div>
-                          <div className="col s6">
-                              <TextField
-                                  fullWidth
-                                  id="outlined-bare"
-                                  classes={{ root: classes.labelText }}
-                                  value={inputNomina}
-                                    onChange={onChangeNomina}
-                                  variant="outlined"
-                              />
-                          </div>
-                          <div className="row center-align mb-0">
-                            <div className="col s12 mb-2 mt-4">
-                                <div className="col s2 offset-s5">
-                                    <Button onClick={searchClick} variant="contained" className={`${classes.labelCheckV}`}>
-                                        <CheckIcon className={`white-text ${classes.labelSearch}`}/>
-                                        <span className={`white-text ${classes.labelLogin}`}>Buscar</span>
-                                    </Button>
-                                </div>
-                            </div>
-                          </div>
-                          <div className="row center-align mb-0">
-                            <div className="col s12 mb-2 mt-4">
-                                <div className="col s2 offset-s5">
-                                    <Button disabled={true} onClick={searchClick} variant="contained" className={`${classes.labelCheckV}`}>
-                                        <CheckIcon className={`white-text ${classes.labelSearch}`}/>
-                                        <span className={`white-text ${classes.labelLogin}`}>Aceptar</span>
-                                    </Button>
-                                </div>
-                            </div>
-                          </div>
+                        <div className={`col s12 valign-wrapper`}>
+                            <PersonEditIcon className={classes.iconEditLabel} />
+                            <label className={`${classes.title} blue-tec`}>Solicitud becaria</label>
+                        </div>
+                      </div>
+                      <div className="row margin-0">
+                        <div className="col s12">
+                          <label>Puedes hacer la busqueda por por el nombre y matricula del alumno si lo conoces, o bien buscar opciones por carrera y/o semestre</label>
+                        </div>
+                      </div>
+                      <div className="row margin-0">
+                        <div className="col s6 mb-2 mt-4 valign-wrapper">
+                            <PersonIcon className={classes.iconLabel} />
+                            <label>Matrícula</label>
+                        </div>
+                        <div className="col s6 mb-2 mt-4 valign-wrapper">
+                            <InfoIcon className={classes.iconInfo} />
+                            <label>Nombre</label>
+                        </div>
+                      </div>
+                      <div className="row margin-0">
+                        <div className="col s6">
+                            <TextField
+                              fullWidth
+                              id="outlined-bare"
+                              classes={{ root: classes.labelText }}
+                              value={inputMatricula}
+                              onChange={onChangeMatricula}
+                              variant="outlined"
+                            />
+                        </div>
+                        <div className="col s6">
+                            <TextField
+                              fullWidth
+                              id="outlined-bare"
+                              classes={{ root: classes.labelText }}
+                              value={inputNomina}
+                                onChange={onChangeNomina}
+                              variant="outlined"
+                            />
+                        </div>
+                      </div>
+                      <div className="row center-align mb-0 mt-5">
+                        <div className="col s6 center-align">
+                          <Button onClick={searchClick} variant="contained" className={`${classes.labelCheckV}`}>
+                              <CheckIcon className={`white-text ${classes.labelSearch}`}/>
+                              <span className={`white-text ${classes.labelLogin}`}>Buscar</span>
+                          </Button>
+                        </div>
+                        <div className="col s6 center-align">
+                          <Button disabled={true} onClick={searchClick} variant="contained" className={`${classes.labelCheckV}`}>
+                              <CheckIcon className={`white-text ${classes.labelSearch}`}/>
+                              <span className={`white-text ${classes.labelLogin}`}>Aceptar</span>
+                          </Button>
+                        </div>
+                      </div>
+                      <div className="row margin-0">
+                        <div className="col s6 mb-2 mt-4 valign-wrapper">
+                            <PersonIcon className={classes.iconLabel} />
+                            <label>Semestre</label>
+                        </div>
+                        <div className="col s6 mb-2 mt-4 valign-wrapper">
+                            <InfoIcon className={classes.iconInfo} />
+                            <label>Carrera</label>
+                        </div>
+                      </div>
+                      <div className="row margin-0">
+                        <div className="col s6">
+                            <TextField
+                                fullWidth
+                                id="outlined-bare"
+                                classes={{ root: classes.labelText }}
+                                value={inputMatricula}
+                                onChange={onChangeMatricula}
+                                variant="outlined"
+                            />
+                        </div>
+                        <div className="col s6">
+                            <TextField
+                                fullWidth
+                                id="outlined-bare"
+                                classes={{ root: classes.labelText }}
+                                value={inputNomina}
+                                  onChange={onChangeNomina}
+                                variant="outlined"
+                            />
+                        </div>
+                      </div>
+                      <div className="row center-align mb-0 mt-5">
+                        <div className="col s6 center-align">
+                          <Button onClick={searchClick} variant="contained" className={`${classes.labelCheckV}`}>
+                              <CheckIcon className={`white-text ${classes.labelSearch}`}/>
+                              <span className={`white-text ${classes.labelLogin}`}>Buscar</span>
+                          </Button>
+                        </div>
+                        <div className="col s6 center-align">
+                          <Button disabled={true} onClick={searchClick} variant="contained" className={`${classes.labelCheckV}`}>
+                              <CheckIcon className={`white-text ${classes.labelSearch}`}/>
+                              <span className={`white-text ${classes.labelLogin}`}>Aceptar</span>
+                          </Button>
+                        </div>
                       </div>
                   </div> 
                   {mensaje != '' ? 

@@ -75605,7 +75605,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__material_ui_core_styles__ = __webpack_require__(24);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__material_ui_core_styles___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__material_ui_core_styles__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__theme__ = __webpack_require__(80);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_login_modalLoginColaborador__ = __webpack_require__(541);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_login_modalRegister__ = __webpack_require__(541);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_login_modalLoginEstudiante__ = __webpack_require__(542);
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
@@ -75620,7 +75620,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-var LoginButton = function LoginButton(_ref) {
+var LoginEstudiante = function LoginEstudiante(_ref) {
   var classes = _ref.classes;
 
   var _React$useState = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(false),
@@ -75693,7 +75693,7 @@ var LoginButton = function LoginButton(_ref) {
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'label',
               { className: (hoverE ? classes.userHover : '') + ' ' + classes.user + ' ' + classes.userStudent },
-              'Alumno'
+              'Inicio'
             ),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'svg',
@@ -75716,7 +75716,7 @@ var LoginButton = function LoginButton(_ref) {
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'label',
               { className: (hoverC ? classes.userHover : '') + ' ' + classes.user + ' ' + classes.userProfessor },
-              'Colaborador'
+              'Registro'
             ),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'svg',
@@ -75728,7 +75728,7 @@ var LoginButton = function LoginButton(_ref) {
         )
       )
     ),
-    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__components_login_modalLoginColaborador__["a" /* default */], { open: openC, handleClose: handleCloseModalC }),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__components_login_modalRegister__["a" /* default */], { open: openC, handleClose: handleCloseModalC }),
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__components_login_modalLoginEstudiante__["a" /* default */], { open: openE, handleClose: handleCloseModalE })
   );
 };
@@ -75806,7 +75806,7 @@ var styles = function styles(theme) {
   }, '@media (max-width: ' + maxWidth + 'px)', {});
 };
 
-var _Login = Object(__WEBPACK_IMPORTED_MODULE_2__material_ui_core_styles__["withStyles"])(styles)(LoginButton);
+var _Login = Object(__WEBPACK_IMPORTED_MODULE_2__material_ui_core_styles__["withStyles"])(styles)(LoginEstudiante);
 
 if (document.getElementById('content')) {
   __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(_Login, null), document.getElementById('content'));
@@ -75849,7 +75849,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-var ModalLoginColaborador = function ModalLoginColaborador(_ref) {
+var ModalRegister = function ModalRegister(_ref) {
   var classes = _ref.classes,
       open = _ref.open,
       handleClose = _ref.handleClose;
@@ -75864,20 +75864,25 @@ var ModalLoginColaborador = function ModalLoginColaborador(_ref) {
       inputPassword = _React$useState4[0],
       setInputPassword = _React$useState4[1];
 
-  var _React$useState5 = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(false),
+  var _React$useState5 = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(''),
       _React$useState6 = _slicedToArray(_React$useState5, 2),
-      isErrorName = _React$useState6[0],
-      setErrorName = _React$useState6[1];
+      inputConfirmPassword = _React$useState6[0],
+      setInputConfirmPassword = _React$useState6[1];
 
   var _React$useState7 = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(false),
       _React$useState8 = _slicedToArray(_React$useState7, 2),
-      isErrorPWD = _React$useState8[0],
-      setErrorPWD = _React$useState8[1];
+      isErrorName = _React$useState8[0],
+      setErrorName = _React$useState8[1];
 
   var _React$useState9 = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(false),
       _React$useState10 = _slicedToArray(_React$useState9, 2),
-      onChange = _React$useState10[0],
-      setChange = _React$useState10[1];
+      isErrorPWD = _React$useState10[0],
+      setErrorPWD = _React$useState10[1];
+
+  var _React$useState11 = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(false),
+      _React$useState12 = _slicedToArray(_React$useState11, 2),
+      onChange = _React$useState12[0],
+      setChange = _React$useState12[1];
 
   var onChangeName = function onChangeName(event) {
     setInputName(event.target.value);
@@ -75885,6 +75890,10 @@ var ModalLoginColaborador = function ModalLoginColaborador(_ref) {
 
   var onChangePassword = function onChangePassword(event) {
     setInputPassword(event.target.value);
+  };
+
+  var onChangeConfirmPassword = function onChangeConfirmPassword(event) {
+    setInputConfirmPassword(event.target.value);
   };
 
   var onSave = function onSave() {
@@ -75901,7 +75910,6 @@ var ModalLoginColaborador = function ModalLoginColaborador(_ref) {
   }, [isErrorName, isErrorPWD, onChange]);
 
   var login = function login() {
-
     __WEBPACK_IMPORTED_MODULE_5_axios___default.a.post("/get/login", {
       username: inputName,
       password: inputPassword
@@ -75940,6 +75948,15 @@ var ModalLoginColaborador = function ModalLoginColaborador(_ref) {
                 { className: 'row' },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                   'div',
+                  { className: 'col s12 center-align' },
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'label',
+                    { className: classes.titleHeader },
+                    'Registro'
+                  )
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  'div',
                   { className: 'col s12' },
                   __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'label',
@@ -75950,7 +75967,7 @@ var ModalLoginColaborador = function ModalLoginColaborador(_ref) {
                   __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'label',
                     { className: classes.labelText },
-                    'En esta plataforma encontrar\xE1s qui\xE9n te apoyar\xE1 como becario este Verano 2019.'
+                    'En esta plataforma encontrar\xE1s con qui\xE9n realizar\xE1s tu servicio becario este Verano 2019.'
                   )
                 )
               ),
@@ -75964,7 +75981,7 @@ var ModalLoginColaborador = function ModalLoginColaborador(_ref) {
                     classes: { focused: classes.colorFocused },
                     fullWidth: true,
                     id: 'username',
-                    label: 'N\xF3mina:',
+                    label: 'Matr\xEDcula:',
                     value: inputName,
                     onChange: onChangeName,
                     margin: 'normal',
@@ -75997,6 +76014,27 @@ var ModalLoginColaborador = function ModalLoginColaborador(_ref) {
               ),
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
+                { className: 'row' },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  'div',
+                  { className: 'col s12 center-align' },
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__material_ui_core_TextField___default.a, {
+                    classes: { focused: classes.colorFocused },
+                    fullWidth: true,
+                    id: 'password',
+                    label: 'Confirmar Contrase\xF1a:',
+                    type: 'password',
+                    value: inputConfirmPassword,
+                    onChange: onChangeConfirmPassword,
+                    margin: 'normal',
+                    variant: 'outlined',
+                    error: isErrorPWD,
+                    helperText: isErrorPWD && 'Este campo es requerido.'
+                  })
+                )
+              ),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
                 { className: 'row no-margin' },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                   'div',
@@ -76004,7 +76042,7 @@ var ModalLoginColaborador = function ModalLoginColaborador(_ref) {
                   __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     __WEBPACK_IMPORTED_MODULE_3__material_ui_core_Button___default.a,
                     { fullWidth: true, variant: 'contained', color: 'primary', onClick: onSave },
-                    'Iniciar Sesi\xF3n'
+                    'Registrarse'
                   )
                 )
               )
@@ -76034,6 +76072,11 @@ var styles = function styles(theme) {
       textAlign: 'center'
     },
 
+    titleHeader: {
+      fontSize: '24px',
+      color: '#000'
+    },
+
     labelText: {
       fontSize: '14px',
       color: '#000'
@@ -76056,7 +76099,7 @@ var styles = function styles(theme) {
   }, '@media (max-width: ' + maxWidth + 'px)', {});
 };
 
-/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_4__material_ui_core_styles__["withStyles"])(styles)(ModalLoginColaborador));
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_4__material_ui_core_styles__["withStyles"])(styles)(ModalRegister));
 
 /***/ }),
 /* 542 */
@@ -76185,6 +76228,15 @@ var ModalLoginColaborador = function ModalLoginColaborador(_ref) {
                 { className: 'row' },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                   'div',
+                  { className: 'col s12 center-align' },
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'label',
+                    { className: classes.titleHeader },
+                    'Inicio'
+                  )
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  'div',
                   { className: 'col s12' },
                   __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'label',
@@ -76283,6 +76335,7 @@ var styles = function styles(theme) {
       fontSize: '14px',
       color: '#000'
     },
+
     closeIcon: {
       color: 'black',
       position: 'absolute',
@@ -76290,8 +76343,14 @@ var styles = function styles(theme) {
       top: '12px',
       fontSize: '18px'
     },
+
     modalRoot: {
       top: '20%'
+    },
+
+    titleHeader: {
+      fontSize: '24px',
+      color: '#000'
     },
 
     containerWidth: {
