@@ -42,13 +42,22 @@ const ImportarCSV = ({ classes, open, handleClose }) => {
                                     <span className={classes.labelLogin}>Tabla colaboradores</span>
                                 </div>
                                 <div className="col s6 center-align">
-                                    <Button
-                                        onClick={searchClick}
-                                        variant="contained"
-                                        color="primary">
-                                        <DescriptionIcon className={`white-text ${classes.labelSearch}`}/>
-                                        <span className={classes.labelUpload}>Subir archivo</span>
-                                    </Button>
+                                  <Button
+                                    variant="contained"
+                                    component="label"
+                                    onClick={searchClick}
+                                    variant="contained"
+                                    color="primary"
+                                  >
+                                    <DescriptionIcon className={`white-text ${classes.labelSearch}`}/>
+                                    <span className={classes.labelUpload}>Subir archivo</span>
+                                    <input
+                                      type="file"
+                                      accept="image/*"
+                                      className={classes.input}
+                                      style={{ display: 'none' }}
+                                    />
+                                  </Button>
                                 </div> 
                             </div>                           
                             <div className="row valign-wrapper">
@@ -58,10 +67,20 @@ const ImportarCSV = ({ classes, open, handleClose }) => {
                                 <div className="col s6 center-align">
                                 <Button
                                     variant="contained"
-                                    color="primary">
+                                    component="label"
+                                    onClick={searchClick}
+                                    variant="contained"
+                                    color="primary"
+                                  >
                                     <DescriptionIcon className={`white-text ${classes.labelSearch}`}/>
                                     <span className={classes.labelUpload}>Subir archivo</span>
-                                </Button>
+                                    <input
+                                      type="file"
+                                      accept="image/*"
+                                      className={classes.input}
+                                      style={{ display: 'none' }}
+                                    />
+                                  </Button>
                                 </div>
                             </div>
                             <div className="row valign-wrapper">

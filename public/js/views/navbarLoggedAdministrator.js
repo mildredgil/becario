@@ -76903,6 +76903,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 var ImportarCSV = function ImportarCSV(_ref) {
+    var _React$createElement, _React$createElement2;
+
     var classes = _ref.classes,
         open = _ref.open,
         handleClose = _ref.handleClose;
@@ -76970,16 +76972,23 @@ var ImportarCSV = function ImportarCSV(_ref) {
                             { className: 'col s6 center-align' },
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                 __WEBPACK_IMPORTED_MODULE_3__material_ui_core_Button___default.a,
-                                {
-                                    onClick: searchClick,
+                                (_React$createElement = {
                                     variant: 'contained',
-                                    color: 'primary' },
+                                    component: 'label',
+                                    onClick: searchClick
+                                }, _defineProperty(_React$createElement, 'variant', 'contained'), _defineProperty(_React$createElement, 'color', 'primary'), _React$createElement),
                                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_6__icons__["f" /* DescriptionIcon */], { className: 'white-text ' + classes.labelSearch }),
                                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                     'span',
                                     { className: classes.labelUpload },
                                     'Subir archivo'
-                                )
+                                ),
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', {
+                                    type: 'file',
+                                    accept: 'image/*',
+                                    className: classes.input,
+                                    style: { display: 'none' }
+                                })
                             )
                         )
                     ),
@@ -77000,15 +77009,23 @@ var ImportarCSV = function ImportarCSV(_ref) {
                             { className: 'col s6 center-align' },
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                 __WEBPACK_IMPORTED_MODULE_3__material_ui_core_Button___default.a,
-                                {
+                                (_React$createElement2 = {
                                     variant: 'contained',
-                                    color: 'primary' },
+                                    component: 'label',
+                                    onClick: searchClick
+                                }, _defineProperty(_React$createElement2, 'variant', 'contained'), _defineProperty(_React$createElement2, 'color', 'primary'), _React$createElement2),
                                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_6__icons__["f" /* DescriptionIcon */], { className: 'white-text ' + classes.labelSearch }),
                                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                     'span',
                                     { className: classes.labelUpload },
                                     'Subir archivo'
-                                )
+                                ),
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', {
+                                    type: 'file',
+                                    accept: 'image/*',
+                                    className: classes.input,
+                                    style: { display: 'none' }
+                                })
                             )
                         )
                     ),
