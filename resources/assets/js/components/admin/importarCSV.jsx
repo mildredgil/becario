@@ -84,6 +84,52 @@ const ImportarCSV = ({ classes, open, handleClose }) => {
                                 </div>
                             </div>
                             <div className="row valign-wrapper">
+                                <div className="col s6 left-align">
+                                    <span className={classes.labelLogin}>Tabla carreras</span>
+                                </div>
+                                <div className="col s6 center-align">
+                                <Button
+                                    variant="contained"
+                                    component="label"
+                                    onClick={searchClick}
+                                    variant="contained"
+                                    color="primary"
+                                  >
+                                    <DescriptionIcon className={`white-text ${classes.labelSearch}`}/>
+                                    <span className={classes.labelUpload}>Subir archivo</span>
+                                    <input
+                                      type="file"
+                                      accept="image/*"
+                                      className={classes.input}
+                                      style={{ display: 'none' }}
+                                    />
+                                  </Button>
+                                </div>
+                            </div>
+                            <div className="row valign-wrapper">
+                                <div className="col s6 left-align">
+                                    <span className={classes.labelLogin}>Tabla asignaciones específicas</span>
+                                </div>
+                                <div className="col s6 center-align">
+                                <Button
+                                    variant="contained"
+                                    component="label"
+                                    onClick={searchClick}
+                                    variant="contained"
+                                    color="primary"
+                                  >
+                                    <DescriptionIcon className={`white-text ${classes.labelSearch}`}/>
+                                    <span className={classes.labelUpload}>Subir archivo</span>
+                                    <input
+                                      type="file"
+                                      accept="image/*"
+                                      className={classes.input}
+                                      style={{ display: 'none' }}
+                                    />
+                                  </Button>
+                                </div>
+                            </div>
+                            <div className="row valign-wrapper">
                                 <div className="col s12">
                                 <label className={classes.labelLittle}>Nota: Los archivos deben ser tipo ".csv".</label>
                                 </div> 

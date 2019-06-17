@@ -76903,7 +76903,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 var ImportarCSV = function ImportarCSV(_ref) {
-    var _React$createElement, _React$createElement2;
+    var _React$createElement, _React$createElement2, _React$createElement3, _React$createElement4;
 
     var classes = _ref.classes,
         open = _ref.open,
@@ -77014,6 +77014,80 @@ var ImportarCSV = function ImportarCSV(_ref) {
                                     component: 'label',
                                     onClick: searchClick
                                 }, _defineProperty(_React$createElement2, 'variant', 'contained'), _defineProperty(_React$createElement2, 'color', 'primary'), _React$createElement2),
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_6__icons__["f" /* DescriptionIcon */], { className: 'white-text ' + classes.labelSearch }),
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                    'span',
+                                    { className: classes.labelUpload },
+                                    'Subir archivo'
+                                ),
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', {
+                                    type: 'file',
+                                    accept: 'image/*',
+                                    className: classes.input,
+                                    style: { display: 'none' }
+                                })
+                            )
+                        )
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { className: 'row valign-wrapper' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'div',
+                            { className: 'col s6 left-align' },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                'span',
+                                { className: classes.labelLogin },
+                                'Tabla carreras'
+                            )
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'div',
+                            { className: 'col s6 center-align' },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                __WEBPACK_IMPORTED_MODULE_3__material_ui_core_Button___default.a,
+                                (_React$createElement3 = {
+                                    variant: 'contained',
+                                    component: 'label',
+                                    onClick: searchClick
+                                }, _defineProperty(_React$createElement3, 'variant', 'contained'), _defineProperty(_React$createElement3, 'color', 'primary'), _React$createElement3),
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_6__icons__["f" /* DescriptionIcon */], { className: 'white-text ' + classes.labelSearch }),
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                    'span',
+                                    { className: classes.labelUpload },
+                                    'Subir archivo'
+                                ),
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', {
+                                    type: 'file',
+                                    accept: 'image/*',
+                                    className: classes.input,
+                                    style: { display: 'none' }
+                                })
+                            )
+                        )
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { className: 'row valign-wrapper' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'div',
+                            { className: 'col s6 left-align' },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                'span',
+                                { className: classes.labelLogin },
+                                'Tabla asignaciones espec\xEDficas'
+                            )
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'div',
+                            { className: 'col s6 center-align' },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                __WEBPACK_IMPORTED_MODULE_3__material_ui_core_Button___default.a,
+                                (_React$createElement4 = {
+                                    variant: 'contained',
+                                    component: 'label',
+                                    onClick: searchClick
+                                }, _defineProperty(_React$createElement4, 'variant', 'contained'), _defineProperty(_React$createElement4, 'color', 'primary'), _React$createElement4),
                                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_6__icons__["f" /* DescriptionIcon */], { className: 'white-text ' + classes.labelSearch }),
                                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                     'span',
