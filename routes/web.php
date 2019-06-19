@@ -62,6 +62,25 @@ Route::get('/loginAdmin', function () {
   return view('loginAdmin');
 })->name('loginAdmin');
 
+Route::get('/loginColaborador', function () {
+  if (Auth::check()) {
+    $user = Auth::user();
+    switch($user->assignable_type){
+      case User::ESTUDIANTE:
+        return redirect()->route('homeEstudiante');
+        break;
+      case User::COLABORADOR:
+        return redirect()->route('homeColaborador');
+        break;
+      case User::ADMINISTRADOR:
+        return redirect()->route('homeAdministrador');
+        break;
+    }
+  }
+  
+  return view('loginColaborador');
+})->name('loginColaborador');
+
 Route::get('/home', function () {
   if (Auth::check()) {
     $user = Auth::user();
