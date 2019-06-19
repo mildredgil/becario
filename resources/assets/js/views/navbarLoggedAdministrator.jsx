@@ -13,7 +13,7 @@ import CrearAsignModal from '../components/admin/crearAsignModal';
 import {AddIcon} from '../icons';
 import ReglamentoModal from '../components/reglamentoModal';
 import ImportarCSV from '../components/admin/importarCSV';
-import { PowerIcon, PersonEditIcon, UpLoadIcon, DescriptionIcon, CreateIcon, DeleteIcon } from '../icons';
+import { GraphIcon, PowerIcon, SettingsIcon, PersonEditIcon, UpLoadIcon, DescriptionIcon, CreateIcon, DeleteIcon } from '../icons';
 
 const NavBar = ({ classes }) => {
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -148,10 +148,26 @@ const NavBar = ({ classes }) => {
                     <UpLoadIcon className={classes.iconLabel} />
                     CSV
                   </MenuItem>
-                  <MenuItem onClick={handleOpenReglamento} className="valign-wrapper">
+                  <MenuItem className="valign-wrapper" onClick={() => window.location.replace("/homeAdministrador")}>
+                    <SettingsIcon className={classes.iconLabel} />
+                    Solicitudes
+                  </MenuItem>
+                  <MenuItem className="valign-wrapper" onClick={() => window.location.replace("/reportes")}>
+                    <SettingsIcon className={classes.iconLabel} />
+                    Reportes
+                  </MenuItem>
+                  <MenuItem className="valign-wrapper" onClick={() => window.location.replace("/estadisticas")}>
+                    <GraphIcon className={classes.iconLabel} />
+                    Estadisticas
+                  </MenuItem>
+                  <MenuItem className="valign-wrapper" onClick={() => window.location.replace("/configuraciones")}>
+                    <SettingsIcon className={classes.iconLabel} />
+                    Configuraciones
+                  </MenuItem>
+                  {/*<MenuItem onClick={handleOpenReglamento} className="valign-wrapper">
                     <DescriptionIcon className={classes.iconLabel} />
                     Reglamento
-                  </MenuItem>
+                  </MenuItem>*/}
                   <MenuItem onClick={logout} className="valign-wrapper">
                     <PowerIcon className={classes.iconLabel} />
                     Cerrar Sesión
@@ -232,6 +248,7 @@ const NavBar = ({ classes }) => {
     iconLabel: {
       fontSize: '18px',
       marginRight: '0.5rem',
+      color: '#223f93'
     },
 
     createLabel: {

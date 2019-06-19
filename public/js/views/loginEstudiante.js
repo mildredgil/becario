@@ -6034,18 +6034,18 @@ var _MenuItem = _interopRequireDefault(__webpack_require__(373));
 /* unused harmony export EmptyStarIcon */
 /* unused harmony export FacebookIcon */
 /* unused harmony export FilterIcon */
-/* unused harmony export GraphIcon */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return GraphIcon; });
 /* unused harmony export FullStarIcon */
 /* unused harmony export HalfStarIcon */
 /* unused harmony export HelpIcon */
 /* unused harmony export HomeIcon */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return InfoIcon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return InfoIcon; });
 /* unused harmony export LanguageIcon */
 /* unused harmony export LabelIcon */
 /* unused harmony export LeftArrowIcon */
 /* unused harmony export LinkedinIcon */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return ListIcon; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return LocationIcon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return ListIcon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return LocationIcon; });
 /* unused harmony export LockIcon */
 /* unused harmony export MedalIcon */
 /* unused harmony export MenuIcon */
@@ -6054,27 +6054,28 @@ var _MenuItem = _interopRequireDefault(__webpack_require__(373));
 /* unused harmony export NotificationIcon */
 /* unused harmony export PadlockIcon */
 /* unused harmony export PeopleIcon */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return PersonIcon; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return PersonEditIcon; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return PhoneIcon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return PersonIcon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return PersonEditIcon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return PhoneIcon; });
 /* unused harmony export PlusIcon */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return PowerIcon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "p", function() { return PowerIcon; });
 /* unused harmony export PriceDArrowIcon */
 /* unused harmony export PriceUArrowIcon */
 /* unused harmony export PublicIcon */
 /* unused harmony export RefIcon */
 /* unused harmony export RFullArrowIcon */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "p", function() { return RightArrowIcon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "q", function() { return RightArrowIcon; });
 /* unused harmony export SadIcon */
 /* unused harmony export SatisfiedIcon */
 /* unused harmony export SaveIcon */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "q", function() { return SchoolIcon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "r", function() { return SchoolIcon; });
 /* unused harmony export SearchIcon */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "s", function() { return SettingsIcon; });
 /* unused harmony export ShoppingIcon */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "r", function() { return SupervisorIcon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "t", function() { return SupervisorIcon; });
 /* unused harmony export TwitterIcon */
 /* unused harmony export UpArrowIcon */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "s", function() { return UpLoadIcon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "u", function() { return UpLoadIcon; });
 /* unused harmony export WAIcon */
 /* unused harmony export WAIcon2 */
 /* unused harmony export WebIcon */
@@ -6231,7 +6232,7 @@ var GraphIcon = function GraphIcon(props) {
   return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
     __WEBPACK_IMPORTED_MODULE_1__material_ui_core_SvgIcon___default.a,
     _extends({}, props, { viewBox: '0 0 35 27' }),
-    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('path', { d: 'M34.1797 22.625H4.375V1.57031C4.375 1.36523 4.23828 1.16016 4.10156 1.02344C3.96484 0.886719 3.75977 0.75 3.55469 0.75H0.820312C0.546875 0.75 0.341797 0.886719 0.205078 1.02344C0.0683594 1.16016 0 1.36523 0 1.57031V26.1797C0 26.4531 0.0683594 26.6582 0.205078 26.7949C0.341797 26.9316 0.546875 27 0.820312 27H34.1797C34.3848 27 34.5898 26.9316 34.7266 26.7949C34.8633 26.6582 35 26.4531 35 26.1797V23.4453C35 23.2402 34.8633 23.0352 34.7266 22.8984C34.5898 22.7617 34.3848 22.625 34.1797 22.625ZM31.1719 2.9375C31.582 2.9375 31.9922 3.14258 32.334 3.41602C32.6074 3.75781 32.8125 4.16797 32.8125 4.57812V12.2344C32.8125 12.7129 32.6074 13.123 32.334 13.3965C31.9922 13.7383 31.582 13.875 31.1719 13.875C30.6934 13.875 30.2832 13.7383 30.0098 13.3965L27.7539 11.1406L20.2344 18.5918C20.0977 18.7285 19.8926 18.7969 19.6875 18.7969C19.4141 18.7969 19.209 18.7285 19.0723 18.5918L15.3125 14.7637L9.70703 20.3691C9.50195 20.5742 9.29688 20.6426 9.0918 20.6426C8.81836 20.6426 8.68164 20.5742 8.54492 20.3691L6.5625 18.3867C6.42578 18.25 6.35742 18.0449 6.35742 17.7715C6.35742 17.5664 6.42578 17.3613 6.5625 17.2246L14.6973 9.1582C14.834 9.02148 15.0391 8.95312 15.3125 8.95312C15.5176 8.95312 15.7227 9.02148 15.8594 9.1582L19.6875 12.9863L24.6094 7.99609L22.3535 5.74023C22.0117 5.4668 21.875 5.05664 21.875 4.57812C21.875 4.16797 22.0117 3.75781 22.3535 3.41602C22.627 3.14258 23.0371 2.9375 23.5156 2.9375H31.1719Z', fill: '#004476' })
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('path', { d: 'M34.1797 22.625H4.375V1.57031C4.375 1.36523 4.23828 1.16016 4.10156 1.02344C3.96484 0.886719 3.75977 0.75 3.55469 0.75H0.820312C0.546875 0.75 0.341797 0.886719 0.205078 1.02344C0.0683594 1.16016 0 1.36523 0 1.57031V26.1797C0 26.4531 0.0683594 26.6582 0.205078 26.7949C0.341797 26.9316 0.546875 27 0.820312 27H34.1797C34.3848 27 34.5898 26.9316 34.7266 26.7949C34.8633 26.6582 35 26.4531 35 26.1797V23.4453C35 23.2402 34.8633 23.0352 34.7266 22.8984C34.5898 22.7617 34.3848 22.625 34.1797 22.625ZM31.1719 2.9375C31.582 2.9375 31.9922 3.14258 32.334 3.41602C32.6074 3.75781 32.8125 4.16797 32.8125 4.57812V12.2344C32.8125 12.7129 32.6074 13.123 32.334 13.3965C31.9922 13.7383 31.582 13.875 31.1719 13.875C30.6934 13.875 30.2832 13.7383 30.0098 13.3965L27.7539 11.1406L20.2344 18.5918C20.0977 18.7285 19.8926 18.7969 19.6875 18.7969C19.4141 18.7969 19.209 18.7285 19.0723 18.5918L15.3125 14.7637L9.70703 20.3691C9.50195 20.5742 9.29688 20.6426 9.0918 20.6426C8.81836 20.6426 8.68164 20.5742 8.54492 20.3691L6.5625 18.3867C6.42578 18.25 6.35742 18.0449 6.35742 17.7715C6.35742 17.5664 6.42578 17.3613 6.5625 17.2246L14.6973 9.1582C14.834 9.02148 15.0391 8.95312 15.3125 8.95312C15.5176 8.95312 15.7227 9.02148 15.8594 9.1582L19.6875 12.9863L24.6094 7.99609L22.3535 5.74023C22.0117 5.4668 21.875 5.05664 21.875 4.57812C21.875 4.16797 22.0117 3.75781 22.3535 3.41602C22.627 3.14258 23.0371 2.9375 23.5156 2.9375H31.1719Z' })
   );
 };
 var HalfStarIcon = function HalfStarIcon(props) {
@@ -6463,6 +6464,13 @@ var SearchIcon = function SearchIcon(props) {
     __WEBPACK_IMPORTED_MODULE_1__material_ui_core_SvgIcon___default.a,
     _extends({}, props, { viewBox: '0 0 24 24' }),
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('path', { d: 'M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z' })
+  );
+};
+var SettingsIcon = function SettingsIcon(props) {
+  return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+    __WEBPACK_IMPORTED_MODULE_1__material_ui_core_SvgIcon___default.a,
+    _extends({}, props, { viewBox: '0 0 24 24' }),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('path', { d: 'M19.43 12.98c.04-.32.07-.64.07-.98s-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98s.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zM12 15.5c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5z' })
   );
 };
 var SatisfiedIcon = function SatisfiedIcon(props) {
