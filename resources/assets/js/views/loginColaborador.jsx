@@ -5,9 +5,9 @@ import { MuiThemeProvider } from '@material-ui/core/styles';
 import defaultTheme from '../theme';
 
 import ModalRegister from '../components/login/modalRegister';
-import ModalLoginEstudiante from '../components/login/modalLoginEstudiante';
+import ModalLoginColaborador from '../components/login/modalLoginColaborador';
 
-const LoginEstudiante = ({ classes }) => {
+const LoginColaborador = ({ classes }) => {
   const [hoverC, isHoverC] = React.useState(false);
   const [hoverE, isHoverE] = React.useState(false);
   const [openC, setOpenC] = React.useState(false);
@@ -66,7 +66,7 @@ const LoginEstudiante = ({ classes }) => {
         </div>
       </div>
       <ModalRegister open={openC} handleClose={handleCloseModalC} />
-      <ModalLoginEstudiante open={openE} handleClose={handleCloseModalE} />
+      <ModalLoginColaborador open={openE} handleClose={handleCloseModalE} />
     </MuiThemeProvider>
   )
 }
@@ -145,7 +145,7 @@ const styles = theme => ({
   }
 });
 
-const _Login = withStyles(styles)(LoginEstudiante);
+const _Login = withStyles(styles)(LoginColaborador);
 
 if (document.getElementById('content')) {
   ReactDOM.render(<_Login />, document.getElementById('content'));
