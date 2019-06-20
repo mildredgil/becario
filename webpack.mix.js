@@ -22,4 +22,8 @@ mix.react('resources/assets/js/views/loginEstudiante.jsx', 'public/js/views')
     .react('resources/assets/js/views/homeColaboradores.jsx', 'public/js/views')
     .react('resources/assets/js/views/homeAdministrator.jsx', 'public/js/views')
     .react('resources/assets/js/views/footer.jsx', 'public/js/views')
+<<<<<<< HEAD
     .react('resources/assets/js/views/evaluacionEstudiante.jsx', 'public/js/views');
+=======
+    .react('resources/assets/js/views/loginColaborador.jsx', 'public/js/views');
+>>>>>>> d23ad31ac324df2b1ecb8cbd23eb0f52804b865c

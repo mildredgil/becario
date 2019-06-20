@@ -15,5 +15,9 @@
   "/js/views/loginAdmin.js": "/js/views/loginAdmin.js",
   "/js/views/loginEstudiante.js": "/js/views/loginEstudiante.js",
   "/js/views/navbarLoggedEstudiante.js": "/js/views/navbarLoggedEstudiante.js",
+<<<<<<< HEAD
   "/js/views/evaluacionEstudiante.js": "/js/views/evaluacionEstudiante.js"
+=======
+  "/js/views/loginColaborador.js": "/js/views/loginColaborador.js"
+>>>>>>> d23ad31ac324df2b1ecb8cbd23eb0f52804b865c
 }
