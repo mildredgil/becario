@@ -28,5 +28,8 @@ class Estudiante extends Model {
   public function solicitudesBecarias() {
     return $this->hasMany('App\Solicitud_Becaria', 'id_estudiante')->orderBy('fecha_asignacion', 'desc');
   }
+
+  public function user() {
+    return $this->morphOne('App\User', 'assignable');
+  }
 }
-//composer dump-autoload

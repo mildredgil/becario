@@ -19,8 +19,8 @@ use Illuminate\Http\Request;
 
 Route::get('/', function () {
   error_log("INFO: get /");
-  return redirect('/login');
-});
+  return redirect('/home');
+}); 
 
 //Route::get('/home', 'EstudianteController@index')->name('homeEstudiante');
 
@@ -103,12 +103,18 @@ Route::get('/home', function () {
 
 Route::post('/logout', 'Auth\LoginController@logout');	
 Route::post('/get/login', 'Auth\LoginController@postLogin');	
+Route::post('/register', 'Auth\RegisterController@register');	
 
 Route::group(['middleware' => 'auth'], function () {
   //vistas de los home de usuarios
   Route::get('/homeEstudiante',     'EstudianteController@index')->name('homeEstudiante');	
   Route::get('/homeColaborador',    'ColaboradorController@index')->name('homeColaborador');		
   Route::get('/homeAdministrador',  'AdministradorController@index')->name('homeAdministrador');		
+
+  //vistas admin
+  Route::get('/reportes',       'AdministradorController@showReporte')->name('reporte');	
+  Route::get('/estadisticas',   'AdministradorController@showEstadisticas')->name('estadisticas');		
+  Route::get('/configuraciones','AdministradorController@showConfiguraciones')->name('configuraciones');		
   
   //Guardar perfiles
   Route::post('/student/save/profile',  'EstudianteController@saveProfile');	

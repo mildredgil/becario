@@ -36,7 +36,44 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        //$this->middleware('guest');
+    }
+    
+    public function register(Request $request) {
+      $credentials = $request->only('username', 'password');
+      
+       if (Auth::attempt($credentials)) {
+         //already exist. Please login.
+         $response['message']  = 'Already exist. Please login.';
+         return response()->json($response);
+       } else {
+          //Verificar que exista en la bd.
+          switch($request->input('userType')) {
+            case 'ESTUDIANTE':
+              $user = ESTUDIANTE::where('matricula', $request->input('username'))
+                ->doesntHave('user')->first();
+              
+              if($user) {
+                $this->create($request);
+              } else {
+                $response['message']  = 'Es necesario ser un alumno Becado para ingresar al sistema.';
+                return response()->json($response);
+              }
+            break;
+            case 'COLABORADOR':
+              $user = COLABORADOR::where('nomina', $request->input('username'))
+                ->doesntHave('user')->first();
+
+              if($user) {
+                $this->create($request);
+              } else {
+                //crear solicitud para ser colaborador becario. Enviar solicitud a admin.
+              }
+            break;
+            default:
+              $user = null;
+          }
+       }
     }
 
     /**
@@ -63,7 +100,6 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return User::create([
-            'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
