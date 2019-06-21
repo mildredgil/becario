@@ -14,5 +14,7 @@
   "/js/views/homeAdministrator.js": "/js/views/homeAdministrator.js",
   "/js/views/loginAdmin.js": "/js/views/loginAdmin.js",
   "/js/views/loginEstudiante.js": "/js/views/loginEstudiante.js",
-  "/js/views/navbarLoggedEstudiante.js": "/js/views/navbarLoggedEstudiante.js"
+  "/js/views/navbarLoggedEstudiante.js": "/js/views/navbarLoggedEstudiante.js",
+  "/js/views/evaluacionEstudiante.js": "/js/views/evaluacionEstudiante.js",
+  "/js/views/loginColaborador.js": "/js/views/loginColaborador.js"
 }

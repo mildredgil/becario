@@ -116,6 +116,7 @@ Route::group(['middleware' => 'auth'], function () {
   
   //Guardar evaluaciones
   Route::post('/save/evaluations',      'ColaboradorController@saveEvaluations');
+  Route::get('/evaluacionEstudiante',     'ColaboradorController@mostrarEvaluacion');
   
   //Crear y borrar asignaciones
   Route::post('/create/assignments',    'AdministradorController@createAssignment');

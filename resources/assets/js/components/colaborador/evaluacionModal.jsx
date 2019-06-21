@@ -44,14 +44,9 @@ const EvaluacionAlumno = (props) => {
           <PersonIcon className={classes.iconLabel} />
           <label className={classes.labelText}>{asignacion.estudiante.nombre_completo}</label>
         </div>
-        <div className="col s2 mt-4 valign-wrapper">
-          <Button onClick={isSatisfactorio} size="small" className={`center-align ${classes.botonVerde}`}>
-             <CheckIcon className={classes.iconLabel} />
-          </Button>
-        </div>
-        <div className="col s2 mt-4 valign-wrapper">
-          <Button onClick={isInsatisfactorio} size="small" className={`center-align ${classes.botonRojo}`}>
-            <CloseIcon className={`white-text ${classes.iconLabel}`} />
+        <div className="col s4 mt-4">
+          <Button onClick={isSatisfactorio} className={`center-align ${classes.botonTec}`}>
+              <span className={`white-text ${classes.Title}`}>Evaluar</span>
           </Button>
         </div>
         <div className="col s2 mt-4 valign-wrapper">
@@ -117,17 +112,8 @@ const EvaluacionModal = ({ asignaciones, classes, open, handleClose }) => {
                       <div className="row">
                         <div className={`col s12`}>
                           <label className={`center-align ${classes.labelText}`}>
-                            Para cada uno de tus becarios evalua como SATISFACTORIO o INSATISFACTORIO,
-                            con respecto a su desempeño durante este periodo.
+                            Para cada uno de tus becarios evalua en escala del 0 al 10.
                           </label>
-                        </div>
-                      </div>
-                      <div className="row margin-0">
-                        <div className={`col s2 offset-s6 valing-wrapper`}>
-                            <label className={`center-align ${classes.labelText}`}>Satisfactorio</label>
-                        </div>
-                        <div className={`col s2 valing-wrapper`}>
-                            <label className={`center-align ${classes.labelText}`}>Insatisfactorio</label>
                         </div>
                       </div>
                       {
@@ -171,6 +157,10 @@ const styles = theme => ({
     title: {
         fontSize: '30px',
         fontWeight: 'bold',
+    },
+
+    botonTec:{
+      backgroundColor: '#223F93',
     },
 
     botonVerde:{

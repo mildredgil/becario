@@ -204,4 +204,7 @@ class ColaboradorController extends Controller
 
     return response()->json($response);
   }
+  public function mostrarEvaluacion(){
+    return view("evaluacionEstudiante");
+  }
 }
