@@ -75633,7 +75633,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 var ModalRegister = function ModalRegister(_ref) {
   var classes = _ref.classes,
       open = _ref.open,
-      handleClose = _ref.handleClose;
+      handleClose = _ref.handleClose,
+      userType = _ref.userType;
 
   var _React$useState = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(''),
       _React$useState2 = _slicedToArray(_React$useState, 2),
@@ -75678,7 +75679,13 @@ var ModalRegister = function ModalRegister(_ref) {
   };
 
   var onSave = function onSave() {
-    if (!__WEBPACK_IMPORTED_MODULE_6_validator___default.a.isLength(inputName, { min: 9, max: 9 }) || !__WEBPACK_IMPORTED_MODULE_6_validator___default.a.matches(inputName, /^[lL]\d{8}/)) setErrorName(true);else setErrorName(false);
+    var usernameMatch = !__WEBPACK_IMPORTED_MODULE_6_validator___default.a.matches(inputName, /^[lL]\d{8}/);
+
+    if (userType == 'ESTUDIANTE') {
+      usernameMatch = !__WEBPACK_IMPORTED_MODULE_6_validator___default.a.matches(inputName, /^[aA]\d{8}/);
+    }
+
+    if (!__WEBPACK_IMPORTED_MODULE_6_validator___default.a.isLength(inputName, { min: 9, max: 9 }) || usernameMatch) setErrorName(true);else setErrorName(false);
     setErrorPWD(__WEBPACK_IMPORTED_MODULE_6_validator___default.a.isEmpty(inputPassword));
     setChange(true);
   };
@@ -75691,11 +75698,15 @@ var ModalRegister = function ModalRegister(_ref) {
   }, [isErrorName, isErrorPWD, onChange]);
 
   var login = function login() {
-    __WEBPACK_IMPORTED_MODULE_5_axios___default.a.post("/get/login", {
+    __WEBPACK_IMPORTED_MODULE_5_axios___default.a.post("/register", {
       username: inputName,
-      password: inputPassword
+      password: inputPassword,
+      userType: userType
     }).then(function (response) {
-      window.location.replace('/');
+      console.log(response);
+      if (response.data.status == "Success") {
+        window.location.replace('/');
+      }
     }).catch(function (error) {
       console.log(error);
     });

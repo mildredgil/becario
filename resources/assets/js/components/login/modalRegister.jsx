@@ -31,7 +31,13 @@ const ModalRegister = ({ classes, open, handleClose, userType }) => {
   }
 
   const onSave = () => {
-    if ((!validator.isLength(inputName, { min: 9, max: 9 })) || (!validator.matches(inputName, /^[lL]\d{8}/)))
+    let usernameMatch = (!validator.matches(inputName, /^[lL]\d{8}/));
+    
+    if(userType == 'ESTUDIANTE') {
+      usernameMatch = (!validator.matches(inputName, /^[aA]\d{8}/));
+    }
+
+    if ((!validator.isLength(inputName, { min: 9, max: 9 })) || usernameMatch )
       setErrorName(true);
     else
       setErrorName(false);
@@ -53,7 +59,10 @@ const ModalRegister = ({ classes, open, handleClose, userType }) => {
         userType: userType,
       })
       .then(function (response) {
-        window.location.replace('/');
+        console.log(response);
+        if(response.data.status == "Success") {
+          window.location.replace('/');
+        }
       })
       .catch(function (error) {
         console.log(error);

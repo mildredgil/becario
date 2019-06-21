@@ -11,7 +11,7 @@ const LoginEstudiante = ({ classes }) => {
   const [hoverRegister, isHoverRegister] = React.useState(false);
   const [hoverLogin, isHoverLogin] = React.useState(false);
   const [openRegister, setOpenRegister] = React.useState(false);
-  const [openE, setOpenE] = React.useState(false);
+  const [openLogin, setOpenLogin] = React.useState(false);
 
   const hoverOnRegister = () => {
     isHoverRegister(true);
@@ -33,16 +33,16 @@ const LoginEstudiante = ({ classes }) => {
     setOpenRegister(true);
   };
 
-  const handleCloseModalLogin = () => {
+  const handleCloseModalRegister = () => {
     setOpenRegister(false);
   };
 
-  const handleOpenModalLogin = () => {
-    setOpenE(true);
+  const handleCloseModalLogin = () => {
+    setOpenLogin(false);
   };
 
-  const handleCloseModalLogin = () => {
-    setOpenE(false);
+  const handleOpenModalLogin = () => {
+    setOpenLogin(true);
   };
 
   return (
@@ -65,8 +65,8 @@ const LoginEstudiante = ({ classes }) => {
           </div>
         </div>
       </div>
-      <ModalRegister open={openRegister} handleClose={handleCloseModalLogin} />
-      <ModalLoginEstudiante open={openE} handleClose={handleCloseModalE} />
+      <ModalRegister open={openRegister} handleClose={handleCloseModalRegister} userType={"ESTUDIANTE"} />
+      <ModalLoginEstudiante open={openLogin} handleClose={handleCloseModalLogin} />
     </MuiThemeProvider>
   )
 }

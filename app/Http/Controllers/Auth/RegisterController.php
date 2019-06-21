@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Auth;
 use App\User;
+use App\Estudiante;
+use App\Colaborador;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
@@ -53,10 +57,22 @@ class RegisterController extends Controller
               $user = ESTUDIANTE::where('matricula', $request->input('username'))
                 ->doesntHave('user')->first();
               
-              if($user) {
-                $this->create($request);
+              if($user != null) {
+                $registerUser = User::create([
+                  'username' => $request->input('username'),
+                  'password' => bcrypt($request->input('password')),
+                  'assignable_type' => USER::ESTUDIANTE,
+                  'assignable_id' => $user->id
+                ]); 
+
+                Auth::login($registerUser, true);
+                $response['status']  = 'Success';
+                $response['user']  = $registerUser;
+                return response()->json($response);
               } else {
+                
                 $response['message']  = 'Es necesario ser un alumno Becado para ingresar al sistema.';
+                $response['status']  = 'Error';
                 return response()->json($response);
               }
             break;
@@ -64,8 +80,18 @@ class RegisterController extends Controller
               $user = COLABORADOR::where('nomina', $request->input('username'))
                 ->doesntHave('user')->first();
 
-              if($user) {
-                $this->create($request);
+              if($user != null) {
+                $registerUser = User::create([
+                  'username' => $request->input('username'),
+                  'password' => bcrypt($request->input('password')),
+                  'assignable_type' => USER::COLABORADOR,
+                  'assignable_id' => $user->id
+                ]); 
+
+                Auth::login($registerUser, true);
+                $response['status']  = 'Success';
+                $response['user']  = $registerUser;
+                return response()->json($response);
               } else {
                 //crear solicitud para ser colaborador becario. Enviar solicitud a admin.
               }
@@ -88,20 +114,6 @@ class RegisterController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
-        ]);
-    }
-
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return User
-     */
-    protected function create(array $data)
-    {
-        return User::create([
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
         ]);
     }
 }
