@@ -57,6 +57,81 @@ class AdministradorController extends Controller
     }
   }
 
+  public function showReporte() {
+    $user = Auth::user();
+
+    //Se verifica que tipo de Usuario es, y se redirige a la liga correspondiente de ser necesario
+    switch($user->assignable_type){
+      case User::ESTUDIANTE:
+        return redirect()->route('homeEstudiante');
+        break;
+      case User::COLABORADOR:
+        return redirect()->route('homeColaborador');
+        break;
+      case User::ADMINISTRADOR:
+        $user_admin = Auth::user()->assignable;
+        $administrador = Administrador::where('id', $user_admin->id)
+        ->first();
+
+        return view('reportes', [
+          'administrador' => $administrador
+        ]);
+        break;
+      default: 
+        return redirect()->route('login');
+    }
+  }
+
+  public function showConfiguraciones() {
+    $user = Auth::user();
+
+    //Se verifica que tipo de Usuario es, y se redirige a la liga correspondiente de ser necesario
+    switch($user->assignable_type){
+      case User::ESTUDIANTE:
+        return redirect()->route('homeEstudiante');
+        break;
+      case User::COLABORADOR:
+        return redirect()->route('homeColaborador');
+        break;
+      case User::ADMINISTRADOR:
+        $user_admin = Auth::user()->assignable;
+        $administrador = Administrador::where('id', $user_admin->id)
+        ->first();
+
+        return view('configuraciones', [
+          'administrador' => $administrador
+        ]);
+        break;
+      default: 
+        return redirect()->route('login');
+    }
+  }
+
+  public function showEstadisticas() {
+    $user = Auth::user();
+
+    //Se verifica que tipo de Usuario es, y se redirige a la liga correspondiente de ser necesario
+    switch($user->assignable_type){
+      case User::ESTUDIANTE:
+        return redirect()->route('homeEstudiante');
+        break;
+      case User::COLABORADOR:
+        return redirect()->route('homeColaborador');
+        break;
+      case User::ADMINISTRADOR:
+        $user_admin = Auth::user()->assignable;
+        $administrador = Administrador::where('id', $user_admin->id)
+        ->first();
+
+        return view('estadisticas', [
+          'administrador' => $administrador
+        ]);
+        break;
+      default: 
+        return redirect()->route('login');
+    }
+  }
+
   public function saveProfile(Request $request) {
     $user = Auth::user();
    

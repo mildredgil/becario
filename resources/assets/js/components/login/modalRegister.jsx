@@ -10,7 +10,7 @@ import validator from 'validator';
 import defaultTheme from '../../theme';
 import { CloseIcon } from '../../icons';
 
-const ModalRegister = ({ classes, open, handleClose }) => {
+const ModalRegister = ({ classes, open, handleClose, userType }) => {
   const [inputName, setInputName] = React.useState('');
   const [inputPassword, setInputPassword] = React.useState('');
   const [inputConfirmPassword, setInputConfirmPassword] = React.useState('');
@@ -31,7 +31,13 @@ const ModalRegister = ({ classes, open, handleClose }) => {
   }
 
   const onSave = () => {
-    if ((!validator.isLength(inputName, { min: 9, max: 9 })) || (!validator.matches(inputName, /^[lL]\d{8}/)))
+    let usernameMatch = (!validator.matches(inputName, /^[lL]\d{8}/));
+    
+    if(userType == 'ESTUDIANTE') {
+      usernameMatch = (!validator.matches(inputName, /^[aA]\d{8}/));
+    }
+
+    if ((!validator.isLength(inputName, { min: 9, max: 9 })) || usernameMatch )
       setErrorName(true);
     else
       setErrorName(false);
@@ -47,12 +53,16 @@ const ModalRegister = ({ classes, open, handleClose }) => {
   }, [isErrorName, isErrorPWD, onChange]);
 
   const login = () => {
-      axios.post("/get/login", {
+      axios.post("/register", {
         username: inputName,
-        password: inputPassword
+        password: inputPassword,
+        userType: userType,
       })
       .then(function (response) {
-        window.location.replace('/');
+        console.log(response);
+        if(response.data.status == "Success") {
+          window.location.replace('/');
+        }
       })
       .catch(function (error) {
         console.log(error);

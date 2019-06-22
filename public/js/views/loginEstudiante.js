@@ -75633,7 +75633,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 var ModalRegister = function ModalRegister(_ref) {
   var classes = _ref.classes,
       open = _ref.open,
-      handleClose = _ref.handleClose;
+      handleClose = _ref.handleClose,
+      userType = _ref.userType;
 
   var _React$useState = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(''),
       _React$useState2 = _slicedToArray(_React$useState, 2),
@@ -75678,7 +75679,13 @@ var ModalRegister = function ModalRegister(_ref) {
   };
 
   var onSave = function onSave() {
-    if (!__WEBPACK_IMPORTED_MODULE_6_validator___default.a.isLength(inputName, { min: 9, max: 9 }) || !__WEBPACK_IMPORTED_MODULE_6_validator___default.a.matches(inputName, /^[lL]\d{8}/)) setErrorName(true);else setErrorName(false);
+    var usernameMatch = !__WEBPACK_IMPORTED_MODULE_6_validator___default.a.matches(inputName, /^[lL]\d{8}/);
+
+    if (userType == 'ESTUDIANTE') {
+      usernameMatch = !__WEBPACK_IMPORTED_MODULE_6_validator___default.a.matches(inputName, /^[aA]\d{8}/);
+    }
+
+    if (!__WEBPACK_IMPORTED_MODULE_6_validator___default.a.isLength(inputName, { min: 9, max: 9 }) || usernameMatch) setErrorName(true);else setErrorName(false);
     setErrorPWD(__WEBPACK_IMPORTED_MODULE_6_validator___default.a.isEmpty(inputPassword));
     setChange(true);
   };
@@ -75691,11 +75698,15 @@ var ModalRegister = function ModalRegister(_ref) {
   }, [isErrorName, isErrorPWD, onChange]);
 
   var login = function login() {
-    __WEBPACK_IMPORTED_MODULE_5_axios___default.a.post("/get/login", {
+    __WEBPACK_IMPORTED_MODULE_5_axios___default.a.post("/register", {
       username: inputName,
-      password: inputPassword
+      password: inputPassword,
+      userType: userType
     }).then(function (response) {
-      window.location.replace('/');
+      console.log(response);
+      if (response.data.status == "Success") {
+        window.location.replace('/');
+      }
     }).catch(function (error) {
       console.log(error);
     });
@@ -75922,54 +75933,54 @@ var LoginEstudiante = function LoginEstudiante(_ref) {
 
   var _React$useState = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(false),
       _React$useState2 = _slicedToArray(_React$useState, 2),
-      hoverC = _React$useState2[0],
-      isHoverC = _React$useState2[1];
+      hoverRegister = _React$useState2[0],
+      isHoverRegister = _React$useState2[1];
 
   var _React$useState3 = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(false),
       _React$useState4 = _slicedToArray(_React$useState3, 2),
-      hoverE = _React$useState4[0],
-      isHoverE = _React$useState4[1];
+      hoverLogin = _React$useState4[0],
+      isHoverLogin = _React$useState4[1];
 
   var _React$useState5 = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(false),
       _React$useState6 = _slicedToArray(_React$useState5, 2),
-      openC = _React$useState6[0],
-      setOpenC = _React$useState6[1];
+      openRegister = _React$useState6[0],
+      setOpenRegister = _React$useState6[1];
 
   var _React$useState7 = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(false),
       _React$useState8 = _slicedToArray(_React$useState7, 2),
-      openE = _React$useState8[0],
-      setOpenE = _React$useState8[1];
+      openLogin = _React$useState8[0],
+      setOpenLogin = _React$useState8[1];
 
-  var hoverOnC = function hoverOnC() {
-    isHoverC(true);
+  var hoverOnRegister = function hoverOnRegister() {
+    isHoverRegister(true);
   };
 
-  var hoverOffC = function hoverOffC() {
-    isHoverC(false);
+  var hoverOffRegister = function hoverOffRegister() {
+    isHoverRegister(false);
   };
 
-  var hoverOnE = function hoverOnE() {
-    isHoverE(true);
+  var hoverOnLogin = function hoverOnLogin() {
+    isHoverLogin(true);
   };
 
-  var hoverOffE = function hoverOffE() {
-    isHoverE(false);
+  var hoverOffLogin = function hoverOffLogin() {
+    isHoverLogin(false);
   };
 
-  var handleOpenModalC = function handleOpenModalC() {
-    setOpenC(true);
+  var handleOpenModalRegister = function handleOpenModalRegister() {
+    setOpenRegister(true);
   };
 
-  var handleCloseModalC = function handleCloseModalC() {
-    setOpenC(false);
+  var handleCloseModalRegister = function handleCloseModalRegister() {
+    setOpenRegister(false);
   };
 
-  var handleOpenModalE = function handleOpenModalE() {
-    setOpenE(true);
+  var handleCloseModalLogin = function handleCloseModalLogin() {
+    setOpenLogin(false);
   };
 
-  var handleCloseModalE = function handleCloseModalE() {
-    setOpenE(false);
+  var handleOpenModalLogin = function handleOpenModalLogin() {
+    setOpenLogin(true);
   };
 
   return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -75983,18 +75994,18 @@ var LoginEstudiante = function LoginEstudiante(_ref) {
         { className: 'col s6 center-align px-0', style: { height: '100vh' } },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'div',
-          { id: 'student', style: { height: '100vh' }, className: classes.userWrapper, onClick: handleOpenModalE, onMouseLeave: hoverOffE, onMouseEnter: hoverOnE },
+          { id: 'student', style: { height: '100vh' }, className: classes.userWrapper, onClick: handleOpenModalLogin, onMouseLeave: hoverOffLogin, onMouseEnter: hoverOnLogin },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
             { style: { width: '100%' }, className: 'center-align' },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'label',
-              { className: (hoverE ? classes.userHover : '') + ' ' + classes.user + ' ' + classes.userStudent },
+              { className: (hoverLogin ? classes.userHover : '') + ' ' + classes.user + ' ' + classes.userStudent },
               'Inicio'
             ),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'svg',
-              { className: (hoverE ? classes.userHover : '') + ' img-svg', width: '60', height: '60', viewBox: '0 0 24 24' },
+              { className: (hoverLogin ? classes.userHover : '') + ' img-svg', width: '60', height: '60', viewBox: '0 0 24 24' },
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('path', { d: 'M0 0h24v24H0z', fill: 'none' }),
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('path', { d: 'M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z' })
             )
@@ -76006,18 +76017,18 @@ var LoginEstudiante = function LoginEstudiante(_ref) {
         { className: 'col s6 center-align px-0', style: { height: '100vh' } },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'div',
-          { id: 'collaborator', style: { height: '100vh' }, className: classes.userWrapper, onClick: handleOpenModalC, onMouseLeave: hoverOffC, onMouseEnter: hoverOnC },
+          { id: 'collaborator', style: { height: '100vh' }, className: classes.userWrapper, onClick: handleOpenModalRegister, onMouseLeave: hoverOffRegister, onMouseEnter: hoverOnRegister },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
             { style: { width: '100%' }, className: 'center-align' },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'label',
-              { className: (hoverC ? classes.userHover : '') + ' ' + classes.user + ' ' + classes.userProfessor },
+              { className: (hoverRegister ? classes.userHover : '') + ' ' + classes.user + ' ' + classes.userProfessor },
               'Registro'
             ),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'svg',
-              { className: (hoverC ? classes.userHover : '') + ' img-svg', width: '60', height: '60', viewBox: '0 0 24 24' },
+              { className: (hoverRegister ? classes.userHover : '') + ' img-svg', width: '60', height: '60', viewBox: '0 0 24 24' },
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('path', { d: 'M0 0h24v24H0z', fill: 'none' }),
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('path', { d: 'M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z' })
             )
@@ -76025,8 +76036,8 @@ var LoginEstudiante = function LoginEstudiante(_ref) {
         )
       )
     ),
-    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__components_login_modalRegister__["a" /* default */], { open: openC, handleClose: handleCloseModalC }),
-    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__components_login_modalLoginEstudiante__["a" /* default */], { open: openE, handleClose: handleCloseModalE })
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__components_login_modalRegister__["a" /* default */], { open: openRegister, handleClose: handleCloseModalRegister, userType: "ESTUDIANTE" }),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__components_login_modalLoginEstudiante__["a" /* default */], { open: openLogin, handleClose: handleCloseModalLogin })
   );
 };
 
@@ -76035,7 +76046,7 @@ var maxWidth = 1000;
 var styles = function styles(theme) {
   return _defineProperty({
     colorFocused: {
-      borderColor: "#223f93"
+      borderRegisterolor: "#223f93"
     },
 
     modalWrapper: {

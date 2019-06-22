@@ -21,8 +21,10 @@ class Colaborador extends Model
   }
 
   public function solicitudesBecarias() {
-		
 		return $this->hasMany('App\Solicitud_Becaria', 'id_colaborador')->where("aprovada", 1)->withTrashed()->orderBy('fecha_asignacion', 'desc');
-		
-	}
+  }
+  
+  public function user() {
+    return $this->morphOne('App\User', 'assignable');
+  }
 }
