@@ -72412,37 +72412,42 @@ var Home = function Home(_ref) {
   var new_periodo = ['Invierno', 'Febrero-Junio', 'Verano', 'Agosto-Diciembre'];
   var old_periodo = ['', 'Enero-Mayo', 'Verano', 'Agosto-Diciembre'];
 
-  var _React$useState9 = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(0),
+  var _React$useState9 = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(-1),
       _React$useState10 = _slicedToArray(_React$useState9, 2),
       periodo = _React$useState10[0],
       setPeriodo = _React$useState10[1];
 
-  var periodoOptions = [];
-
   var _React$useState11 = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState([]),
       _React$useState12 = _slicedToArray(_React$useState11, 2),
-      yearOptions = _React$useState12[0],
-      setYearOptions = _React$useState12[1];
+      periodoList = _React$useState12[0],
+      setPeriodoList = _React$useState12[1];
 
-  var _React$useState13 = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(0),
+  var periodoOptions = [];
+
+  var _React$useState13 = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState([]),
       _React$useState14 = _slicedToArray(_React$useState13, 2),
-      yearSelected = _React$useState14[0],
-      setYearSelected = _React$useState14[1];
+      yearOptions = _React$useState14[0],
+      setYearOptions = _React$useState14[1];
 
   var _React$useState15 = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(0),
       _React$useState16 = _slicedToArray(_React$useState15, 2),
-      selectYear = _React$useState16[0],
-      setYear = _React$useState16[1];
+      yearSelected = _React$useState16[0],
+      setYearSelected = _React$useState16[1];
 
-  var _React$useState17 = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(false),
+  var _React$useState17 = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(0),
       _React$useState18 = _slicedToArray(_React$useState17, 2),
-      openEvaluacion = _React$useState18[0],
-      setOpenEvaluacion = _React$useState18[1];
+      selectYear = _React$useState18[0],
+      setYear = _React$useState18[1];
 
-  var _React$useState19 = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(''),
+  var _React$useState19 = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(false),
       _React$useState20 = _slicedToArray(_React$useState19, 2),
-      periodo_string = _React$useState20[0],
-      setPeriodoString = _React$useState20[1];
+      openEvaluacion = _React$useState20[0],
+      setOpenEvaluacion = _React$useState20[1];
+
+  var _React$useState21 = __WEBPACK_IMPORTED_MODULE_0_react___default.a.useState(''),
+      _React$useState22 = _slicedToArray(_React$useState21, 2),
+      periodo_string = _React$useState22[0],
+      setPeriodoString = _React$useState22[1];
 
   __WEBPACK_IMPORTED_MODULE_0_react___default.a.useEffect(function () {
     periodoSelected();
@@ -72454,8 +72459,10 @@ var Home = function Home(_ref) {
     var date = new Date(_date);
     var year = date.getFullYear();
     var month = date.getMonth();
+    setYearSelected(year);
     if (year >= 2020) {
       periodo = new_periodo;
+      setPeriodoList(new_periodo);
 
       if (month == 0) {
         setPeriodoString(periodo[0]);
@@ -72468,6 +72475,8 @@ var Home = function Home(_ref) {
       }
     } else {
       periodo = old_periodo;
+      setPeriodoList(old_periodo);
+
       if (month == 0) {
         setPeriodoString(periodo[1]);
       } else if (month == 5) {
@@ -72486,26 +72495,28 @@ var Home = function Home(_ref) {
     setOpenEvaluacion(false);
   };
 
-  periodoOptions.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-    __WEBPACK_IMPORTED_MODULE_6__material_ui_core_MenuItem___default.a,
-    { classes: { root: classes.options }, value: 0 },
-    new_periodo[0]
-  ));
-  periodoOptions.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-    __WEBPACK_IMPORTED_MODULE_6__material_ui_core_MenuItem___default.a,
-    { classes: { root: classes.options }, value: 1 },
-    new_periodo[1]
-  ));
-  periodoOptions.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-    __WEBPACK_IMPORTED_MODULE_6__material_ui_core_MenuItem___default.a,
-    { classes: { root: classes.options }, value: 2 },
-    new_periodo[2]
-  ));
-  periodoOptions.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-    __WEBPACK_IMPORTED_MODULE_6__material_ui_core_MenuItem___default.a,
-    { classes: { root: classes.options }, value: 3 },
-    new_periodo[3]
-  ));
+  __WEBPACK_IMPORTED_MODULE_0_react___default.a.useEffect(function () {
+    periodoOptions.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      __WEBPACK_IMPORTED_MODULE_6__material_ui_core_MenuItem___default.a,
+      { classes: { root: classes.options }, value: 0 },
+      periodoList[0]
+    ));
+    periodoOptions.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      __WEBPACK_IMPORTED_MODULE_6__material_ui_core_MenuItem___default.a,
+      { classes: { root: classes.options }, value: 1 },
+      periodoList[1]
+    ));
+    periodoOptions.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      __WEBPACK_IMPORTED_MODULE_6__material_ui_core_MenuItem___default.a,
+      { classes: { root: classes.options }, value: 2 },
+      periodoList[2]
+    ));
+    periodoOptions.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      __WEBPACK_IMPORTED_MODULE_6__material_ui_core_MenuItem___default.a,
+      { classes: { root: classes.options }, value: 3 },
+      periodoList[3]
+    ));
+  }, [periodoList]);
 
   __WEBPACK_IMPORTED_MODULE_0_react___default.a.useEffect(function () {
     console.log(colaborador);
@@ -72515,18 +72526,46 @@ var Home = function Home(_ref) {
       var _yearsTemp = [];
       var _years = yearOptions;
 
-      colaborador_html.solicitudes_becarias.map(function (asignacion) {
+      colaborador_html.solicitudes_becarias.map(function (asignacion, index) {
         _asignaciones.push(asignacion);
         var _date = asignacion.fecha_asignacion;
         var date = new Date(_date);
         var year = date.getFullYear();
         var month = date.getMonth();
         if (!_yearsTemp.includes(year)) _yearsTemp.push(year);
+        if (index == 0 && periodo == -1) {
+          console.log(date);
+          if (year >= 2020) {
+            if (month == 0) {
+              setPeriodo(0);
+            } else if (month == 1) {
+              setPeriodo(1);
+            } else if (month == 6) {
+              setPeriodo(2);
+            } else {
+              setPeriodo(3);
+            }
+          } else {
+            if (month == 0) {
+              setPeriodo(1);
+            } else if (month == 5) {
+              setPeriodo(2);
+            } else {
+              setPeriodo(3);
+            }
+          }
+        }
       });
 
+      console.log(periodo);
       _yearsTemp.map(function (year, index) {
-        if (index == 0) {
-          setYearSelected(year);
+        if (index == 0 && selectYear == 0) {
+          setYear(year);
+          if (year >= 2020) {
+            setPeriodoList(new_periodo);
+          } else {
+            setPeriodoList(old_periodo);
+          }
         }
         _years.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           __WEBPACK_IMPORTED_MODULE_6__material_ui_core_MenuItem___default.a,
@@ -72556,6 +72595,7 @@ var Home = function Home(_ref) {
   };
 
   var onChangePeriod = function onChangePeriod(event) {
+    console.log("Periodo: " + event.target.value);
     setPeriodo(event.target.value);
   };
 
@@ -72674,16 +72714,21 @@ var Home = function Home(_ref) {
               { className: classes.itemsWrapper + ' col s12 card my-0' },
               colaborador && colaborador.solicitudes_becarias.map(function (asignacion, index) {
                 if (asignacion.estudiante != null) {
-                  if (index == indexSelected) {
-                    console.log(true, index);
-                    console.log(true, asignacion);
-                    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_10__components_colaborador_itemBecario__["a" /* default */], { isSelected: true, handleClick: function handleClick(e) {
-                        return selectAsignacion(index);
-                      }, key: index, asignacion: asignacion });
-                  } else {
-                    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_10__components_colaborador_itemBecario__["a" /* default */], { isSelected: false, handleClick: function handleClick(e) {
-                        return selectAsignacion(index);
-                      }, key: index, asignacion: asignacion });
+                  var _date = asignacion.fecha_asignacion;
+                  var date = new Date(_date);
+                  var year = date.getFullYear();
+                  if (selectYear == year) {
+                    if (index == indexSelected) {
+                      console.log(true, index);
+                      console.log(true, asignacion);
+                      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_10__components_colaborador_itemBecario__["a" /* default */], { isSelected: true, handleClick: function handleClick(e) {
+                          return selectAsignacion(index);
+                        }, key: index, asignacion: asignacion });
+                    } else {
+                      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_10__components_colaborador_itemBecario__["a" /* default */], { isSelected: false, handleClick: function handleClick(e) {
+                          return selectAsignacion(index);
+                        }, key: index, asignacion: asignacion });
+                    }
                   }
                 }
               })
