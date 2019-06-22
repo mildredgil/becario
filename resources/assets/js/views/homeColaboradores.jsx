@@ -126,6 +126,7 @@ const Home = ({ classes, colaborador_html }) => {
         }
       });
       
+      
       console.log(periodo);
       _yearsTemp.map(function (year, index) {
         if (index == 0 && selectYear == 0) {
