@@ -141,9 +141,9 @@ const Home = ({ classes, colaborador_html }) => {
               Becarios | {periodo_string} {yearSelected}
             </div>
             <div className="col s3 align-right px-0">
-              <Button className="valign-wrapper" style={{ float: 'right', }} variant="contained" color="primary" onClick={handleOpenEvaluacion}>
+              <Button className="valign-wrapper" style={{ float: 'right', }} variant="contained" color="primary">
                 <ListIcon className={`white-text ${classes.labelCheck}`} />
-                <span className={classes.labelLogin}>Evaluar alumnos</span>
+                <a href="/evaluacionEstudiante" className={classes.labelLogin}>Evaluar alumnos</a>
               </Button>
             </div>
           </div>
@@ -267,6 +267,7 @@ const styles = theme => ({
   labelLogin: {
     fontFamily: 'Nunito',
     fontSize: '16px',
+    color: '#FFFFFF'
   },
 
   labelCheck: {

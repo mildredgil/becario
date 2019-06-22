@@ -72587,11 +72587,11 @@ var Home = function Home(_ref) {
             { className: 'col s3 align-right px-0' },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               __WEBPACK_IMPORTED_MODULE_8__material_ui_core_Button___default.a,
-              { className: 'valign-wrapper', style: { float: 'right' }, variant: 'contained', color: 'primary', onClick: handleOpenEvaluacion },
+              { className: 'valign-wrapper', style: { float: 'right' }, variant: 'contained', color: 'primary' },
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_14__icons__["k" /* ListIcon */], { className: 'white-text ' + classes.labelCheck }),
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'span',
-                { className: classes.labelLogin },
+                'a',
+                { href: '/evaluacionEstudiante', className: classes.labelLogin },
                 'Evaluar alumnos'
               )
             )
@@ -72739,7 +72739,8 @@ var styles = function styles(theme) {
 
     labelLogin: {
       fontFamily: 'Nunito',
-      fontSize: '16px'
+      fontSize: '16px',
+      color: '#FFFFFF'
     },
 
     labelCheck: {
