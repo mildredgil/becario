@@ -99,7 +99,7 @@ Route::get('/home', function () {
   } else {
     return redirect()->route('login');
   }
-})->name('home');
+})->name('home'); 
 
 Route::post('/logout', 'Auth\LoginController@logout');	
 Route::post('/get/login', 'Auth\LoginController@postLogin');	
