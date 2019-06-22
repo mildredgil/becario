@@ -23,16 +23,15 @@ const Home = ({ classes, colaborador_html }) => {
   const [indexSelected, setIndexSelected] = React.useState(0);
   const new_periodo = ['Invierno', 'Febrero-Junio', 'Verano', 'Agosto-Diciembre'];
   const old_periodo = ['', 'Enero-Mayo', 'Verano', 'Agosto-Diciembre'];
-  const [periodo, setPeriodo] = React.useState(-1);
-  const [periodoList, setPeriodoList] = React.useState([]);
+  const [periodo, setPeriodo] = React.useState(0);
   const periodoOptions = [];
   const [yearOptions, setYearOptions] = React.useState([]);
   const [yearSelected, setYearSelected] = React.useState(0);
   const [selectYear, setYear] = React.useState(0);
   const [openEvaluacion, setOpenEvaluacion] = React.useState(false);
-  const [periodo_string, setPeriodoString] = React.useState('');
+  const[periodo_string, setPeriodoString] = React.useState('');
 
-  React.useEffect(() => {
+  React.useEffect(()=> {
     periodoSelected();
   }, [selectedAsignacion]);
 
@@ -42,12 +41,10 @@ const Home = ({ classes, colaborador_html }) => {
     let date = new Date(_date);
     let year = date.getFullYear();
     let month = date.getMonth();
-    setYearSelected(year);
-    if (year >= 2020) {
+    if(year >= 2020) {
       periodo = new_periodo;
-      setPeriodoList(new_periodo);
 
-      if (month == 0) {
+      if(month == 0) {
         setPeriodoString(periodo[0]);
       } else if (month == 1) {
         setPeriodoString(periodo[1]);
@@ -58,8 +55,6 @@ const Home = ({ classes, colaborador_html }) => {
       }
     } else {
       periodo = old_periodo;
-      setPeriodoList(old_periodo);
-
       if (month == 0) {
         setPeriodoString(periodo[1]);
       } else if (month == 5) {
@@ -69,7 +64,7 @@ const Home = ({ classes, colaborador_html }) => {
       }
     }
   }
-
+  
 
   const handleOpenEvaluacion = () => {
     setOpenEvaluacion(true);
@@ -79,13 +74,11 @@ const Home = ({ classes, colaborador_html }) => {
     setOpenEvaluacion(false);
   };
 
-  React.useEffect(() => {
-    periodoOptions.push(<MenuItem classes={{ root: classes.options }} value={0}>{periodoList[0]}</MenuItem>);
-    periodoOptions.push(<MenuItem classes={{ root: classes.options }} value={1}>{periodoList[1]}</MenuItem>);
-    periodoOptions.push(<MenuItem classes={{ root: classes.options }} value={2}>{periodoList[2]}</MenuItem>);
-    periodoOptions.push(<MenuItem classes={{ root: classes.options }} value={3}>{periodoList[3]}</MenuItem>);
-  }, [periodoList]);
-
+  periodoOptions.push(<MenuItem classes={{ root: classes.options }} value={0}>{new_periodo[0]}</MenuItem>);
+  periodoOptions.push(<MenuItem classes={{ root: classes.options }} value={1}>{new_periodo[1]}</MenuItem>);
+  periodoOptions.push(<MenuItem classes={{ root: classes.options }} value={2}>{new_periodo[2]}</MenuItem>);
+  periodoOptions.push(<MenuItem classes={{ root: classes.options }} value={3}>{new_periodo[3]}</MenuItem>);
+   
   React.useEffect(() => {
     console.log(colaborador);
     if (colaborador_html != null) {
@@ -94,52 +87,22 @@ const Home = ({ classes, colaborador_html }) => {
       let _yearsTemp = [];
       let _years = yearOptions;
 
-      colaborador_html.solicitudes_becarias.map(function (asignacion, index) {
+      colaborador_html.solicitudes_becarias.map(function (asignacion) {
         _asignaciones.push(asignacion);
         let _date = asignacion.fecha_asignacion;
         let date = new Date(_date);
         let year = date.getFullYear();
         let month = date.getMonth();
-        if (!_yearsTemp.includes(year))
+        if(!_yearsTemp.includes(year))
           _yearsTemp.push(year);
-        if (index == 0 && periodo == -1) {
-          console.log(date);
-          if (year >= 2020) {
-            if (month == 0) {
-              setPeriodo(0);
-            } else if (month == 1) {
-              setPeriodo(1);
-            } else if (month == 6) {
-              setPeriodo(2);
-            } else {
-              setPeriodo(3);
-            }
-          } else {
-            if (month == 0) {
-              setPeriodo(1);
-            } else if (month == 5) {
-              setPeriodo(2);
-            } else {
-              setPeriodo(3);
-            }
-          }
-        }
       });
-      
-      console.log(periodo);
-      _yearsTemp.map(function (year, index) {
-        if (index == 0 && selectYear == 0) {
-          setYear(year);
-          if (year >= 2020) {
-            setPeriodoList(new_periodo);
-          } else {
-            setPeriodoList(old_periodo);
-          }
+
+      _yearsTemp.map(function(year, index) {
+        if(index == 0) {
+          setYearSelected(year);
         }
         _years.push(<MenuItem classes={{ root: classes.options }} value={year}>{year}</MenuItem>);
       });
-
-
 
       setAsignaciones(_asignaciones);
       setYearOptions(_years);
@@ -163,7 +126,6 @@ const Home = ({ classes, colaborador_html }) => {
   }
 
   const onChangePeriod = (event) => {
-    console.log("Periodo: " + event.target.value);
     setPeriodo(event.target.value);
   }
 
@@ -235,18 +197,14 @@ const Home = ({ classes, colaborador_html }) => {
                   </StyledSelect>
                 </FormControl>
               </div>
-            </div>
+            </div>    
             <div className={`row mb-0`}>
-              <div className={`${classes.itemsWrapper} col s12 card my-0`}>
-                {
-                  colaborador &&
-                  colaborador.solicitudes_becarias.map((asignacion, index) => {
-                    if (asignacion.estudiante != null) {
-                      let _date = asignacion.fecha_asignacion;
-                      let date = new Date(_date);
-                      let year = date.getFullYear();
-                      if (selectYear == year) {
-                        if (index == indexSelected) {
+                <div className={`${classes.itemsWrapper} col s12 card my-0`}>
+                  {
+                    colaborador &&
+                    colaborador.solicitudes_becarias.map((asignacion, index) => {
+                        if(asignacion.estudiante != null){
+                          if (index == indexSelected) {
                           console.log(true, index);
                           console.log(true, asignacion);
                           return (
@@ -258,11 +216,10 @@ const Home = ({ classes, colaborador_html }) => {
                           )
                         }
                       }
-                    }
-                  })
-                }
+                    })
+                  }
+                </div>
               </div>
-            </div>
           </div>
           <div className="col s8">
             <div className="row mb-0">
