@@ -9,17 +9,54 @@ import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import {  DescriptionIcon, ClockIcon, CheckIcon } from '../../icons';
 
 const PeriodTime = ({ classes }) => {
-  const [selectedDate, setSelectedDate] = React.useState(new Date());
-  const [dateError, setDateError] = React.useState(false);
+  const [state, setState] = React.useState({
+    inicioAsignaciones: new Date(),
+    finAsignaciones: new Date(),
+    inicioEvaluaciones: new Date(),
+    finEvaluaciones: new Date()
+  });
+  
+  //const [dateError, setDateError] = React.useState(false);
   
   const searchClick = () => {
     console.log("hi");
   }
 
-  const onChangeDate = currentDate => {
-    setSelectedDate(currentDate);
+  const onChangeDate =( currentDate, date )=> {
+    let newState = state;
+    console.log(currentDate, date);
+    console.log(newState.inicioAsignaciones);
+    switch(date) {
+      case 'inicioAsignaciones':
+        setState({
+          ...newState,
+          inicioAsignaciones : currentDate
+        });
+      break;
+      case 'finAsignaciones':
+        //let finAsignaciones = currentDate;
+        setState({
+          ...newState,
+          finAsignaciones : currentDate
+        });
+      break;
+      case 'inicioEvaluaciones':
+        //let inicioEvaluaciones = currentDate;
+        setState({
+          ...newState,
+          inicioEvaluaciones : currentDate
+        });
+      break;
+      case 'finEvaluaciones':
+        //let finEvaluaciones = currentDate;
+        setState({
+          ...newState,
+          finEvaluaciones : currentDate
+        });
+      break;
+    }
   }
-    
+    console.log(state);
   return (
     <div className={classes.wrapper}>
       <MuiPickersUtilsProvider utils={DateFnsUtils} locale={esLocale}>
@@ -32,8 +69,8 @@ const PeriodTime = ({ classes }) => {
           <div className="col s4 mx-0">
             <DatePicker
               label="Inicio"
-              value={selectedDate}
-              onChange={onChangeDate}
+              value={state.inicioAsignaciones}
+              onChange={(date) => onChangeDate(date, 'inicioAsignaciones')}
               format="dd/MMM/yyyy"
               dateformat="dd MMMM, YYYY"
               autoOk={true}
@@ -43,8 +80,8 @@ const PeriodTime = ({ classes }) => {
           <div className="col s4 center-align mx-0">
             <DatePicker
               label="Fin"
-              value={selectedDate}
-              onChange={onChangeDate}
+              value={state.finAsignaciones}
+              onChange={(date) => onChangeDate(date, 'finAsignaciones')}
               format="dd/MMM/yyyy"
               dateformat="dd MMMM, YYYY"
               autoOk={true}
@@ -81,8 +118,8 @@ const PeriodTime = ({ classes }) => {
           <div className="col s4 mx-0">
             <DatePicker
               label="Inicio"
-              value={selectedDate}
-              onChange={onChangeDate}
+              value={state.inicioEvaluaciones}
+              onChange={(date) => onChangeDate(date, 'inicioEvaluaciones')}
               format="dd/MMM/yyyy"
               dateformat="dd MMMM, YYYY"
               autoOk={true}
@@ -92,8 +129,8 @@ const PeriodTime = ({ classes }) => {
           <div className="col s4 center-align mx-0">
             <DatePicker
               label="Fin"
-              value={selectedDate}
-              onChange={onChangeDate}
+              value={state.finEvaluaciones}
+              onChange={(date) => onChangeDate(date, 'finEvaluaciones')}
               format="dd/MMM/yyyy"
               dateformat="dd MMMM, YYYY"
               autoOk={true}
@@ -127,7 +164,7 @@ const PeriodTime = ({ classes }) => {
           dateformat="dd MMMM, YYYY"
           label={"Elige una fecha"}
           minDate={new Date()}
-          onChange={onChangeDate} 
+          onChange={(date) => onChangeDate}(date, 'inicioAsignaciones') 
           autoOk={true}
           error={dateError}
           helperText={dateError? 'La fecha tiene que ser válida.' : null}
