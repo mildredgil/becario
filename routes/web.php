@@ -134,6 +134,10 @@ Route::group(['middleware' => 'auth'], function () {
 
   //Crear solicitud
   Route::post('/create/request',    'ColaboradorController@createRequest');
+
+  //admin only
+  Route::post('/new/period',      'PeriodoController@store');
+  Route::post('/period',           'PeriodoController@getPeriod');
 });
 
 Route::get('encrypt', function () {

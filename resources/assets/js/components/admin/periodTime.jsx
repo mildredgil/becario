@@ -5,21 +5,76 @@ import { DatePicker } from "@material-ui/pickers";
 import esLocale from 'date-fns/locale/es';
 import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import TextField from '@material-ui/core/TextField';
+import Select from '@material-ui/core/Select';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
+import MenuItem from '@material-ui/core/MenuItem';
+import axios from 'axios'; 
 
-import {  DescriptionIcon, ClockIcon, CheckIcon } from '../../icons';
+import { CheckIcon } from '../../icons';
 
 const PeriodTime = ({ classes }) => {
   const [state, setState] = React.useState({
     inicioAsignaciones: new Date(),
     finAsignaciones: new Date(),
     inicioEvaluaciones: new Date(),
-    finEvaluaciones: new Date()
+    finEvaluaciones: new Date(),
+    year: '2019',
+    periodo: 1
   });
   
-  //const [dateError, setDateError] = React.useState(false);
+  const periodos = ['Invierno', 'Febrero-Junio', 'Verano', 'Agosto-Diciembre'];
+  let periodoOptions = [];
+
+  periodoOptions.push(<MenuItem value={0}>{periodos[0]}</MenuItem>);
+  periodoOptions.push(<MenuItem value={1}>{periodos[1]}</MenuItem>);
+  periodoOptions.push(<MenuItem value={2}>{periodos[2]}</MenuItem>);
+  periodoOptions.push(<MenuItem value={3}>{periodos[3]}</MenuItem>);
   
-  const searchClick = () => {
-    console.log("hi");
+  React.useEffect(() => {
+    getPeriod();
+  }, []);
+
+  const storePeriod = () => {
+	  axios.post("/new/period", {
+      inicioAsignaciones: state.inicioAsignaciones,
+      finAsignaciones: state.finAsignaciones,
+      inicioEvaluaciones: state.inicioEvaluaciones,
+      finEvaluaciones: state.finEvaluaciones,
+      year: state.year,
+      periodo: state.periodo
+    })
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
+
+  const getPeriod = () => {
+	  axios.post("/period", { 
+    })
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
+
+  const onChangeYear = (event) => {
+    setState({
+      ...state,
+      year: event.target.value
+    })
+  }
+
+  const onChangePeriod = (event) => {
+    setState({
+      ...state,
+      periodo: event.target.value
+    })
   }
 
   const onChangeDate =( currentDate, date )=> {
@@ -56,10 +111,40 @@ const PeriodTime = ({ classes }) => {
       break;
     }
   }
-    console.log(state);
+
   return (
     <div className={classes.wrapper}>
       <MuiPickersUtilsProvider utils={DateFnsUtils} locale={esLocale}>
+        <div className={`row valign-wrapper my-3`}>
+          <div className="col s12 left-align">
+              <span className={classes.labelLogin}>Periodo Actual</span>
+          </div>
+        </div>   
+        <div className={`row valign-wrapper my-3`}>
+          <div className="col s4 mx-0">
+            <TextField
+              name='year'
+              type='number'
+              value={state.year}
+              onChange={onChangeYear}
+            />
+          </div>
+          <div className="col s3 offset-s1">
+            <StyledSelect
+              value={state.periodo}
+              onChange={onChangePeriod}
+              input={
+                <OutlinedInput
+                  name="periodo"
+                  id="periodo"
+                  labelWidth={48}
+                />
+              }
+            >
+              {periodoOptions}
+            </StyledSelect> 
+          </div>
+        </div>
         <div className={`row valign-wrapper my-3`}>
           <div className="col s12 left-align">
               <span className={classes.labelLogin}>Periodo de Solicitud de Asignaciones | Aceptación y Rechazo de Becarios</span>
@@ -77,7 +162,7 @@ const PeriodTime = ({ classes }) => {
               minDate={new Date()}
             />    
           </div>
-          <div className="col s4 center-align mx-0">
+          <div className="col s3 offset-s1">
             <DatePicker
               label="Fin"
               value={state.finAsignaciones}
@@ -88,27 +173,7 @@ const PeriodTime = ({ classes }) => {
               minDate={new Date()}
             />    
           </div>
-          <div className="col s2 offset-s2 right-align">
-            <Button
-              fullWidth 
-              variant="contained"
-              component="label"
-              onClick={searchClick}
-              variant="contained"
-              color="primary"
-            >
-              <CheckIcon className={`white-text ${classes.labelSearch}`}/>
-              <span className={classes.labelUpload}>Guardar</span>
-              <input
-                type="submit"
-                accept="image/*"
-                className={classes.input}
-                style={{ display: 'none' }}
-              />
-            </Button>
-          </div> 
         </div>
-        <div className="divider"></div> 
         <div className={`row valign-wrapper my-3`}>
           <div className="col s12 left-align">
               <span className={classes.labelLogin}>Periodo de Evaluación</span>
@@ -126,7 +191,7 @@ const PeriodTime = ({ classes }) => {
               minDate={new Date()}
             />    
           </div>
-          <div className="col s4 center-align mx-0">
+          <div className="col s3 offset-s1">
             <DatePicker
               label="Fin"
               value={state.finEvaluaciones}
@@ -137,12 +202,13 @@ const PeriodTime = ({ classes }) => {
               minDate={new Date()}
             />    
           </div>
-          <div className="col s2 offset-s2 right-align">
+        </div>
+        <div className={`row valign-wrapper my-3`}>
+          <div className="col s12 right-align">
             <Button
-              fullWidth
               variant="contained"
               component="label"
-              onClick={searchClick}
+              onClick={storePeriod}
               variant="contained"
               color="primary"
             >
@@ -155,28 +221,23 @@ const PeriodTime = ({ classes }) => {
                 style={{ display: 'none' }}
               />
             </Button>
+          </div>
         </div>
-      </div>
       </MuiPickersUtilsProvider>
-        {/*<DatePicker
-          clearable={true}
-          format="dd/MMM/yyyy"
-          dateformat="dd MMMM, YYYY"
-          label={"Elige una fecha"}
-          minDate={new Date()}
-          onChange={(date) => onChangeDate}(date, 'inicioAsignaciones') 
-          autoOk={true}
-          error={dateError}
-          helperText={dateError? 'La fecha tiene que ser válida.' : null}
-          value={date}
-          variant="outlined"
-          leftArrowIcon={<LeftArrowIcon />}
-          rightArrowIcon={<RightArrowIcon />}
-        /> */}
     </div> 
     
   );
 }
+
+const StyledSelect = withStyles({
+  outlined: {
+    padding: '18.5px 14px',
+    borderRadius: 0,
+    fontFamily: 'Nunito',
+    fontSize: '14px',
+    color: '#B7B7B7',
+  },
+})(Select);
 
 const maxWidth = 1000;
 

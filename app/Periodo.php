@@ -9,9 +9,10 @@ class Periodo extends Authenticatable
 {
 
   protected $table = 'periodo';
+  protected $fillable = ['id_periodo', 'year'];
   
-  const INVIERNO  = 1;
-  const FEB_JUN   = 2;
-  const VERANO    = 3;
-  const AGO_DIC   = 4;
+  const INVIERNO  = 0;
+  const FEB_JUN   = 1;
+  const VERANO    = 2;
+  const AGO_DIC   = 3;
 }
