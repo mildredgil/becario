@@ -16,6 +16,7 @@ use App\Administrador;
 use App\Colaborador;
 use App\Departamento;
 use Illuminate\Http\Request;
+use App\Notifications\InicioPeriodo;
 
 Route::get('/', function () {
   error_log("INFO: get /");
@@ -226,4 +227,9 @@ Route::get('/user/admin', function () {
     var_dump($administrador);
   }
   dd($administradores);*/
+});
+
+Route::get('/prueba', function() {
+  $user = Auth::user();
+  $user->notify(new InicioPeriodo());
 });

@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
+  use Notifiable;
 
   protected $table = 'users';
   /**
@@ -37,4 +38,14 @@ class User extends Authenticatable
   public function assignable() {
     return $this->morphTo();
   }
+
+  /**
+  * Route notifications for the mail channel.
+  *
+  * @return string
+  */
+  public function routeNotificationForMail()
+    {
+      return $this->assignable->email;
+    }
 }
