@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 636);
+/******/ 	return __webpack_require__(__webpack_require__.s = 641);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -1014,7 +1014,347 @@ if ("development" !== 'production' && "development" !== 'test' && typeof window 
 
 
 /***/ }),
-/* 21 */,
+/* 21 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var bind = __webpack_require__(159);
+var isBuffer = __webpack_require__(487);
+
+/*global toString:true*/
+
+// utils is a library of generic helper functions non-specific to axios
+
+var toString = Object.prototype.toString;
+
+/**
+ * Determine if a value is an Array
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is an Array, otherwise false
+ */
+function isArray(val) {
+  return toString.call(val) === '[object Array]';
+}
+
+/**
+ * Determine if a value is an ArrayBuffer
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is an ArrayBuffer, otherwise false
+ */
+function isArrayBuffer(val) {
+  return toString.call(val) === '[object ArrayBuffer]';
+}
+
+/**
+ * Determine if a value is a FormData
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is an FormData, otherwise false
+ */
+function isFormData(val) {
+  return (typeof FormData !== 'undefined') && (val instanceof FormData);
+}
+
+/**
+ * Determine if a value is a view on an ArrayBuffer
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a view on an ArrayBuffer, otherwise false
+ */
+function isArrayBufferView(val) {
+  var result;
+  if ((typeof ArrayBuffer !== 'undefined') && (ArrayBuffer.isView)) {
+    result = ArrayBuffer.isView(val);
+  } else {
+    result = (val) && (val.buffer) && (val.buffer instanceof ArrayBuffer);
+  }
+  return result;
+}
+
+/**
+ * Determine if a value is a String
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a String, otherwise false
+ */
+function isString(val) {
+  return typeof val === 'string';
+}
+
+/**
+ * Determine if a value is a Number
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a Number, otherwise false
+ */
+function isNumber(val) {
+  return typeof val === 'number';
+}
+
+/**
+ * Determine if a value is undefined
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if the value is undefined, otherwise false
+ */
+function isUndefined(val) {
+  return typeof val === 'undefined';
+}
+
+/**
+ * Determine if a value is an Object
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is an Object, otherwise false
+ */
+function isObject(val) {
+  return val !== null && typeof val === 'object';
+}
+
+/**
+ * Determine if a value is a Date
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a Date, otherwise false
+ */
+function isDate(val) {
+  return toString.call(val) === '[object Date]';
+}
+
+/**
+ * Determine if a value is a File
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a File, otherwise false
+ */
+function isFile(val) {
+  return toString.call(val) === '[object File]';
+}
+
+/**
+ * Determine if a value is a Blob
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a Blob, otherwise false
+ */
+function isBlob(val) {
+  return toString.call(val) === '[object Blob]';
+}
+
+/**
+ * Determine if a value is a Function
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a Function, otherwise false
+ */
+function isFunction(val) {
+  return toString.call(val) === '[object Function]';
+}
+
+/**
+ * Determine if a value is a Stream
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a Stream, otherwise false
+ */
+function isStream(val) {
+  return isObject(val) && isFunction(val.pipe);
+}
+
+/**
+ * Determine if a value is a URLSearchParams object
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a URLSearchParams object, otherwise false
+ */
+function isURLSearchParams(val) {
+  return typeof URLSearchParams !== 'undefined' && val instanceof URLSearchParams;
+}
+
+/**
+ * Trim excess whitespace off the beginning and end of a string
+ *
+ * @param {String} str The String to trim
+ * @returns {String} The String freed of excess whitespace
+ */
+function trim(str) {
+  return str.replace(/^\s*/, '').replace(/\s*$/, '');
+}
+
+/**
+ * Determine if we're running in a standard browser environment
+ *
+ * This allows axios to run in a web worker, and react-native.
+ * Both environments support XMLHttpRequest, but not fully standard globals.
+ *
+ * web workers:
+ *  typeof window -> undefined
+ *  typeof document -> undefined
+ *
+ * react-native:
+ *  navigator.product -> 'ReactNative'
+ * nativescript
+ *  navigator.product -> 'NativeScript' or 'NS'
+ */
+function isStandardBrowserEnv() {
+  if (typeof navigator !== 'undefined' && (navigator.product === 'ReactNative' ||
+                                           navigator.product === 'NativeScript' ||
+                                           navigator.product === 'NS')) {
+    return false;
+  }
+  return (
+    typeof window !== 'undefined' &&
+    typeof document !== 'undefined'
+  );
+}
+
+/**
+ * Iterate over an Array or an Object invoking a function for each item.
+ *
+ * If `obj` is an Array callback will be called passing
+ * the value, index, and complete array for each item.
+ *
+ * If 'obj' is an Object callback will be called passing
+ * the value, key, and complete object for each property.
+ *
+ * @param {Object|Array} obj The object to iterate
+ * @param {Function} fn The callback to invoke for each item
+ */
+function forEach(obj, fn) {
+  // Don't bother if no value provided
+  if (obj === null || typeof obj === 'undefined') {
+    return;
+  }
+
+  // Force an array if not already something iterable
+  if (typeof obj !== 'object') {
+    /*eslint no-param-reassign:0*/
+    obj = [obj];
+  }
+
+  if (isArray(obj)) {
+    // Iterate over array values
+    for (var i = 0, l = obj.length; i < l; i++) {
+      fn.call(null, obj[i], i, obj);
+    }
+  } else {
+    // Iterate over object keys
+    for (var key in obj) {
+      if (Object.prototype.hasOwnProperty.call(obj, key)) {
+        fn.call(null, obj[key], key, obj);
+      }
+    }
+  }
+}
+
+/**
+ * Accepts varargs expecting each argument to be an object, then
+ * immutably merges the properties of each object and returns result.
+ *
+ * When multiple objects contain the same key the later object in
+ * the arguments list will take precedence.
+ *
+ * Example:
+ *
+ * ```js
+ * var result = merge({foo: 123}, {foo: 456});
+ * console.log(result.foo); // outputs 456
+ * ```
+ *
+ * @param {Object} obj1 Object to merge
+ * @returns {Object} Result of all merge properties
+ */
+function merge(/* obj1, obj2, obj3, ... */) {
+  var result = {};
+  function assignValue(val, key) {
+    if (typeof result[key] === 'object' && typeof val === 'object') {
+      result[key] = merge(result[key], val);
+    } else {
+      result[key] = val;
+    }
+  }
+
+  for (var i = 0, l = arguments.length; i < l; i++) {
+    forEach(arguments[i], assignValue);
+  }
+  return result;
+}
+
+/**
+ * Function equal to merge with the difference being that no reference
+ * to original objects is kept.
+ *
+ * @see merge
+ * @param {Object} obj1 Object to merge
+ * @returns {Object} Result of all merge properties
+ */
+function deepMerge(/* obj1, obj2, obj3, ... */) {
+  var result = {};
+  function assignValue(val, key) {
+    if (typeof result[key] === 'object' && typeof val === 'object') {
+      result[key] = deepMerge(result[key], val);
+    } else if (typeof val === 'object') {
+      result[key] = deepMerge({}, val);
+    } else {
+      result[key] = val;
+    }
+  }
+
+  for (var i = 0, l = arguments.length; i < l; i++) {
+    forEach(arguments[i], assignValue);
+  }
+  return result;
+}
+
+/**
+ * Extends object a by mutably adding to it the properties of object b.
+ *
+ * @param {Object} a The object to be extended
+ * @param {Object} b The object to copy properties from
+ * @param {Object} thisArg The object to bind function to
+ * @return {Object} The resulting value of object a
+ */
+function extend(a, b, thisArg) {
+  forEach(b, function assignValue(val, key) {
+    if (thisArg && typeof val === 'function') {
+      a[key] = bind(val, thisArg);
+    } else {
+      a[key] = val;
+    }
+  });
+  return a;
+}
+
+module.exports = {
+  isArray: isArray,
+  isArrayBuffer: isArrayBuffer,
+  isBuffer: isBuffer,
+  isFormData: isFormData,
+  isArrayBufferView: isArrayBufferView,
+  isString: isString,
+  isNumber: isNumber,
+  isObject: isObject,
+  isUndefined: isUndefined,
+  isDate: isDate,
+  isFile: isFile,
+  isBlob: isBlob,
+  isFunction: isFunction,
+  isStream: isStream,
+  isURLSearchParams: isURLSearchParams,
+  isStandardBrowserEnv: isStandardBrowserEnv,
+  forEach: forEach,
+  merge: merge,
+  deepMerge: deepMerge,
+  extend: extend,
+  trim: trim
+};
+
+
+/***/ }),
 /* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -5661,8 +6001,603 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /***/ }),
-/* 83 */,
-/* 84 */,
+/* 83 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = toDate;
+/**
+ * @name toDate
+ * @category Common Helpers
+ * @summary Convert the given argument to an instance of Date.
+ *
+ * @description
+ * Convert the given argument to an instance of Date.
+ *
+ * If the argument is an instance of Date, the function returns its clone.
+ *
+ * If the argument is a number, it is treated as a timestamp.
+ *
+ * If the argument is none of the above, the function returns Invalid Date.
+ *
+ * **Note**: *all* Date arguments passed to any *date-fns* function is processed by `toDate`.
+ *
+ * @param {Date|Number} argument - the value to convert
+ * @returns {Date} the parsed date in the local time zone
+ * @throws {TypeError} 1 argument required
+ *
+ * @example
+ * // Clone the date:
+ * const result = toDate(new Date(2014, 1, 11, 11, 30, 30))
+ * //=> Tue Feb 11 2014 11:30:30
+ *
+ * @example
+ * // Convert the timestamp to date:
+ * const result = toDate(1392098430000)
+ * //=> Tue Feb 11 2014 11:30:30
+ */
+function toDate(argument) {
+  if (arguments.length < 1) {
+    throw new TypeError('1 argument required, but only ' + arguments.length + ' present');
+  }
+
+  var argStr = Object.prototype.toString.call(argument); // Clone the date
+
+  if (argument instanceof Date || typeof argument === 'object' && argStr === '[object Date]') {
+    // Prevent the date to lose the milliseconds when passed to new Date() in IE10
+    return new Date(argument.getTime());
+  } else if (typeof argument === 'number' || argStr === '[object Number]') {
+    return new Date(argument);
+  } else {
+    if ((typeof argument === 'string' || argStr === '[object String]') && typeof console !== 'undefined') {
+      // eslint-disable-next-line no-console
+      console.warn("Starting with v2.0.0-beta.1 date-fns doesn't accept strings as arguments. Please use `parseISO` to parse strings. See: https://git.io/fjule"); // eslint-disable-next-line no-console
+
+      console.warn(new Error().stack);
+    }
+
+    return new Date(NaN);
+  }
+}
+
+/***/ }),
+/* 84 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.WebIcon = exports.WAIcon2 = exports.WAIcon = exports.UpLoadIcon = exports.UpArrowIcon = exports.TwitterIcon = exports.SupervisorIcon = exports.ShoppingIcon = exports.SettingsIcon = exports.SearchIcon = exports.SchoolIcon = exports.SaveIcon = exports.SatisfiedIcon = exports.SadIcon = exports.RightArrowIcon = exports.RFullArrowIcon = exports.RefIcon = exports.PublicIcon = exports.PriceUArrowIcon = exports.PriceDArrowIcon = exports.PowerIcon = exports.PlusIcon = exports.PhoneIcon = exports.PersonEditIcon = exports.PersonIcon = exports.PeopleIcon = exports.PadlockIcon = exports.NotificationIcon = exports.NewsLetterIcon = exports.MessengerIcon = exports.MenuIcon = exports.MedalIcon = exports.LockIcon = exports.LocationIcon = exports.ListIcon = exports.LinkedinIcon = exports.LeftArrowIcon = exports.LabelIcon = exports.LanguageIcon = exports.InfoIcon = exports.HomeIcon = exports.HelpIcon = exports.HalfStarIcon = exports.FullStarIcon = exports.GraphIcon = exports.FilterIcon = exports.FacebookIcon = exports.EmptyStarIcon = exports.EmailIcon = exports.DeleteIcon = exports.DownloadIcon = exports.DownArrowIcon = exports.DescriptionIcon = exports.CreateIcon = exports.ConfigIcon = exports.CloseIcon = exports.ClockIcon = exports.CheckIcon = exports.CautionIcon = exports.CardPayIcon = exports.CardIcon = exports.CalendarIcon = exports.BinIcon = exports.AddIcon = undefined;
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _SvgIcon = __webpack_require__(60);
+
+var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var AddIcon = function AddIcon(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    _extends({}, props, { viewBox: '0 0 13 13' }),
+    _react2.default.createElement('path', { d: 'M11.375 5.4375C11.5938 5.4375 11.8125 5.54688 11.9766 5.71094C12.1406 5.875 12.25 6.09375 12.25 6.3125V7.1875C12.25 7.43359 12.1406 7.65234 11.9766 7.81641C11.8125 7.98047 11.5938 8.0625 11.375 8.0625H7.4375V12C7.4375 12.2461 7.32812 12.4648 7.16406 12.6289C7 12.793 6.78125 12.875 6.5625 12.875H5.6875C5.44141 12.875 5.22266 12.793 5.05859 12.6289C4.89453 12.4648 4.8125 12.2461 4.8125 12V8.0625H0.875C0.628906 8.0625 0.410156 7.98047 0.246094 7.81641C0.0820312 7.65234 0 7.43359 0 7.1875V6.3125C0 6.09375 0.0820312 5.875 0.246094 5.71094C0.410156 5.54688 0.628906 5.4375 0.875 5.4375H4.8125V1.5C4.8125 1.28125 4.89453 1.0625 5.05859 0.898438C5.22266 0.734375 5.44141 0.625 5.6875 0.625H6.5625C6.78125 0.625 7 0.734375 7.16406 0.898438C7.32812 1.0625 7.4375 1.28125 7.4375 1.5V5.4375H11.375Z' })
+  );
+};
+var BinIcon = function BinIcon(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    _extends({}, props, { viewBox: '0 0 13 15' }),
+    _react2.default.createElement('path', { d: 'M13 3.04688C13 3.15625 12.9727 3.23828 12.918 3.29297C12.8633 3.34766 12.7812 3.375 12.6719 3.375H1.07812C0.996094 3.375 0.914062 3.34766 0.859375 3.29297C0.804688 3.23828 0.75 3.15625 0.75 3.04688V2.28125C0.75 2.11719 0.832031 1.95312 0.941406 1.81641C1.07812 1.70703 1.24219 1.625 1.40625 1.625H4.46875L4.71484 1.10547C4.76953 0.996094 4.85156 0.914062 4.96094 0.859375C5.07031 0.804688 5.20703 0.75 5.31641 0.75H8.43359C8.57031 0.75 8.67969 0.804688 8.78906 0.859375C8.89844 0.914062 8.98047 0.996094 9.03516 1.10547L9.28125 1.625H12.3438C12.5352 1.625 12.6992 1.70703 12.8086 1.81641C12.9453 1.95312 13 2.11719 13 2.28125V3.04688ZM1.625 4.57812C1.625 4.49609 1.67969 4.41406 1.73438 4.35938C1.78906 4.30469 1.87109 4.25 1.95312 4.25H11.7969C11.9062 4.25 11.9883 4.30469 12.043 4.35938C12.0977 4.41406 12.125 4.49609 12.125 4.57812V13.4375C12.125 13.8203 12.0156 14.1211 11.7422 14.3672C11.4961 14.6406 11.1953 14.75 10.8125 14.75H2.9375C2.58203 14.75 2.28125 14.6406 2.00781 14.3672C1.76172 14.1211 1.625 13.8203 1.625 13.4375V4.57812ZM9.0625 6.4375V12.5625C9.0625 12.6992 9.11719 12.8086 9.19922 12.8906C9.28125 12.9727 9.39062 13 9.5 13C9.63672 13 9.74609 12.9727 9.82812 12.8906C9.91016 12.8086 9.9375 12.6992 9.9375 12.5625V6.4375C9.9375 6.32812 9.91016 6.21875 9.82812 6.13672C9.74609 6.05469 9.63672 6 9.5 6C9.39062 6 9.28125 6.05469 9.19922 6.13672C9.11719 6.21875 9.0625 6.32812 9.0625 6.4375ZM6.4375 6.4375V12.5625C6.4375 12.6992 6.49219 12.8086 6.57422 12.8906C6.65625 12.9727 6.76562 13 6.875 13C7.01172 13 7.12109 12.9727 7.20312 12.8906C7.28516 12.8086 7.3125 12.6992 7.3125 12.5625V6.4375C7.3125 6.32812 7.28516 6.21875 7.20312 6.13672C7.12109 6.05469 7.01172 6 6.875 6C6.76562 6 6.65625 6.05469 6.57422 6.13672C6.49219 6.21875 6.4375 6.32812 6.4375 6.4375ZM3.8125 6.4375V12.5625C3.8125 12.6992 3.86719 12.8086 3.94922 12.8906C4.03125 12.9727 4.14062 13 4.25 13C4.38672 13 4.49609 12.9727 4.57812 12.8906C4.66016 12.8086 4.6875 12.6992 4.6875 12.5625V6.4375C4.6875 6.32812 4.66016 6.21875 4.57812 6.13672C4.49609 6.05469 4.38672 6 4.25 6C4.14062 6 4.03125 6.05469 3.94922 6.13672C3.86719 6.21875 3.8125 6.32812 3.8125 6.4375Z', fill: '#DD8A1B' })
+  );
+};
+var CalendarIcon = function CalendarIcon(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    _extends({}, props, { viewBox: '0 0 15 15' }),
+    _react2.default.createElement('path', { d: 'M12.3333 2.00002H11.6666V0.666687H10.3333V2.00002H3.66659V0.666687H2.33325V2.00002H1.66659C0.933252 2.00002 0.333252 2.60002 0.333252 3.33335V14C0.333252 14.7334 0.933252 15.3334 1.66659 15.3334H12.3333C13.0666 15.3334 13.6666 14.7334 13.6666 14V3.33335C13.6666 2.60002 13.0666 2.00002 12.3333 2.00002ZM12.3333 14H1.66659V5.33335H12.3333V14Z' })
+  );
+};
+var CautionIcon = function CautionIcon(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    _extends({}, props, { viewBox: '0 0 21 19' }),
+    _react2.default.createElement('path', { d: 'M20.4141 15.7188L11.9766 1.09375C11.7656 0.742188 11.4492 0.496094 11.0625 0.355469C10.6758 0.214844 10.2891 0.214844 9.90234 0.355469C9.51562 0.496094 9.23438 0.742188 9.02344 1.09375L0.585938 15.7188C0.375 16.1055 0.339844 16.4922 0.410156 16.8789C0.480469 17.2656 0.65625 17.582 0.972656 17.8633C1.25391 18.1445 1.64062 18.25 2.0625 18.25H18.9375C19.3594 18.25 19.7109 18.1445 20.0273 17.8633C20.3086 17.582 20.5195 17.2656 20.5898 16.8789C20.6602 16.4922 20.5898 16.1055 20.4141 15.7188ZM10.5 12.6953C10.9219 12.6953 11.3086 12.8711 11.625 13.1875C11.9414 13.5039 12.1172 13.8906 12.1172 14.3125C12.1172 14.7695 11.9414 15.1562 11.625 15.4727C11.3086 15.7891 10.9219 15.9297 10.5 15.9297C10.043 15.9297 9.65625 15.7891 9.33984 15.4727C9.02344 15.1562 8.88281 14.7695 8.88281 14.3125C8.88281 13.8906 9.02344 13.5039 9.33984 13.1875C9.65625 12.8711 10.043 12.6953 10.5 12.6953ZM8.95312 6.89453C8.95312 6.75391 8.98828 6.64844 9.05859 6.57812C9.12891 6.50781 9.23438 6.4375 9.375 6.4375H11.625C11.7305 6.4375 11.8359 6.50781 11.9062 6.57812C11.9766 6.64844 12.0469 6.75391 12.0469 6.89453L11.7656 11.6758C11.7656 11.7812 11.6953 11.8867 11.625 11.957C11.5547 12.0273 11.4492 12.0625 11.3438 12.0625H9.65625C9.51562 12.0625 9.41016 12.0273 9.33984 11.957C9.26953 11.8867 9.23438 11.7812 9.23438 11.6758L8.95312 6.89453Z' })
+  );
+};
+var CardIcon = function CardIcon(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    _extends({}, props, { viewBox: '0 0 16 13' }),
+    _react2.default.createElement('path', { d: 'M0 11.5625V6.75H15.75V11.5625C15.75 11.9453 15.6133 12.2461 15.3672 12.4922C15.0938 12.7656 14.793 12.875 14.4375 12.875H1.3125C0.929688 12.875 0.628906 12.7656 0.382812 12.4922C0.109375 12.2461 0 11.9453 0 11.5625ZM5.25 9.70312V10.7969C5.25 10.9062 5.27734 10.9883 5.33203 11.043C5.38672 11.0977 5.46875 11.125 5.57812 11.125H9.29688C9.37891 11.125 9.46094 11.0977 9.51562 11.043C9.57031 10.9883 9.625 10.9062 9.625 10.7969V9.70312C9.625 9.62109 9.57031 9.53906 9.51562 9.48438C9.46094 9.42969 9.37891 9.375 9.29688 9.375H5.57812C5.46875 9.375 5.38672 9.42969 5.33203 9.48438C5.27734 9.53906 5.25 9.62109 5.25 9.70312ZM1.75 9.70312V10.7969C1.75 10.9062 1.77734 10.9883 1.83203 11.043C1.88672 11.0977 1.96875 11.125 2.07812 11.125H4.04688C4.12891 11.125 4.21094 11.0977 4.26562 11.043C4.32031 10.9883 4.375 10.9062 4.375 10.7969V9.70312C4.375 9.62109 4.32031 9.53906 4.26562 9.48438C4.21094 9.42969 4.12891 9.375 4.04688 9.375H2.07812C1.96875 9.375 1.88672 9.42969 1.83203 9.48438C1.77734 9.53906 1.75 9.62109 1.75 9.70312ZM15.75 1.9375C15.75 1.58203 15.6133 1.28125 15.3672 1.00781C15.0938 0.761719 14.793 0.625 14.4375 0.625H1.3125C0.929688 0.625 0.628906 0.761719 0.382812 1.00781C0.109375 1.28125 0 1.58203 0 1.9375V3.25H15.75V1.9375Z' })
+  );
+};
+var CardPayIcon = function CardPayIcon(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    _extends({}, props, { viewBox: '0 0 16 13' }),
+    _react2.default.createElement('path', { d: 'M14.4375 0.625C14.793 0.625 15.0938 0.761719 15.3672 1.00781C15.6133 1.28125 15.75 1.58203 15.75 1.9375V11.5625C15.75 11.9453 15.6133 12.2461 15.3672 12.4922C15.0938 12.7656 14.793 12.875 14.4375 12.875H1.3125C0.929688 12.875 0.628906 12.7656 0.382812 12.4922C0.109375 12.2461 0 11.9453 0 11.5625V1.9375C0 1.58203 0.109375 1.28125 0.382812 1.00781C0.628906 0.761719 0.929688 0.625 1.3125 0.625H14.4375ZM1.47656 1.9375C1.42188 1.9375 1.39453 1.96484 1.36719 1.99219C1.3125 2.04688 1.3125 2.07422 1.3125 2.10156V3.25H14.4375V2.10156C14.4375 2.07422 14.4102 2.04688 14.3828 1.99219C14.3281 1.96484 14.3008 1.9375 14.2734 1.9375H1.47656ZM14.2734 11.5625C14.3008 11.5625 14.3281 11.5625 14.3828 11.5078C14.4102 11.4805 14.4375 11.4531 14.4375 11.3984V6.75H1.3125V11.3984C1.3125 11.4531 1.3125 11.4805 1.36719 11.5078C1.39453 11.5625 1.42188 11.5625 1.47656 11.5625H14.2734ZM5.25 8.82812C5.25 8.74609 5.19531 8.66406 5.14062 8.60938C5.08594 8.55469 5.00391 8.5 4.92188 8.5H2.95312C2.84375 8.5 2.76172 8.55469 2.70703 8.60938C2.65234 8.66406 2.625 8.74609 2.625 8.82812V9.92188C2.625 10.0312 2.65234 10.1133 2.70703 10.168C2.76172 10.2227 2.84375 10.25 2.95312 10.25H4.92188C5.00391 10.25 5.08594 10.2227 5.14062 10.168C5.19531 10.1133 5.25 10.0312 5.25 9.92188V8.82812ZM10.5 8.82812C10.5 8.74609 10.4453 8.66406 10.3906 8.60938C10.3359 8.55469 10.2539 8.5 10.1719 8.5H6.45312C6.34375 8.5 6.26172 8.55469 6.20703 8.60938C6.15234 8.66406 6.125 8.74609 6.125 8.82812V9.92188C6.125 10.0312 6.15234 10.1133 6.20703 10.168C6.26172 10.2227 6.34375 10.25 6.45312 10.25H10.1719C10.2539 10.25 10.3359 10.2227 10.3906 10.168C10.4453 10.1133 10.5 10.0312 10.5 9.92188V8.82812Z' })
+  );
+};
+var CheckIcon = function CheckIcon(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    _extends({}, props, { viewBox: '0 0 14 11' }),
+    _react2.default.createElement('path', { d: 'M4.75781 10.7539C4.86719 10.918 5.03125 10.9727 5.25 10.9727C5.44141 10.9727 5.60547 10.918 5.74219 10.7539L13.8086 2.71484C13.918 2.60547 14 2.44141 14 2.22266C14 2.03125 13.918 1.86719 13.8086 1.73047L12.7969 0.746094C12.6602 0.609375 12.4961 0.527344 12.3047 0.527344C12.1133 0.527344 11.9492 0.609375 11.8125 0.746094L5.25 7.30859L2.1875 4.24609C2.02344 4.10938 1.85938 4.02734 1.66797 4.02734C1.47656 4.02734 1.3125 4.10938 1.20312 4.24609L0.191406 5.23047C0.0546875 5.36719 0 5.53125 0 5.72266C0 5.94141 0.0546875 6.10547 0.191406 6.21484L4.75781 10.7539Z' })
+  );
+};
+var ClockIcon = function ClockIcon(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    _extends({}, props, { viewBox: '0 0 15 15' }),
+    _react2.default.createElement('path', { d: 'M7 0.96875C5.77865 0.96875 4.64844 1.27865 3.60938 1.89844C2.57031 2.5 1.74089 3.32031 1.12109 4.35938C0.519531 5.39844 0.21875 6.52865 0.21875 7.75C0.21875 8.97135 0.519531 10.1016 1.12109 11.1406C1.74089 12.1797 2.57031 13 3.60938 13.6016C4.64844 14.2214 5.77865 14.5312 7 14.5312C8.22135 14.5312 9.35156 14.2214 10.3906 13.6016C11.4297 13 12.25 12.1797 12.8516 11.1406C13.4714 10.1016 13.7812 8.97135 13.7812 7.75C13.7812 6.52865 13.4714 5.39844 12.8516 4.35938C12.25 3.32031 11.4297 2.5 10.3906 1.89844C9.35156 1.27865 8.22135 0.96875 7 0.96875ZM7 13.2188C6.01562 13.2188 5.10417 12.9727 4.26562 12.4805C3.42708 11.9883 2.76172 11.3229 2.26953 10.4844C1.77734 9.64583 1.53125 8.73438 1.53125 7.75C1.53125 6.76562 1.77734 5.85417 2.26953 5.01562C2.76172 4.17708 3.42708 3.51172 4.26562 3.01953C5.10417 2.52734 6.01562 2.28125 7 2.28125C7.98438 2.28125 8.89583 2.52734 9.73438 3.01953C10.5729 3.51172 11.2383 4.17708 11.7305 5.01562C12.2227 5.85417 12.4688 6.76562 12.4688 7.75C12.4688 8.73438 12.2227 9.64583 11.7305 10.4844C11.2383 11.3229 10.5729 11.9883 9.73438 12.4805C8.89583 12.9727 7.98438 13.2188 7 13.2188ZM8.69531 10.375L6.37109 8.67969C6.27995 8.60677 6.23438 8.51562 6.23438 8.40625V3.92188C6.23438 3.83073 6.26172 3.75781 6.31641 3.70312C6.38932 3.63021 6.47135 3.59375 6.5625 3.59375H7.4375C7.52865 3.59375 7.60156 3.63021 7.65625 3.70312C7.72917 3.75781 7.76562 3.83073 7.76562 3.92188V7.80469L9.59766 9.11719C9.67057 9.17188 9.70703 9.24479 9.70703 9.33594C9.72526 9.42708 9.70703 9.50911 9.65234 9.58203L9.16016 10.293C9.10547 10.3659 9.03255 10.4115 8.94141 10.4297C8.85026 10.4479 8.76823 10.4297 8.69531 10.375Z' })
+  );
+};
+var CloseIcon = function CloseIcon(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    _extends({}, props, { viewBox: '0 0 14 15' }),
+    _react2.default.createElement('path', { d: 'M9.49219 7.5L13.3984 3.59375C13.6328 3.35938 13.75 3.07292 13.75 2.73438C13.75 2.39583 13.6328 2.09635 13.3984 1.83594L12.5391 0.976562C12.2786 0.742188 11.9792 0.625 11.6406 0.625C11.3021 0.625 11.0156 0.742188 10.7812 0.976562L6.875 4.88281L2.96875 0.976562C2.73438 0.742188 2.44792 0.625 2.10938 0.625C1.77083 0.625 1.47135 0.742188 1.21094 0.976562L0.351562 1.83594C0.117188 2.09635 0 2.39583 0 2.73438C0 3.07292 0.117188 3.35938 0.351562 3.59375L4.25781 7.5L0.351562 11.4062C0.117188 11.6406 0 11.9271 0 12.2656C0 12.6042 0.117188 12.9036 0.351562 13.1641L1.21094 14.0234C1.47135 14.2578 1.77083 14.375 2.10938 14.375C2.44792 14.375 2.73438 14.2578 2.96875 14.0234L6.875 10.1172L10.7812 14.0234C11.0156 14.2578 11.3021 14.375 11.6406 14.375C11.9792 14.375 12.2786 14.2578 12.5391 14.0234L13.3984 13.1641C13.6328 12.9036 13.75 12.6042 13.75 12.2656C13.75 11.9271 13.6328 11.6406 13.3984 11.4062L9.49219 7.5Z' })
+  );
+};
+var ConfigIcon = function ConfigIcon(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    _extends({}, props, { viewBox: '0 0 18 18' }),
+    _react2.default.createElement('path', { d: 'M15.6445 10.4805C15.7852 9.67188 15.7852 8.86328 15.6445 8.01953L17.1211 7.14062C17.1914 7.10547 17.2617 7.03516 17.2969 6.92969C17.332 6.85938 17.332 6.75391 17.332 6.64844C16.9102 5.41797 16.2773 4.32812 15.3984 3.34375C15.3281 3.27344 15.2227 3.23828 15.1523 3.20312C15.0469 3.20312 14.9414 3.20312 14.8711 3.23828L13.3945 4.11719C12.7617 3.58984 12.0234 3.16797 11.25 2.88672V1.16406C11.25 1.09375 11.2148 0.988281 11.1445 0.917969C11.0742 0.847656 11.0039 0.777344 10.9336 0.742188C9.63281 0.460938 8.33203 0.460938 7.06641 0.742188C6.96094 0.777344 6.89062 0.847656 6.82031 0.917969C6.75 0.988281 6.75 1.09375 6.75 1.16406V2.88672C5.94141 3.16797 5.23828 3.58984 4.60547 4.11719L3.12891 3.23828C3.02344 3.20312 2.91797 3.20312 2.84766 3.20312C2.74219 3.23828 2.67188 3.27344 2.60156 3.34375C1.6875 4.32812 1.05469 5.41797 0.667969 6.64844C0.632812 6.75391 0.632812 6.85938 0.667969 6.92969C0.703125 7.03516 0.773438 7.10547 0.878906 7.14062L2.35547 8.01953C2.21484 8.86328 2.21484 9.67188 2.35547 10.4805L0.878906 11.3594C0.773438 11.4297 0.703125 11.5 0.667969 11.5703C0.632812 11.6758 0.632812 11.7812 0.667969 11.8516C1.05469 13.1172 1.6875 14.207 2.60156 15.1562C2.67188 15.2266 2.74219 15.2969 2.84766 15.2969C2.91797 15.332 3.02344 15.332 3.12891 15.2617L4.60547 14.3828C5.23828 14.9453 5.94141 15.332 6.75 15.6133V17.3359C6.75 17.4414 6.75 17.5469 6.82031 17.6172C6.89062 17.6875 6.96094 17.7578 7.06641 17.7578C8.33203 18.0391 9.63281 18.0391 10.9336 17.7578C11.0039 17.7578 11.0742 17.6875 11.1445 17.6172C11.2148 17.5469 11.25 17.4414 11.25 17.3359V15.6133C12.0234 15.332 12.7617 14.9453 13.3945 14.3828L14.8711 15.2617C14.9414 15.332 15.0469 15.332 15.1523 15.2969C15.2227 15.2969 15.3281 15.2266 15.3984 15.1562C16.2773 14.207 16.9102 13.1172 17.332 11.8516C17.332 11.7812 17.332 11.6758 17.2969 11.5703C17.2617 11.5 17.1914 11.4297 17.1211 11.3594L15.6445 10.4805ZM11.8125 9.25C11.8125 10.0234 11.5312 10.6914 10.9688 11.2539C10.4062 11.8164 9.77344 12.0625 9 12.0625C8.22656 12.0625 7.55859 11.8164 6.99609 11.2539C6.43359 10.6914 6.1875 10.0234 6.1875 9.25C6.1875 8.47656 6.43359 7.84375 6.99609 7.28125C7.55859 6.71875 8.22656 6.4375 9 6.4375C9.77344 6.4375 10.4062 6.71875 10.9688 7.28125C11.5312 7.84375 11.8125 8.47656 11.8125 9.25Z' })
+  );
+};
+var CreateIcon = function CreateIcon(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    _extends({}, props, { viewBox: '0 0 24 24' }),
+    _react2.default.createElement('path', { d: 'M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z' })
+  );
+};
+var DeleteIcon = function DeleteIcon(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    _extends({}, props, { viewBox: '0 0 13 15' }),
+    _react2.default.createElement('path', { d: 'M0 3.04688C0 3.15625 0.0273438 3.23828 0.0820312 3.29297C0.136719 3.34766 0.21875 3.375 0.328125 3.375H11.9219C12.0039 3.375 12.0859 3.34766 12.1406 3.29297C12.1953 3.23828 12.25 3.15625 12.25 3.04688V2.28125C12.25 2.11719 12.168 1.95312 12.0586 1.81641C11.9219 1.70703 11.7578 1.625 11.5938 1.625H8.53125L8.28516 1.10547C8.23047 0.996094 8.14844 0.914062 8.03906 0.859375C7.92969 0.804688 7.79297 0.75 7.68359 0.75H4.56641C4.42969 0.75 4.32031 0.804688 4.21094 0.859375C4.10156 0.914062 4.01953 0.996094 3.96484 1.10547L3.71875 1.625H0.65625C0.464844 1.625 0.300781 1.70703 0.191406 1.81641C0.0546875 1.95312 0 2.11719 0 2.28125V3.04688ZM11.375 4.57812C11.375 4.49609 11.3203 4.41406 11.2656 4.35938C11.2109 4.30469 11.1289 4.25 11.0469 4.25H1.20312C1.09375 4.25 1.01172 4.30469 0.957031 4.35938C0.902344 4.41406 0.875 4.49609 0.875 4.57812V13.4375C0.875 13.8203 0.984375 14.1211 1.25781 14.3672C1.50391 14.6406 1.80469 14.75 2.1875 14.75H10.0625C10.418 14.75 10.7188 14.6406 10.9922 14.3672C11.2383 14.1211 11.375 13.8203 11.375 13.4375V4.57812ZM3.9375 6.4375V12.5625C3.9375 12.6992 3.88281 12.8086 3.80078 12.8906C3.71875 12.9727 3.60938 13 3.5 13C3.36328 13 3.25391 12.9727 3.17188 12.8906C3.08984 12.8086 3.0625 12.6992 3.0625 12.5625V6.4375C3.0625 6.32812 3.08984 6.21875 3.17188 6.13672C3.25391 6.05469 3.36328 6 3.5 6C3.60938 6 3.71875 6.05469 3.80078 6.13672C3.88281 6.21875 3.9375 6.32812 3.9375 6.4375ZM6.5625 6.4375V12.5625C6.5625 12.6992 6.50781 12.8086 6.42578 12.8906C6.34375 12.9727 6.23438 13 6.125 13C5.98828 13 5.87891 12.9727 5.79688 12.8906C5.71484 12.8086 5.6875 12.6992 5.6875 12.5625V6.4375C5.6875 6.32812 5.71484 6.21875 5.79688 6.13672C5.87891 6.05469 5.98828 6 6.125 6C6.23438 6 6.34375 6.05469 6.42578 6.13672C6.50781 6.21875 6.5625 6.32812 6.5625 6.4375ZM9.1875 6.4375V12.5625C9.1875 12.6992 9.13281 12.8086 9.05078 12.8906C8.96875 12.9727 8.85938 13 8.75 13C8.61328 13 8.50391 12.9727 8.42188 12.8906C8.33984 12.8086 8.3125 12.6992 8.3125 12.5625V6.4375C8.3125 6.32812 8.33984 6.21875 8.42188 6.13672C8.50391 6.05469 8.61328 6 8.75 6C8.85938 6 8.96875 6.05469 9.05078 6.13672C9.13281 6.21875 9.1875 6.32812 9.1875 6.4375Z' })
+  );
+};
+var DescriptionIcon = function DescriptionIcon(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    _extends({}, props, { viewBox: '0 0 24 24' }),
+    _react2.default.createElement('path', { d: 'M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z' })
+  );
+};
+var DownArrowIcon = function DownArrowIcon(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    _extends({}, props, { viewBox: '0 0 10 5' }),
+    _react2.default.createElement('path', { d: 'M0 0L5 5L10 0H0Z' })
+  );
+};
+var DownloadIcon = function DownloadIcon(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    _extends({}, props, { viewBox: '0 0 24 24' }),
+    _react2.default.createElement('path', { d: 'M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-4.65 4.65c-.2.2-.51.2-.71 0L7 13h3V9h4v4h3z' })
+  );
+};
+var EmailIcon = function EmailIcon(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    _extends({}, props, { viewBox: '0 0 20 19' }),
+    _react2.default.createElement('path', { d: 'M18 0H2C0.9 0 0.00999999 0.9 0.00999999 2L0 14C0 15.1 0.9 16 2 16H18C19.1 16 20 15.1 20 14V2C20 0.9 19.1 0 18 0ZM18 4L10 9L2 4V2L10 7L18 2V4Z' })
+  );
+};
+var EmptyStarIcon = function EmptyStarIcon(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    _extends({}, props, { viewBox: '0 0 20 19' }),
+    _react2.default.createElement('path', { d: 'M20 7.24L12.81 6.62L10 0L7.19 6.63L0 7.24L5.46 11.97L3.82 19L10 15.27L16.18 19L14.55 11.97L20 7.24ZM10 13.4L6.24 15.67L7.24 11.39L3.92 8.51L8.3 8.13L10 4.1L11.71 8.14L16.09 8.52L12.77 11.4L13.77 15.68L10 13.4Z' })
+  );
+};
+var FacebookIcon = function FacebookIcon(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    _extends({}, props, { viewBox: '0 0 08 15' }),
+    _react2.default.createElement('path', { d: 'M2.10547 14.75V8.48828H0V6H2.10547V4.03125C2.10547 2.99219 2.39714 2.1901 2.98047 1.625C3.5638 1.04167 4.33854 0.75 5.30469 0.75C6.08854 0.75 6.72656 0.786458 7.21875 0.859375V3.07422H5.90625C5.41406 3.07422 5.07682 3.18359 4.89453 3.40234C4.7487 3.58464 4.67578 3.8763 4.67578 4.27734V6H7L6.67188 8.48828H4.67578V14.75H2.10547Z', fill: 'white' })
+  );
+};
+var FilterIcon = function FilterIcon(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    _extends({}, props, { viewBox: '0 0 12 13' }),
+    _react2.default.createElement('path', { d: 'M11.4375 0.5C11.5781 0.5 11.7188 0.570312 11.8359 0.664062C11.9297 0.78125 12 0.921875 12 1.0625C12 1.22656 11.9297 1.36719 11.8359 1.46094L7.5 5.79688V11.9375C7.5 12.1719 7.38281 12.3594 7.19531 12.4531C6.98438 12.5469 6.79688 12.5469 6.60938 12.4062L4.73438 11.0938C4.57031 10.9766 4.5 10.8125 4.5 10.625V5.79688L0.164062 1.46094C0.046875 1.36719 0 1.22656 0 1.0625C0 0.921875 0.046875 0.78125 0.164062 0.664062C0.257812 0.570312 0.398438 0.5 0.5625 0.5H11.4375Z' })
+  );
+};
+var FullStarIcon = function FullStarIcon(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    _extends({}, props, { viewBox: '0 0 20 19' }),
+    _react2.default.createElement('path', { d: 'M10 15.27L16.18 19L14.54 11.97L20 7.24L12.81 6.63L10 0L7.19 6.63L0 7.24L5.46 11.97L3.82 19L10 15.27Z' })
+  );
+};
+var GraphIcon = function GraphIcon(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    _extends({}, props, { viewBox: '0 0 35 27' }),
+    _react2.default.createElement('path', { d: 'M34.1797 22.625H4.375V1.57031C4.375 1.36523 4.23828 1.16016 4.10156 1.02344C3.96484 0.886719 3.75977 0.75 3.55469 0.75H0.820312C0.546875 0.75 0.341797 0.886719 0.205078 1.02344C0.0683594 1.16016 0 1.36523 0 1.57031V26.1797C0 26.4531 0.0683594 26.6582 0.205078 26.7949C0.341797 26.9316 0.546875 27 0.820312 27H34.1797C34.3848 27 34.5898 26.9316 34.7266 26.7949C34.8633 26.6582 35 26.4531 35 26.1797V23.4453C35 23.2402 34.8633 23.0352 34.7266 22.8984C34.5898 22.7617 34.3848 22.625 34.1797 22.625ZM31.1719 2.9375C31.582 2.9375 31.9922 3.14258 32.334 3.41602C32.6074 3.75781 32.8125 4.16797 32.8125 4.57812V12.2344C32.8125 12.7129 32.6074 13.123 32.334 13.3965C31.9922 13.7383 31.582 13.875 31.1719 13.875C30.6934 13.875 30.2832 13.7383 30.0098 13.3965L27.7539 11.1406L20.2344 18.5918C20.0977 18.7285 19.8926 18.7969 19.6875 18.7969C19.4141 18.7969 19.209 18.7285 19.0723 18.5918L15.3125 14.7637L9.70703 20.3691C9.50195 20.5742 9.29688 20.6426 9.0918 20.6426C8.81836 20.6426 8.68164 20.5742 8.54492 20.3691L6.5625 18.3867C6.42578 18.25 6.35742 18.0449 6.35742 17.7715C6.35742 17.5664 6.42578 17.3613 6.5625 17.2246L14.6973 9.1582C14.834 9.02148 15.0391 8.95312 15.3125 8.95312C15.5176 8.95312 15.7227 9.02148 15.8594 9.1582L19.6875 12.9863L24.6094 7.99609L22.3535 5.74023C22.0117 5.4668 21.875 5.05664 21.875 4.57812C21.875 4.16797 22.0117 3.75781 22.3535 3.41602C22.627 3.14258 23.0371 2.9375 23.5156 2.9375H31.1719Z' })
+  );
+};
+var HalfStarIcon = function HalfStarIcon(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    _extends({}, props, { viewBox: '0 0 20 19' }),
+    _react2.default.createElement('path', { d: 'M20 7.24L12.81 6.62L10 0L7.19 6.63L0 7.24L5.46 11.97L3.82 19L10 15.27L16.18 19L14.55 11.97L20 7.24ZM10 13.4V4.1L11.71 8.14L16.09 8.52L12.77 11.4L13.77 15.68L10 13.4Z' })
+  );
+};
+var HelpIcon = function HelpIcon(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    _extends({}, props, { viewBox: '0 0 14 15' }),
+    _react2.default.createElement('path', { d: 'M13.7812 7.75C13.7812 6.54688 13.4531 5.39844 12.8516 4.35938C12.25 3.32031 11.4297 2.5 10.3906 1.89844C9.35156 1.29688 8.20312 0.96875 7 0.96875C5.76953 0.96875 4.64844 1.29688 3.60938 1.89844C2.57031 2.5 1.72266 3.32031 1.12109 4.35938C0.519531 5.39844 0.21875 6.54688 0.21875 7.75C0.21875 8.98047 0.519531 10.1016 1.12109 11.1406C1.72266 12.1797 2.57031 13.0273 3.60938 13.6289C4.64844 14.2305 5.76953 14.5312 7 14.5312C8.20312 14.5312 9.35156 14.2305 10.3906 13.6289C11.4297 13.0273 12.25 12.1797 12.8516 11.1406C13.4531 10.1016 13.7812 8.98047 13.7812 7.75ZM7.19141 3.21094C7.68359 3.21094 8.20312 3.34766 8.69531 3.59375C9.1875 3.83984 9.57031 4.16797 9.89844 4.60547C10.1992 5.04297 10.3633 5.50781 10.3633 6C10.3633 6.60156 10.1719 7.06641 9.84375 7.44922C9.625 7.66797 9.29688 7.94141 8.83203 8.21484C8.55859 8.37891 8.39453 8.48828 8.3125 8.54297C8.14844 8.65234 8.09375 8.78906 8.09375 8.92578V8.95312C8.09375 9.0625 8.03906 9.14453 7.98438 9.19922C7.92969 9.25391 7.84766 9.28125 7.76562 9.28125H6.23438C6.125 9.28125 6.04297 9.25391 5.98828 9.19922C5.93359 9.14453 5.90625 9.0625 5.90625 8.95312V8.84375C5.90625 8.37891 6.07031 7.96875 6.39844 7.61328C6.5625 7.42188 6.89062 7.20312 7.35547 6.92969L7.41016 6.90234C7.71094 6.73828 7.92969 6.60156 8.03906 6.49219C8.20312 6.35547 8.28516 6.19141 8.28516 5.97266C8.28516 5.72656 8.14844 5.50781 7.875 5.34375C7.60156 5.17969 7.32812 5.07031 7.02734 5.07031C6.69922 5.07031 6.39844 5.17969 6.15234 5.34375C5.98828 5.48047 5.74219 5.72656 5.46875 6.05469C5.41406 6.13672 5.33203 6.19141 5.25 6.19141C5.14062 6.19141 5.08594 6.16406 5.03125 6.10938L4.07422 5.39844C3.99219 5.34375 3.9375 5.28906 3.9375 5.20703C3.91016 5.125 3.9375 5.04297 3.99219 4.96094C4.375 4.38672 4.8125 3.94922 5.30469 3.67578C5.82422 3.375 6.45312 3.21094 7.19141 3.21094ZM7 9.99219C7.32812 9.99219 7.62891 10.1289 7.875 10.375C8.12109 10.6211 8.25781 10.9219 8.25781 11.25C8.25781 11.6055 8.12109 11.9062 7.875 12.1523C7.62891 12.3984 7.32812 12.5078 7 12.5078C6.64453 12.5078 6.34375 12.3984 6.09766 12.1523C5.85156 11.9062 5.74219 11.6055 5.74219 11.25C5.74219 10.9219 5.85156 10.6211 6.09766 10.375C6.34375 10.1289 6.64453 9.99219 7 9.99219Z' })
+  );
+};
+var HomeIcon = function HomeIcon(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    _extends({}, props, { viewBox: '0 0 16 13' }),
+    _react2.default.createElement('path', { d: 'M13.3438 8.30859C13.3438 8.19922 13.2891 8.11719 13.2344 8.03516L8.09375 3.82422C8.01172 3.76953 7.92969 3.74219 7.875 3.74219C7.79297 3.74219 7.71094 3.76953 7.65625 3.82422L2.51562 8.03516C2.43359 8.11719 2.40625 8.19922 2.40625 8.30859V12.2188C2.40625 12.4102 2.46094 12.5742 2.59766 12.6836C2.70703 12.8203 2.87109 12.875 3.0625 12.875H6.23438C6.31641 12.875 6.39844 12.8477 6.45312 12.793C6.50781 12.7383 6.5625 12.6562 6.5625 12.5469V9.48438C6.5625 9.40234 6.58984 9.32031 6.64453 9.26562C6.69922 9.21094 6.78125 9.15625 6.89062 9.15625H8.85938C8.94141 9.15625 9.02344 9.21094 9.07812 9.26562C9.13281 9.32031 9.1875 9.40234 9.1875 9.48438V12.5469C9.1875 12.6562 9.21484 12.7383 9.26953 12.793C9.32422 12.8477 9.40625 12.875 9.51562 12.875H12.6875C12.8516 12.875 13.0156 12.8203 13.1523 12.6836C13.2617 12.5742 13.3438 12.4102 13.3438 12.2188V8.30859ZM15.6406 6.64062C15.6953 6.69531 15.7227 6.77734 15.7227 6.85938C15.7227 6.96875 15.7227 7.05078 15.668 7.10547L14.9844 7.95312C14.9297 8.03516 14.8477 8.0625 14.7656 8.0625C14.6562 8.0625 14.5742 8.03516 14.5195 7.98047L8.09375 2.70312C8.01172 2.64844 7.92969 2.62109 7.875 2.62109C7.79297 2.62109 7.71094 2.64844 7.65625 2.70312L1.23047 7.98047C1.14844 8.03516 1.06641 8.0625 0.984375 8.0625C0.875 8.0625 0.820312 8.03516 0.765625 7.95312L0.0820312 7.10547C0.0273438 7.05078 0 6.96875 0 6.85938C0 6.77734 0.0546875 6.69531 0.109375 6.64062L7.05469 0.925781C7.27344 0.734375 7.54688 0.625 7.875 0.625C8.17578 0.625 8.44922 0.734375 8.72266 0.925781L11.1562 2.94922V0.953125C11.1562 0.871094 11.1836 0.789062 11.2383 0.734375C11.293 0.679688 11.375 0.625 11.4844 0.625H13.0156C13.0977 0.625 13.1797 0.679688 13.2344 0.734375C13.2891 0.789062 13.3438 0.871094 13.3438 0.953125V4.75391L15.6406 6.64062Z' })
+  );
+};
+var InfoIcon = function InfoIcon(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    _extends({}, props, { viewBox: '0 0 24 24' }),
+    _react2.default.createElement('path', { d: 'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z' })
+  );
+};
+var LabelIcon = function LabelIcon(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    _extends({}, props, { viewBox: '0 0 14 15' }),
+    _react2.default.createElement('path', { d: 'M0 7.64062C0 8.02344 0.109375 8.32422 0.382812 8.57031L6.17969 14.3672C6.42578 14.6406 6.72656 14.75 7.10938 14.75C7.46484 14.75 7.76562 14.6406 8.03906 14.3672L13.6172 8.78906C13.8633 8.54297 14 8.24219 14 7.85938C14 7.50391 13.8633 7.20312 13.6172 6.92969L7.82031 1.13281C7.54688 0.886719 7.24609 0.75 6.89062 0.75H1.3125C0.929688 0.75 0.628906 0.886719 0.382812 1.13281C0.109375 1.40625 0 1.70703 0 2.0625V7.64062ZM3.0625 2.5C3.41797 2.5 3.71875 2.63672 3.99219 2.88281C4.23828 3.15625 4.375 3.45703 4.375 3.8125C4.375 4.19531 4.23828 4.49609 3.99219 4.74219C3.71875 5.01562 3.41797 5.125 3.0625 5.125C2.67969 5.125 2.37891 5.01562 2.13281 4.74219C1.85938 4.49609 1.75 4.19531 1.75 3.8125C1.75 3.45703 1.85938 3.15625 2.13281 2.88281C2.37891 2.63672 2.67969 2.5 3.0625 2.5Z' })
+  );
+};
+var LanguageIcon = function LanguageIcon(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    _extends({}, props, { viewBox: '0 0 24 24' }),
+    _react2.default.createElement('path', { d: 'M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm6.93 6h-2.95c-.32-1.25-.78-2.45-1.38-3.56 1.84.63 3.37 1.91 4.33 3.56zM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96zM4.26 14C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2 0 .68.06 1.34.14 2H4.26zm.82 2h2.95c.32 1.25.78 2.45 1.38 3.56-1.84-.63-3.37-1.9-4.33-3.56zm2.95-8H5.08c.96-1.66 2.49-2.93 4.33-3.56C8.81 5.55 8.35 6.75 8.03 8zM12 19.96c-.83-1.2-1.48-2.53-1.91-3.96h3.82c-.43 1.43-1.08 2.76-1.91 3.96zM14.34 14H9.66c-.09-.66-.16-1.32-.16-2 0-.68.07-1.35.16-2h4.68c.09.65.16 1.32.16 2 0 .68-.07 1.34-.16 2zm.25 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95c-.96 1.65-2.49 2.93-4.33 3.56zM16.36 14c.08-.66.14-1.32.14-2 0-.68-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2h-3.38z' })
+  );
+};
+var LeftArrowIcon = function LeftArrowIcon(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    _extends({}, props, { viewBox: '0 0 19 31' }),
+    _react2.default.createElement('path', { d: 'M17.0188 2.64375L14.4375 0.0625L0 14.5L14.4375 28.9375L17.0188 26.3562L5.1625 14.5L17.0188 2.64375Z' })
+  );
+};
+var LinkedinIcon = function LinkedinIcon(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    _extends({}, props, { viewBox: '0 0 13 13' }),
+    _react2.default.createElement('path', { d: 'M11.775 0.212891H1.275C1.03802 0.212891 0.828385 0.304036 0.646094 0.486328C0.482031 0.650391 0.4 0.850911 0.4 1.08789V11.5879C0.4 11.8249 0.482031 12.0254 0.646094 12.1895C0.828385 12.3717 1.03802 12.4629 1.275 12.4629H11.775C12.012 12.4629 12.2125 12.3717 12.3766 12.1895C12.5589 12.0254 12.65 11.8249 12.65 11.5879V1.08789C12.65 0.850911 12.5589 0.650391 12.3766 0.486328C12.2125 0.304036 12.012 0.212891 11.775 0.212891ZM4.09141 10.7129H2.28672V4.86133H4.11875V10.7129H4.09141ZM3.18906 4.06836C2.8974 4.06836 2.6513 3.9681 2.45078 3.76758C2.25026 3.54883 2.15 3.30273 2.15 3.0293C2.15 2.73763 2.25026 2.49154 2.45078 2.29102C2.6513 2.07227 2.8974 1.96289 3.18906 1.96289C3.48073 1.96289 3.72682 2.07227 3.92734 2.29102C4.14609 2.49154 4.25547 2.73763 4.25547 3.0293C4.25547 3.30273 4.14609 3.54883 3.92734 3.76758C3.72682 3.9681 3.48073 4.06836 3.18906 4.06836ZM10.9 10.7129H9.09531V7.86914C9.09531 7.39518 9.04974 7.04883 8.95859 6.83008C8.83099 6.48372 8.55755 6.31055 8.13828 6.31055C7.71901 6.31055 7.41823 6.46549 7.23594 6.77539C7.10833 7.01237 7.04453 7.35872 7.04453 7.81445V10.7129H5.23984V4.86133H6.98984V5.6543H7.01719C7.14479 5.39909 7.34531 5.18945 7.61875 5.02539C7.94687 4.82487 8.32057 4.72461 8.73984 4.72461C9.57839 4.72461 10.1708 4.98893 10.5172 5.51758C10.7724 5.93685 10.9 6.60221 10.9 7.51367V10.7129Z', fill: 'white' })
+  );
+};
+var ListIcon = function ListIcon(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    _extends({}, props, { viewBox: '0 0 14 13' }),
+    _react2.default.createElement('path', { d: 'M12.6875 12.875C13.043 12.875 13.3438 12.7656 13.6172 12.4922C13.8633 12.2461 14 11.9453 14 11.5625V1.9375C14 1.58203 13.8633 1.28125 13.6172 1.00781C13.3438 0.761719 13.043 0.625 12.6875 0.625H1.3125C0.929688 0.625 0.628906 0.761719 0.382812 1.00781C0.109375 1.28125 0 1.58203 0 1.9375V11.5625C0 11.9453 0.109375 12.2461 0.382812 12.4922C0.628906 12.7656 0.929688 12.875 1.3125 12.875H12.6875ZM3.5 3.03125C3.80078 3.03125 4.04688 3.14062 4.26562 3.35938C4.48438 3.57812 4.59375 3.82422 4.59375 4.125C4.59375 4.45312 4.48438 4.69922 4.26562 4.91797C4.04688 5.13672 3.80078 5.21875 3.5 5.21875C3.17188 5.21875 2.92578 5.13672 2.70703 4.91797C2.48828 4.69922 2.40625 4.45312 2.40625 4.125C2.40625 3.82422 2.48828 3.57812 2.70703 3.35938C2.92578 3.14062 3.17188 3.03125 3.5 3.03125ZM3.5 5.65625C3.80078 5.65625 4.04688 5.76562 4.26562 5.98438C4.48438 6.20312 4.59375 6.44922 4.59375 6.75C4.59375 7.07812 4.48438 7.32422 4.26562 7.54297C4.04688 7.76172 3.80078 7.84375 3.5 7.84375C3.17188 7.84375 2.92578 7.76172 2.70703 7.54297C2.48828 7.32422 2.40625 7.07812 2.40625 6.75C2.40625 6.44922 2.48828 6.20312 2.70703 5.98438C2.92578 5.76562 3.17188 5.65625 3.5 5.65625ZM3.5 8.28125C3.80078 8.28125 4.04688 8.39062 4.26562 8.60938C4.48438 8.82812 4.59375 9.07422 4.59375 9.375C4.59375 9.70312 4.48438 9.94922 4.26562 10.168C4.04688 10.3867 3.80078 10.4688 3.5 10.4688C3.17188 10.4688 2.92578 10.3867 2.70703 10.168C2.48828 9.94922 2.40625 9.70312 2.40625 9.375C2.40625 9.07422 2.48828 8.82812 2.70703 8.60938C2.92578 8.39062 3.17188 8.28125 3.5 8.28125ZM11.375 4.5625C11.375 4.67188 11.3203 4.75391 11.2656 4.80859C11.2109 4.86328 11.1289 4.89062 11.0469 4.89062H5.57812C5.46875 4.89062 5.38672 4.86328 5.33203 4.80859C5.27734 4.75391 5.25 4.67188 5.25 4.5625V3.6875C5.25 3.60547 5.27734 3.52344 5.33203 3.46875C5.38672 3.41406 5.46875 3.35938 5.57812 3.35938H11.0469C11.1289 3.35938 11.2109 3.41406 11.2656 3.46875C11.3203 3.52344 11.375 3.60547 11.375 3.6875V4.5625ZM11.375 7.1875C11.375 7.29688 11.3203 7.37891 11.2656 7.43359C11.2109 7.48828 11.1289 7.51562 11.0469 7.51562H5.57812C5.46875 7.51562 5.38672 7.48828 5.33203 7.43359C5.27734 7.37891 5.25 7.29688 5.25 7.1875V6.3125C5.25 6.23047 5.27734 6.14844 5.33203 6.09375C5.38672 6.03906 5.46875 5.98438 5.57812 5.98438H11.0469C11.1289 5.98438 11.2109 6.03906 11.2656 6.09375C11.3203 6.14844 11.375 6.23047 11.375 6.3125V7.1875ZM11.375 9.8125C11.375 9.92188 11.3203 10.0039 11.2656 10.0586C11.2109 10.1133 11.1289 10.1406 11.0469 10.1406H5.57812C5.46875 10.1406 5.38672 10.1133 5.33203 10.0586C5.27734 10.0039 5.25 9.92188 5.25 9.8125V8.9375C5.25 8.85547 5.27734 8.77344 5.33203 8.71875C5.38672 8.66406 5.46875 8.60938 5.57812 8.60938H11.0469C11.1289 8.60938 11.2109 8.66406 11.2656 8.71875C11.3203 8.77344 11.375 8.85547 11.375 8.9375V9.8125Z' })
+  );
+};
+var LocationIcon = function LocationIcon(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    _extends({}, props, { viewBox: '0 0 12 18' }),
+    _react2.default.createElement('path', { d: 'M6.00008 0.666656C2.77508 0.666656 0.166748 3.27499 0.166748 6.49999C0.166748 10.875 6.00008 17.3333 6.00008 17.3333C6.00008 17.3333 11.8334 10.875 11.8334 6.49999C11.8334 3.27499 9.22508 0.666656 6.00008 0.666656ZM6.00008 8.58332C4.85008 8.58332 3.91675 7.64999 3.91675 6.49999C3.91675 5.34999 4.85008 4.41666 6.00008 4.41666C7.15008 4.41666 8.08342 5.34999 8.08342 6.49999C8.08342 7.64999 7.15008 8.58332 6.00008 8.58332Z' })
+  );
+};
+var LockIcon = function LockIcon(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    _extends({}, props, { viewBox: '0 0 13 15' }),
+    _react2.default.createElement('path', { d: 'M10.9375 6.875C11.293 6.875 11.5938 7.01172 11.8672 7.25781C12.1133 7.53125 12.25 7.83203 12.25 8.1875V13.4375C12.25 13.8203 12.1133 14.1211 11.8672 14.3672C11.5938 14.6406 11.293 14.75 10.9375 14.75H1.3125C0.929688 14.75 0.628906 14.6406 0.382812 14.3672C0.109375 14.1211 0 13.8203 0 13.4375V8.1875C0 7.83203 0.109375 7.53125 0.382812 7.25781C0.628906 7.01172 0.929688 6.875 1.3125 6.875H1.96875V4.90625C1.96875 4.16797 2.13281 3.48438 2.51562 2.82812C2.89844 2.19922 3.39062 1.70703 4.04688 1.32422C4.67578 0.941406 5.35938 0.75 6.125 0.75C6.86328 0.75 7.54688 0.941406 8.20312 1.32422C8.83203 1.70703 9.32422 2.19922 9.70703 2.82812C10.0898 3.48438 10.2812 4.16797 10.2812 4.90625V6.875H10.9375ZM8.09375 6.875V4.90625C8.09375 4.35938 7.90234 3.89453 7.51953 3.51172C7.13672 3.12891 6.67188 2.9375 6.125 2.9375C5.57812 2.9375 5.11328 3.12891 4.73047 3.51172C4.34766 3.89453 4.15625 4.35938 4.15625 4.90625V6.875H8.09375Z' })
+  );
+};
+var MedalIcon = function MedalIcon(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    _extends({}, props, { viewBox: '0 0 16 15' }),
+    _react2.default.createElement('path', { d: 'M7.125 4.33203C5.97656 4.52344 4.96484 5.01562 4.11719 5.78125L1.08203 1.43359C0.972656 1.29688 0.945312 1.16016 1.02734 0.996094C1.10938 0.832031 1.24609 0.75 1.4375 0.75H4.47266C4.63672 0.75 4.77344 0.804688 4.91016 0.859375C5.01953 0.941406 5.12891 1.05078 5.23828 1.1875L7.125 4.33203ZM14.5625 0.75C14.7266 0.75 14.8633 0.832031 14.9453 0.996094C15.0273 1.16016 15.0273 1.29688 14.918 1.43359L11.8828 5.78125C11.0078 5.01562 10.0234 4.52344 8.875 4.33203L10.7617 1.1875C10.8438 1.05078 10.9531 0.941406 11.0898 0.859375C11.1992 0.804688 11.3633 0.75 11.5273 0.75H14.5625ZM8 5.125C8.875 5.125 9.66797 5.34375 10.4062 5.78125C11.1445 6.21875 11.7188 6.79297 12.1562 7.53125C12.5938 8.26953 12.8125 9.0625 12.8125 9.9375C12.8125 10.8125 12.5938 11.6328 12.1562 12.3711C11.7188 13.1094 11.1445 13.6836 10.4062 14.1211C9.66797 14.5586 8.875 14.75 8 14.75C7.125 14.75 6.30469 14.5586 5.56641 14.1211C4.82812 13.6836 4.25391 13.1094 3.81641 12.3711C3.37891 11.6328 3.1875 10.8125 3.1875 9.9375C3.1875 9.0625 3.37891 8.26953 3.81641 7.53125C4.25391 6.79297 4.82812 6.21875 5.56641 5.78125C6.30469 5.34375 7.125 5.125 8 5.125ZM10.543 9.41797C10.625 9.33594 10.6523 9.22656 10.5977 9.11719C10.543 9.00781 10.4609 8.92578 10.3516 8.89844L8.92969 8.67969L8.27344 7.39453C8.21875 7.28516 8.10938 7.20312 8 7.20312C7.86328 7.20312 7.78125 7.28516 7.72656 7.39453L7.07031 8.67969L5.64844 8.89844C5.51172 8.92578 5.42969 9.00781 5.375 9.11719C5.32031 9.22656 5.34766 9.33594 5.45703 9.41797L6.49609 10.4297L6.25 11.8516C6.22266 11.9883 6.27734 12.0977 6.38672 12.1797C6.49609 12.2617 6.60547 12.2617 6.71484 12.207L8 11.5234L9.28516 12.207C9.39453 12.2617 9.50391 12.2617 9.61328 12.1797C9.72266 12.0977 9.75 11.9883 9.75 11.8516L9.50391 10.4297L10.543 9.41797Z', fill: '#F38E27' })
+  );
+};
+var MenuIcon = function MenuIcon(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    _extends({}, props, { viewBox: '0 0 24 24' }),
+    _react2.default.createElement('path', { d: 'M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z' })
+  );
+};
+var MessengerIcon = function MessengerIcon(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    _extends({}, props, { viewBox: '0 0 448 512' }),
+    _react2.default.createElement('path', { d: 'M224 32C15.9 32-77.5 278 84.6 400.6V480l75.7-42c142.2 39.8 285.4-59.9 285.4-198.7C445.8 124.8 346.5 32 224 32zm23.4 278.1L190 250.5 79.6 311.6l121.1-128.5 57.4 59.6 110.4-61.1-121.1 128.5z' })
+  );
+};
+var NewsLetterIcon = function NewsLetterIcon(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    _extends({}, props, { viewBox: '0 0 58 58' }),
+    _react2.default.createElement('path', { d: 'M6.10518 46.6342C6.0252 46.6342 5.94953 46.5969 5.90116 46.5332C2.19913 41.6636 0 35.589 0 29C0 12.9837 12.9837 0 29 0C45.0163 0 58 12.9837 58 29C58 35.4764 55.8755 41.4556 52.2875 46.2823C52.1218 46.5051 51.8586 46.634 51.581 46.634L6.10518 46.6342ZM8.83968 49.8438C14.0582 54.8922 21.1657 58 29 58C36.8343 58 43.9418 54.8922 49.1603 49.8438H8.83968Z' })
+  );
+};
+var NotificationIcon = function NotificationIcon(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    _extends({}, props, { viewBox: '0 0 16 19' }),
+    _react2.default.createElement('path', { d: 'M7.875 18.25C7.24219 18.25 6.71484 18.0391 6.29297 17.6172C5.83594 17.1953 5.625 16.6328 5.625 16H10.125C10.125 16.6328 9.87891 17.1953 9.45703 17.6172C9 18.0391 8.47266 18.25 7.875 18.25ZM15.4336 12.9766C15.6445 13.2227 15.75 13.5039 15.75 13.7852C15.75 14.0664 15.6445 14.3477 15.4336 14.5586C15.2227 14.7695 14.9414 14.875 14.625 14.875H1.125C0.773438 14.875 0.527344 14.7695 0.316406 14.5586C0.105469 14.3477 0 14.0664 0 13.7852C0 13.5039 0.105469 13.2227 0.316406 12.9766L0.421875 12.8359C0.949219 12.2734 1.33594 11.7461 1.61719 11.1836C2.03906 10.2695 2.25 9.03906 2.25 7.5625C2.25 6.22656 2.67188 5.03125 3.51562 4.01172C4.35938 3.02734 5.41406 2.39453 6.75 2.11328V1.375C6.75 1.09375 6.85547 0.8125 7.06641 0.601562C7.27734 0.390625 7.55859 0.25 7.875 0.25C8.15625 0.25 8.4375 0.390625 8.64844 0.601562C8.85938 0.8125 9 1.09375 9 1.375V2.11328C10.3008 2.39453 11.3906 3.02734 12.2344 4.01172C13.0781 5.03125 13.5 6.22656 13.5 7.5625C13.5 9.03906 13.7109 10.2695 14.1328 11.1836C14.3789 11.7461 14.7656 12.2734 15.3281 12.8359C15.3633 12.9062 15.3984 12.9766 15.4336 12.9766Z' })
+  );
+};
+var PadlockIcon = function PadlockIcon(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    _extends({}, props, { viewBox: '0 0 16 19' }),
+    _react2.default.createElement('path', { d: 'M10.9375 6.875C11.293 6.875 11.5938 7.01172 11.8672 7.25781C12.1133 7.53125 12.25 7.83203 12.25 8.1875V13.4375C12.25 13.8203 12.1133 14.1211 11.8672 14.3672C11.5938 14.6406 11.293 14.75 10.9375 14.75H1.3125C0.929688 14.75 0.628906 14.6406 0.382812 14.3672C0.109375 14.1211 0 13.8203 0 13.4375V8.1875C0 7.83203 0.109375 7.53125 0.382812 7.25781C0.628906 7.01172 0.929688 6.875 1.3125 6.875H1.96875V4.90625C1.96875 4.16797 2.13281 3.48438 2.51562 2.82812C2.89844 2.19922 3.39062 1.70703 4.04688 1.32422C4.67578 0.941406 5.35938 0.75 6.125 0.75C6.86328 0.75 7.54688 0.941406 8.20312 1.32422C8.83203 1.70703 9.32422 2.19922 9.70703 2.82812C10.0898 3.48438 10.2812 4.16797 10.2812 4.90625V6.875H10.9375ZM8.09375 6.875V4.90625C8.09375 4.35938 7.90234 3.89453 7.51953 3.51172C7.13672 3.12891 6.67188 2.9375 6.125 2.9375C5.57812 2.9375 5.11328 3.12891 4.73047 3.51172C4.34766 3.89453 4.15625 4.35938 4.15625 4.90625V6.875H8.09375Z' })
+  );
+};
+var PeopleIcon = function PeopleIcon(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    _extends({}, props, { viewBox: '0 0 23 17' }),
+    _react2.default.createElement('path', { d: 'M3.375 7.125C2.74219 7.125 2.21484 6.91406 1.79297 6.45703C1.33594 6.03516 1.125 5.50781 1.125 4.875C1.125 4.27734 1.33594 3.75 1.79297 3.29297C2.21484 2.87109 2.74219 2.625 3.375 2.625C3.97266 2.625 4.5 2.87109 4.95703 3.29297C5.37891 3.75 5.625 4.27734 5.625 4.875C5.625 5.50781 5.37891 6.03516 4.95703 6.45703C4.5 6.91406 3.97266 7.125 3.375 7.125ZM19.125 7.125C18.4922 7.125 17.9648 6.91406 17.543 6.45703C17.0859 6.03516 16.875 5.50781 16.875 4.875C16.875 4.27734 17.0859 3.75 17.543 3.29297C17.9648 2.87109 18.4922 2.625 19.125 2.625C19.7227 2.625 20.25 2.87109 20.707 3.29297C21.1289 3.75 21.375 4.27734 21.375 4.875C21.375 5.50781 21.1289 6.03516 20.707 6.45703C20.25 6.91406 19.7227 7.125 19.125 7.125ZM20.25 8.25C20.8477 8.25 21.375 8.49609 21.832 8.91797C22.2539 9.375 22.5 9.90234 22.5 10.5V11.625C22.5 11.9414 22.3594 12.2227 22.1484 12.4336C21.9375 12.6445 21.6562 12.75 21.375 12.75H19.0547C18.9141 11.9414 18.6328 11.2031 18.1758 10.5C17.6836 9.83203 17.1211 9.30469 16.418 8.91797C16.8398 8.49609 17.3672 8.25 18 8.25H20.25ZM11.25 8.25C10.5469 8.25 9.87891 8.07422 9.28125 7.72266C8.64844 7.37109 8.19141 6.91406 7.83984 6.28125C7.48828 5.68359 7.3125 5.01562 7.3125 4.3125C7.3125 3.60938 7.48828 2.97656 7.83984 2.34375C8.19141 1.74609 8.64844 1.25391 9.28125 0.902344C9.87891 0.550781 10.5469 0.375 11.25 0.375C11.9531 0.375 12.5859 0.550781 13.2188 0.902344C13.8164 1.25391 14.3086 1.74609 14.6602 2.34375C15.0117 2.97656 15.1875 3.60938 15.1875 4.3125C15.1875 5.01562 15.0117 5.68359 14.6602 6.28125C14.3086 6.91406 13.8164 7.37109 13.2188 7.72266C12.5859 8.07422 11.9531 8.25 11.25 8.25ZM13.957 9.375C14.6602 9.375 15.3281 9.58594 15.9609 9.9375C16.5938 10.2891 17.0859 10.7812 17.4375 11.4141C17.7891 12.0469 18 12.7148 18 13.418V14.4375C18 14.9297 17.8242 15.3164 17.5078 15.6328C17.1562 15.9844 16.7695 16.125 16.3125 16.125H6.1875C5.69531 16.125 5.30859 15.9844 4.99219 15.6328C4.64062 15.3164 4.5 14.9297 4.5 14.4375V13.418C4.5 12.7148 4.67578 12.0469 5.02734 11.4141C5.37891 10.7812 5.87109 10.2891 6.50391 9.9375C7.13672 9.58594 7.80469 9.375 8.54297 9.375H8.82422C9.59766 9.76172 10.4062 9.9375 11.25 9.9375C12.0586 9.9375 12.8672 9.76172 13.6758 9.375H13.957ZM6.08203 8.91797C5.37891 9.30469 4.78125 9.83203 4.32422 10.5C3.83203 11.2031 3.55078 11.9414 3.44531 12.75H1.125C0.808594 12.75 0.527344 12.6445 0.316406 12.4336C0.105469 12.2227 0 11.9414 0 11.625V10.5C0 9.90234 0.210938 9.375 0.667969 8.91797C1.08984 8.49609 1.61719 8.25 2.25 8.25H4.5C5.09766 8.25 5.625 8.49609 6.08203 8.91797Z' })
+  );
+};
+var PersonIcon = function PersonIcon(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    _extends({}, props, { viewBox: '0 0 16 19' }),
+    _react2.default.createElement('path', { d: 'M7.875 9.25C7.03125 9.25 6.29297 9.07422 5.58984 8.65234C4.88672 8.26562 4.35938 7.73828 3.97266 7.03516C3.55078 6.33203 3.375 5.59375 3.375 4.75C3.375 3.94141 3.55078 3.20312 3.97266 2.5C4.35938 1.79688 4.88672 1.26953 5.58984 0.847656C6.29297 0.460938 7.03125 0.25 7.875 0.25C8.68359 0.25 9.42188 0.460938 10.125 0.847656C10.8281 1.26953 11.3555 1.79688 11.7773 2.5C12.1641 3.20312 12.375 3.94141 12.375 4.75C12.375 5.59375 12.1641 6.33203 11.7773 7.03516C11.3555 7.73828 10.8281 8.26562 10.125 8.65234C9.42188 9.07422 8.68359 9.25 7.875 9.25ZM11.0391 10.375C11.8828 10.375 12.6562 10.5859 13.3945 11.0078C14.0977 11.4297 14.6953 12.0273 15.1172 12.7305C15.5391 13.4688 15.75 14.2422 15.75 15.0859V16.5625C15.75 17.0547 15.5742 17.4414 15.2578 17.7578C14.9062 18.1094 14.5195 18.25 14.0625 18.25H1.6875C1.19531 18.25 0.808594 18.1094 0.492188 17.7578C0.140625 17.4414 0 17.0547 0 16.5625V15.0859C0 14.2422 0.210938 13.4688 0.632812 12.7305C1.05469 12.0273 1.61719 11.4297 2.35547 11.0078C3.05859 10.5859 3.86719 10.375 4.71094 10.375H5.30859C6.11719 10.7617 6.96094 10.9375 7.875 10.9375C8.75391 10.9375 9.59766 10.7617 10.4414 10.375H11.0391Z' })
+  );
+};
+var PersonEditIcon = function PersonEditIcon(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    _extends({}, props, { viewBox: '0 0 23 19' }),
+    _react2.default.createElement('path', { d: 'M7.875 9.25C7.03125 9.25 6.29297 9.07422 5.58984 8.65234C4.88672 8.26562 4.35938 7.73828 3.97266 7.03516C3.55078 6.33203 3.375 5.59375 3.375 4.75C3.375 3.94141 3.55078 3.20312 3.97266 2.5C4.35938 1.79688 4.88672 1.26953 5.58984 0.847656C6.29297 0.460938 7.03125 0.25 7.875 0.25C8.68359 0.25 9.42188 0.460938 10.125 0.847656C10.8281 1.26953 11.3555 1.79688 11.7773 2.5C12.1641 3.20312 12.375 3.94141 12.375 4.75C12.375 5.59375 12.1641 6.33203 11.7773 7.03516C11.3555 7.73828 10.8281 8.26562 10.125 8.65234C9.42188 9.07422 8.68359 9.25 7.875 9.25ZM11.0391 10.375C11.707 10.375 12.3398 10.5156 12.9727 10.7969C13.5703 11.0781 14.0977 11.4648 14.5547 11.957L11.5312 14.9805L11.25 17.5117C11.2148 17.7578 11.25 18.0039 11.3555 18.25H1.6875C1.19531 18.25 0.808594 18.1094 0.492188 17.7578C0.140625 17.4414 0 17.0547 0 16.5625V15.0859C0 14.2422 0.210938 13.4688 0.632812 12.7305C1.05469 12.0273 1.61719 11.4297 2.35547 11.0078C3.05859 10.5859 3.86719 10.375 4.71094 10.375H5.30859C6.11719 10.7617 6.96094 10.9375 7.875 10.9375C8.75391 10.9375 9.59766 10.7617 10.4414 10.375H11.0391ZM12.6211 15.4727L17.4727 10.6211L20.0039 13.1523L15.1523 18.0039L13.0078 18.25C12.7969 18.2852 12.6562 18.25 12.5156 18.1094C12.375 17.9688 12.3398 17.8281 12.375 17.6172L12.6211 15.4727ZM22.2539 9.70703C22.3945 9.88281 22.5 10.0938 22.5 10.3047C22.5 10.5508 22.3945 10.7617 22.2539 10.9023L20.7773 12.3789L18.2461 9.84766L19.7227 8.37109C19.8633 8.23047 20.0742 8.125 20.3203 8.125C20.5312 8.125 20.7422 8.23047 20.918 8.37109L22.2539 9.70703Z' })
+  );
+};
+var PowerIcon = function PowerIcon(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    _extends({}, props, { viewBox: '0 0 24 24' }),
+    _react2.default.createElement('path', { d: 'M13 3h-2v10h2V3zm4.83 2.17l-1.42 1.42C17.99 7.86 19 9.81 19 12c0 3.87-3.13 7-7 7s-7-3.13-7-7c0-2.19 1.01-4.14 2.58-5.42L6.17 5.17C4.23 6.82 3 9.26 3 12c0 4.97 4.03 9 9 9s9-4.03 9-9c0-2.74-1.23-5.18-3.17-6.83z' })
+  );
+};
+var PhoneIcon = function PhoneIcon(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    _extends({}, props, { viewBox: '0 0 18 18' }),
+    _react2.default.createElement('path', { d: 'M3.62 7.79C5.06 10.62 7.38 12.93 10.21 14.38L12.41 12.18C12.68 11.91 13.08 11.82 13.43 11.94C14.55 12.31 15.76 12.51 17 12.51C17.55 12.51 18 12.96 18 13.51V17C18 17.55 17.55 18 17 18C7.61 18 0 10.39 0 1C0 0.45 0.45 0 1 0H4.5C5.05 0 5.5 0.45 5.5 1C5.5 2.25 5.7 3.45 6.07 4.57C6.18 4.92 6.1 5.31 5.82 5.59L3.62 7.79Z' })
+  );
+};
+var PlusIcon = function PlusIcon(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    _extends({}, props, { viewBox: '0 0 16 17' }),
+    _react2.default.createElement('path', { d: 'M14.625 6.5625C14.9062 6.5625 15.1875 6.70312 15.3984 6.91406C15.6094 7.125 15.75 7.40625 15.75 7.6875V8.8125C15.75 9.12891 15.6094 9.41016 15.3984 9.62109C15.1875 9.83203 14.9062 9.9375 14.625 9.9375H9.5625V15C9.5625 15.3164 9.42188 15.5977 9.21094 15.8086C9 16.0195 8.71875 16.125 8.4375 16.125H7.3125C6.99609 16.125 6.71484 16.0195 6.50391 15.8086C6.29297 15.5977 6.1875 15.3164 6.1875 15V9.9375H1.125C0.808594 9.9375 0.527344 9.83203 0.316406 9.62109C0.105469 9.41016 0 9.12891 0 8.8125V7.6875C0 7.40625 0.105469 7.125 0.316406 6.91406C0.527344 6.70312 0.808594 6.5625 1.125 6.5625H6.1875V1.5C6.1875 1.21875 6.29297 0.9375 6.50391 0.726562C6.71484 0.515625 6.99609 0.375 7.3125 0.375H8.4375C8.71875 0.375 9 0.515625 9.21094 0.726562C9.42188 0.9375 9.5625 1.21875 9.5625 1.5V6.5625H14.625Z' })
+  );
+};
+var PriceDArrowIcon = function PriceDArrowIcon(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    _extends({}, props, { viewBox: '0 0 12 13' }),
+    _react2.default.createElement('path', { d: 'M2.48471154,9.41465625 L2.48471154,0.07509375', id: 'Path' })
+  );
+};
+var PriceUArrowIcon = function PriceUArrowIcon(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    _extends({}, props, { viewBox: '0 0 12 13' }),
+    _react2.default.createElement('path', { d: 'M2.48471154,9.41465625 L2.48471154,0.07509375', id: 'Path' })
+  );
+};
+var PublicIcon = function PublicIcon(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    _extends({}, props, { viewBox: '0 0 14 15' }),
+    _react2.default.createElement('path', { d: 'M6.78125 0.96875C7.98438 0.96875 9.13281 1.29688 10.1719 1.89844C11.2109 2.5 12.0312 3.32031 12.6328 4.35938C13.2344 5.39844 13.5625 6.54688 13.5625 7.75C13.5625 8.98047 13.2344 10.1016 12.6328 11.1406C12.0312 12.1797 11.2109 13.0273 10.1719 13.6289C9.13281 14.2305 7.98438 14.5312 6.78125 14.5312C5.55078 14.5312 4.42969 14.2305 3.39062 13.6289C2.35156 13.0273 1.50391 12.1797 0.902344 11.1406C0.300781 10.1016 0 8.98047 0 7.75C0 6.54688 0.300781 5.39844 0.902344 4.35938C1.50391 3.32031 2.35156 2.5 3.39062 1.89844C4.42969 1.29688 5.55078 0.96875 6.78125 0.96875ZM9.02344 10.7578C9.26953 10.5117 9.40625 10.2109 9.40625 9.85547C9.40625 9.63672 9.32422 9.41797 9.16016 9.25391L8.77734 8.87109C8.61328 8.70703 8.39453 8.625 8.17578 8.625H6.34375C6.26172 8.59766 6.15234 8.46094 5.98828 8.21484C5.85156 8.07812 5.76953 7.96875 5.71484 7.88672C5.60547 7.80469 5.52344 7.75 5.46875 7.75C5.16797 7.75 4.89453 7.69531 4.64844 7.55859L4.34766 7.39453C4.21094 7.33984 4.15625 7.25781 4.15625 7.09375C4.15625 6.95703 4.21094 6.84766 4.375 6.79297L5.22266 6.51953C5.38672 6.46484 5.52344 6.49219 5.66016 6.60156L5.90625 6.82031C5.93359 6.875 5.98828 6.875 6.04297 6.875H6.20703C6.28906 6.875 6.34375 6.84766 6.39844 6.76562C6.42578 6.71094 6.42578 6.62891 6.39844 6.54688L5.98828 5.69922C5.93359 5.61719 5.93359 5.53516 6.01562 5.45312L6.28906 5.17969C6.31641 5.15234 6.37109 5.125 6.45312 5.125H6.69922C6.75391 5.125 6.78125 5.125 6.83594 5.07031L7.05469 4.85156C7.10938 4.79688 7.13672 4.74219 7.13672 4.6875C7.13672 4.63281 7.10938 4.57812 7.05469 4.52344L6.94531 4.41406C6.89062 4.35938 6.86328 4.30469 6.86328 4.25C6.86328 4.19531 6.89062 4.14062 6.94531 4.08594L7.35547 3.67578C7.41016 3.62109 7.46484 3.51172 7.46484 3.375C7.46484 3.26562 7.41016 3.15625 7.35547 3.07422L6.5625 2.28125C6.34375 2.30859 6.125 2.33594 5.90625 2.36328V2.66406C5.90625 2.82812 5.82422 2.96484 5.6875 3.04688C5.55078 3.12891 5.41406 3.12891 5.27734 3.04688L4.62109 2.71875C3.96484 2.99219 3.41797 3.375 2.92578 3.86719C2.43359 4.35938 2.07812 4.90625 1.80469 5.50781L2.73438 6.90234C2.87109 7.12109 3.03516 7.3125 3.22656 7.47656L3.25391 7.50391C3.52734 7.75 3.80078 7.94141 4.12891 8.10547C4.45703 8.26953 4.89453 8.51562 5.46875 8.81641C5.57812 8.89844 5.6875 9.00781 5.76953 9.14453C5.85156 9.28125 5.90625 9.41797 5.90625 9.58203V10.457C5.90625 10.7031 5.98828 10.9219 6.17969 11.0859C6.34375 11.2773 6.50781 11.5234 6.61719 11.7969C6.72656 12.0703 6.78125 12.3164 6.78125 12.4805V13.2188C7.16406 13.2188 7.54688 13.1914 7.95703 13.082L8.42188 11.7969C8.44922 11.7422 8.47656 11.6328 8.53125 11.4688L8.55859 11.3594C8.55859 11.25 8.61328 11.1406 8.69531 11.0586C8.75 11.0039 8.85938 10.8945 9.02344 10.7578ZM11.4023 8.24219L12.1953 8.46094C12.2227 8.1875 12.25 7.96875 12.25 7.75C12.25 6.90234 12.0586 6.08203 11.6758 5.31641L11.3203 5.48047C11.2109 5.53516 11.1016 5.61719 11.0469 5.69922L10.5273 6.51953C10.4453 6.62891 10.418 6.76562 10.418 6.875C10.418 7.01172 10.4453 7.12109 10.5273 7.23047L11.0195 7.96875C11.1016 8.13281 11.2383 8.21484 11.4023 8.24219Z' })
+  );
+};
+var RefIcon = function RefIcon(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    _extends({}, props, { viewBox: '0 0 24 24' }),
+    _react2.default.createElement('path', { d: 'M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z' })
+  );
+};
+var RFullArrowIcon = function RFullArrowIcon(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    _extends({}, props, { viewBox: '0 0 21 22' }),
+    _react2.default.createElement('path', { d: 'M8.95312 2.14062C8.67188 2.375 8.57812 2.65625 8.57812 2.9375C8.57812 3.26562 8.71875 3.54688 8.95312 3.73438L14.5781 9.125H1.125C0.796875 9.125 0.515625 9.26562 0.328125 9.45312C0.09375 9.6875 0 9.96875 0 10.25V11.75C0 12.0781 0.09375 12.3594 0.328125 12.5469C0.515625 12.7812 0.796875 12.875 1.125 12.875H14.5781L8.95312 18.2656C8.71875 18.5 8.57812 18.7812 8.57812 19.0625C8.57812 19.3906 8.67188 19.6719 8.95312 19.8594L9.98438 20.8906C10.1719 21.125 10.4531 21.2188 10.7812 21.2188C11.0625 21.2188 11.3438 21.125 11.5781 20.8906L20.6719 11.7969C20.8594 11.6094 21 11.3281 21 11C21 10.7188 20.8594 10.4375 20.6719 10.2031L11.5781 1.10938C11.3438 0.921875 11.0625 0.78125 10.7812 0.78125C10.4531 0.78125 10.1719 0.921875 9.98438 1.10938L8.95312 2.14062Z', fill: 'white' })
+  );
+};
+var RightArrowIcon = function RightArrowIcon(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    _extends({}, props, { viewBox: '0 0 19 31' }),
+    _react2.default.createElement('path', { d: 'M0.574951 4.00834L12.0666 15.5L0.574951 26.9917L3.66662 30.0833L18.25 15.5L3.66662 0.916672L0.574951 4.00834Z' })
+  );
+};
+var SadIcon = function SadIcon(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    _extends({}, props, { viewBox: '0 0 39 40' }),
+    _react2.default.createElement('path', { d: 'M19.375 0.625C22.8125 0.625 26.0938 1.5625 29.0625 3.28125C32.0312 5 34.375 7.34375 36.0938 10.3125C37.8125 13.2812 38.75 16.5625 38.75 20C38.75 23.5156 37.8125 26.7188 36.0938 29.6875C34.375 32.6562 32.0312 35.0781 29.0625 36.7969C26.0938 38.5156 22.8125 39.375 19.375 39.375C15.8594 39.375 12.6562 38.5156 9.6875 36.7969C6.71875 35.0781 4.29688 32.6562 2.57812 29.6875C0.859375 26.7188 0 23.5156 0 20C0 16.5625 0.859375 13.2812 2.57812 10.3125C4.29688 7.34375 6.71875 5 9.6875 3.28125C12.6562 1.5625 15.8594 0.625 19.375 0.625ZM10.625 16.25C10.625 16.9531 10.8594 17.5781 11.3281 18.0469C11.7969 18.5156 12.4219 18.75 13.125 18.75C13.75 18.75 14.375 18.5156 14.8438 18.0469C15.3125 17.5781 15.625 16.9531 15.625 16.25C15.625 15.625 15.3125 15 14.8438 14.5312C14.375 14.0625 13.75 13.75 13.125 13.75C12.4219 13.75 11.7969 14.0625 11.3281 14.5312C10.8594 15 10.625 15.625 10.625 16.25ZM25.2344 30.5469C25.7031 30.7031 26.0938 30.625 26.4062 30.3125C26.7188 30 26.875 29.6094 26.875 29.1406C26.5625 27.7344 25.625 26.5625 23.9844 25.625C22.4219 24.8438 20.9375 24.375 19.375 24.375C17.8125 24.375 16.25 24.8438 14.7656 25.625C13.0469 26.5625 12.1094 27.7344 11.875 29.1406C11.7969 29.6094 11.9531 30 12.2656 30.3125C12.5781 30.625 13.0469 30.7031 13.5156 30.5469C16.0156 29.7656 17.9688 29.375 19.375 29.375C20.7031 29.375 22.6562 29.7656 25.2344 30.5469ZM25.625 18.75C26.25 18.75 26.875 18.5156 27.3438 18.0469C27.8125 17.5781 28.125 16.9531 28.125 16.25C28.125 15.625 27.8125 15 27.3438 14.5312C26.875 14.0625 26.25 13.75 25.625 13.75C24.9219 13.75 24.2969 14.0625 23.8281 14.5312C23.3594 15 23.125 15.625 23.125 16.25C23.125 16.9531 23.3594 17.5781 23.8281 18.0469C24.2969 18.5156 24.9219 18.75 25.625 18.75Z', fill: 'white' })
+  );
+};
+var SaveIcon = function SaveIcon(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    _extends({}, props, { viewBox: '0 0 24 24' }),
+    _react2.default.createElement('path', { d: 'M19 12v7H5v-7H3v9h18v-9h-2zm-6 .67l2.59-2.58L17 11.5l-5 5-5-5 1.41-1.41L11 12.67V3h2v9.67z' })
+  );
+};
+var SchoolIcon = function SchoolIcon(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    _extends({}, props, { viewBox: '0 0 24 24' }),
+    _react2.default.createElement('path', { d: 'M5 13.18v2.81c0 .73.4 1.41 1.04 1.76l5 2.73c.6.33 1.32.33 1.92 0l5-2.73c.64-.35 1.04-1.03 1.04-1.76v-2.81l-6.04 3.3c-.6.33-1.32.33-1.92 0L5 13.18zm6.04-9.66l-8.43 4.6c-.69.38-.69 1.38 0 1.76l8.43 4.6c.6.33 1.32.33 1.92 0L21 10.09V16c0 .55.45 1 1 1s1-.45 1-1V9.59c0-.37-.2-.7-.52-.88l-9.52-5.19c-.6-.32-1.32-.32-1.92 0z' })
+  );
+};
+var SearchIcon = function SearchIcon(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    _extends({}, props, { viewBox: '0 0 24 24' }),
+    _react2.default.createElement('path', { d: 'M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z' })
+  );
+};
+var SettingsIcon = function SettingsIcon(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    _extends({}, props, { viewBox: '0 0 24 24' }),
+    _react2.default.createElement('path', { d: 'M19.43 12.98c.04-.32.07-.64.07-.98s-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98s.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zM12 15.5c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5z' })
+  );
+};
+var SatisfiedIcon = function SatisfiedIcon(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    _extends({}, props, { viewBox: '0 0 24 24' }),
+    _react2.default.createElement('path', { d: 'M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm0-2.5c2.33 0 4.32-1.45 5.12-3.5h-1.67c-.69 1.19-1.97 2-3.45 2s-2.75-.81-3.45-2H6.88c.8 2.05 2.79 3.5 5.12 3.5z' })
+  );
+};
+var ShoppingIcon = function ShoppingIcon(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    _extends({}, props, { viewBox: '0 0 16 19' }),
+    _react2.default.createElement('path', { d: 'M12.375 5.875H15.75V15.4375C15.75 16.2109 15.4688 16.8789 14.9062 17.4414C14.3438 18.0039 13.7109 18.25 12.9375 18.25H2.8125C2.03906 18.25 1.37109 18.0039 0.808594 17.4414C0.246094 16.8789 0 16.2109 0 15.4375V5.875H3.375V4.75C3.375 3.94141 3.55078 3.20312 3.97266 2.5C4.35938 1.79688 4.88672 1.26953 5.58984 0.847656C6.29297 0.460938 7.03125 0.25 7.875 0.25C8.68359 0.25 9.42188 0.460938 10.125 0.847656C10.8281 1.26953 11.3555 1.79688 11.7773 2.5C12.1641 3.20312 12.375 3.94141 12.375 4.75V5.875ZM5.625 4.75V5.875H10.125V4.75C10.125 4.15234 9.87891 3.625 9.45703 3.16797C9 2.74609 8.47266 2.5 7.875 2.5C7.24219 2.5 6.71484 2.74609 6.29297 3.16797C5.83594 3.625 5.625 4.15234 5.625 4.75ZM11.25 8.96875C11.4609 8.96875 11.6719 8.89844 11.8477 8.72266C11.9883 8.58203 12.0938 8.37109 12.0938 8.125C12.0938 7.91406 11.9883 7.70312 11.8477 7.52734C11.6719 7.38672 11.4609 7.28125 11.25 7.28125C11.0039 7.28125 10.793 7.38672 10.6523 7.52734C10.4766 7.70312 10.4062 7.91406 10.4062 8.125C10.4062 8.37109 10.4766 8.58203 10.6523 8.72266C10.793 8.89844 11.0039 8.96875 11.25 8.96875ZM4.5 8.96875C4.71094 8.96875 4.92188 8.89844 5.09766 8.72266C5.23828 8.58203 5.34375 8.37109 5.34375 8.125C5.34375 7.91406 5.23828 7.70312 5.09766 7.52734C4.92188 7.38672 4.71094 7.28125 4.5 7.28125C4.25391 7.28125 4.04297 7.38672 3.90234 7.52734C3.72656 7.70312 3.65625 7.91406 3.65625 8.125C3.65625 8.37109 3.72656 8.58203 3.90234 8.72266C4.04297 8.89844 4.25391 8.96875 4.5 8.96875Z' })
+  );
+};
+var SupervisorIcon = function SupervisorIcon(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    _extends({}, props, { viewBox: '0 0 24 24' }),
+    _react2.default.createElement('path', { d: 'M16.5 12c1.38 0 2.49-1.12 2.49-2.5S17.88 7 16.5 7C15.12 7 14 8.12 14 9.5s1.12 2.5 2.5 2.5zM9 11c1.66 0 2.99-1.34 2.99-3S10.66 5 9 5C7.34 5 6 6.34 6 8s1.34 3 3 3zm7.5 3c-1.83 0-5.5.92-5.5 2.75V19h11v-2.25c0-1.83-3.67-2.75-5.5-2.75zM9 13c-2.33 0-7 1.17-7 3.5V19h7v-2.25c0-.85.33-2.34 2.37-3.47C10.5 13.1 9.66 13 9 13z' })
+  );
+};
+var TwitterIcon = function TwitterIcon(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    _extends({}, props, { viewBox: '0 0 15 12' }),
+    _react2.default.createElement('path', { d: 'M12.9508 3.3938C12.969 3.46672 12.9781 3.58521 12.9781 3.74927C12.9781 5.06177 12.6591 6.32869 12.0211 7.55005C11.3648 8.84432 10.4443 9.87427 9.25937 10.6399C7.9651 11.4967 6.47943 11.925 4.80234 11.925C3.19818 11.925 1.73073 11.4967 0.4 10.6399C0.600521 10.6581 0.828385 10.6672 1.08359 10.6672C2.41432 10.6672 3.60833 10.2571 4.66562 9.43677C4.0276 9.43677 3.4625 9.25448 2.97031 8.88989C2.49635 8.50708 2.16823 8.03312 1.98594 7.46802C2.16823 7.48625 2.34141 7.49536 2.50547 7.49536C2.76068 7.49536 3.01589 7.46802 3.27109 7.41333C2.61484 7.2675 2.06797 6.93026 1.63047 6.40161C1.19297 5.87297 0.974219 5.2714 0.974219 4.59692V4.54224C1.37526 4.77922 1.80365 4.90682 2.25937 4.92505C1.87656 4.65161 1.56667 4.30526 1.32969 3.88599C1.09271 3.46672 0.974219 3.01099 0.974219 2.5188C0.974219 2.00838 1.11094 1.52531 1.38437 1.06958C2.09531 1.96281 2.9612 2.67375 3.98203 3.20239C5.02109 3.73104 6.12396 4.02271 7.29062 4.07739C7.25417 3.85864 7.23594 3.63989 7.23594 3.42114C7.23594 2.91073 7.36354 2.43677 7.61875 1.99927C7.87396 1.54354 8.22031 1.18807 8.65781 0.932861C9.09531 0.677653 9.56927 0.550049 10.0797 0.550049C10.499 0.550049 10.8818 0.63208 11.2281 0.796143C11.5927 0.960205 11.9117 1.17896 12.1852 1.45239C12.8414 1.32479 13.4521 1.09692 14.0172 0.768799C13.7984 1.44328 13.3792 1.97192 12.7594 2.35474C13.3062 2.28182 13.8531 2.12687 14.4 1.88989C13.999 2.47323 13.5159 2.97453 12.9508 3.3938Z', fill: 'white' })
+  );
+};
+var UpArrowIcon = function UpArrowIcon(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    _extends({}, props, { viewBox: '0 0 10 05' }),
+    _react2.default.createElement('path', { d: 'M0 5L5 0L10 5H0Z' })
+  );
+};
+var UpLoadIcon = function UpLoadIcon(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    _extends({}, props, { viewBox: '0 0 24 24' }),
+    _react2.default.createElement('path', { d: 'M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z' })
+  );
+};
+var WAIcon = function WAIcon(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    _extends({}, props, { viewBox: '0 0 20 19' }),
+    _react2.default.createElement('path', { d: 'M10.5 4.76562C9.375 4.76562 8.34375 5.04688 7.40625 5.60938C6.46875 6.14062 5.71875 6.89062 5.15625 7.85938C4.59375 8.79688 4.3125 9.82812 4.3125 10.9531C4.3125 12.1406 4.625 13.2344 5.25 14.2344L5.39062 14.4688L4.78125 16.7188L7.125 16.1094L7.35938 16.25C8.32812 16.8438 9.375 17.125 10.5 17.0938C11.625 17.0938 12.6562 16.8281 13.5938 16.2969C14.5625 15.7344 15.3281 14.9844 15.8906 14.0469C16.4531 13.0781 16.7344 12.0469 16.7344 10.9531C16.7344 10.1406 16.5625 9.35938 16.2188 8.60938C15.9062 7.82812 15.4531 7.15625 14.8594 6.59375C14.2656 6 13.5938 5.54688 12.8438 5.23438C12.0938 4.92187 11.3125 4.76562 10.5 4.76562ZM14.1562 13.5781C14.0625 13.7969 13.875 14 13.5938 14.1875C13.3125 14.3438 13.0781 14.4375 12.8906 14.4688C12.5781 14.5312 12.2656 14.5312 11.9531 14.4688C11.6406 14.4062 11.2031 14.25 10.6406 14C9.48438 13.5 8.4375 12.5781 7.5 11.2344V11.1875C6.96875 10.5312 6.70312 9.90625 6.70312 9.3125C6.70312 8.71875 6.92188 8.20312 7.35938 7.76562V7.71875C7.51562 7.5625 7.6875 7.48438 7.875 7.48438H8.25C8.4375 7.48438 8.5625 7.59375 8.625 7.8125L9.23438 9.17188C9.29688 9.29688 9.29688 9.40625 9.23438 9.5C9.14062 9.71875 9 9.92188 8.8125 10.1094C8.71875 10.2031 8.65625 10.2812 8.625 10.3438C8.625 10.375 8.64062 10.4375 8.67188 10.5312C9.01562 11.0938 9.39062 11.5469 9.79688 11.8906C10.1094 12.1406 10.5781 12.4219 11.2031 12.7344C11.3906 12.8281 11.5312 12.8125 11.625 12.6875C11.9062 12.375 12.0938 12.1406 12.1875 11.9844C12.2812 11.8281 12.4062 11.7812 12.5625 11.8438C12.75 11.9062 13.1875 12.125 13.875 12.5L13.9688 12.5469C14.125 12.6094 14.2188 12.6719 14.25 12.7344C14.2812 12.7656 14.2812 12.875 14.25 13.0625C14.25 13.2188 14.2188 13.3906 14.1562 13.5781ZM18.75 0.5H2.25C1.625 0.5 1.09375 0.71875 0.65625 1.15625C0.21875 1.59375 0 2.125 0 2.75V19.25C0 19.875 0.21875 20.4062 0.65625 20.8438C1.09375 21.2812 1.625 21.5 2.25 21.5H18.75C19.375 21.5 19.9062 21.2812 20.3438 20.8438C20.7812 20.4062 21 19.875 21 19.25V2.75C21 2.125 20.7812 1.59375 20.3438 1.15625C19.9062 0.71875 19.375 0.5 18.75 0.5ZM10.5 18.3594C9.21875 18.3594 8.03125 18.0625 6.9375 17.4688L3 18.5L4.07812 14.6562C3.39062 13.5 3.04688 12.2656 3.04688 10.9531C3.04688 9.60938 3.375 8.375 4.03125 7.25C4.71875 6.09375 5.625 5.1875 6.75 4.53125C7.90625 3.84375 9.15625 3.5 10.5 3.5C11.5 3.5 12.4531 3.6875 13.3594 4.0625C14.2656 4.4375 15.0625 4.98438 15.75 5.70312C16.4688 6.39063 17.0156 7.1875 17.3906 8.09375C17.7969 9 18 9.95312 18 10.9531C18 12.2969 17.6562 13.5312 16.9688 14.6562C16.3125 15.7812 15.4062 16.6875 14.25 17.375C13.0938 18.0312 11.8438 18.3594 10.5 18.3594Z' })
+  );
+};
+var WAIcon2 = function WAIcon2(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    _extends({}, props, { viewBox: '0 0 21 22' }),
+    _react2.default.createElement('path', { d: 'M17.8594 3.54688C16.8594 2.57812 15.7188 1.82812 14.4375 1.29688C13.1875 0.765625 11.875 0.5 10.5 0.5C8.625 0.5 6.89062 0.96875 5.29688 1.90625C3.70312 2.84375 2.4375 4.10938 1.5 5.70312C0.5625 7.29688 0.09375 9.03125 0.09375 10.9062C0.09375 12.7812 0.5625 14.5156 1.5 16.1094L0 21.5L5.53125 20.0469C7.0625 20.8906 8.71875 21.3125 10.5 21.3125C12.375 21.3125 14.1094 20.8438 15.7031 19.9062C17.3281 18.9688 18.6094 17.7031 19.5469 16.1094C20.5156 14.5156 21 12.7812 21 10.9062C21 9.53125 20.7188 8.21875 20.1562 6.96875C19.625 5.6875 18.8594 4.54687 17.8594 3.54688ZM10.5 19.5781C8.90625 19.5781 7.4375 19.1719 6.09375 18.3594L5.76562 18.1719L2.48438 19.0156L3.375 15.8281L3.1875 15.5C2.28125 14.0938 1.82812 12.5625 1.82812 10.9062C1.82812 9.34375 2.21875 7.90625 3 6.59375C3.78125 5.25 4.82812 4.1875 6.14062 3.40625C7.48438 2.625 8.9375 2.23438 10.5 2.23438C11.6562 2.23438 12.75 2.45313 13.7812 2.89062C14.8438 3.32812 15.7812 3.96875 16.5938 4.8125C17.4375 5.625 18.0938 6.5625 18.5625 7.625C19.0312 8.6875 19.2656 9.78125 19.2656 10.9062C19.2656 12.4688 18.8594 13.9219 18.0469 15.2656C17.2656 16.5781 16.2031 17.625 14.8594 18.4062C13.5156 19.1875 12.0625 19.5781 10.5 19.5781ZM15.2344 13.0625C14.2969 12.5938 13.7031 12.3125 13.4531 12.2188C13.3281 12.1875 13.2188 12.1719 13.125 12.1719C13.0312 12.1719 12.9531 12.2344 12.8906 12.3594C12.7344 12.5781 12.4531 12.9219 12.0469 13.3906C11.9219 13.5469 11.7344 13.5625 11.4844 13.4375C10.6094 13 9.95312 12.6094 9.51562 12.2656C8.92188 11.7969 8.40625 11.1562 7.96875 10.3438C7.875 10.25 7.84375 10.1719 7.875 10.1094C7.90625 10.0156 7.98438 9.90625 8.10938 9.78125C8.35938 9.53125 8.5625 9.25 8.71875 8.9375C8.78125 8.8125 8.76562 8.65625 8.67188 8.46875L7.875 6.54688C7.8125 6.35938 7.73438 6.25 7.64062 6.21875C7.57812 6.15625 7.48438 6.125 7.35938 6.125H6.79688C6.54688 6.125 6.3125 6.23437 6.09375 6.45312L6.04688 6.5C5.48438 7.09375 5.20312 7.79688 5.20312 8.60938C5.20312 9.42188 5.54688 10.3125 6.23438 11.2812L6.32812 11.375C7.64062 13.25 9.09375 14.5312 10.6875 15.2188C11.4688 15.5625 12.0938 15.7812 12.5625 15.875C12.9688 15.9375 13.3906 15.9375 13.8281 15.875C14.1094 15.8438 14.4375 15.7031 14.8125 15.4531C15.2188 15.1719 15.4688 14.9062 15.5625 14.6562C15.6875 14.375 15.75 14.1094 15.75 13.8594C15.7812 13.6094 15.7812 13.4531 15.75 13.3906C15.7188 13.3281 15.5938 13.25 15.375 13.1562L15.2344 13.0625Z' })
+  );
+};
+var WebIcon = function WebIcon(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    _extends({}, props, { viewBox: '0 0 14 15' }),
+    _react2.default.createElement('path', { d: 'M9.21484 5.125H4.375C4.56641 3.89453 4.89453 2.88281 5.33203 2.11719C5.76953 1.35156 6.23438 0.96875 6.78125 0.96875C7.30078 0.96875 7.79297 1.35156 8.23047 2.11719C8.66797 2.88281 8.99609 3.89453 9.21484 5.125ZM4.15625 7.75C4.15625 7.17578 4.18359 6.60156 4.23828 6H9.32422C9.37891 6.60156 9.40625 7.17578 9.40625 7.75C9.40625 8.35156 9.37891 8.92578 9.32422 9.5H4.23828C4.18359 8.92578 4.15625 8.35156 4.15625 7.75ZM13.043 5.125H10.0898C9.81641 3.45703 9.35156 2.17188 8.72266 1.24219C9.67969 1.54297 10.5273 2.03516 11.293 2.71875C12.0586 3.40234 12.6328 4.19531 13.043 5.125ZM4.83984 1.24219C4.18359 2.17188 3.71875 3.45703 3.47266 5.125H0.519531C0.902344 4.19531 1.47656 3.40234 2.24219 2.71875C3.00781 2.03516 3.85547 1.54297 4.83984 1.24219ZM13.3164 6C13.4805 6.60156 13.5625 7.17578 13.5625 7.75C13.5625 8.35156 13.4805 8.92578 13.3164 9.5H10.1992C10.2539 8.89844 10.2812 8.32422 10.2812 7.75C10.2812 7.20312 10.2539 6.60156 10.1992 6H13.3164ZM3.28125 7.75C3.28125 8.29688 3.30859 8.89844 3.36328 9.5H0.246094C0.0820312 8.89844 0 8.32422 0 7.75C0 7.20312 0.0820312 6.60156 0.246094 6H3.36328C3.30859 6.60156 3.28125 7.20312 3.28125 7.75ZM4.375 10.375H9.1875C8.96875 11.6328 8.66797 12.6172 8.23047 13.3828C7.79297 14.1484 7.30078 14.5312 6.78125 14.5312C6.23438 14.5312 5.76953 14.1484 5.33203 13.3828C4.89453 12.6172 4.56641 11.6328 4.375 10.375ZM8.72266 14.2578C9.37891 13.3555 9.81641 12.0703 10.0898 10.375H13.043C12.6328 11.3047 12.0586 12.125 11.293 12.8086C10.5273 13.4922 9.67969 13.9844 8.72266 14.2578ZM0.519531 10.375H3.47266C3.74609 12.0703 4.18359 13.3555 4.83984 14.2578C3.85547 13.9844 3.00781 13.4922 2.24219 12.8086C1.47656 12.125 0.902344 11.3047 0.519531 10.375Z' })
+  );
+};
+exports.AddIcon = AddIcon;
+exports.BinIcon = BinIcon;
+exports.CalendarIcon = CalendarIcon;
+exports.CardIcon = CardIcon;
+exports.CardPayIcon = CardPayIcon;
+exports.CautionIcon = CautionIcon;
+exports.CheckIcon = CheckIcon;
+exports.ClockIcon = ClockIcon;
+exports.CloseIcon = CloseIcon;
+exports.ConfigIcon = ConfigIcon;
+exports.CreateIcon = CreateIcon;
+exports.DescriptionIcon = DescriptionIcon;
+exports.DownArrowIcon = DownArrowIcon;
+exports.DownloadIcon = DownloadIcon;
+exports.DeleteIcon = DeleteIcon;
+exports.EmailIcon = EmailIcon;
+exports.EmptyStarIcon = EmptyStarIcon;
+exports.FacebookIcon = FacebookIcon;
+exports.FilterIcon = FilterIcon;
+exports.GraphIcon = GraphIcon;
+exports.FullStarIcon = FullStarIcon;
+exports.HalfStarIcon = HalfStarIcon;
+exports.HelpIcon = HelpIcon;
+exports.HomeIcon = HomeIcon;
+exports.InfoIcon = InfoIcon;
+exports.LanguageIcon = LanguageIcon;
+exports.LabelIcon = LabelIcon;
+exports.LeftArrowIcon = LeftArrowIcon;
+exports.LinkedinIcon = LinkedinIcon;
+exports.ListIcon = ListIcon;
+exports.LocationIcon = LocationIcon;
+exports.LockIcon = LockIcon;
+exports.MedalIcon = MedalIcon;
+exports.MenuIcon = MenuIcon;
+exports.MessengerIcon = MessengerIcon;
+exports.NewsLetterIcon = NewsLetterIcon;
+exports.NotificationIcon = NotificationIcon;
+exports.PadlockIcon = PadlockIcon;
+exports.PeopleIcon = PeopleIcon;
+exports.PersonIcon = PersonIcon;
+exports.PersonEditIcon = PersonEditIcon;
+exports.PhoneIcon = PhoneIcon;
+exports.PlusIcon = PlusIcon;
+exports.PowerIcon = PowerIcon;
+exports.PriceDArrowIcon = PriceDArrowIcon;
+exports.PriceUArrowIcon = PriceUArrowIcon;
+exports.PublicIcon = PublicIcon;
+exports.RefIcon = RefIcon;
+exports.RFullArrowIcon = RFullArrowIcon;
+exports.RightArrowIcon = RightArrowIcon;
+exports.SadIcon = SadIcon;
+exports.SatisfiedIcon = SatisfiedIcon;
+exports.SaveIcon = SaveIcon;
+exports.SchoolIcon = SchoolIcon;
+exports.SearchIcon = SearchIcon;
+exports.SettingsIcon = SettingsIcon;
+exports.ShoppingIcon = ShoppingIcon;
+exports.SupervisorIcon = SupervisorIcon;
+exports.TwitterIcon = TwitterIcon;
+exports.UpArrowIcon = UpArrowIcon;
+exports.UpLoadIcon = UpLoadIcon;
+exports.WAIcon = WAIcon;
+exports.WAIcon2 = WAIcon2;
+exports.WebIcon = WebIcon;
+
+/***/ }),
 /* 85 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -9055,14 +9990,510 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /***/ }),
-/* 159 */,
-/* 160 */,
-/* 161 */,
-/* 162 */,
-/* 163 */,
-/* 164 */,
-/* 165 */,
-/* 166 */,
+/* 159 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = function bind(fn, thisArg) {
+  return function wrap() {
+    var args = new Array(arguments.length);
+    for (var i = 0; i < args.length; i++) {
+      args[i] = arguments[i];
+    }
+    return fn.apply(thisArg, args);
+  };
+};
+
+
+/***/ }),
+/* 160 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(21);
+
+function encode(val) {
+  return encodeURIComponent(val).
+    replace(/%40/gi, '@').
+    replace(/%3A/gi, ':').
+    replace(/%24/g, '$').
+    replace(/%2C/gi, ',').
+    replace(/%20/g, '+').
+    replace(/%5B/gi, '[').
+    replace(/%5D/gi, ']');
+}
+
+/**
+ * Build a URL by appending params to the end
+ *
+ * @param {string} url The base of the url (e.g., http://www.google.com)
+ * @param {object} [params] The params to be appended
+ * @returns {string} The formatted url
+ */
+module.exports = function buildURL(url, params, paramsSerializer) {
+  /*eslint no-param-reassign:0*/
+  if (!params) {
+    return url;
+  }
+
+  var serializedParams;
+  if (paramsSerializer) {
+    serializedParams = paramsSerializer(params);
+  } else if (utils.isURLSearchParams(params)) {
+    serializedParams = params.toString();
+  } else {
+    var parts = [];
+
+    utils.forEach(params, function serialize(val, key) {
+      if (val === null || typeof val === 'undefined') {
+        return;
+      }
+
+      if (utils.isArray(val)) {
+        key = key + '[]';
+      } else {
+        val = [val];
+      }
+
+      utils.forEach(val, function parseValue(v) {
+        if (utils.isDate(v)) {
+          v = v.toISOString();
+        } else if (utils.isObject(v)) {
+          v = JSON.stringify(v);
+        }
+        parts.push(encode(key) + '=' + encode(v));
+      });
+    });
+
+    serializedParams = parts.join('&');
+  }
+
+  if (serializedParams) {
+    var hashmarkIndex = url.indexOf('#');
+    if (hashmarkIndex !== -1) {
+      url = url.slice(0, hashmarkIndex);
+    }
+
+    url += (url.indexOf('?') === -1 ? '?' : '&') + serializedParams;
+  }
+
+  return url;
+};
+
+
+/***/ }),
+/* 161 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = function isCancel(value) {
+  return !!(value && value.__CANCEL__);
+};
+
+
+/***/ }),
+/* 162 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {
+
+var utils = __webpack_require__(21);
+var normalizeHeaderName = __webpack_require__(493);
+
+var DEFAULT_CONTENT_TYPE = {
+  'Content-Type': 'application/x-www-form-urlencoded'
+};
+
+function setContentTypeIfUnset(headers, value) {
+  if (!utils.isUndefined(headers) && utils.isUndefined(headers['Content-Type'])) {
+    headers['Content-Type'] = value;
+  }
+}
+
+function getDefaultAdapter() {
+  var adapter;
+  // Only Node.JS has a process variable that is of [[Class]] process
+  if (typeof process !== 'undefined' && Object.prototype.toString.call(process) === '[object process]') {
+    // For node use HTTP adapter
+    adapter = __webpack_require__(163);
+  } else if (typeof XMLHttpRequest !== 'undefined') {
+    // For browsers use XHR adapter
+    adapter = __webpack_require__(163);
+  }
+  return adapter;
+}
+
+var defaults = {
+  adapter: getDefaultAdapter(),
+
+  transformRequest: [function transformRequest(data, headers) {
+    normalizeHeaderName(headers, 'Accept');
+    normalizeHeaderName(headers, 'Content-Type');
+    if (utils.isFormData(data) ||
+      utils.isArrayBuffer(data) ||
+      utils.isBuffer(data) ||
+      utils.isStream(data) ||
+      utils.isFile(data) ||
+      utils.isBlob(data)
+    ) {
+      return data;
+    }
+    if (utils.isArrayBufferView(data)) {
+      return data.buffer;
+    }
+    if (utils.isURLSearchParams(data)) {
+      setContentTypeIfUnset(headers, 'application/x-www-form-urlencoded;charset=utf-8');
+      return data.toString();
+    }
+    if (utils.isObject(data)) {
+      setContentTypeIfUnset(headers, 'application/json;charset=utf-8');
+      return JSON.stringify(data);
+    }
+    return data;
+  }],
+
+  transformResponse: [function transformResponse(data) {
+    /*eslint no-param-reassign:0*/
+    if (typeof data === 'string') {
+      try {
+        data = JSON.parse(data);
+      } catch (e) { /* Ignore */ }
+    }
+    return data;
+  }],
+
+  /**
+   * A timeout in milliseconds to abort a request. If set to 0 (default) a
+   * timeout is not created.
+   */
+  timeout: 0,
+
+  xsrfCookieName: 'XSRF-TOKEN',
+  xsrfHeaderName: 'X-XSRF-TOKEN',
+
+  maxContentLength: -1,
+
+  validateStatus: function validateStatus(status) {
+    return status >= 200 && status < 300;
+  }
+};
+
+defaults.headers = {
+  common: {
+    'Accept': 'application/json, text/plain, */*'
+  }
+};
+
+utils.forEach(['delete', 'get', 'head'], function forEachMethodNoData(method) {
+  defaults.headers[method] = {};
+});
+
+utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
+  defaults.headers[method] = utils.merge(DEFAULT_CONTENT_TYPE);
+});
+
+module.exports = defaults;
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(492)))
+
+/***/ }),
+/* 163 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(21);
+var settle = __webpack_require__(494);
+var buildURL = __webpack_require__(160);
+var parseHeaders = __webpack_require__(496);
+var isURLSameOrigin = __webpack_require__(497);
+var createError = __webpack_require__(164);
+
+module.exports = function xhrAdapter(config) {
+  return new Promise(function dispatchXhrRequest(resolve, reject) {
+    var requestData = config.data;
+    var requestHeaders = config.headers;
+
+    if (utils.isFormData(requestData)) {
+      delete requestHeaders['Content-Type']; // Let the browser set it
+    }
+
+    var request = new XMLHttpRequest();
+
+    // HTTP basic authentication
+    if (config.auth) {
+      var username = config.auth.username || '';
+      var password = config.auth.password || '';
+      requestHeaders.Authorization = 'Basic ' + btoa(username + ':' + password);
+    }
+
+    request.open(config.method.toUpperCase(), buildURL(config.url, config.params, config.paramsSerializer), true);
+
+    // Set the request timeout in MS
+    request.timeout = config.timeout;
+
+    // Listen for ready state
+    request.onreadystatechange = function handleLoad() {
+      if (!request || request.readyState !== 4) {
+        return;
+      }
+
+      // The request errored out and we didn't get a response, this will be
+      // handled by onerror instead
+      // With one exception: request that using file: protocol, most browsers
+      // will return status as 0 even though it's a successful request
+      if (request.status === 0 && !(request.responseURL && request.responseURL.indexOf('file:') === 0)) {
+        return;
+      }
+
+      // Prepare the response
+      var responseHeaders = 'getAllResponseHeaders' in request ? parseHeaders(request.getAllResponseHeaders()) : null;
+      var responseData = !config.responseType || config.responseType === 'text' ? request.responseText : request.response;
+      var response = {
+        data: responseData,
+        status: request.status,
+        statusText: request.statusText,
+        headers: responseHeaders,
+        config: config,
+        request: request
+      };
+
+      settle(resolve, reject, response);
+
+      // Clean up request
+      request = null;
+    };
+
+    // Handle browser request cancellation (as opposed to a manual cancellation)
+    request.onabort = function handleAbort() {
+      if (!request) {
+        return;
+      }
+
+      reject(createError('Request aborted', config, 'ECONNABORTED', request));
+
+      // Clean up request
+      request = null;
+    };
+
+    // Handle low level network errors
+    request.onerror = function handleError() {
+      // Real errors are hidden from us by the browser
+      // onerror should only fire if it's a network error
+      reject(createError('Network Error', config, null, request));
+
+      // Clean up request
+      request = null;
+    };
+
+    // Handle timeout
+    request.ontimeout = function handleTimeout() {
+      reject(createError('timeout of ' + config.timeout + 'ms exceeded', config, 'ECONNABORTED',
+        request));
+
+      // Clean up request
+      request = null;
+    };
+
+    // Add xsrf header
+    // This is only done if running in a standard browser environment.
+    // Specifically not if we're in a web worker, or react-native.
+    if (utils.isStandardBrowserEnv()) {
+      var cookies = __webpack_require__(498);
+
+      // Add xsrf header
+      var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ?
+        cookies.read(config.xsrfCookieName) :
+        undefined;
+
+      if (xsrfValue) {
+        requestHeaders[config.xsrfHeaderName] = xsrfValue;
+      }
+    }
+
+    // Add headers to the request
+    if ('setRequestHeader' in request) {
+      utils.forEach(requestHeaders, function setRequestHeader(val, key) {
+        if (typeof requestData === 'undefined' && key.toLowerCase() === 'content-type') {
+          // Remove Content-Type if data is undefined
+          delete requestHeaders[key];
+        } else {
+          // Otherwise add header to the request
+          request.setRequestHeader(key, val);
+        }
+      });
+    }
+
+    // Add withCredentials to request if needed
+    if (config.withCredentials) {
+      request.withCredentials = true;
+    }
+
+    // Add responseType to request if needed
+    if (config.responseType) {
+      try {
+        request.responseType = config.responseType;
+      } catch (e) {
+        // Expected DOMException thrown by browsers not compatible XMLHttpRequest Level 2.
+        // But, this can be suppressed for 'json' type as it can be parsed by default 'transformResponse' function.
+        if (config.responseType !== 'json') {
+          throw e;
+        }
+      }
+    }
+
+    // Handle progress if needed
+    if (typeof config.onDownloadProgress === 'function') {
+      request.addEventListener('progress', config.onDownloadProgress);
+    }
+
+    // Not all browsers support upload events
+    if (typeof config.onUploadProgress === 'function' && request.upload) {
+      request.upload.addEventListener('progress', config.onUploadProgress);
+    }
+
+    if (config.cancelToken) {
+      // Handle cancellation
+      config.cancelToken.promise.then(function onCanceled(cancel) {
+        if (!request) {
+          return;
+        }
+
+        request.abort();
+        reject(cancel);
+        // Clean up request
+        request = null;
+      });
+    }
+
+    if (requestData === undefined) {
+      requestData = null;
+    }
+
+    // Send the request
+    request.send(requestData);
+  });
+};
+
+
+/***/ }),
+/* 164 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var enhanceError = __webpack_require__(495);
+
+/**
+ * Create an Error with the specified message, config, error code, request and response.
+ *
+ * @param {string} message The error message.
+ * @param {Object} config The config.
+ * @param {string} [code] The error code (for example, 'ECONNABORTED').
+ * @param {Object} [request] The request.
+ * @param {Object} [response] The response.
+ * @returns {Error} The created error.
+ */
+module.exports = function createError(message, config, code, request, response) {
+  var error = new Error(message);
+  return enhanceError(error, config, code, request, response);
+};
+
+
+/***/ }),
+/* 165 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(21);
+
+/**
+ * Config-specific merge-function which creates a new config-object
+ * by merging two configuration objects together.
+ *
+ * @param {Object} config1
+ * @param {Object} config2
+ * @returns {Object} New object resulting from merging config2 to config1
+ */
+module.exports = function mergeConfig(config1, config2) {
+  // eslint-disable-next-line no-param-reassign
+  config2 = config2 || {};
+  var config = {};
+
+  utils.forEach(['url', 'method', 'params', 'data'], function valueFromConfig2(prop) {
+    if (typeof config2[prop] !== 'undefined') {
+      config[prop] = config2[prop];
+    }
+  });
+
+  utils.forEach(['headers', 'auth', 'proxy'], function mergeDeepProperties(prop) {
+    if (utils.isObject(config2[prop])) {
+      config[prop] = utils.deepMerge(config1[prop], config2[prop]);
+    } else if (typeof config2[prop] !== 'undefined') {
+      config[prop] = config2[prop];
+    } else if (utils.isObject(config1[prop])) {
+      config[prop] = utils.deepMerge(config1[prop]);
+    } else if (typeof config1[prop] !== 'undefined') {
+      config[prop] = config1[prop];
+    }
+  });
+
+  utils.forEach([
+    'baseURL', 'transformRequest', 'transformResponse', 'paramsSerializer',
+    'timeout', 'withCredentials', 'adapter', 'responseType', 'xsrfCookieName',
+    'xsrfHeaderName', 'onUploadProgress', 'onDownloadProgress', 'maxContentLength',
+    'validateStatus', 'maxRedirects', 'httpAgent', 'httpsAgent', 'cancelToken',
+    'socketPath'
+  ], function defaultToConfig2(prop) {
+    if (typeof config2[prop] !== 'undefined') {
+      config[prop] = config2[prop];
+    } else if (typeof config1[prop] !== 'undefined') {
+      config[prop] = config1[prop];
+    }
+  });
+
+  return config;
+};
+
+
+/***/ }),
+/* 166 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * A `Cancel` is an object that is thrown when an operation is canceled.
+ *
+ * @class
+ * @param {string=} message The message.
+ */
+function Cancel(message) {
+  this.message = message;
+}
+
+Cancel.prototype.toString = function toString() {
+  return 'Cancel' + (this.message ? ': ' + this.message : '');
+};
+
+Cancel.prototype.__CANCEL__ = true;
+
+module.exports = Cancel;
+
+
+/***/ }),
 /* 167 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -9547,7 +10978,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /***/ }),
-/* 179 */,
+/* 179 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(486);
+
+/***/ }),
 /* 180 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -67375,26 +68811,1002 @@ var Zoom = __WEBPACK_IMPORTED_MODULE_2_react___default.a.forwardRef(function Zoo
 /* harmony default export */ __webpack_exports__["a"] = (Zoom);
 
 /***/ }),
-/* 483 */,
+/* 483 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = toInteger;
+function toInteger(dirtyNumber) {
+  if (dirtyNumber === null || dirtyNumber === true || dirtyNumber === false) {
+    return NaN;
+  }
+
+  var number = Number(dirtyNumber);
+
+  if (isNaN(number)) {
+    return number;
+  }
+
+  return number < 0 ? Math.ceil(number) : Math.floor(number);
+}
+
+/***/ }),
 /* 484 */,
 /* 485 */,
-/* 486 */,
-/* 487 */,
-/* 488 */,
-/* 489 */,
-/* 490 */,
-/* 491 */,
-/* 492 */,
-/* 493 */,
-/* 494 */,
-/* 495 */,
-/* 496 */,
-/* 497 */,
-/* 498 */,
-/* 499 */,
-/* 500 */,
-/* 501 */,
-/* 502 */,
+/* 486 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(21);
+var bind = __webpack_require__(159);
+var Axios = __webpack_require__(488);
+var mergeConfig = __webpack_require__(165);
+var defaults = __webpack_require__(162);
+
+/**
+ * Create an instance of Axios
+ *
+ * @param {Object} defaultConfig The default config for the instance
+ * @return {Axios} A new instance of Axios
+ */
+function createInstance(defaultConfig) {
+  var context = new Axios(defaultConfig);
+  var instance = bind(Axios.prototype.request, context);
+
+  // Copy axios.prototype to instance
+  utils.extend(instance, Axios.prototype, context);
+
+  // Copy context to instance
+  utils.extend(instance, context);
+
+  return instance;
+}
+
+// Create the default instance to be exported
+var axios = createInstance(defaults);
+
+// Expose Axios class to allow class inheritance
+axios.Axios = Axios;
+
+// Factory for creating new instances
+axios.create = function create(instanceConfig) {
+  return createInstance(mergeConfig(axios.defaults, instanceConfig));
+};
+
+// Expose Cancel & CancelToken
+axios.Cancel = __webpack_require__(166);
+axios.CancelToken = __webpack_require__(501);
+axios.isCancel = __webpack_require__(161);
+
+// Expose all/spread
+axios.all = function all(promises) {
+  return Promise.all(promises);
+};
+axios.spread = __webpack_require__(502);
+
+module.exports = axios;
+
+// Allow use of default import syntax in TypeScript
+module.exports.default = axios;
+
+
+/***/ }),
+/* 487 */
+/***/ (function(module, exports) {
+
+/*!
+ * Determine if an object is a Buffer
+ *
+ * @author   Feross Aboukhadijeh <https://feross.org>
+ * @license  MIT
+ */
+
+module.exports = function isBuffer (obj) {
+  return obj != null && obj.constructor != null &&
+    typeof obj.constructor.isBuffer === 'function' && obj.constructor.isBuffer(obj)
+}
+
+
+/***/ }),
+/* 488 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(21);
+var buildURL = __webpack_require__(160);
+var InterceptorManager = __webpack_require__(489);
+var dispatchRequest = __webpack_require__(490);
+var mergeConfig = __webpack_require__(165);
+
+/**
+ * Create a new instance of Axios
+ *
+ * @param {Object} instanceConfig The default config for the instance
+ */
+function Axios(instanceConfig) {
+  this.defaults = instanceConfig;
+  this.interceptors = {
+    request: new InterceptorManager(),
+    response: new InterceptorManager()
+  };
+}
+
+/**
+ * Dispatch a request
+ *
+ * @param {Object} config The config specific for this request (merged with this.defaults)
+ */
+Axios.prototype.request = function request(config) {
+  /*eslint no-param-reassign:0*/
+  // Allow for axios('example/url'[, config]) a la fetch API
+  if (typeof config === 'string') {
+    config = arguments[1] || {};
+    config.url = arguments[0];
+  } else {
+    config = config || {};
+  }
+
+  config = mergeConfig(this.defaults, config);
+  config.method = config.method ? config.method.toLowerCase() : 'get';
+
+  // Hook up interceptors middleware
+  var chain = [dispatchRequest, undefined];
+  var promise = Promise.resolve(config);
+
+  this.interceptors.request.forEach(function unshiftRequestInterceptors(interceptor) {
+    chain.unshift(interceptor.fulfilled, interceptor.rejected);
+  });
+
+  this.interceptors.response.forEach(function pushResponseInterceptors(interceptor) {
+    chain.push(interceptor.fulfilled, interceptor.rejected);
+  });
+
+  while (chain.length) {
+    promise = promise.then(chain.shift(), chain.shift());
+  }
+
+  return promise;
+};
+
+Axios.prototype.getUri = function getUri(config) {
+  config = mergeConfig(this.defaults, config);
+  return buildURL(config.url, config.params, config.paramsSerializer).replace(/^\?/, '');
+};
+
+// Provide aliases for supported request methods
+utils.forEach(['delete', 'get', 'head', 'options'], function forEachMethodNoData(method) {
+  /*eslint func-names:0*/
+  Axios.prototype[method] = function(url, config) {
+    return this.request(utils.merge(config || {}, {
+      method: method,
+      url: url
+    }));
+  };
+});
+
+utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
+  /*eslint func-names:0*/
+  Axios.prototype[method] = function(url, data, config) {
+    return this.request(utils.merge(config || {}, {
+      method: method,
+      url: url,
+      data: data
+    }));
+  };
+});
+
+module.exports = Axios;
+
+
+/***/ }),
+/* 489 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(21);
+
+function InterceptorManager() {
+  this.handlers = [];
+}
+
+/**
+ * Add a new interceptor to the stack
+ *
+ * @param {Function} fulfilled The function to handle `then` for a `Promise`
+ * @param {Function} rejected The function to handle `reject` for a `Promise`
+ *
+ * @return {Number} An ID used to remove interceptor later
+ */
+InterceptorManager.prototype.use = function use(fulfilled, rejected) {
+  this.handlers.push({
+    fulfilled: fulfilled,
+    rejected: rejected
+  });
+  return this.handlers.length - 1;
+};
+
+/**
+ * Remove an interceptor from the stack
+ *
+ * @param {Number} id The ID that was returned by `use`
+ */
+InterceptorManager.prototype.eject = function eject(id) {
+  if (this.handlers[id]) {
+    this.handlers[id] = null;
+  }
+};
+
+/**
+ * Iterate over all the registered interceptors
+ *
+ * This method is particularly useful for skipping over any
+ * interceptors that may have become `null` calling `eject`.
+ *
+ * @param {Function} fn The function to call for each interceptor
+ */
+InterceptorManager.prototype.forEach = function forEach(fn) {
+  utils.forEach(this.handlers, function forEachHandler(h) {
+    if (h !== null) {
+      fn(h);
+    }
+  });
+};
+
+module.exports = InterceptorManager;
+
+
+/***/ }),
+/* 490 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(21);
+var transformData = __webpack_require__(491);
+var isCancel = __webpack_require__(161);
+var defaults = __webpack_require__(162);
+var isAbsoluteURL = __webpack_require__(499);
+var combineURLs = __webpack_require__(500);
+
+/**
+ * Throws a `Cancel` if cancellation has been requested.
+ */
+function throwIfCancellationRequested(config) {
+  if (config.cancelToken) {
+    config.cancelToken.throwIfRequested();
+  }
+}
+
+/**
+ * Dispatch a request to the server using the configured adapter.
+ *
+ * @param {object} config The config that is to be used for the request
+ * @returns {Promise} The Promise to be fulfilled
+ */
+module.exports = function dispatchRequest(config) {
+  throwIfCancellationRequested(config);
+
+  // Support baseURL config
+  if (config.baseURL && !isAbsoluteURL(config.url)) {
+    config.url = combineURLs(config.baseURL, config.url);
+  }
+
+  // Ensure headers exist
+  config.headers = config.headers || {};
+
+  // Transform request data
+  config.data = transformData(
+    config.data,
+    config.headers,
+    config.transformRequest
+  );
+
+  // Flatten headers
+  config.headers = utils.merge(
+    config.headers.common || {},
+    config.headers[config.method] || {},
+    config.headers || {}
+  );
+
+  utils.forEach(
+    ['delete', 'get', 'head', 'post', 'put', 'patch', 'common'],
+    function cleanHeaderConfig(method) {
+      delete config.headers[method];
+    }
+  );
+
+  var adapter = config.adapter || defaults.adapter;
+
+  return adapter(config).then(function onAdapterResolution(response) {
+    throwIfCancellationRequested(config);
+
+    // Transform response data
+    response.data = transformData(
+      response.data,
+      response.headers,
+      config.transformResponse
+    );
+
+    return response;
+  }, function onAdapterRejection(reason) {
+    if (!isCancel(reason)) {
+      throwIfCancellationRequested(config);
+
+      // Transform response data
+      if (reason && reason.response) {
+        reason.response.data = transformData(
+          reason.response.data,
+          reason.response.headers,
+          config.transformResponse
+        );
+      }
+    }
+
+    return Promise.reject(reason);
+  });
+};
+
+
+/***/ }),
+/* 491 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(21);
+
+/**
+ * Transform the data for a request or a response
+ *
+ * @param {Object|String} data The data to be transformed
+ * @param {Array} headers The headers for the request or response
+ * @param {Array|Function} fns A single function or Array of functions
+ * @returns {*} The resulting transformed data
+ */
+module.exports = function transformData(data, headers, fns) {
+  /*eslint no-param-reassign:0*/
+  utils.forEach(fns, function transform(fn) {
+    data = fn(data, headers);
+  });
+
+  return data;
+};
+
+
+/***/ }),
+/* 492 */
+/***/ (function(module, exports) {
+
+// shim for using process in browser
+var process = module.exports = {};
+
+// cached from whatever global is present so that test runners that stub it
+// don't break things.  But we need to wrap it in a try catch in case it is
+// wrapped in strict mode code which doesn't define any globals.  It's inside a
+// function because try/catches deoptimize in certain engines.
+
+var cachedSetTimeout;
+var cachedClearTimeout;
+
+function defaultSetTimout() {
+    throw new Error('setTimeout has not been defined');
+}
+function defaultClearTimeout () {
+    throw new Error('clearTimeout has not been defined');
+}
+(function () {
+    try {
+        if (typeof setTimeout === 'function') {
+            cachedSetTimeout = setTimeout;
+        } else {
+            cachedSetTimeout = defaultSetTimout;
+        }
+    } catch (e) {
+        cachedSetTimeout = defaultSetTimout;
+    }
+    try {
+        if (typeof clearTimeout === 'function') {
+            cachedClearTimeout = clearTimeout;
+        } else {
+            cachedClearTimeout = defaultClearTimeout;
+        }
+    } catch (e) {
+        cachedClearTimeout = defaultClearTimeout;
+    }
+} ())
+function runTimeout(fun) {
+    if (cachedSetTimeout === setTimeout) {
+        //normal enviroments in sane situations
+        return setTimeout(fun, 0);
+    }
+    // if setTimeout wasn't available but was latter defined
+    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
+        cachedSetTimeout = setTimeout;
+        return setTimeout(fun, 0);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedSetTimeout(fun, 0);
+    } catch(e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
+            return cachedSetTimeout.call(null, fun, 0);
+        } catch(e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
+            return cachedSetTimeout.call(this, fun, 0);
+        }
+    }
+
+
+}
+function runClearTimeout(marker) {
+    if (cachedClearTimeout === clearTimeout) {
+        //normal enviroments in sane situations
+        return clearTimeout(marker);
+    }
+    // if clearTimeout wasn't available but was latter defined
+    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
+        cachedClearTimeout = clearTimeout;
+        return clearTimeout(marker);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedClearTimeout(marker);
+    } catch (e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
+            return cachedClearTimeout.call(null, marker);
+        } catch (e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
+            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
+            return cachedClearTimeout.call(this, marker);
+        }
+    }
+
+
+
+}
+var queue = [];
+var draining = false;
+var currentQueue;
+var queueIndex = -1;
+
+function cleanUpNextTick() {
+    if (!draining || !currentQueue) {
+        return;
+    }
+    draining = false;
+    if (currentQueue.length) {
+        queue = currentQueue.concat(queue);
+    } else {
+        queueIndex = -1;
+    }
+    if (queue.length) {
+        drainQueue();
+    }
+}
+
+function drainQueue() {
+    if (draining) {
+        return;
+    }
+    var timeout = runTimeout(cleanUpNextTick);
+    draining = true;
+
+    var len = queue.length;
+    while(len) {
+        currentQueue = queue;
+        queue = [];
+        while (++queueIndex < len) {
+            if (currentQueue) {
+                currentQueue[queueIndex].run();
+            }
+        }
+        queueIndex = -1;
+        len = queue.length;
+    }
+    currentQueue = null;
+    draining = false;
+    runClearTimeout(timeout);
+}
+
+process.nextTick = function (fun) {
+    var args = new Array(arguments.length - 1);
+    if (arguments.length > 1) {
+        for (var i = 1; i < arguments.length; i++) {
+            args[i - 1] = arguments[i];
+        }
+    }
+    queue.push(new Item(fun, args));
+    if (queue.length === 1 && !draining) {
+        runTimeout(drainQueue);
+    }
+};
+
+// v8 likes predictible objects
+function Item(fun, array) {
+    this.fun = fun;
+    this.array = array;
+}
+Item.prototype.run = function () {
+    this.fun.apply(null, this.array);
+};
+process.title = 'browser';
+process.browser = true;
+process.env = {};
+process.argv = [];
+process.version = ''; // empty string to avoid regexp issues
+process.versions = {};
+
+function noop() {}
+
+process.on = noop;
+process.addListener = noop;
+process.once = noop;
+process.off = noop;
+process.removeListener = noop;
+process.removeAllListeners = noop;
+process.emit = noop;
+process.prependListener = noop;
+process.prependOnceListener = noop;
+
+process.listeners = function (name) { return [] }
+
+process.binding = function (name) {
+    throw new Error('process.binding is not supported');
+};
+
+process.cwd = function () { return '/' };
+process.chdir = function (dir) {
+    throw new Error('process.chdir is not supported');
+};
+process.umask = function() { return 0; };
+
+
+/***/ }),
+/* 493 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(21);
+
+module.exports = function normalizeHeaderName(headers, normalizedName) {
+  utils.forEach(headers, function processHeader(value, name) {
+    if (name !== normalizedName && name.toUpperCase() === normalizedName.toUpperCase()) {
+      headers[normalizedName] = value;
+      delete headers[name];
+    }
+  });
+};
+
+
+/***/ }),
+/* 494 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var createError = __webpack_require__(164);
+
+/**
+ * Resolve or reject a Promise based on response status.
+ *
+ * @param {Function} resolve A function that resolves the promise.
+ * @param {Function} reject A function that rejects the promise.
+ * @param {object} response The response.
+ */
+module.exports = function settle(resolve, reject, response) {
+  var validateStatus = response.config.validateStatus;
+  if (!validateStatus || validateStatus(response.status)) {
+    resolve(response);
+  } else {
+    reject(createError(
+      'Request failed with status code ' + response.status,
+      response.config,
+      null,
+      response.request,
+      response
+    ));
+  }
+};
+
+
+/***/ }),
+/* 495 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * Update an Error with the specified config, error code, and response.
+ *
+ * @param {Error} error The error to update.
+ * @param {Object} config The config.
+ * @param {string} [code] The error code (for example, 'ECONNABORTED').
+ * @param {Object} [request] The request.
+ * @param {Object} [response] The response.
+ * @returns {Error} The error.
+ */
+module.exports = function enhanceError(error, config, code, request, response) {
+  error.config = config;
+  if (code) {
+    error.code = code;
+  }
+
+  error.request = request;
+  error.response = response;
+  error.isAxiosError = true;
+
+  error.toJSON = function() {
+    return {
+      // Standard
+      message: this.message,
+      name: this.name,
+      // Microsoft
+      description: this.description,
+      number: this.number,
+      // Mozilla
+      fileName: this.fileName,
+      lineNumber: this.lineNumber,
+      columnNumber: this.columnNumber,
+      stack: this.stack,
+      // Axios
+      config: this.config,
+      code: this.code
+    };
+  };
+  return error;
+};
+
+
+/***/ }),
+/* 496 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(21);
+
+// Headers whose duplicates are ignored by node
+// c.f. https://nodejs.org/api/http.html#http_message_headers
+var ignoreDuplicateOf = [
+  'age', 'authorization', 'content-length', 'content-type', 'etag',
+  'expires', 'from', 'host', 'if-modified-since', 'if-unmodified-since',
+  'last-modified', 'location', 'max-forwards', 'proxy-authorization',
+  'referer', 'retry-after', 'user-agent'
+];
+
+/**
+ * Parse headers into an object
+ *
+ * ```
+ * Date: Wed, 27 Aug 2014 08:58:49 GMT
+ * Content-Type: application/json
+ * Connection: keep-alive
+ * Transfer-Encoding: chunked
+ * ```
+ *
+ * @param {String} headers Headers needing to be parsed
+ * @returns {Object} Headers parsed into an object
+ */
+module.exports = function parseHeaders(headers) {
+  var parsed = {};
+  var key;
+  var val;
+  var i;
+
+  if (!headers) { return parsed; }
+
+  utils.forEach(headers.split('\n'), function parser(line) {
+    i = line.indexOf(':');
+    key = utils.trim(line.substr(0, i)).toLowerCase();
+    val = utils.trim(line.substr(i + 1));
+
+    if (key) {
+      if (parsed[key] && ignoreDuplicateOf.indexOf(key) >= 0) {
+        return;
+      }
+      if (key === 'set-cookie') {
+        parsed[key] = (parsed[key] ? parsed[key] : []).concat([val]);
+      } else {
+        parsed[key] = parsed[key] ? parsed[key] + ', ' + val : val;
+      }
+    }
+  });
+
+  return parsed;
+};
+
+
+/***/ }),
+/* 497 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(21);
+
+module.exports = (
+  utils.isStandardBrowserEnv() ?
+
+  // Standard browser envs have full support of the APIs needed to test
+  // whether the request URL is of the same origin as current location.
+    (function standardBrowserEnv() {
+      var msie = /(msie|trident)/i.test(navigator.userAgent);
+      var urlParsingNode = document.createElement('a');
+      var originURL;
+
+      /**
+    * Parse a URL to discover it's components
+    *
+    * @param {String} url The URL to be parsed
+    * @returns {Object}
+    */
+      function resolveURL(url) {
+        var href = url;
+
+        if (msie) {
+        // IE needs attribute set twice to normalize properties
+          urlParsingNode.setAttribute('href', href);
+          href = urlParsingNode.href;
+        }
+
+        urlParsingNode.setAttribute('href', href);
+
+        // urlParsingNode provides the UrlUtils interface - http://url.spec.whatwg.org/#urlutils
+        return {
+          href: urlParsingNode.href,
+          protocol: urlParsingNode.protocol ? urlParsingNode.protocol.replace(/:$/, '') : '',
+          host: urlParsingNode.host,
+          search: urlParsingNode.search ? urlParsingNode.search.replace(/^\?/, '') : '',
+          hash: urlParsingNode.hash ? urlParsingNode.hash.replace(/^#/, '') : '',
+          hostname: urlParsingNode.hostname,
+          port: urlParsingNode.port,
+          pathname: (urlParsingNode.pathname.charAt(0) === '/') ?
+            urlParsingNode.pathname :
+            '/' + urlParsingNode.pathname
+        };
+      }
+
+      originURL = resolveURL(window.location.href);
+
+      /**
+    * Determine if a URL shares the same origin as the current location
+    *
+    * @param {String} requestURL The URL to test
+    * @returns {boolean} True if URL shares the same origin, otherwise false
+    */
+      return function isURLSameOrigin(requestURL) {
+        var parsed = (utils.isString(requestURL)) ? resolveURL(requestURL) : requestURL;
+        return (parsed.protocol === originURL.protocol &&
+            parsed.host === originURL.host);
+      };
+    })() :
+
+  // Non standard browser envs (web workers, react-native) lack needed support.
+    (function nonStandardBrowserEnv() {
+      return function isURLSameOrigin() {
+        return true;
+      };
+    })()
+);
+
+
+/***/ }),
+/* 498 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(21);
+
+module.exports = (
+  utils.isStandardBrowserEnv() ?
+
+  // Standard browser envs support document.cookie
+    (function standardBrowserEnv() {
+      return {
+        write: function write(name, value, expires, path, domain, secure) {
+          var cookie = [];
+          cookie.push(name + '=' + encodeURIComponent(value));
+
+          if (utils.isNumber(expires)) {
+            cookie.push('expires=' + new Date(expires).toGMTString());
+          }
+
+          if (utils.isString(path)) {
+            cookie.push('path=' + path);
+          }
+
+          if (utils.isString(domain)) {
+            cookie.push('domain=' + domain);
+          }
+
+          if (secure === true) {
+            cookie.push('secure');
+          }
+
+          document.cookie = cookie.join('; ');
+        },
+
+        read: function read(name) {
+          var match = document.cookie.match(new RegExp('(^|;\\s*)(' + name + ')=([^;]*)'));
+          return (match ? decodeURIComponent(match[3]) : null);
+        },
+
+        remove: function remove(name) {
+          this.write(name, '', Date.now() - 86400000);
+        }
+      };
+    })() :
+
+  // Non standard browser env (web workers, react-native) lack needed support.
+    (function nonStandardBrowserEnv() {
+      return {
+        write: function write() {},
+        read: function read() { return null; },
+        remove: function remove() {}
+      };
+    })()
+);
+
+
+/***/ }),
+/* 499 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * Determines whether the specified URL is absolute
+ *
+ * @param {string} url The URL to test
+ * @returns {boolean} True if the specified URL is absolute, otherwise false
+ */
+module.exports = function isAbsoluteURL(url) {
+  // A URL is considered absolute if it begins with "<scheme>://" or "//" (protocol-relative URL).
+  // RFC 3986 defines scheme name as a sequence of characters beginning with a letter and followed
+  // by any combination of letters, digits, plus, period, or hyphen.
+  return /^([a-z][a-z\d\+\-\.]*:)?\/\//i.test(url);
+};
+
+
+/***/ }),
+/* 500 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * Creates a new URL by combining the specified URLs
+ *
+ * @param {string} baseURL The base URL
+ * @param {string} relativeURL The relative URL
+ * @returns {string} The combined URL
+ */
+module.exports = function combineURLs(baseURL, relativeURL) {
+  return relativeURL
+    ? baseURL.replace(/\/+$/, '') + '/' + relativeURL.replace(/^\/+/, '')
+    : baseURL;
+};
+
+
+/***/ }),
+/* 501 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var Cancel = __webpack_require__(166);
+
+/**
+ * A `CancelToken` is an object that can be used to request cancellation of an operation.
+ *
+ * @class
+ * @param {Function} executor The executor function.
+ */
+function CancelToken(executor) {
+  if (typeof executor !== 'function') {
+    throw new TypeError('executor must be a function.');
+  }
+
+  var resolvePromise;
+  this.promise = new Promise(function promiseExecutor(resolve) {
+    resolvePromise = resolve;
+  });
+
+  var token = this;
+  executor(function cancel(message) {
+    if (token.reason) {
+      // Cancellation has already been requested
+      return;
+    }
+
+    token.reason = new Cancel(message);
+    resolvePromise(token.reason);
+  });
+}
+
+/**
+ * Throws a `Cancel` if cancellation has been requested.
+ */
+CancelToken.prototype.throwIfRequested = function throwIfRequested() {
+  if (this.reason) {
+    throw this.reason;
+  }
+};
+
+/**
+ * Returns an object that contains a new `CancelToken` and a function that, when called,
+ * cancels the `CancelToken`.
+ */
+CancelToken.source = function source() {
+  var cancel;
+  var token = new CancelToken(function executor(c) {
+    cancel = c;
+  });
+  return {
+    token: token,
+    cancel: cancel
+  };
+};
+
+module.exports = CancelToken;
+
+
+/***/ }),
+/* 502 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * Syntactic sugar for invoking a function and expanding an array for arguments.
+ *
+ * Common use case would be to use `Function.prototype.apply`.
+ *
+ *  ```js
+ *  function f(x, y, z) {}
+ *  var args = [1, 2, 3];
+ *  f.apply(null, args);
+ *  ```
+ *
+ * With `spread` this example can be re-written.
+ *
+ *  ```js
+ *  spread(function(x, y, z) {})([1, 2, 3]);
+ *  ```
+ *
+ * @param {Function} callback
+ * @returns {Function}
+ */
+module.exports = function spread(callback) {
+  return function wrap(arr) {
+    return callback.apply(null, arr);
+  };
+};
+
+
+/***/ }),
 /* 503 */,
 /* 504 */,
 /* 505 */,
@@ -67471,31 +69883,1590 @@ var Zoom = __WEBPACK_IMPORTED_MODULE_2_react___default.a.forwardRef(function Zoo
 /* 576 */,
 /* 577 */,
 /* 578 */,
-/* 579 */,
-/* 580 */,
-/* 581 */,
-/* 582 */,
+/* 579 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = _objectWithoutPropertiesLoose;
+function _objectWithoutPropertiesLoose(source, excluded) {
+  if (source == null) return {};
+  var target = {};
+  var sourceKeys = Object.keys(source);
+  var key, i;
+
+  for (i = 0; i < sourceKeys.length; i++) {
+    key = sourceKeys[i];
+    if (excluded.indexOf(key) >= 0) continue;
+    target[key] = source[key];
+  }
+
+  return target;
+}
+
+/***/ }),
+/* 580 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = _inheritsLoose;
+function _inheritsLoose(subClass, superClass) {
+  subClass.prototype = Object.create(superClass.prototype);
+  subClass.prototype.constructor = subClass;
+  subClass.__proto__ = superClass;
+}
+
+/***/ }),
+/* 581 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = startOfUTCISOWeek;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__toDate_index_js__ = __webpack_require__(83);
+ // This function will be a part of public API when UTC function will be implemented.
+// See issue: https://github.com/date-fns/date-fns/issues/376
+
+function startOfUTCISOWeek(dirtyDate) {
+  if (arguments.length < 1) {
+    throw new TypeError('1 argument required, but only ' + arguments.length + ' present');
+  }
+
+  var weekStartsOn = 1;
+  var date = Object(__WEBPACK_IMPORTED_MODULE_0__toDate_index_js__["a" /* default */])(dirtyDate);
+  var day = date.getUTCDay();
+  var diff = (day < weekStartsOn ? 7 : 0) + day - weekStartsOn;
+  date.setUTCDate(date.getUTCDate() - diff);
+  date.setUTCHours(0, 0, 0, 0);
+  return date;
+}
+
+/***/ }),
+/* 582 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = startOfUTCWeek;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__toInteger_index_js__ = __webpack_require__(483);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__toDate_index_js__ = __webpack_require__(83);
+
+ // This function will be a part of public API when UTC function will be implemented.
+// See issue: https://github.com/date-fns/date-fns/issues/376
+
+function startOfUTCWeek(dirtyDate, dirtyOptions) {
+  if (arguments.length < 1) {
+    throw new TypeError('1 argument required, but only ' + arguments.length + ' present');
+  }
+
+  var options = dirtyOptions || {};
+  var locale = options.locale;
+  var localeWeekStartsOn = locale && locale.options && locale.options.weekStartsOn;
+  var defaultWeekStartsOn = localeWeekStartsOn == null ? 0 : Object(__WEBPACK_IMPORTED_MODULE_0__toInteger_index_js__["a" /* default */])(localeWeekStartsOn);
+  var weekStartsOn = options.weekStartsOn == null ? defaultWeekStartsOn : Object(__WEBPACK_IMPORTED_MODULE_0__toInteger_index_js__["a" /* default */])(options.weekStartsOn); // Test if weekStartsOn is between 0 and 6 _and_ is not NaN
+
+  if (!(weekStartsOn >= 0 && weekStartsOn <= 6)) {
+    throw new RangeError('weekStartsOn must be between 0 and 6 inclusively');
+  }
+
+  var date = Object(__WEBPACK_IMPORTED_MODULE_1__toDate_index_js__["a" /* default */])(dirtyDate);
+  var day = date.getUTCDay();
+  var diff = (day < weekStartsOn ? 7 : 0) + day - weekStartsOn;
+  date.setUTCDate(date.getUTCDate() - diff);
+  date.setUTCHours(0, 0, 0, 0);
+  return date;
+}
+
+/***/ }),
 /* 583 */,
-/* 584 */,
-/* 585 */,
-/* 586 */,
-/* 587 */,
-/* 588 */,
-/* 589 */,
-/* 590 */,
-/* 591 */,
-/* 592 */,
-/* 593 */,
-/* 594 */,
-/* 595 */,
-/* 596 */,
-/* 597 */,
-/* 598 */,
-/* 599 */,
-/* 600 */,
-/* 601 */,
-/* 602 */,
-/* 603 */,
+/* 584 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = getUTCWeekYear;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__toInteger_index_js__ = __webpack_require__(483);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__toDate_index_js__ = __webpack_require__(83);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__startOfUTCWeek_index_js__ = __webpack_require__(582);
+
+
+ // This function will be a part of public API when UTC function will be implemented.
+// See issue: https://github.com/date-fns/date-fns/issues/376
+
+function getUTCWeekYear(dirtyDate, dirtyOptions) {
+  if (arguments.length < 1) {
+    throw new TypeError('1 argument required, but only ' + arguments.length + ' present');
+  }
+
+  var date = Object(__WEBPACK_IMPORTED_MODULE_1__toDate_index_js__["a" /* default */])(dirtyDate, dirtyOptions);
+  var year = date.getUTCFullYear();
+  var options = dirtyOptions || {};
+  var locale = options.locale;
+  var localeFirstWeekContainsDate = locale && locale.options && locale.options.firstWeekContainsDate;
+  var defaultFirstWeekContainsDate = localeFirstWeekContainsDate == null ? 1 : Object(__WEBPACK_IMPORTED_MODULE_0__toInteger_index_js__["a" /* default */])(localeFirstWeekContainsDate);
+  var firstWeekContainsDate = options.firstWeekContainsDate == null ? defaultFirstWeekContainsDate : Object(__WEBPACK_IMPORTED_MODULE_0__toInteger_index_js__["a" /* default */])(options.firstWeekContainsDate); // Test if weekStartsOn is between 1 and 7 _and_ is not NaN
+
+  if (!(firstWeekContainsDate >= 1 && firstWeekContainsDate <= 7)) {
+    throw new RangeError('firstWeekContainsDate must be between 1 and 7 inclusively');
+  }
+
+  var firstWeekOfNextYear = new Date(0);
+  firstWeekOfNextYear.setUTCFullYear(year + 1, 0, firstWeekContainsDate);
+  firstWeekOfNextYear.setUTCHours(0, 0, 0, 0);
+  var startOfNextYear = Object(__WEBPACK_IMPORTED_MODULE_2__startOfUTCWeek_index_js__["a" /* default */])(firstWeekOfNextYear, dirtyOptions);
+  var firstWeekOfThisYear = new Date(0);
+  firstWeekOfThisYear.setUTCFullYear(year, 0, firstWeekContainsDate);
+  firstWeekOfThisYear.setUTCHours(0, 0, 0, 0);
+  var startOfThisYear = Object(__WEBPACK_IMPORTED_MODULE_2__startOfUTCWeek_index_js__["a" /* default */])(firstWeekOfThisYear, dirtyOptions);
+
+  if (date.getTime() >= startOfNextYear.getTime()) {
+    return year + 1;
+  } else if (date.getTime() >= startOfThisYear.getTime()) {
+    return year;
+  } else {
+    return year - 1;
+  }
+}
+
+/***/ }),
+/* 585 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = _extends;
+function _extends() {
+  _extends = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+
+    return target;
+  };
+
+  return _extends.apply(this, arguments);
+}
+
+/***/ }),
+/* 586 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony export UNMOUNTED */
+/* unused harmony export EXITED */
+/* unused harmony export ENTERING */
+/* unused harmony export ENTERED */
+/* unused harmony export EXITING */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_runtime_helpers_esm_objectWithoutPropertiesLoose__ = __webpack_require__(579);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__babel_runtime_helpers_esm_inheritsLoose__ = __webpack_require__(580);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_prop_types__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_prop_types__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_react_dom__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_react_dom__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__config__ = __webpack_require__(587);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__utils_PropTypes__ = __webpack_require__(588);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__TransitionGroupContext__ = __webpack_require__(589);
+
+
+
+
+
+
+
+
+var UNMOUNTED = 'unmounted';
+var EXITED = 'exited';
+var ENTERING = 'entering';
+var ENTERED = 'entered';
+var EXITING = 'exiting';
+/**
+ * The Transition component lets you describe a transition from one component
+ * state to another _over time_ with a simple declarative API. Most commonly
+ * it's used to animate the mounting and unmounting of a component, but can also
+ * be used to describe in-place transition states as well.
+ *
+ * ---
+ *
+ * **Note**: `Transition` is a platform-agnostic base component. If you're using
+ * transitions in CSS, you'll probably want to use
+ * [`CSSTransition`](https://reactcommunity.org/react-transition-group/css-transition)
+ * instead. It inherits all the features of `Transition`, but contains
+ * additional features necessary to play nice with CSS transitions (hence the
+ * name of the component).
+ *
+ * ---
+ *
+ * By default the `Transition` component does not alter the behavior of the
+ * component it renders, it only tracks "enter" and "exit" states for the
+ * components. It's up to you to give meaning and effect to those states. For
+ * example we can add styles to a component when it enters or exits:
+ *
+ * ```jsx
+ * import { Transition } from 'react-transition-group';
+ *
+ * const duration = 300;
+ *
+ * const defaultStyle = {
+ *   transition: `opacity ${duration}ms ease-in-out`,
+ *   opacity: 0,
+ * }
+ *
+ * const transitionStyles = {
+ *   entering: { opacity: 1 },
+ *   entered:  { opacity: 1 },
+ *   exiting:  { opacity: 0 },
+ *   exited:  { opacity: 0 },
+ * };
+ *
+ * const Fade = ({ in: inProp }) => (
+ *   <Transition in={inProp} timeout={duration}>
+ *     {state => (
+ *       <div style={{
+ *         ...defaultStyle,
+ *         ...transitionStyles[state]
+ *       }}>
+ *         I'm a fade Transition!
+ *       </div>
+ *     )}
+ *   </Transition>
+ * );
+ * ```
+ *
+ * There are 4 main states a Transition can be in:
+ *  - `'entering'`
+ *  - `'entered'`
+ *  - `'exiting'`
+ *  - `'exited'`
+ *
+ * Transition state is toggled via the `in` prop. When `true` the component
+ * begins the "Enter" stage. During this stage, the component will shift from
+ * its current transition state, to `'entering'` for the duration of the
+ * transition and then to the `'entered'` stage once it's complete. Let's take
+ * the following example (we'll use the
+ * [useState](https://reactjs.org/docs/hooks-reference.html#usestate) hook):
+ *
+ * ```jsx
+ * function App() {
+ *   const [inProp, setInProp] = useState(false);
+ *   return (
+ *     <div>
+ *       <Transition in={inProp} timeout={500}>
+ *         {state => (
+ *           // ...
+ *         )}
+ *       </Transition>
+ *       <button onClick={() => setInProp(true)}>
+ *         Click to Enter
+ *       </button>
+ *     </div>
+ *   );
+ * }
+ * ```
+ *
+ * When the button is clicked the component will shift to the `'entering'` state
+ * and stay there for 500ms (the value of `timeout`) before it finally switches
+ * to `'entered'`.
+ *
+ * When `in` is `false` the same thing happens except the state moves from
+ * `'exiting'` to `'exited'`.
+ */
+
+var Transition =
+/*#__PURE__*/
+function (_React$Component) {
+  Object(__WEBPACK_IMPORTED_MODULE_1__babel_runtime_helpers_esm_inheritsLoose__["a" /* default */])(Transition, _React$Component);
+
+  function Transition(props, context) {
+    var _this;
+
+    _this = _React$Component.call(this, props, context) || this;
+    var parentGroup = context; // In the context of a TransitionGroup all enters are really appears
+
+    var appear = parentGroup && !parentGroup.isMounting ? props.enter : props.appear;
+    var initialStatus;
+    _this.appearStatus = null;
+
+    if (props.in) {
+      if (appear) {
+        initialStatus = EXITED;
+        _this.appearStatus = ENTERING;
+      } else {
+        initialStatus = ENTERED;
+      }
+    } else {
+      if (props.unmountOnExit || props.mountOnEnter) {
+        initialStatus = UNMOUNTED;
+      } else {
+        initialStatus = EXITED;
+      }
+    }
+
+    _this.state = {
+      status: initialStatus
+    };
+    _this.nextCallback = null;
+    return _this;
+  }
+
+  Transition.getDerivedStateFromProps = function getDerivedStateFromProps(_ref, prevState) {
+    var nextIn = _ref.in;
+
+    if (nextIn && prevState.status === UNMOUNTED) {
+      return {
+        status: EXITED
+      };
+    }
+
+    return null;
+  }; // getSnapshotBeforeUpdate(prevProps) {
+  //   let nextStatus = null
+  //   if (prevProps !== this.props) {
+  //     const { status } = this.state
+  //     if (this.props.in) {
+  //       if (status !== ENTERING && status !== ENTERED) {
+  //         nextStatus = ENTERING
+  //       }
+  //     } else {
+  //       if (status === ENTERING || status === ENTERED) {
+  //         nextStatus = EXITING
+  //       }
+  //     }
+  //   }
+  //   return { nextStatus }
+  // }
+
+
+  var _proto = Transition.prototype;
+
+  _proto.componentDidMount = function componentDidMount() {
+    this.updateStatus(true, this.appearStatus);
+  };
+
+  _proto.componentDidUpdate = function componentDidUpdate(prevProps) {
+    var nextStatus = null;
+
+    if (prevProps !== this.props) {
+      var status = this.state.status;
+
+      if (this.props.in) {
+        if (status !== ENTERING && status !== ENTERED) {
+          nextStatus = ENTERING;
+        }
+      } else {
+        if (status === ENTERING || status === ENTERED) {
+          nextStatus = EXITING;
+        }
+      }
+    }
+
+    this.updateStatus(false, nextStatus);
+  };
+
+  _proto.componentWillUnmount = function componentWillUnmount() {
+    this.cancelNextCallback();
+  };
+
+  _proto.getTimeouts = function getTimeouts() {
+    var timeout = this.props.timeout;
+    var exit, enter, appear;
+    exit = enter = appear = timeout;
+
+    if (timeout != null && typeof timeout !== 'number') {
+      exit = timeout.exit;
+      enter = timeout.enter; // TODO: remove fallback for next major
+
+      appear = timeout.appear !== undefined ? timeout.appear : enter;
+    }
+
+    return {
+      exit: exit,
+      enter: enter,
+      appear: appear
+    };
+  };
+
+  _proto.updateStatus = function updateStatus(mounting, nextStatus) {
+    if (mounting === void 0) {
+      mounting = false;
+    }
+
+    if (nextStatus !== null) {
+      // nextStatus will always be ENTERING or EXITING.
+      this.cancelNextCallback();
+      var node = __WEBPACK_IMPORTED_MODULE_4_react_dom___default.a.findDOMNode(this);
+
+      if (nextStatus === ENTERING) {
+        this.performEnter(node, mounting);
+      } else {
+        this.performExit(node);
+      }
+    } else if (this.props.unmountOnExit && this.state.status === EXITED) {
+      this.setState({
+        status: UNMOUNTED
+      });
+    }
+  };
+
+  _proto.performEnter = function performEnter(node, mounting) {
+    var _this2 = this;
+
+    var enter = this.props.enter;
+    var appearing = this.context ? this.context.isMounting : mounting;
+    var timeouts = this.getTimeouts();
+    var enterTimeout = appearing ? timeouts.appear : timeouts.enter; // no enter animation skip right to ENTERED
+    // if we are mounting and running this it means appear _must_ be set
+
+    if (!mounting && !enter || __WEBPACK_IMPORTED_MODULE_5__config__["a" /* default */].disabled) {
+      this.safeSetState({
+        status: ENTERED
+      }, function () {
+        _this2.props.onEntered(node);
+      });
+      return;
+    }
+
+    this.props.onEnter(node, appearing);
+    this.safeSetState({
+      status: ENTERING
+    }, function () {
+      _this2.props.onEntering(node, appearing);
+
+      _this2.onTransitionEnd(node, enterTimeout, function () {
+        _this2.safeSetState({
+          status: ENTERED
+        }, function () {
+          _this2.props.onEntered(node, appearing);
+        });
+      });
+    });
+  };
+
+  _proto.performExit = function performExit(node) {
+    var _this3 = this;
+
+    var exit = this.props.exit;
+    var timeouts = this.getTimeouts(); // no exit animation skip right to EXITED
+
+    if (!exit || __WEBPACK_IMPORTED_MODULE_5__config__["a" /* default */].disabled) {
+      this.safeSetState({
+        status: EXITED
+      }, function () {
+        _this3.props.onExited(node);
+      });
+      return;
+    }
+
+    this.props.onExit(node);
+    this.safeSetState({
+      status: EXITING
+    }, function () {
+      _this3.props.onExiting(node);
+
+      _this3.onTransitionEnd(node, timeouts.exit, function () {
+        _this3.safeSetState({
+          status: EXITED
+        }, function () {
+          _this3.props.onExited(node);
+        });
+      });
+    });
+  };
+
+  _proto.cancelNextCallback = function cancelNextCallback() {
+    if (this.nextCallback !== null) {
+      this.nextCallback.cancel();
+      this.nextCallback = null;
+    }
+  };
+
+  _proto.safeSetState = function safeSetState(nextState, callback) {
+    // This shouldn't be necessary, but there are weird race conditions with
+    // setState callbacks and unmounting in testing, so always make sure that
+    // we can cancel any pending setState callbacks after we unmount.
+    callback = this.setNextCallback(callback);
+    this.setState(nextState, callback);
+  };
+
+  _proto.setNextCallback = function setNextCallback(callback) {
+    var _this4 = this;
+
+    var active = true;
+
+    this.nextCallback = function (event) {
+      if (active) {
+        active = false;
+        _this4.nextCallback = null;
+        callback(event);
+      }
+    };
+
+    this.nextCallback.cancel = function () {
+      active = false;
+    };
+
+    return this.nextCallback;
+  };
+
+  _proto.onTransitionEnd = function onTransitionEnd(node, timeout, handler) {
+    this.setNextCallback(handler);
+    var doesNotHaveTimeoutOrListener = timeout == null && !this.props.addEndListener;
+
+    if (!node || doesNotHaveTimeoutOrListener) {
+      setTimeout(this.nextCallback, 0);
+      return;
+    }
+
+    if (this.props.addEndListener) {
+      this.props.addEndListener(node, this.nextCallback);
+    }
+
+    if (timeout != null) {
+      setTimeout(this.nextCallback, timeout);
+    }
+  };
+
+  _proto.render = function render() {
+    var status = this.state.status;
+
+    if (status === UNMOUNTED) {
+      return null;
+    }
+
+    var _this$props = this.props,
+        children = _this$props.children,
+        childProps = Object(__WEBPACK_IMPORTED_MODULE_0__babel_runtime_helpers_esm_objectWithoutPropertiesLoose__["a" /* default */])(_this$props, ["children"]); // filter props for Transtition
+
+
+    delete childProps.in;
+    delete childProps.mountOnEnter;
+    delete childProps.unmountOnExit;
+    delete childProps.appear;
+    delete childProps.enter;
+    delete childProps.exit;
+    delete childProps.timeout;
+    delete childProps.addEndListener;
+    delete childProps.onEnter;
+    delete childProps.onEntering;
+    delete childProps.onEntered;
+    delete childProps.onExit;
+    delete childProps.onExiting;
+    delete childProps.onExited;
+
+    if (typeof children === 'function') {
+      // allows for nested Transitions
+      return __WEBPACK_IMPORTED_MODULE_3_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__TransitionGroupContext__["a" /* default */].Provider, {
+        value: null
+      }, children(status, childProps));
+    }
+
+    var child = __WEBPACK_IMPORTED_MODULE_3_react___default.a.Children.only(children);
+    return (// allows for nested Transitions
+      __WEBPACK_IMPORTED_MODULE_3_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__TransitionGroupContext__["a" /* default */].Provider, {
+        value: null
+      }, __WEBPACK_IMPORTED_MODULE_3_react___default.a.cloneElement(child, childProps))
+    );
+  };
+
+  return Transition;
+}(__WEBPACK_IMPORTED_MODULE_3_react___default.a.Component);
+
+Transition.contextType = __WEBPACK_IMPORTED_MODULE_7__TransitionGroupContext__["a" /* default */];
+Transition.propTypes =  true ? {
+  /**
+   * A `function` child can be used instead of a React element. This function is
+   * called with the current transition status (`'entering'`, `'entered'`,
+   * `'exiting'`, `'exited'`), which can be used to apply context
+   * specific props to a component.
+   *
+   * ```jsx
+   * <Transition in={this.state.in} timeout={150}>
+   *   {state => (
+   *     <MyComponent className={`fade fade-${state}`} />
+   *   )}
+   * </Transition>
+   * ```
+   */
+  children: __WEBPACK_IMPORTED_MODULE_2_prop_types__["oneOfType"]([__WEBPACK_IMPORTED_MODULE_2_prop_types__["func"].isRequired, __WEBPACK_IMPORTED_MODULE_2_prop_types__["element"].isRequired]).isRequired,
+
+  /**
+   * Show the component; triggers the enter or exit states
+   */
+  in: __WEBPACK_IMPORTED_MODULE_2_prop_types__["bool"],
+
+  /**
+   * By default the child component is mounted immediately along with
+   * the parent `Transition` component. If you want to "lazy mount" the component on the
+   * first `in={true}` you can set `mountOnEnter`. After the first enter transition the component will stay
+   * mounted, even on "exited", unless you also specify `unmountOnExit`.
+   */
+  mountOnEnter: __WEBPACK_IMPORTED_MODULE_2_prop_types__["bool"],
+
+  /**
+   * By default the child component stays mounted after it reaches the `'exited'` state.
+   * Set `unmountOnExit` if you'd prefer to unmount the component after it finishes exiting.
+   */
+  unmountOnExit: __WEBPACK_IMPORTED_MODULE_2_prop_types__["bool"],
+
+  /**
+   * Normally a component is not transitioned if it is shown when the `<Transition>` component mounts.
+   * If you want to transition on the first mount set `appear` to `true`, and the
+   * component will transition in as soon as the `<Transition>` mounts.
+   *
+   * > Note: there are no specific "appear" states. `appear` only adds an additional `enter` transition.
+   */
+  appear: __WEBPACK_IMPORTED_MODULE_2_prop_types__["bool"],
+
+  /**
+   * Enable or disable enter transitions.
+   */
+  enter: __WEBPACK_IMPORTED_MODULE_2_prop_types__["bool"],
+
+  /**
+   * Enable or disable exit transitions.
+   */
+  exit: __WEBPACK_IMPORTED_MODULE_2_prop_types__["bool"],
+
+  /**
+   * The duration of the transition, in milliseconds.
+   * Required unless `addEndListener` is provided.
+   *
+   * You may specify a single timeout for all transitions:
+   *
+   * ```jsx
+   * timeout={500}
+   * ```
+   *
+   * or individually:
+   *
+   * ```jsx
+   * timeout={{
+   *  appear: 500,
+   *  enter: 300,
+   *  exit: 500,
+   * }}
+   * ```
+   *
+   * - `appear` defaults to the value of `enter`
+   * - `enter` defaults to `0`
+   * - `exit` defaults to `0`
+   *
+   * @type {number | { enter?: number, exit?: number, appear?: number }}
+   */
+  timeout: function timeout(props) {
+    var pt = __WEBPACK_IMPORTED_MODULE_6__utils_PropTypes__["b" /* timeoutsShape */];
+    if (!props.addEndListener) pt = pt.isRequired;
+
+    for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+      args[_key - 1] = arguments[_key];
+    }
+
+    return pt.apply(void 0, [props].concat(args));
+  },
+
+  /**
+   * Add a custom transition end trigger. Called with the transitioning
+   * DOM node and a `done` callback. Allows for more fine grained transition end
+   * logic. **Note:** Timeouts are still used as a fallback if provided.
+   *
+   * ```jsx
+   * addEndListener={(node, done) => {
+   *   // use the css transitionend event to mark the finish of a transition
+   *   node.addEventListener('transitionend', done, false);
+   * }}
+   * ```
+   */
+  addEndListener: __WEBPACK_IMPORTED_MODULE_2_prop_types__["func"],
+
+  /**
+   * Callback fired before the "entering" status is applied. An extra parameter
+   * `isAppearing` is supplied to indicate if the enter stage is occurring on the initial mount
+   *
+   * @type Function(node: HtmlElement, isAppearing: bool) -> void
+   */
+  onEnter: __WEBPACK_IMPORTED_MODULE_2_prop_types__["func"],
+
+  /**
+   * Callback fired after the "entering" status is applied. An extra parameter
+   * `isAppearing` is supplied to indicate if the enter stage is occurring on the initial mount
+   *
+   * @type Function(node: HtmlElement, isAppearing: bool)
+   */
+  onEntering: __WEBPACK_IMPORTED_MODULE_2_prop_types__["func"],
+
+  /**
+   * Callback fired after the "entered" status is applied. An extra parameter
+   * `isAppearing` is supplied to indicate if the enter stage is occurring on the initial mount
+   *
+   * @type Function(node: HtmlElement, isAppearing: bool) -> void
+   */
+  onEntered: __WEBPACK_IMPORTED_MODULE_2_prop_types__["func"],
+
+  /**
+   * Callback fired before the "exiting" status is applied.
+   *
+   * @type Function(node: HtmlElement) -> void
+   */
+  onExit: __WEBPACK_IMPORTED_MODULE_2_prop_types__["func"],
+
+  /**
+   * Callback fired after the "exiting" status is applied.
+   *
+   * @type Function(node: HtmlElement) -> void
+   */
+  onExiting: __WEBPACK_IMPORTED_MODULE_2_prop_types__["func"],
+
+  /**
+   * Callback fired after the "exited" status is applied.
+   *
+   * @type Function(node: HtmlElement) -> void
+   */
+  onExited: __WEBPACK_IMPORTED_MODULE_2_prop_types__["func"] // Name the function so it is clearer in the documentation
+
+} : {};
+
+function noop() {}
+
+Transition.defaultProps = {
+  in: false,
+  mountOnEnter: false,
+  unmountOnExit: false,
+  appear: false,
+  enter: true,
+  exit: true,
+  onEnter: noop,
+  onEntering: noop,
+  onEntered: noop,
+  onExit: noop,
+  onExiting: noop,
+  onExited: noop
+};
+Transition.UNMOUNTED = 0;
+Transition.EXITED = 1;
+Transition.ENTERING = 2;
+Transition.ENTERED = 3;
+Transition.EXITING = 4;
+/* harmony default export */ __webpack_exports__["a"] = (Transition);
+
+/***/ }),
+/* 587 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = ({
+  disabled: false
+});
+
+/***/ }),
+/* 588 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return timeoutsShape; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return classNamesShape; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_prop_types__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_prop_types__);
+
+var timeoutsShape =  true ? __WEBPACK_IMPORTED_MODULE_0_prop_types___default.a.oneOfType([__WEBPACK_IMPORTED_MODULE_0_prop_types___default.a.number, __WEBPACK_IMPORTED_MODULE_0_prop_types___default.a.shape({
+  enter: __WEBPACK_IMPORTED_MODULE_0_prop_types___default.a.number,
+  exit: __WEBPACK_IMPORTED_MODULE_0_prop_types___default.a.number,
+  appear: __WEBPACK_IMPORTED_MODULE_0_prop_types___default.a.number
+}).isRequired]) : null;
+var classNamesShape =  true ? __WEBPACK_IMPORTED_MODULE_0_prop_types___default.a.oneOfType([__WEBPACK_IMPORTED_MODULE_0_prop_types___default.a.string, __WEBPACK_IMPORTED_MODULE_0_prop_types___default.a.shape({
+  enter: __WEBPACK_IMPORTED_MODULE_0_prop_types___default.a.string,
+  exit: __WEBPACK_IMPORTED_MODULE_0_prop_types___default.a.string,
+  active: __WEBPACK_IMPORTED_MODULE_0_prop_types___default.a.string
+}), __WEBPACK_IMPORTED_MODULE_0_prop_types___default.a.shape({
+  enter: __WEBPACK_IMPORTED_MODULE_0_prop_types___default.a.string,
+  enterDone: __WEBPACK_IMPORTED_MODULE_0_prop_types___default.a.string,
+  enterActive: __WEBPACK_IMPORTED_MODULE_0_prop_types___default.a.string,
+  exit: __WEBPACK_IMPORTED_MODULE_0_prop_types___default.a.string,
+  exitDone: __WEBPACK_IMPORTED_MODULE_0_prop_types___default.a.string,
+  exitActive: __WEBPACK_IMPORTED_MODULE_0_prop_types___default.a.string
+})]) : null;
+
+/***/ }),
+/* 589 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+
+/* harmony default export */ __webpack_exports__["a"] = (__WEBPACK_IMPORTED_MODULE_0_react___default.a.createContext(null));
+
+/***/ }),
+/* 590 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_runtime_helpers_esm_objectWithoutPropertiesLoose__ = __webpack_require__(579);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__babel_runtime_helpers_esm_extends__ = __webpack_require__(585);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__babel_runtime_helpers_esm_inheritsLoose__ = __webpack_require__(580);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__babel_runtime_helpers_esm_assertThisInitialized__ = __webpack_require__(650);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_prop_types__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_prop_types__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__TransitionGroupContext__ = __webpack_require__(589);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__utils_ChildMapping__ = __webpack_require__(651);
+
+
+
+
+
+
+
+
+
+var values = Object.values || function (obj) {
+  return Object.keys(obj).map(function (k) {
+    return obj[k];
+  });
+};
+
+var defaultProps = {
+  component: 'div',
+  childFactory: function childFactory(child) {
+    return child;
+  }
+  /**
+   * The `<TransitionGroup>` component manages a set of transition components
+   * (`<Transition>` and `<CSSTransition>`) in a list. Like with the transition
+   * components, `<TransitionGroup>` is a state machine for managing the mounting
+   * and unmounting of components over time.
+   *
+   * Consider the example below. As items are removed or added to the TodoList the
+   * `in` prop is toggled automatically by the `<TransitionGroup>`.
+   *
+   * Note that `<TransitionGroup>`  does not define any animation behavior!
+   * Exactly _how_ a list item animates is up to the individual transition
+   * component. This means you can mix and match animations across different list
+   * items.
+   */
+
+};
+
+var TransitionGroup =
+/*#__PURE__*/
+function (_React$Component) {
+  Object(__WEBPACK_IMPORTED_MODULE_2__babel_runtime_helpers_esm_inheritsLoose__["a" /* default */])(TransitionGroup, _React$Component);
+
+  function TransitionGroup(props, context) {
+    var _this;
+
+    _this = _React$Component.call(this, props, context) || this;
+
+    var handleExited = _this.handleExited.bind(Object(__WEBPACK_IMPORTED_MODULE_3__babel_runtime_helpers_esm_assertThisInitialized__["a" /* default */])(Object(__WEBPACK_IMPORTED_MODULE_3__babel_runtime_helpers_esm_assertThisInitialized__["a" /* default */])(_this))); // Initial children should all be entering, dependent on appear
+
+
+    _this.state = {
+      contextValue: {
+        isMounting: true
+      },
+      handleExited: handleExited,
+      firstRender: true
+    };
+    return _this;
+  }
+
+  var _proto = TransitionGroup.prototype;
+
+  _proto.componentDidMount = function componentDidMount() {
+    this.mounted = true;
+    this.setState({
+      contextValue: {
+        isMounting: false
+      }
+    });
+  };
+
+  _proto.componentWillUnmount = function componentWillUnmount() {
+    this.mounted = false;
+  };
+
+  TransitionGroup.getDerivedStateFromProps = function getDerivedStateFromProps(nextProps, _ref) {
+    var prevChildMapping = _ref.children,
+        handleExited = _ref.handleExited,
+        firstRender = _ref.firstRender;
+    return {
+      children: firstRender ? Object(__WEBPACK_IMPORTED_MODULE_7__utils_ChildMapping__["b" /* getInitialChildMapping */])(nextProps, handleExited) : Object(__WEBPACK_IMPORTED_MODULE_7__utils_ChildMapping__["c" /* getNextChildMapping */])(nextProps, prevChildMapping, handleExited),
+      firstRender: false
+    };
+  };
+
+  _proto.handleExited = function handleExited(child, node) {
+    var currentChildMapping = Object(__WEBPACK_IMPORTED_MODULE_7__utils_ChildMapping__["a" /* getChildMapping */])(this.props.children);
+    if (child.key in currentChildMapping) return;
+
+    if (child.props.onExited) {
+      child.props.onExited(node);
+    }
+
+    if (this.mounted) {
+      this.setState(function (state) {
+        var children = Object(__WEBPACK_IMPORTED_MODULE_1__babel_runtime_helpers_esm_extends__["a" /* default */])({}, state.children);
+
+        delete children[child.key];
+        return {
+          children: children
+        };
+      });
+    }
+  };
+
+  _proto.render = function render() {
+    var _this$props = this.props,
+        Component = _this$props.component,
+        childFactory = _this$props.childFactory,
+        props = Object(__WEBPACK_IMPORTED_MODULE_0__babel_runtime_helpers_esm_objectWithoutPropertiesLoose__["a" /* default */])(_this$props, ["component", "childFactory"]);
+
+    var contextValue = this.state.contextValue;
+    var children = values(this.state.children).map(childFactory);
+    delete props.appear;
+    delete props.enter;
+    delete props.exit;
+
+    if (Component === null) {
+      return __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_6__TransitionGroupContext__["a" /* default */].Provider, {
+        value: contextValue
+      }, children);
+    }
+
+    return __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_6__TransitionGroupContext__["a" /* default */].Provider, {
+      value: contextValue
+    }, __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(Component, props, children));
+  };
+
+  return TransitionGroup;
+}(__WEBPACK_IMPORTED_MODULE_5_react___default.a.Component);
+
+TransitionGroup.propTypes =  true ? {
+  /**
+   * `<TransitionGroup>` renders a `<div>` by default. You can change this
+   * behavior by providing a `component` prop.
+   * If you use React v16+ and would like to avoid a wrapping `<div>` element
+   * you can pass in `component={null}`. This is useful if the wrapping div
+   * borks your css styles.
+   */
+  component: __WEBPACK_IMPORTED_MODULE_4_prop_types___default.a.any,
+
+  /**
+   * A set of `<Transition>` components, that are toggled `in` and out as they
+   * leave. the `<TransitionGroup>` will inject specific transition props, so
+   * remember to spread them through if you are wrapping the `<Transition>` as
+   * with our `<Fade>` example.
+   *
+   * While this component is meant for multiple `Transition` or `CSSTransition`
+   * children, sometimes you may want to have a single transition child with
+   * content that you want to be transitioned out and in when you change it
+   * (e.g. routes, images etc.) In that case you can change the `key` prop of
+   * the transition child as you change its content, this will cause
+   * `TransitionGroup` to transition the child out and back in.
+   */
+  children: __WEBPACK_IMPORTED_MODULE_4_prop_types___default.a.node,
+
+  /**
+   * A convenience prop that enables or disables appear animations
+   * for all children. Note that specifying this will override any defaults set
+   * on individual children Transitions.
+   */
+  appear: __WEBPACK_IMPORTED_MODULE_4_prop_types___default.a.bool,
+
+  /**
+   * A convenience prop that enables or disables enter animations
+   * for all children. Note that specifying this will override any defaults set
+   * on individual children Transitions.
+   */
+  enter: __WEBPACK_IMPORTED_MODULE_4_prop_types___default.a.bool,
+
+  /**
+   * A convenience prop that enables or disables exit animations
+   * for all children. Note that specifying this will override any defaults set
+   * on individual children Transitions.
+   */
+  exit: __WEBPACK_IMPORTED_MODULE_4_prop_types___default.a.bool,
+
+  /**
+   * You may need to apply reactive updates to a child as it is exiting.
+   * This is generally done by using `cloneElement` however in the case of an exiting
+   * child the element has already been removed and not accessible to the consumer.
+   *
+   * If you do need to update a child as it leaves you can provide a `childFactory`
+   * to wrap every child, even the ones that are leaving.
+   *
+   * @type Function(child: ReactElement) -> ReactElement
+   */
+  childFactory: __WEBPACK_IMPORTED_MODULE_4_prop_types___default.a.func
+} : {};
+TransitionGroup.defaultProps = defaultProps;
+/* harmony default export */ __webpack_exports__["a"] = (TransitionGroup);
+
+/***/ }),
+/* 591 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = addMonths;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__lib_toInteger_index_js__ = __webpack_require__(483);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__toDate_index_js__ = __webpack_require__(83);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__getDaysInMonth_index_js__ = __webpack_require__(592);
+
+
+
+/**
+ * @name addMonths
+ * @category Month Helpers
+ * @summary Add the specified number of months to the given date.
+ *
+ * @description
+ * Add the specified number of months to the given date.
+ *
+ * ### v2.0.0 breaking changes:
+ *
+ * - [Changes that are common for the whole library](https://github.com/date-fns/date-fns/blob/master/docs/upgradeGuide.md#Common-Changes).
+ *
+ * @param {Date|Number} date - the date to be changed
+ * @param {Number} amount - the amount of months to be added
+ * @returns {Date} the new date with the months added
+ * @throws {TypeError} 2 arguments required
+ *
+ * @example
+ * // Add 5 months to 1 September 2014:
+ * var result = addMonths(new Date(2014, 8, 1), 5)
+ * //=> Sun Feb 01 2015 00:00:00
+ */
+
+function addMonths(dirtyDate, dirtyAmount) {
+  if (arguments.length < 2) {
+    throw new TypeError('2 arguments required, but only ' + arguments.length + ' present');
+  }
+
+  var date = Object(__WEBPACK_IMPORTED_MODULE_1__toDate_index_js__["a" /* default */])(dirtyDate);
+  var amount = Object(__WEBPACK_IMPORTED_MODULE_0__lib_toInteger_index_js__["a" /* default */])(dirtyAmount);
+  var desiredMonth = date.getMonth() + amount;
+  var dateWithDesiredMonth = new Date(0);
+  dateWithDesiredMonth.setFullYear(date.getFullYear(), desiredMonth, 1);
+  dateWithDesiredMonth.setHours(0, 0, 0, 0);
+  var daysInMonth = Object(__WEBPACK_IMPORTED_MODULE_2__getDaysInMonth_index_js__["a" /* default */])(dateWithDesiredMonth); // Set the last day of the new month
+  // if the original date was the last day of the longer month
+
+  date.setMonth(desiredMonth, Math.min(daysInMonth, date.getDate()));
+  return date;
+}
+
+/***/ }),
+/* 592 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = getDaysInMonth;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__toDate_index_js__ = __webpack_require__(83);
+
+/**
+ * @name getDaysInMonth
+ * @category Month Helpers
+ * @summary Get the number of days in a month of the given date.
+ *
+ * @description
+ * Get the number of days in a month of the given date.
+ *
+ * ### v2.0.0 breaking changes:
+ *
+ * - [Changes that are common for the whole library](https://github.com/date-fns/date-fns/blob/master/docs/upgradeGuide.md#Common-Changes).
+ *
+ * @param {Date|Number} date - the given date
+ * @returns {Number} the number of days in a month
+ * @throws {TypeError} 1 argument required
+ *
+ * @example
+ * // How many days are in February 2000?
+ * var result = getDaysInMonth(new Date(2000, 1))
+ * //=> 29
+ */
+
+function getDaysInMonth(dirtyDate) {
+  if (arguments.length < 1) {
+    throw new TypeError('1 argument required, but only ' + arguments.length + ' present');
+  }
+
+  var date = Object(__WEBPACK_IMPORTED_MODULE_0__toDate_index_js__["a" /* default */])(dirtyDate);
+  var year = date.getFullYear();
+  var monthIndex = date.getMonth();
+  var lastDayOfMonth = new Date(0);
+  lastDayOfMonth.setFullYear(year, monthIndex + 1, 0);
+  lastDayOfMonth.setHours(0, 0, 0, 0);
+  return lastDayOfMonth.getDate();
+}
+
+/***/ }),
+/* 593 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = isValid;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__toDate_index_js__ = __webpack_require__(83);
+
+/**
+ * @name isValid
+ * @category Common Helpers
+ * @summary Is the given date valid?
+ *
+ * @description
+ * Returns false if argument is Invalid Date and true otherwise.
+ * Argument is converted to Date using `toDate`. See [toDate]{@link https://date-fns.org/docs/toDate}
+ * Invalid Date is a Date, whose time value is NaN.
+ *
+ * Time value of Date: http://es5.github.io/#x15.9.1.1
+ *
+ * ### v2.0.0 breaking changes:
+ *
+ * - [Changes that are common for the whole library](https://github.com/date-fns/date-fns/blob/master/docs/upgradeGuide.md#Common-Changes).
+ *
+ * - Now `isValid` doesn't throw an exception
+ *   if the first argument is not an instance of Date.
+ *   Instead, argument is converted beforehand using `toDate`.
+ *
+ *   Examples:
+ *
+ *   | `isValid` argument        | Before v2.0.0 | v2.0.0 onward |
+ *   |---------------------------|---------------|---------------|
+ *   | `new Date()`              | `true`        | `true`        |
+ *   | `new Date('2016-01-01')`  | `true`        | `true`        |
+ *   | `new Date('')`            | `false`       | `false`       |
+ *   | `new Date(1488370835081)` | `true`        | `true`        |
+ *   | `new Date(NaN)`           | `false`       | `false`       |
+ *   | `'2016-01-01'`            | `TypeError`   | `true`        |
+ *   | `''`                      | `TypeError`   | `false`       |
+ *   | `1488370835081`           | `TypeError`   | `true`        |
+ *   | `NaN`                     | `TypeError`   | `false`       |
+ *
+ *   We introduce this change to make *date-fns* consistent with ECMAScript behavior
+ *   that try to coerce arguments to the expected type
+ *   (which is also the case with other *date-fns* functions).
+ *
+ * @param {*} date - the date to check
+ * @returns {Boolean} the date is valid
+ * @throws {TypeError} 1 argument required
+ *
+ * @example
+ * // For the valid date:
+ * var result = isValid(new Date(2014, 1, 31))
+ * //=> true
+ *
+ * @example
+ * // For the value, convertable into a date:
+ * var result = isValid(1393804800000)
+ * //=> true
+ *
+ * @example
+ * // For the invalid date:
+ * var result = isValid(new Date(''))
+ * //=> false
+ */
+
+function isValid(dirtyDate) {
+  if (arguments.length < 1) {
+    throw new TypeError('1 argument required, but only ' + arguments.length + ' present');
+  }
+
+  var date = Object(__WEBPACK_IMPORTED_MODULE_0__toDate_index_js__["a" /* default */])(dirtyDate);
+  return !isNaN(date);
+}
+
+/***/ }),
+/* 594 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__lib_formatDistance_index_js__ = __webpack_require__(672);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__lib_formatLong_index_js__ = __webpack_require__(673);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__lib_formatRelative_index_js__ = __webpack_require__(675);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__lib_localize_index_js__ = __webpack_require__(676);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__lib_match_index_js__ = __webpack_require__(678);
+
+
+
+
+
+/**
+ * @type {Locale}
+ * @category Locales
+ * @summary English locale (United States).
+ * @language English
+ * @iso-639-2 eng
+ * @author Sasha Koss [@kossnocorp]{@link https://github.com/kossnocorp}
+ * @author Lesha Koss [@leshakoss]{@link https://github.com/leshakoss}
+ */
+
+var locale = {
+  formatDistance: __WEBPACK_IMPORTED_MODULE_0__lib_formatDistance_index_js__["a" /* default */],
+  formatLong: __WEBPACK_IMPORTED_MODULE_1__lib_formatLong_index_js__["a" /* default */],
+  formatRelative: __WEBPACK_IMPORTED_MODULE_2__lib_formatRelative_index_js__["a" /* default */],
+  localize: __WEBPACK_IMPORTED_MODULE_3__lib_localize_index_js__["a" /* default */],
+  match: __WEBPACK_IMPORTED_MODULE_4__lib_match_index_js__["a" /* default */],
+  options: {
+    weekStartsOn: 0
+    /* Sunday */
+    ,
+    firstWeekContainsDate: 1
+  }
+};
+/* harmony default export */ __webpack_exports__["a"] = (locale);
+
+/***/ }),
+/* 595 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = subMilliseconds;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__lib_toInteger_index_js__ = __webpack_require__(483);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__addMilliseconds_index_js__ = __webpack_require__(681);
+
+
+/**
+ * @name subMilliseconds
+ * @category Millisecond Helpers
+ * @summary Subtract the specified number of milliseconds from the given date.
+ *
+ * @description
+ * Subtract the specified number of milliseconds from the given date.
+ *
+ * ### v2.0.0 breaking changes:
+ *
+ * - [Changes that are common for the whole library](https://github.com/date-fns/date-fns/blob/master/docs/upgradeGuide.md#Common-Changes).
+ *
+ * @param {Date|Number} date - the date to be changed
+ * @param {Number} amount - the amount of milliseconds to be subtracted
+ * @returns {Date} the new date with the milliseconds subtracted
+ * @throws {TypeError} 2 arguments required
+ *
+ * @example
+ * // Subtract 750 milliseconds from 10 July 2014 12:45:30.000:
+ * var result = subMilliseconds(new Date(2014, 6, 10, 12, 45, 30, 0), 750)
+ * //=> Thu Jul 10 2014 12:45:29.250
+ */
+
+function subMilliseconds(dirtyDate, dirtyAmount) {
+  if (arguments.length < 2) {
+    throw new TypeError('2 arguments required, but only ' + arguments.length + ' present');
+  }
+
+  var amount = Object(__WEBPACK_IMPORTED_MODULE_0__lib_toInteger_index_js__["a" /* default */])(dirtyAmount);
+  return Object(__WEBPACK_IMPORTED_MODULE_1__addMilliseconds_index_js__["a" /* default */])(dirtyDate, -amount);
+}
+
+/***/ }),
+/* 596 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = addLeadingZeros;
+function addLeadingZeros(number, targetLength) {
+  var sign = number < 0 ? '-' : '';
+  var output = Math.abs(number).toString();
+
+  while (output.length < targetLength) {
+    output = '0' + output;
+  }
+
+  return sign + output;
+}
+
+/***/ }),
+/* 597 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = getUTCISOWeek;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__toDate_index_js__ = __webpack_require__(83);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__startOfUTCISOWeek_index_js__ = __webpack_require__(581);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__startOfUTCISOWeekYear_index_js__ = __webpack_require__(685);
+
+
+
+var MILLISECONDS_IN_WEEK = 604800000; // This function will be a part of public API when UTC function will be implemented.
+// See issue: https://github.com/date-fns/date-fns/issues/376
+
+function getUTCISOWeek(dirtyDate) {
+  if (arguments.length < 1) {
+    throw new TypeError('1 argument required, but only ' + arguments.length + ' present');
+  }
+
+  var date = Object(__WEBPACK_IMPORTED_MODULE_0__toDate_index_js__["a" /* default */])(dirtyDate);
+  var diff = Object(__WEBPACK_IMPORTED_MODULE_1__startOfUTCISOWeek_index_js__["a" /* default */])(date).getTime() - Object(__WEBPACK_IMPORTED_MODULE_2__startOfUTCISOWeekYear_index_js__["a" /* default */])(date).getTime(); // Round the number of days to the nearest integer
+  // because the number of milliseconds in a week is not constant
+  // (e.g. it's different in the week of the daylight saving time clock shift)
+
+  return Math.round(diff / MILLISECONDS_IN_WEEK) + 1;
+}
+
+/***/ }),
+/* 598 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = getUTCISOWeekYear;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__toDate_index_js__ = __webpack_require__(83);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__startOfUTCISOWeek_index_js__ = __webpack_require__(581);
+
+ // This function will be a part of public API when UTC function will be implemented.
+// See issue: https://github.com/date-fns/date-fns/issues/376
+
+function getUTCISOWeekYear(dirtyDate) {
+  if (arguments.length < 1) {
+    throw new TypeError('1 argument required, but only ' + arguments.length + ' present');
+  }
+
+  var date = Object(__WEBPACK_IMPORTED_MODULE_0__toDate_index_js__["a" /* default */])(dirtyDate);
+  var year = date.getUTCFullYear();
+  var fourthOfJanuaryOfNextYear = new Date(0);
+  fourthOfJanuaryOfNextYear.setUTCFullYear(year + 1, 0, 4);
+  fourthOfJanuaryOfNextYear.setUTCHours(0, 0, 0, 0);
+  var startOfNextYear = Object(__WEBPACK_IMPORTED_MODULE_1__startOfUTCISOWeek_index_js__["a" /* default */])(fourthOfJanuaryOfNextYear);
+  var fourthOfJanuaryOfThisYear = new Date(0);
+  fourthOfJanuaryOfThisYear.setUTCFullYear(year, 0, 4);
+  fourthOfJanuaryOfThisYear.setUTCHours(0, 0, 0, 0);
+  var startOfThisYear = Object(__WEBPACK_IMPORTED_MODULE_1__startOfUTCISOWeek_index_js__["a" /* default */])(fourthOfJanuaryOfThisYear);
+
+  if (date.getTime() >= startOfNextYear.getTime()) {
+    return year + 1;
+  } else if (date.getTime() >= startOfThisYear.getTime()) {
+    return year;
+  } else {
+    return year - 1;
+  }
+}
+
+/***/ }),
+/* 599 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = getUTCWeek;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__toDate_index_js__ = __webpack_require__(83);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__startOfUTCWeek_index_js__ = __webpack_require__(582);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__startOfUTCWeekYear_index_js__ = __webpack_require__(686);
+
+
+
+var MILLISECONDS_IN_WEEK = 604800000; // This function will be a part of public API when UTC function will be implemented.
+// See issue: https://github.com/date-fns/date-fns/issues/376
+
+function getUTCWeek(dirtyDate, options) {
+  if (arguments.length < 1) {
+    throw new TypeError('1 argument required, but only ' + arguments.length + ' present');
+  }
+
+  var date = Object(__WEBPACK_IMPORTED_MODULE_0__toDate_index_js__["a" /* default */])(dirtyDate);
+  var diff = Object(__WEBPACK_IMPORTED_MODULE_1__startOfUTCWeek_index_js__["a" /* default */])(date, options).getTime() - Object(__WEBPACK_IMPORTED_MODULE_2__startOfUTCWeekYear_index_js__["a" /* default */])(date, options).getTime(); // Round the number of days to the nearest integer
+  // because the number of milliseconds in a week is not constant
+  // (e.g. it's different in the week of the daylight saving time clock shift)
+
+  return Math.round(diff / MILLISECONDS_IN_WEEK) + 1;
+}
+
+/***/ }),
+/* 600 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+function dateLongFormatter(pattern, formatLong) {
+  switch (pattern) {
+    case 'P':
+      return formatLong.date({
+        width: 'short'
+      });
+
+    case 'PP':
+      return formatLong.date({
+        width: 'medium'
+      });
+
+    case 'PPP':
+      return formatLong.date({
+        width: 'long'
+      });
+
+    case 'PPPP':
+    default:
+      return formatLong.date({
+        width: 'full'
+      });
+  }
+}
+
+function timeLongFormatter(pattern, formatLong) {
+  switch (pattern) {
+    case 'p':
+      return formatLong.time({
+        width: 'short'
+      });
+
+    case 'pp':
+      return formatLong.time({
+        width: 'medium'
+      });
+
+    case 'ppp':
+      return formatLong.time({
+        width: 'long'
+      });
+
+    case 'pppp':
+    default:
+      return formatLong.time({
+        width: 'full'
+      });
+  }
+}
+
+function dateTimeLongFormatter(pattern, formatLong) {
+  var matchResult = pattern.match(/(P+)(p+)?/);
+  var datePattern = matchResult[1];
+  var timePattern = matchResult[2];
+
+  if (!timePattern) {
+    return dateLongFormatter(pattern, formatLong);
+  }
+
+  var dateTimeFormat;
+
+  switch (datePattern) {
+    case 'P':
+      dateTimeFormat = formatLong.dateTime({
+        width: 'short'
+      });
+      break;
+
+    case 'PP':
+      dateTimeFormat = formatLong.dateTime({
+        width: 'medium'
+      });
+      break;
+
+    case 'PPP':
+      dateTimeFormat = formatLong.dateTime({
+        width: 'long'
+      });
+      break;
+
+    case 'PPPP':
+    default:
+      dateTimeFormat = formatLong.dateTime({
+        width: 'full'
+      });
+      break;
+  }
+
+  return dateTimeFormat.replace('{{date}}', dateLongFormatter(datePattern, formatLong)).replace('{{time}}', timeLongFormatter(timePattern, formatLong));
+}
+
+var longFormatters = {
+  p: timeLongFormatter,
+  P: dateTimeLongFormatter
+};
+/* harmony default export */ __webpack_exports__["a"] = (longFormatters);
+
+/***/ }),
+/* 601 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = getTimezoneOffsetInMilliseconds;
+var MILLISECONDS_IN_MINUTE = 60000;
+/**
+ * Google Chrome as of 67.0.3396.87 introduced timezones with offset that includes seconds.
+ * They usually appear for dates that denote time before the timezones were introduced
+ * (e.g. for 'Europe/Prague' timezone the offset is GMT+00:57:44 before 1 October 1891
+ * and GMT+01:00:00 after that date)
+ *
+ * Date#getTimezoneOffset returns the offset in minutes and would return 57 for the example above,
+ * which would lead to incorrect calculations.
+ *
+ * This function returns the timezone offset in milliseconds that takes seconds in account.
+ */
+
+function getTimezoneOffsetInMilliseconds(dirtyDate) {
+  var date = new Date(dirtyDate.getTime());
+  var baseTimezoneOffset = date.getTimezoneOffset();
+  date.setSeconds(0, 0);
+  var millisecondsPartOfTimezoneOffset = date.getTime() % MILLISECONDS_IN_MINUTE;
+  return baseTimezoneOffset * MILLISECONDS_IN_MINUTE + millisecondsPartOfTimezoneOffset;
+}
+
+/***/ }),
+/* 602 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = isProtectedDayOfYearToken;
+/* harmony export (immutable) */ __webpack_exports__["b"] = isProtectedWeekYearToken;
+/* harmony export (immutable) */ __webpack_exports__["c"] = throwProtectedError;
+var protectedDayOfYearTokens = ['D', 'DD'];
+var protectedWeekYearTokens = ['YY', 'YYYY'];
+function isProtectedDayOfYearToken(token) {
+  return protectedDayOfYearTokens.indexOf(token) !== -1;
+}
+function isProtectedWeekYearToken(token) {
+  return protectedWeekYearTokens.indexOf(token) !== -1;
+}
+function throwProtectedError(token) {
+  if (token === 'YYYY') {
+    throw new RangeError('Use `yyyy` instead of `YYYY` for formatting years; see: https://git.io/fxCyr');
+  } else if (token === 'YY') {
+    throw new RangeError('Use `yy` instead of `YY` for formatting years; see: https://git.io/fxCyr');
+  } else if (token === 'D') {
+    throw new RangeError('Use `d` instead of `D` for formatting days of the month; see: https://git.io/fxCyr');
+  } else if (token === 'DD') {
+    throw new RangeError('Use `dd` instead of `DD` for formatting days of the month; see: https://git.io/fxCyr');
+  }
+}
+
+/***/ }),
+/* 603 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = startOfDay;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__toDate_index_js__ = __webpack_require__(83);
+
+/**
+ * @name startOfDay
+ * @category Day Helpers
+ * @summary Return the start of a day for the given date.
+ *
+ * @description
+ * Return the start of a day for the given date.
+ * The result will be in the local timezone.
+ *
+ * ### v2.0.0 breaking changes:
+ *
+ * - [Changes that are common for the whole library](https://github.com/date-fns/date-fns/blob/master/docs/upgradeGuide.md#Common-Changes).
+ *
+ * @param {Date|Number} date - the original date
+ * @returns {Date} the start of a day
+ * @throws {TypeError} 1 argument required
+ *
+ * @example
+ * // The start of a day for 2 September 2014 11:55:00:
+ * var result = startOfDay(new Date(2014, 8, 2, 11, 55, 0))
+ * //=> Tue Sep 02 2014 00:00:00
+ */
+
+function startOfDay(dirtyDate) {
+  if (arguments.length < 1) {
+    throw new TypeError('1 argument required, but only ' + arguments.length + ' present');
+  }
+
+  var date = Object(__WEBPACK_IMPORTED_MODULE_0__toDate_index_js__["a" /* default */])(dirtyDate);
+  date.setHours(0, 0, 0, 0);
+  return date;
+}
+
+/***/ }),
 /* 604 */,
 /* 605 */,
 /* 606 */,
@@ -67528,18 +71499,25 @@ var Zoom = __WEBPACK_IMPORTED_MODULE_2_react___default.a.forwardRef(function Zoo
 /* 633 */,
 /* 634 */,
 /* 635 */,
-/* 636 */
+/* 636 */,
+/* 637 */,
+/* 638 */,
+/* 639 */,
+/* 640 */,
+/* 641 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(637);
+module.exports = __webpack_require__(642);
 
 
 /***/ }),
-/* 637 */
+/* 642 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
+
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
 var _react = __webpack_require__(0);
 
@@ -67551,37 +71529,11640 @@ var _reactDom2 = _interopRequireDefault(_reactDom);
 
 var _styles = __webpack_require__(29);
 
+var _icons = __webpack_require__(84);
+
 var _theme = __webpack_require__(81);
 
 var _theme2 = _interopRequireDefault(_theme);
+
+var _csv = __webpack_require__(643);
+
+var _csv2 = _interopRequireDefault(_csv);
+
+var _periodTime = __webpack_require__(644);
+
+var _periodTime2 = _interopRequireDefault(_periodTime);
+
+var _automaticSystem = __webpack_require__(710);
+
+var _automaticSystem2 = _interopRequireDefault(_automaticSystem);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var Evaluacion = function Evaluacion(_ref) {
+var Configuraciones = function Configuraciones(_ref) {
   var classes = _ref.classes;
+
+  var _React$useState = _react2.default.useState({
+    showArrow: [false, false, false]
+  }),
+      _React$useState2 = _slicedToArray(_React$useState, 2),
+      state = _React$useState2[0],
+      setState = _React$useState2[1];
+
+  var arrowPeriod = state.showArrow[0] ? _react2.default.createElement(_icons.UpArrowIcon, { className: 'blue-tec ' + classes.icon + ' ' }) : _react2.default.createElement(_icons.DownArrowIcon, { className: 'blue-tec ' + classes.icon + ' ' });
+  var arrowUpload = state.showArrow[1] ? _react2.default.createElement(_icons.UpArrowIcon, { className: 'blue-tec ' + classes.icon + ' ' }) : _react2.default.createElement(_icons.DownArrowIcon, { className: 'blue-tec ' + classes.icon + ' ' });
+  var arrowAutomatic = state.showArrow[2] ? _react2.default.createElement(_icons.UpArrowIcon, { className: 'blue-tec ' + classes.icon + ' ' }) : _react2.default.createElement(_icons.DownArrowIcon, { className: 'blue-tec ' + classes.icon + ' ' });
+
+  var onClickArrow = function onClickArrow(arrow) {
+    var newState = state;
+    var showArrow = newState.showArrow;
+    showArrow[arrow] = !showArrow[arrow];
+
+    setState({
+      showArrow: showArrow
+    });
+  };
 
   return _react2.default.createElement(
     _styles.MuiThemeProvider,
     { theme: _theme2.default },
     _react2.default.createElement(
       'div',
-      { className: 'container' },
-      'Evaluacion'
+      { className: 'row mb-0 my-3 valign-wrapper container' },
+      _react2.default.createElement(
+        'div',
+        { className: 'col s12' },
+        _react2.default.createElement(
+          'label',
+          { className: 'blue-tec ' + classes.title },
+          'Configuraci\xF3n del Sistema'
+        )
+      )
+    ),
+    _react2.default.createElement(
+      'div',
+      { className: classes.marginAuto + ' container card my-5' },
+      _react2.default.createElement(
+        'div',
+        { className: 'row mb-0 valign-wrapper blue-tec-light-b', onClick: function onClick() {
+            return onClickArrow(0);
+          } },
+        _react2.default.createElement(
+          'div',
+          { className: 'col s10' },
+          _react2.default.createElement(
+            'label',
+            { className: 'blue-tec valign-wrapper ' + classes.label },
+            _react2.default.createElement(_icons.ClockIcon, { className: classes.iconEditLabel }),
+            'Configuraci\xF3n de Periodo'
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'col s2 right-align' },
+          arrowPeriod
+        )
+      ),
+      state.showArrow[0] && _react2.default.createElement(_periodTime2.default, null),
+      _react2.default.createElement('div', { className: 'divider' }),
+      _react2.default.createElement(
+        'div',
+        { className: 'row mb-0 valign-wrapper blue-tec-light-b', onClick: function onClick() {
+            return onClickArrow(1);
+          } },
+        _react2.default.createElement(
+          'div',
+          { className: 'col s10' },
+          _react2.default.createElement(
+            'label',
+            { className: 'blue-tec valign-wrapper ' + classes.label },
+            _react2.default.createElement(_icons.UpLoadIcon, { className: classes.iconEditLabel }),
+            'Actualizar Datos - Subir archivos CSV'
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'col s2 right-align' },
+          arrowUpload
+        )
+      ),
+      state.showArrow[1] && _react2.default.createElement(_csv2.default, null),
+      _react2.default.createElement('div', { className: 'divider' }),
+      _react2.default.createElement(
+        'div',
+        { className: 'row mb-0 valign-wrapper blue-tec-light-b', onClick: function onClick() {
+            return onClickArrow(2);
+          } },
+        _react2.default.createElement(
+          'div',
+          { className: 'col s10' },
+          _react2.default.createElement(
+            'label',
+            { className: 'blue-tec valign-wrapper ' + classes.label },
+            _react2.default.createElement(_icons.ClockIcon, { className: classes.iconEditLabel }),
+            'Generar Asignaci\xF3n Automatica'
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'col s2 right-align' },
+          arrowAutomatic
+        )
+      ),
+      state.showArrow[2] && _react2.default.createElement(_automaticSystem2.default, null)
     )
   );
 };
 
 var maxWidth = 1000;
-var styles = function styles(theme) {
-  return _defineProperty({}, '@media (max-width: ' + maxWidth + 'px)', {});
+
+var styles = function styles() {
+  return _defineProperty({
+    icon: {
+      fontSize: '17px',
+      marginRight: '0.5rem'
+    },
+
+    label: {
+      fontSize: '30px'
+    },
+
+    marginAuto: {
+      margin: 'auto'
+    },
+
+    title: {
+      fontSize: '40px'
+    },
+
+    iconEditLabel: {
+      color: "#223f93",
+      fontSize: '30px',
+      marginRight: '0.5rem'
+    }
+
+  }, '@media (max-width: ' + maxWidth + 'px)', {});
 };
 
-var _Evaluacion = (0, _styles.withStyles)(styles)(Evaluacion);
-if (document.getElementById('evaluacionEstudiante')) {
-  _reactDom2.default.render(_react2.default.createElement(_Evaluacion, null), document.getElementById('evaluacionEstudiante'));
+var _Configuraciones = (0, _styles.withStyles)(styles)(Configuraciones);
+
+if (document.getElementById('configuraciones')) {
+  _reactDom2.default.render(_react2.default.createElement(_Configuraciones, null), document.getElementById('configuraciones'));
 }
+
+/***/ }),
+/* 643 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Button = __webpack_require__(28);
+
+var _Button2 = _interopRequireDefault(_Button);
+
+var _styles = __webpack_require__(29);
+
+var _icons = __webpack_require__(84);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var CSV = function CSV(_ref) {
+    var _React$createElement, _React$createElement2, _React$createElement3, _React$createElement4, _React$createElement5;
+
+    var classes = _ref.classes;
+
+    var searchClick = function searchClick() {
+        console.log("hi");
+    };
+
+    return _react2.default.createElement(
+        'div',
+        { className: classes.wrapper },
+        _react2.default.createElement(
+            'div',
+            { className: 'row valign-wrapper my-3' },
+            _react2.default.createElement(
+                'div',
+                { className: 'col s10 left-align' },
+                _react2.default.createElement(
+                    'span',
+                    { className: classes.labelLogin },
+                    'Tabla colaboradores'
+                )
+            ),
+            _react2.default.createElement(
+                'div',
+                { className: 'col s2 right-align' },
+                _react2.default.createElement(
+                    _Button2.default,
+                    (_React$createElement = {
+                        fullWidth: true,
+                        variant: 'contained',
+                        component: 'label',
+                        onClick: searchClick
+                    }, _defineProperty(_React$createElement, 'variant', 'contained'), _defineProperty(_React$createElement, 'color', 'primary'), _React$createElement),
+                    _react2.default.createElement(_icons.DescriptionIcon, { className: 'white-text ' + classes.labelSearch }),
+                    _react2.default.createElement(
+                        'span',
+                        { className: classes.labelUpload },
+                        'Subir'
+                    ),
+                    _react2.default.createElement('input', {
+                        type: 'file',
+                        accept: 'image/*',
+                        className: classes.input,
+                        style: { display: 'none' }
+                    })
+                )
+            )
+        ),
+        _react2.default.createElement('div', { className: 'divider' }),
+        _react2.default.createElement(
+            'div',
+            { className: 'row valign-wrapper my-3' },
+            _react2.default.createElement(
+                'div',
+                { className: 'col s10 left-align' },
+                _react2.default.createElement(
+                    'span',
+                    { className: classes.labelLogin },
+                    'Tabla estudiantes Inscritos'
+                )
+            ),
+            _react2.default.createElement(
+                'div',
+                { className: 'col s2 right-align' },
+                _react2.default.createElement(
+                    _Button2.default,
+                    (_React$createElement2 = {
+                        fullWidth: true,
+                        variant: 'contained',
+                        component: 'label',
+                        onClick: searchClick
+                    }, _defineProperty(_React$createElement2, 'variant', 'contained'), _defineProperty(_React$createElement2, 'color', 'primary'), _React$createElement2),
+                    _react2.default.createElement(_icons.DescriptionIcon, { className: 'white-text ' + classes.labelSearch }),
+                    _react2.default.createElement(
+                        'span',
+                        { className: classes.labelUpload },
+                        'Subir'
+                    ),
+                    _react2.default.createElement('input', {
+                        type: 'file',
+                        accept: 'image/*',
+                        className: classes.input,
+                        style: { display: 'none' }
+                    })
+                )
+            )
+        ),
+        _react2.default.createElement('div', { className: 'divider' }),
+        _react2.default.createElement(
+            'div',
+            { className: 'row valign-wrapper my-3' },
+            _react2.default.createElement(
+                'div',
+                { className: 'col s10 left-align' },
+                _react2.default.createElement(
+                    'span',
+                    { className: classes.labelLogin },
+                    'Tabla estudiantes Becados'
+                )
+            ),
+            _react2.default.createElement(
+                'div',
+                { className: 'col s2 right-align' },
+                _react2.default.createElement(
+                    _Button2.default,
+                    (_React$createElement3 = {
+                        fullWidth: true,
+                        variant: 'contained',
+                        component: 'label',
+                        onClick: searchClick
+                    }, _defineProperty(_React$createElement3, 'variant', 'contained'), _defineProperty(_React$createElement3, 'color', 'primary'), _React$createElement3),
+                    _react2.default.createElement(_icons.DescriptionIcon, { className: 'white-text ' + classes.labelSearch }),
+                    _react2.default.createElement(
+                        'span',
+                        { className: classes.labelUpload },
+                        'Subir'
+                    ),
+                    _react2.default.createElement('input', {
+                        type: 'file',
+                        accept: 'image/*',
+                        className: classes.input,
+                        style: { display: 'none' }
+                    })
+                )
+            )
+        ),
+        _react2.default.createElement('div', { className: 'divider' }),
+        _react2.default.createElement(
+            'div',
+            { className: 'row valign-wrapper my-3' },
+            _react2.default.createElement(
+                'div',
+                { className: 'col s10 left-align' },
+                _react2.default.createElement(
+                    'span',
+                    { className: classes.labelLogin },
+                    'Tabla carreras'
+                )
+            ),
+            _react2.default.createElement(
+                'div',
+                { className: 'col s2 right-align' },
+                _react2.default.createElement(
+                    _Button2.default,
+                    (_React$createElement4 = {
+                        fullWidth: true,
+                        variant: 'contained',
+                        component: 'label',
+                        onClick: searchClick
+                    }, _defineProperty(_React$createElement4, 'variant', 'contained'), _defineProperty(_React$createElement4, 'color', 'primary'), _React$createElement4),
+                    _react2.default.createElement(_icons.DescriptionIcon, { className: 'white-text ' + classes.labelSearch }),
+                    _react2.default.createElement(
+                        'span',
+                        { className: classes.labelUpload },
+                        'Subir'
+                    ),
+                    _react2.default.createElement('input', {
+                        type: 'file',
+                        accept: 'image/*',
+                        className: classes.input,
+                        style: { display: 'none' }
+                    })
+                )
+            )
+        ),
+        _react2.default.createElement('div', { className: 'divider' }),
+        _react2.default.createElement(
+            'div',
+            { className: 'row valign-wrapper my-3' },
+            _react2.default.createElement(
+                'div',
+                { className: 'col s10 left-align' },
+                _react2.default.createElement(
+                    'span',
+                    { className: classes.labelLogin },
+                    'Tabla asignaciones espec\xEDficas'
+                )
+            ),
+            _react2.default.createElement(
+                'div',
+                { className: 'col s2 right-align' },
+                _react2.default.createElement(
+                    _Button2.default,
+                    (_React$createElement5 = {
+                        fullWidth: true,
+                        variant: 'contained',
+                        component: 'label',
+                        onClick: searchClick
+                    }, _defineProperty(_React$createElement5, 'variant', 'contained'), _defineProperty(_React$createElement5, 'color', 'primary'), _React$createElement5),
+                    _react2.default.createElement(_icons.DescriptionIcon, { className: 'white-text ' + classes.labelSearch }),
+                    _react2.default.createElement(
+                        'span',
+                        { className: classes.labelUpload },
+                        'Subir'
+                    ),
+                    _react2.default.createElement('input', {
+                        type: 'file',
+                        accept: 'image/*',
+                        className: classes.input,
+                        style: { display: 'none' }
+                    })
+                )
+            )
+        ),
+        _react2.default.createElement(
+            'div',
+            { className: 'row valign-wrapper my-3' },
+            _react2.default.createElement(
+                'div',
+                { className: 'col s12 right-align' },
+                _react2.default.createElement(
+                    'label',
+                    { className: classes.labelLittle },
+                    'Nota: Los archivos deben ser tipo ".csv".'
+                )
+            )
+        )
+    );
+};
+
+var maxWidth = 1000;
+
+var styles = function styles(theme) {
+    return _defineProperty({
+
+        modalWrapper: {
+            padding: "25px !Important"
+        },
+
+        modalRoot: {
+            top: '20%'
+        },
+
+        title: {
+            fontSize: '30px',
+            fontWeight: 'bold'
+        },
+
+        icon: {
+            fontSize: '17px',
+            marginRight: '0.5rem'
+        },
+
+        labelText: {
+            fontSize: '14px',
+            color: '#000'
+        },
+
+        iconLabel: {
+            color: "#101010",
+            fontSize: '14px',
+            marginRight: '0.5rem'
+        },
+        iconEditLabel: {
+            color: "#223f93",
+            fontSize: '30px',
+            marginRight: '0.5rem'
+        },
+
+        iconSchool: {
+            color: "#101010",
+            fontSize: '18px',
+            marginRight: '0.5rem'
+        },
+
+        iconInfo: {
+            color: "#101010",
+            fontSize: '18px',
+            marginRight: '0.5rem'
+        },
+
+        closeIcon: {
+            cursor: 'pointer',
+            color: 'black',
+            position: 'absolute',
+            right: '12px',
+            top: '12px',
+            fontSize: '18px'
+        },
+
+        containerWidth: {
+            maxWidth: '40%'
+        },
+
+        labelSearch: {
+            fontSize: '15px',
+            marginRight: '0.5rem'
+        },
+
+        labelCheck: {
+            fontSize: '16px',
+            marginRight: '0.5rem'
+        },
+
+        labelLogin: {
+            fontFamily: 'Nunito',
+            fontSize: '20px'
+        },
+
+        labelUpload: {
+            fontFamily: 'Nunito',
+            fontSize: '15px'
+        },
+
+        labelLittle: {
+            fontFamily: 'Nunito',
+            fontSize: '15px'
+        },
+
+        wrapper: {
+            padding: '15px 50px'
+        }
+
+    }, '@media (max-width: ' + maxWidth + 'px)', {});
+};
+
+exports.default = (0, _styles.withStyles)(styles)(CSV);
+
+/***/ }),
+/* 644 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Button = __webpack_require__(28);
+
+var _Button2 = _interopRequireDefault(_Button);
+
+var _styles = __webpack_require__(29);
+
+var _pickers = __webpack_require__(645);
+
+var _es = __webpack_require__(653);
+
+var _es2 = _interopRequireDefault(_es);
+
+var _dateFns = __webpack_require__(663);
+
+var _dateFns2 = _interopRequireDefault(_dateFns);
+
+var _TextField = __webpack_require__(90);
+
+var _TextField2 = _interopRequireDefault(_TextField);
+
+var _Select = __webpack_require__(61);
+
+var _Select2 = _interopRequireDefault(_Select);
+
+var _OutlinedInput = __webpack_require__(85);
+
+var _OutlinedInput2 = _interopRequireDefault(_OutlinedInput);
+
+var _MenuItem = __webpack_require__(82);
+
+var _MenuItem2 = _interopRequireDefault(_MenuItem);
+
+var _axios = __webpack_require__(179);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+var _icons = __webpack_require__(84);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var PeriodTime = function PeriodTime(_ref) {
+  var _React$createElement;
+
+  var classes = _ref.classes;
+
+  var _React$useState = _react2.default.useState({
+    inicioAsignaciones: new Date(),
+    finAsignaciones: new Date(),
+    inicioEvaluaciones: new Date(),
+    finEvaluaciones: new Date(),
+    year: '2019',
+    periodo: 1
+  }),
+      _React$useState2 = _slicedToArray(_React$useState, 2),
+      state = _React$useState2[0],
+      setState = _React$useState2[1];
+
+  var periodos = ['Invierno', 'Febrero-Junio', 'Verano', 'Agosto-Diciembre'];
+  var periodoOptions = [];
+
+  periodoOptions.push(_react2.default.createElement(
+    _MenuItem2.default,
+    { value: 0 },
+    periodos[0]
+  ));
+  periodoOptions.push(_react2.default.createElement(
+    _MenuItem2.default,
+    { value: 1 },
+    periodos[1]
+  ));
+  periodoOptions.push(_react2.default.createElement(
+    _MenuItem2.default,
+    { value: 2 },
+    periodos[2]
+  ));
+  periodoOptions.push(_react2.default.createElement(
+    _MenuItem2.default,
+    { value: 3 },
+    periodos[3]
+  ));
+
+  _react2.default.useEffect(function () {
+    getPeriod();
+  }, []);
+
+  var storePeriod = function storePeriod() {
+    _axios2.default.post("/new/period", {
+      inicioAsignaciones: state.inicioAsignaciones,
+      finAsignaciones: state.finAsignaciones,
+      inicioEvaluaciones: state.inicioEvaluaciones,
+      finEvaluaciones: state.finEvaluaciones,
+      year: state.year,
+      periodo: state.periodo
+    }).then(function (response) {
+      console.log(response);
+    }).catch(function (error) {
+      console.log(error);
+    });
+  };
+
+  var getPeriod = function getPeriod() {
+    _axios2.default.post("/period", {}).then(function (response) {
+      console.log(response);
+    }).catch(function (error) {
+      console.log(error);
+    });
+  };
+
+  var onChangeYear = function onChangeYear(event) {
+    setState(_extends({}, state, {
+      year: event.target.value
+    }));
+  };
+
+  var onChangePeriod = function onChangePeriod(event) {
+    setState(_extends({}, state, {
+      periodo: event.target.value
+    }));
+  };
+
+  var onChangeDate = function onChangeDate(currentDate, date) {
+    var newState = state;
+    console.log(currentDate, date);
+    console.log(newState.inicioAsignaciones);
+    switch (date) {
+      case 'inicioAsignaciones':
+        setState(_extends({}, newState, {
+          inicioAsignaciones: currentDate
+        }));
+        break;
+      case 'finAsignaciones':
+        //let finAsignaciones = currentDate;
+        setState(_extends({}, newState, {
+          finAsignaciones: currentDate
+        }));
+        break;
+      case 'inicioEvaluaciones':
+        //let inicioEvaluaciones = currentDate;
+        setState(_extends({}, newState, {
+          inicioEvaluaciones: currentDate
+        }));
+        break;
+      case 'finEvaluaciones':
+        //let finEvaluaciones = currentDate;
+        setState(_extends({}, newState, {
+          finEvaluaciones: currentDate
+        }));
+        break;
+    }
+  };
+
+  return _react2.default.createElement(
+    'div',
+    { className: classes.wrapper },
+    _react2.default.createElement(
+      _pickers.MuiPickersUtilsProvider,
+      { utils: _dateFns2.default, locale: _es2.default },
+      _react2.default.createElement(
+        'div',
+        { className: 'row valign-wrapper my-3' },
+        _react2.default.createElement(
+          'div',
+          { className: 'col s12 left-align' },
+          _react2.default.createElement(
+            'span',
+            { className: classes.labelLogin },
+            'Periodo Actual'
+          )
+        )
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'row valign-wrapper my-3' },
+        _react2.default.createElement(
+          'div',
+          { className: 'col s4 mx-0' },
+          _react2.default.createElement(_TextField2.default, {
+            name: 'year',
+            type: 'number',
+            value: state.year,
+            onChange: onChangeYear
+          })
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'col s3 offset-s1' },
+          _react2.default.createElement(
+            StyledSelect,
+            {
+              value: state.periodo,
+              onChange: onChangePeriod,
+              input: _react2.default.createElement(_OutlinedInput2.default, {
+                name: 'periodo',
+                id: 'periodo',
+                labelWidth: 48
+              })
+            },
+            periodoOptions
+          )
+        )
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'row valign-wrapper my-3' },
+        _react2.default.createElement(
+          'div',
+          { className: 'col s12 left-align' },
+          _react2.default.createElement(
+            'span',
+            { className: classes.labelLogin },
+            'Periodo de Solicitud de Asignaciones | Aceptaci\xF3n y Rechazo de Becarios'
+          )
+        )
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'row valign-wrapper my-3' },
+        _react2.default.createElement(
+          'div',
+          { className: 'col s4 mx-0' },
+          _react2.default.createElement(_pickers.DatePicker, {
+            label: 'Inicio',
+            value: state.inicioAsignaciones,
+            onChange: function onChange(date) {
+              return onChangeDate(date, 'inicioAsignaciones');
+            },
+            format: 'dd/MMM/yyyy',
+            dateformat: 'dd MMMM, YYYY',
+            autoOk: true,
+            minDate: new Date()
+          })
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'col s3 offset-s1' },
+          _react2.default.createElement(_pickers.DatePicker, {
+            label: 'Fin',
+            value: state.finAsignaciones,
+            onChange: function onChange(date) {
+              return onChangeDate(date, 'finAsignaciones');
+            },
+            format: 'dd/MMM/yyyy',
+            dateformat: 'dd MMMM, YYYY',
+            autoOk: true,
+            minDate: new Date()
+          })
+        )
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'row valign-wrapper my-3' },
+        _react2.default.createElement(
+          'div',
+          { className: 'col s12 left-align' },
+          _react2.default.createElement(
+            'span',
+            { className: classes.labelLogin },
+            'Periodo de Evaluaci\xF3n'
+          )
+        )
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'row valign-wrapper my-3' },
+        _react2.default.createElement(
+          'div',
+          { className: 'col s4 mx-0' },
+          _react2.default.createElement(_pickers.DatePicker, {
+            label: 'Inicio',
+            value: state.inicioEvaluaciones,
+            onChange: function onChange(date) {
+              return onChangeDate(date, 'inicioEvaluaciones');
+            },
+            format: 'dd/MMM/yyyy',
+            dateformat: 'dd MMMM, YYYY',
+            autoOk: true,
+            minDate: new Date()
+          })
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'col s3 offset-s1' },
+          _react2.default.createElement(_pickers.DatePicker, {
+            label: 'Fin',
+            value: state.finEvaluaciones,
+            onChange: function onChange(date) {
+              return onChangeDate(date, 'finEvaluaciones');
+            },
+            format: 'dd/MMM/yyyy',
+            dateformat: 'dd MMMM, YYYY',
+            autoOk: true,
+            minDate: new Date()
+          })
+        )
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'row valign-wrapper my-3' },
+        _react2.default.createElement(
+          'div',
+          { className: 'col s12 right-align' },
+          _react2.default.createElement(
+            _Button2.default,
+            (_React$createElement = {
+              variant: 'contained',
+              component: 'label',
+              onClick: storePeriod
+            }, _defineProperty(_React$createElement, 'variant', 'contained'), _defineProperty(_React$createElement, 'color', 'primary'), _React$createElement),
+            _react2.default.createElement(_icons.CheckIcon, { className: 'white-text ' + classes.labelSearch }),
+            _react2.default.createElement(
+              'span',
+              { className: classes.labelUpload },
+              'Guardar'
+            ),
+            _react2.default.createElement('input', {
+              type: 'submit',
+              accept: 'image/*',
+              className: classes.input,
+              style: { display: 'none' }
+            })
+          )
+        )
+      )
+    )
+  );
+};
+
+var StyledSelect = (0, _styles.withStyles)({
+  outlined: {
+    padding: '18.5px 14px',
+    borderRadius: 0,
+    fontFamily: 'Nunito',
+    fontSize: '14px',
+    color: '#B7B7B7'
+  }
+})(_Select2.default);
+
+var maxWidth = 1000;
+
+var styles = function styles(theme) {
+  return _defineProperty({
+
+    modalWrapper: {
+      padding: "25px !Important"
+    },
+
+    modalRoot: {
+      top: '20%'
+    },
+
+    title: {
+      fontSize: '30px',
+      fontWeight: 'bold'
+    },
+
+    icon: {
+      fontSize: '17px',
+      marginRight: '0.5rem'
+    },
+
+    labelText: {
+      fontSize: '14px',
+      color: '#000'
+    },
+
+    iconLabel: {
+      color: "#101010",
+      fontSize: '14px',
+      marginRight: '0.5rem'
+    },
+    iconEditLabel: {
+      color: "#223f93",
+      fontSize: '30px',
+      marginRight: '0.5rem'
+    },
+
+    iconSchool: {
+      color: "#101010",
+      fontSize: '18px',
+      marginRight: '0.5rem'
+    },
+
+    iconInfo: {
+      color: "#101010",
+      fontSize: '18px',
+      marginRight: '0.5rem'
+    },
+
+    closeIcon: {
+      cursor: 'pointer',
+      color: 'black',
+      position: 'absolute',
+      right: '12px',
+      top: '12px',
+      fontSize: '18px'
+    },
+
+    containerWidth: {
+      maxWidth: '40%'
+    },
+
+    labelSearch: {
+      fontSize: '15px',
+      marginRight: '0.5rem'
+    },
+
+    labelCheck: {
+      fontSize: '16px',
+      marginRight: '0.5rem'
+    },
+
+    labelLogin: {
+      fontFamily: 'Nunito',
+      fontSize: '20px'
+    },
+
+    labelUpload: {
+      fontFamily: 'Nunito',
+      fontSize: '15px'
+    },
+
+    labelLittle: {
+      fontFamily: 'Nunito',
+      fontSize: '15px'
+    },
+
+    wrapper: {
+      padding: '15px 50px'
+    }
+
+  }, '@media (max-width: ' + maxWidth + 'px)', {});
+};
+
+exports.default = (0, _styles.withStyles)(styles)(PeriodTime);
+
+/***/ }),
+/* 645 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Calendar", function() { return Calendar$1; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Clock", function() { return Clock$1; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DatePicker", function() { return DatePicker; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DateTimePicker", function() { return DateTimePicker; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Day", function() { return Day; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "KeyboardDatePicker", function() { return KeyboardDatePicker; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "KeyboardDateTimePicker", function() { return KeyboardDateTimePicker; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "KeyboardTimePicker", function() { return KeyboardTimePicker; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MuiPickersContext", function() { return MuiPickersContext; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MuiPickersUtilsProvider", function() { return MuiPickersUtilsProvider; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Picker", function() { return Picker; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TimePicker", function() { return TimePicker; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TimePickerView", function() { return ClockView; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "makeKeyboardPicker", function() { return makeKeyboardPicker; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "makePurePicker", function() { return makePurePicker; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useKeyboardPickerState", function() { return useKeyboardPickerState; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "usePickerState", function() { return usePickerState; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useUtils", function() { return useUtils; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "validate", function() { return validate; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_tslib__ = __webpack_require__(646);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_prop_types__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_prop_types__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_clsx__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__material_ui_core_Typography__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__material_ui_core_Button__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__material_ui_core_Toolbar__ = __webpack_require__(89);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__material_ui_core_IconButton__ = __webpack_require__(46);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_react_transition_group__ = __webpack_require__(647);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__material_ui_core_SvgIcon__ = __webpack_require__(60);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__material_ui_core_CircularProgress__ = __webpack_require__(171);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__material_ui_core_DialogActions__ = __webpack_require__(173);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__material_ui_core_DialogContent__ = __webpack_require__(174);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__material_ui_core_Dialog__ = __webpack_require__(172);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__material_ui_core_Popover__ = __webpack_require__(88);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__material_ui_core_TextField__ = __webpack_require__(90);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__material_ui_core_InputAdornment__ = __webpack_require__(176);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18_rifm__ = __webpack_require__(652);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__material_ui_core__ = __webpack_require__(168);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__material_ui_core_Tab__ = __webpack_require__(177);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__material_ui_core_Tabs__ = __webpack_require__(178);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__material_ui_core_Paper__ = __webpack_require__(18);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var MuiPickersContext = Object(__WEBPACK_IMPORTED_MODULE_1_react__["createContext"])(null);
+var MuiPickersUtilsProvider = function (_a) {
+  var Utils = _a.utils,
+      children = _a.children,
+      locale = _a.locale,
+      libInstance = _a.libInstance;
+  var utils = Object(__WEBPACK_IMPORTED_MODULE_1_react__["useMemo"])(function () {
+    return new Utils({
+      locale: locale,
+      moment: libInstance
+    });
+  }, [Utils, libInstance, locale]);
+  return Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(MuiPickersContext.Provider, {
+    value: utils,
+    children: children
+  });
+};
+ true ? MuiPickersUtilsProvider.propTypes = {
+  utils: __WEBPACK_IMPORTED_MODULE_2_prop_types__["func"].isRequired,
+  locale: Object(__WEBPACK_IMPORTED_MODULE_2_prop_types__["oneOfType"])([__WEBPACK_IMPORTED_MODULE_2_prop_types__["object"], __WEBPACK_IMPORTED_MODULE_2_prop_types__["string"]]),
+  children: Object(__WEBPACK_IMPORTED_MODULE_2_prop_types__["oneOfType"])([__WEBPACK_IMPORTED_MODULE_2_prop_types__["element"].isRequired, Object(__WEBPACK_IMPORTED_MODULE_2_prop_types__["arrayOf"])(__WEBPACK_IMPORTED_MODULE_2_prop_types__["element"].isRequired)]).isRequired
+} : void 0;
+
+var checkUtils = function (utils) {
+  if (!utils) {
+    // tslint:disable-next-line
+    throw new Error('Can not find utils in context. You either a) forgot to wrap your component tree in MuiPickersUtilsProvider; or b) mixed named and direct file imports.  Recommendation: use named imports from the module index.');
+  }
+};
+function useUtils() {
+  var utils = Object(__WEBPACK_IMPORTED_MODULE_1_react__["useContext"])(MuiPickersContext);
+  checkUtils(utils);
+  return utils;
+}
+
+var useStyles = Object(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__["makeStyles"])(function (theme) {
+  var textColor = theme.palette.type === 'light' ? theme.palette.primary.contrastText : theme.palette.getContrastText(theme.palette.background.default);
+  return {
+    toolbarTxt: {
+      color: Object(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__["fade"])(textColor, 0.54)
+    },
+    toolbarBtnSelected: {
+      color: textColor
+    }
+  };
+}, {
+  name: 'MuiPickersToolbarText'
+});
+
+var ToolbarText = function (_a) {
+  var _b;
+
+  var selected = _a.selected,
+      label = _a.label,
+      _c = _a.className,
+      className = _c === void 0 ? null : _c,
+      other = Object(__WEBPACK_IMPORTED_MODULE_0_tslib__["c" /* __rest */])(_a, ["selected", "label", "className"]);
+
+  var classes = useStyles();
+  return Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(__WEBPACK_IMPORTED_MODULE_4__material_ui_core_Typography__["a" /* default */], Object(__WEBPACK_IMPORTED_MODULE_0_tslib__["a" /* __assign */])({
+    children: label,
+    className: Object(__WEBPACK_IMPORTED_MODULE_3_clsx__["a" /* default */])(classes.toolbarTxt, className, (_b = {}, _b[classes.toolbarBtnSelected] = selected, _b))
+  }, other));
+};
+
+var ToolbarButton = function (_a) {
+  var classes = _a.classes,
+      _b = _a.className,
+      className = _b === void 0 ? null : _b,
+      label = _a.label,
+      selected = _a.selected,
+      variant = _a.variant,
+      typographyClassName = _a.typographyClassName,
+      other = Object(__WEBPACK_IMPORTED_MODULE_0_tslib__["c" /* __rest */])(_a, ["classes", "className", "label", "selected", "variant", "typographyClassName"]);
+
+  return Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(__WEBPACK_IMPORTED_MODULE_6__material_ui_core_Button__["default"], Object(__WEBPACK_IMPORTED_MODULE_0_tslib__["a" /* __assign */])({
+    variant: "text",
+    className: Object(__WEBPACK_IMPORTED_MODULE_3_clsx__["a" /* default */])(classes.toolbarBtn, className)
+  }, other), Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(ToolbarText, {
+    className: typographyClassName,
+    variant: variant,
+    label: label,
+    selected: selected
+  }));
+};
+
+ true ? ToolbarButton.propTypes = {
+  selected: __WEBPACK_IMPORTED_MODULE_2_prop_types__["bool"].isRequired,
+  label: __WEBPACK_IMPORTED_MODULE_2_prop_types__["string"].isRequired,
+  classes: __WEBPACK_IMPORTED_MODULE_2_prop_types__["any"].isRequired,
+  className: __WEBPACK_IMPORTED_MODULE_2_prop_types__["string"],
+  innerRef: __WEBPACK_IMPORTED_MODULE_2_prop_types__["any"]
+} : void 0;
+ToolbarButton.defaultProps = {
+  className: ''
+};
+var styles = Object(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__["createStyles"])({
+  toolbarBtn: {
+    padding: 0,
+    minWidth: '16px',
+    textTransform: 'none'
+  }
+});
+var ToolbarButton$1 = Object(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__["withStyles"])(styles, {
+  name: 'MuiPickersToolbarButton'
+})(ToolbarButton);
+
+var useStyles$1 = Object(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__["makeStyles"])(function (theme) {
+  return {
+    toolbar: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'flex-start',
+      justifyContent: 'center',
+      height: 100,
+      backgroundColor: theme.palette.type === 'light' ? theme.palette.primary.main : theme.palette.background.default
+    }
+  };
+}, {
+  name: 'MuiPickersToolbar'
+});
+
+var PickerToolbar = function (_a) {
+  var children = _a.children,
+      _b = _a.className,
+      className = _b === void 0 ? null : _b,
+      other = Object(__WEBPACK_IMPORTED_MODULE_0_tslib__["c" /* __rest */])(_a, ["children", "className"]);
+
+  var classes = useStyles$1();
+  return Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(__WEBPACK_IMPORTED_MODULE_7__material_ui_core_Toolbar__["a" /* default */], Object(__WEBPACK_IMPORTED_MODULE_0_tslib__["a" /* __assign */])({
+    className: Object(__WEBPACK_IMPORTED_MODULE_3_clsx__["a" /* default */])(classes.toolbar, className)
+  }, other), children);
+};
+
+/** Use it instead of .includes method for IE support */
+function arrayIncludes(array, item) {
+  return array.indexOf(item) !== -1;
+}
+
+var findClosestEnabledDate = function (_a) {
+  var date = _a.date,
+      utils = _a.utils,
+      minDate = _a.minDate,
+      maxDate = _a.maxDate,
+      disableFuture = _a.disableFuture,
+      disablePast = _a.disablePast,
+      shouldDisableDate = _a.shouldDisableDate;
+  var today = utils.startOfDay(utils.date());
+
+  if (disablePast && utils.isBefore(minDate, today)) {
+    minDate = today;
+  }
+
+  if (disableFuture && utils.isAfter(maxDate, today)) {
+    maxDate = today;
+  }
+
+  var forward = date;
+  var backward = date;
+
+  if (utils.isBefore(date, minDate)) {
+    forward = utils.date(minDate);
+    backward = null;
+  }
+
+  if (utils.isAfter(date, maxDate)) {
+    if (backward) {
+      backward = utils.date(maxDate);
+    }
+
+    forward = null;
+  }
+
+  while (forward || backward) {
+    if (forward && utils.isAfter(forward, maxDate)) {
+      forward = null;
+    }
+
+    if (backward && utils.isBefore(backward, minDate)) {
+      backward = null;
+    }
+
+    if (forward) {
+      if (!shouldDisableDate(forward)) {
+        return forward;
+      }
+
+      forward = utils.addDays(forward, 1);
+    }
+
+    if (backward) {
+      if (!shouldDisableDate(backward)) {
+        return backward;
+      }
+
+      backward = utils.addDays(backward, -1);
+    }
+  }
+
+  return null;
+};
+var isYearOnlyView = function (views) {
+  return views.length === 1 && views[0] === 'year';
+};
+var isYearAndMonthViews = function (views) {
+  return views.length === 2 && arrayIncludes(views, 'month') && arrayIncludes(views, 'year');
+};
+var getFormatByViews = function (views, utils) {
+  if (isYearOnlyView(views)) {
+    return utils.yearFormat;
+  }
+
+  if (isYearAndMonthViews(views)) {
+    return utils.yearMonthFormat;
+  }
+
+  return utils.dateFormat;
+};
+
+var useStyles$2 = Object(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__["makeStyles"])({
+  toolbarCenter: {
+    flexDirection: 'row',
+    alignItems: 'center'
+  }
+}, {
+  name: 'MuiPickersDatePickerRoot'
+});
+var DatePickerToolbar = function (_a) {
+  var _b;
+
+  var date = _a.date,
+      views = _a.views,
+      setOpenView = _a.setOpenView,
+      openView = _a.openView;
+  var utils = useUtils();
+  var classes = useStyles$2();
+  var isYearOnly = Object(__WEBPACK_IMPORTED_MODULE_1_react__["useMemo"])(function () {
+    return isYearOnlyView(views);
+  }, [views]);
+  var isYearAndMonth = Object(__WEBPACK_IMPORTED_MODULE_1_react__["useMemo"])(function () {
+    return isYearAndMonthViews(views);
+  }, [views]);
+  return Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(PickerToolbar, {
+    className: Object(__WEBPACK_IMPORTED_MODULE_3_clsx__["a" /* default */])((_b = {}, _b[classes.toolbarCenter] = isYearOnly, _b))
+  }, Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(ToolbarButton$1, {
+    variant: isYearOnly ? 'h3' : 'subtitle1',
+    onClick: function () {
+      return setOpenView('year');
+    },
+    selected: openView === 'year',
+    label: utils.getYearText(date)
+  }), !isYearOnly && !isYearAndMonth && Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(ToolbarButton$1, {
+    variant: "h4",
+    onClick: function () {
+      return setOpenView('date');
+    },
+    selected: openView === 'date',
+    label: utils.getDatePickerHeaderText(date)
+  }), isYearAndMonth && Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(ToolbarButton$1, {
+    variant: "h4",
+    onClick: function () {
+      return setOpenView('month');
+    },
+    selected: openView === 'month',
+    label: utils.getMonthText(date)
+  }));
+};
+
+var date = Object(__WEBPACK_IMPORTED_MODULE_2_prop_types__["oneOfType"])([__WEBPACK_IMPORTED_MODULE_2_prop_types__["object"], __WEBPACK_IMPORTED_MODULE_2_prop_types__["string"], __WEBPACK_IMPORTED_MODULE_2_prop_types__["number"], Object(__WEBPACK_IMPORTED_MODULE_2_prop_types__["instanceOf"])(Date)]);
+var datePickerView = Object(__WEBPACK_IMPORTED_MODULE_2_prop_types__["oneOf"])(['year', 'month', 'day']);
+/* eslint-disable @typescript-eslint/no-object-literal-type-assertion */
+
+var timePickerDefaultProps = {
+  ampm: true,
+  invalidDateMessage: 'Invalid Time Format'
+};
+var datePickerDefaultProps = {
+  minDate: new Date('1900-01-01'),
+  maxDate: new Date('2100-01-01'),
+  invalidDateMessage: 'Invalid Date Format',
+  minDateMessage: 'Date should not be before minimal date',
+  maxDateMessage: 'Date should not be after maximal date',
+  allowKeyboardControl: true
+};
+var dateTimePickerDefaultProps = Object(__WEBPACK_IMPORTED_MODULE_0_tslib__["a" /* __assign */])({}, timePickerDefaultProps, datePickerDefaultProps, {
+  showTabs: true
+});
+
+var useStyles$3 = Object(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__["makeStyles"])(function (theme) {
+  return {
+    day: {
+      width: 36,
+      height: 36,
+      fontSize: theme.typography.caption.fontSize,
+      margin: '0 2px',
+      color: theme.palette.text.primary,
+      fontWeight: theme.typography.fontWeightMedium,
+      padding: 0
+    },
+    hidden: {
+      opacity: 0,
+      pointerEvents: 'none'
+    },
+    current: {
+      color: theme.palette.primary.main,
+      fontWeight: 600
+    },
+    daySelected: {
+      color: theme.palette.primary.contrastText,
+      backgroundColor: theme.palette.primary.main,
+      fontWeight: theme.typography.fontWeightMedium,
+      '&:hover': {
+        backgroundColor: theme.palette.primary.main
+      }
+    },
+    dayDisabled: {
+      pointerEvents: 'none',
+      color: theme.palette.text.hint
+    }
+  };
+}, {
+  name: 'MuiPickersDay'
+});
+var Day = function (_a) {
+  var _b;
+
+  var children = _a.children,
+      disabled = _a.disabled,
+      hidden = _a.hidden,
+      current = _a.current,
+      selected = _a.selected,
+      other = Object(__WEBPACK_IMPORTED_MODULE_0_tslib__["c" /* __rest */])(_a, ["children", "disabled", "hidden", "current", "selected"]);
+
+  var classes = useStyles$3();
+  var className = Object(__WEBPACK_IMPORTED_MODULE_3_clsx__["a" /* default */])(classes.day, (_b = {}, _b[classes.hidden] = hidden, _b[classes.current] = current, _b[classes.daySelected] = selected, _b[classes.dayDisabled] = disabled, _b));
+  return Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(__WEBPACK_IMPORTED_MODULE_8__material_ui_core_IconButton__["a" /* default */], Object(__WEBPACK_IMPORTED_MODULE_0_tslib__["a" /* __assign */])({
+    className: className,
+    tabIndex: hidden || disabled ? -1 : 0
+  }, other), Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(__WEBPACK_IMPORTED_MODULE_4__material_ui_core_Typography__["a" /* default */], {
+    variant: "body2",
+    color: "inherit"
+  }, children));
+};
+Day.displayName = 'Day';
+ true ? Day.propTypes = {
+  current: __WEBPACK_IMPORTED_MODULE_2_prop_types__["bool"],
+  disabled: __WEBPACK_IMPORTED_MODULE_2_prop_types__["bool"],
+  hidden: __WEBPACK_IMPORTED_MODULE_2_prop_types__["bool"],
+  selected: __WEBPACK_IMPORTED_MODULE_2_prop_types__["bool"]
+} : void 0;
+Day.defaultProps = {
+  disabled: false,
+  hidden: false,
+  current: false,
+  selected: false
+};
+
+var DayWrapper = function (_a) {
+  var children = _a.children,
+      value = _a.value,
+      disabled = _a.disabled,
+      onSelect = _a.onSelect,
+      dayInCurrentMonth = _a.dayInCurrentMonth,
+      other = Object(__WEBPACK_IMPORTED_MODULE_0_tslib__["c" /* __rest */])(_a, ["children", "value", "disabled", "onSelect", "dayInCurrentMonth"]);
+
+  var handleClick = Object(__WEBPACK_IMPORTED_MODULE_1_react__["useCallback"])(function () {
+    return onSelect(value);
+  }, [onSelect, value]);
+  return Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])("div", Object(__WEBPACK_IMPORTED_MODULE_0_tslib__["a" /* __assign */])({
+    role: "presentation",
+    onClick: dayInCurrentMonth && !disabled ? handleClick : undefined,
+    onKeyPress: dayInCurrentMonth && !disabled ? handleClick : undefined
+  }, other), children);
+};
+
+var animationDuration = 350;
+var useStyles$4 = Object(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__["makeStyles"])(function (theme) {
+  var slideTransition = theme.transitions.create('transform', {
+    duration: animationDuration,
+    easing: 'cubic-bezier(0.35, 0.8, 0.4, 1)'
+  });
+  return {
+    transitionContainer: {
+      display: 'block',
+      position: 'relative',
+      '& > *': {
+        position: 'absolute',
+        top: 0,
+        right: 0,
+        left: 0
+      }
+    },
+    'slideEnter-left': {
+      willChange: 'transform',
+      transform: 'translate(100%)'
+    },
+    'slideEnter-right': {
+      willChange: 'transform',
+      transform: 'translate(-100%)'
+    },
+    slideEnterActive: {
+      transform: 'translate(0%)',
+      transition: slideTransition
+    },
+    slideExit: {
+      transform: 'translate(0%)'
+    },
+    'slideExitActiveLeft-left': {
+      willChange: 'transform',
+      transform: 'translate(-200%)',
+      transition: slideTransition
+    },
+    'slideExitActiveLeft-right': {
+      willChange: 'transform',
+      transform: 'translate(200%)',
+      transition: slideTransition
+    }
+  };
+}, {
+  name: 'MuiPickersSlideTransition'
+});
+
+var SlideTransition = function (_a) {
+  var children = _a.children,
+      transKey = _a.transKey,
+      slideDirection = _a.slideDirection,
+      _b = _a.className,
+      className = _b === void 0 ? null : _b;
+  var classes = useStyles$4();
+  var transitionClasses = {
+    exit: classes.slideExit,
+    enterActive: classes.slideEnterActive,
+    // @ts-ignore
+    enter: classes['slideEnter-' + slideDirection],
+    // @ts-ignore
+    exitActive: classes['slideExitActiveLeft-' + slideDirection]
+  };
+  return Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(__WEBPACK_IMPORTED_MODULE_9_react_transition_group__["b" /* TransitionGroup */], {
+    className: Object(__WEBPACK_IMPORTED_MODULE_3_clsx__["a" /* default */])(classes.transitionContainer, className),
+    childFactory: function (element) {
+      return Object(__WEBPACK_IMPORTED_MODULE_1_react__["cloneElement"])(element, {
+        classNames: transitionClasses
+      });
+    }
+  }, Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(__WEBPACK_IMPORTED_MODULE_9_react_transition_group__["a" /* CSSTransition */], {
+    mountOnEnter: true,
+    unmountOnExit: true,
+    key: transKey + slideDirection,
+    timeout: animationDuration,
+    classNames: transitionClasses,
+    children: children
+  }));
+};
+
+var ArrowLeftIcon = function (props) {
+  return __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_10__material_ui_core_SvgIcon__["default"], Object(__WEBPACK_IMPORTED_MODULE_0_tslib__["a" /* __assign */])({}, props), __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("path", {
+    d: "M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.41z"
+  }), __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("path", {
+    fill: "none",
+    d: "M0 0h24v24H0V0z"
+  }));
+};
+
+var ArrowRightIcon = function (props) {
+  return __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_10__material_ui_core_SvgIcon__["default"], Object(__WEBPACK_IMPORTED_MODULE_0_tslib__["a" /* __assign */])({}, props), __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("path", {
+    d: "M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"
+  }), __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("path", {
+    fill: "none",
+    d: "M0 0h24v24H0V0z"
+  }));
+};
+
+var useStyles$5 = Object(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__["makeStyles"])(function (theme) {
+  return {
+    switchHeader: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      marginTop: theme.spacing(0.5),
+      marginBottom: theme.spacing(1)
+    },
+    transitionContainer: {
+      width: '100%',
+      height: 20
+    },
+    iconButton: {
+      zIndex: 2,
+      backgroundColor: theme.palette.background.paper,
+      '& > *': {
+        // label
+        backgroundColor: theme.palette.background.paper,
+        '& > *': {
+          // icon
+          zIndex: 1,
+          overflow: 'visible'
+        }
+      }
+    },
+    daysHeader: {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      maxHeight: 16
+    },
+    dayLabel: {
+      width: 36,
+      margin: '0 2px',
+      textAlign: 'center',
+      color: theme.palette.text.hint
+    }
+  };
+}, {
+  name: 'MuiPickersCalendarHeader'
+});
+var CalendarHeader = function (_a) {
+  var currentMonth = _a.currentMonth,
+      onMonthChange = _a.onMonthChange,
+      leftArrowIcon = _a.leftArrowIcon,
+      rightArrowIcon = _a.rightArrowIcon,
+      leftArrowButtonProps = _a.leftArrowButtonProps,
+      rightArrowButtonProps = _a.rightArrowButtonProps,
+      disablePrevMonth = _a.disablePrevMonth,
+      disableNextMonth = _a.disableNextMonth,
+      slideDirection = _a.slideDirection;
+  var utils = useUtils();
+  var classes = useStyles$5();
+  var theme = Object(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__["useTheme"])();
+  var rtl = theme.direction === 'rtl';
+
+  var selectNextMonth = function () {
+    return onMonthChange(utils.getNextMonth(currentMonth), 'left');
+  };
+
+  var selectPreviousMonth = function () {
+    return onMonthChange(utils.getPreviousMonth(currentMonth), 'right');
+  };
+
+  return Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])("div", null, Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])("div", {
+    className: classes.switchHeader
+  }, Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(__WEBPACK_IMPORTED_MODULE_8__material_ui_core_IconButton__["a" /* default */], Object(__WEBPACK_IMPORTED_MODULE_0_tslib__["a" /* __assign */])({}, leftArrowButtonProps, {
+    disabled: disablePrevMonth,
+    onClick: selectPreviousMonth,
+    className: classes.iconButton
+  }), rtl ? rightArrowIcon : leftArrowIcon), Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(SlideTransition, {
+    slideDirection: slideDirection,
+    transKey: currentMonth.toString(),
+    className: classes.transitionContainer
+  }, Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(__WEBPACK_IMPORTED_MODULE_4__material_ui_core_Typography__["a" /* default */], {
+    align: "center",
+    variant: "body1"
+  }, utils.getCalendarHeaderText(currentMonth))), Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(__WEBPACK_IMPORTED_MODULE_8__material_ui_core_IconButton__["a" /* default */], Object(__WEBPACK_IMPORTED_MODULE_0_tslib__["a" /* __assign */])({}, rightArrowButtonProps, {
+    disabled: disableNextMonth,
+    onClick: selectNextMonth,
+    className: classes.iconButton
+  }), rtl ? leftArrowIcon : rightArrowIcon)), Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])("div", {
+    className: classes.daysHeader
+  }, utils.getWeekdays().map(function (day, index) {
+    return Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(__WEBPACK_IMPORTED_MODULE_4__material_ui_core_Typography__["a" /* default */], {
+      key: index,
+      variant: "caption",
+      className: classes.dayLabel
+    }, day);
+  })));
+};
+CalendarHeader.displayName = 'CalendarHeader';
+ true ? CalendarHeader.propTypes = {
+  leftArrowIcon: __WEBPACK_IMPORTED_MODULE_2_prop_types__["node"],
+  rightArrowIcon: __WEBPACK_IMPORTED_MODULE_2_prop_types__["node"],
+  disablePrevMonth: __WEBPACK_IMPORTED_MODULE_2_prop_types__["bool"],
+  disableNextMonth: __WEBPACK_IMPORTED_MODULE_2_prop_types__["bool"]
+} : void 0;
+CalendarHeader.defaultProps = {
+  leftArrowIcon: Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(ArrowLeftIcon, null),
+  rightArrowIcon: Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(ArrowRightIcon, null),
+  disablePrevMonth: false,
+  disableNextMonth: false
+};
+
+var useIsomorphicEffect = typeof window === 'undefined' ? __WEBPACK_IMPORTED_MODULE_1_react__["useEffect"] : __WEBPACK_IMPORTED_MODULE_1_react__["useLayoutEffect"];
+function runKeyHandler(e, keyHandlers) {
+  var handler = keyHandlers[e.key];
+
+  if (handler) {
+    handler(); // if event was handled prevent other side effects (e.g. page scroll)
+
+    e.preventDefault();
+  }
+}
+function useKeyDown(active, keyHandlers) {
+  var keyHandlersRef = Object(__WEBPACK_IMPORTED_MODULE_1_react__["useRef"])(keyHandlers);
+  useIsomorphicEffect(function () {
+    keyHandlersRef.current = keyHandlers;
+  });
+  Object(__WEBPACK_IMPORTED_MODULE_1_react__["useEffect"])(function () {
+    if (active) {
+      var handleKeyDown_1 = function (event) {
+        runKeyHandler(event, keyHandlers);
+      };
+
+      window.addEventListener('keydown', handleKeyDown_1);
+      return function () {
+        window.removeEventListener('keydown', handleKeyDown_1);
+      };
+    }
+  }, [active, keyHandlers]);
+}
+
+var withUtils = function () {
+  return function (Component) {
+    var WithUtils = function (props) {
+      var utils = useUtils();
+      return Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(Component, Object(__WEBPACK_IMPORTED_MODULE_0_tslib__["a" /* __assign */])({
+        utils: utils
+      }, props));
+    };
+
+    WithUtils.displayName = "WithUtils(" + (Component.displayName || Component.name) + ")";
+    return WithUtils;
+  };
+};
+
+var KeyDownListener = function (_a) {
+  var onKeyDown = _a.onKeyDown;
+  Object(__WEBPACK_IMPORTED_MODULE_1_react__["useEffect"])(function () {
+    window.addEventListener('keydown', onKeyDown);
+    return function () {
+      window.removeEventListener('keydown', onKeyDown);
+    };
+  }, [onKeyDown]);
+  return null;
+};
+
+var Calendar =
+/*@__PURE__*/
+function (_super) {
+  Object(__WEBPACK_IMPORTED_MODULE_0_tslib__["b" /* __extends */])(Calendar, _super);
+
+  function Calendar() {
+    var _this = _super !== null && _super.apply(this, arguments) || this;
+
+    _this.state = {
+      slideDirection: 'left',
+      currentMonth: _this.props.utils.startOfMonth(_this.props.date),
+      loadingQueue: 0
+    };
+
+    _this.pushToLoadingQueue = function () {
+      var loadingQueue = _this.state.loadingQueue + 1;
+
+      _this.setState({
+        loadingQueue: loadingQueue
+      });
+    };
+
+    _this.popFromLoadingQueue = function () {
+      var loadingQueue = _this.state.loadingQueue;
+      loadingQueue = loadingQueue <= 0 ? 0 : loadingQueue - 1;
+
+      _this.setState({
+        loadingQueue: loadingQueue
+      });
+    };
+
+    _this.handleChangeMonth = function (newMonth, slideDirection) {
+      _this.setState({
+        currentMonth: newMonth,
+        slideDirection: slideDirection
+      });
+
+      if (_this.props.onMonthChange) {
+        var returnVal = _this.props.onMonthChange(newMonth);
+
+        if (returnVal) {
+          _this.pushToLoadingQueue();
+
+          returnVal.then(function () {
+            _this.popFromLoadingQueue();
+          });
+        }
+      }
+    };
+
+    _this.validateMinMaxDate = function (day) {
+      var _a = _this.props,
+          minDate = _a.minDate,
+          maxDate = _a.maxDate,
+          utils = _a.utils,
+          disableFuture = _a.disableFuture,
+          disablePast = _a.disablePast;
+      var now = utils.date();
+      return Boolean(disableFuture && utils.isAfterDay(day, now) || disablePast && utils.isBeforeDay(day, now) || minDate && utils.isBeforeDay(day, utils.date(minDate)) || maxDate && utils.isAfterDay(day, utils.date(maxDate)));
+    };
+
+    _this.shouldDisablePrevMonth = function () {
+      var _a = _this.props,
+          utils = _a.utils,
+          disablePast = _a.disablePast,
+          minDate = _a.minDate;
+      var now = utils.date();
+      var firstEnabledMonth = utils.startOfMonth(disablePast && utils.isAfter(now, utils.date(minDate)) ? now : utils.date(minDate));
+      return !utils.isBefore(firstEnabledMonth, _this.state.currentMonth);
+    };
+
+    _this.shouldDisableNextMonth = function () {
+      var _a = _this.props,
+          utils = _a.utils,
+          disableFuture = _a.disableFuture,
+          maxDate = _a.maxDate;
+      var now = utils.date();
+      var lastEnabledMonth = utils.startOfMonth(disableFuture && utils.isBefore(now, utils.date(maxDate)) ? now : utils.date(maxDate));
+      return !utils.isAfter(lastEnabledMonth, _this.state.currentMonth);
+    };
+
+    _this.shouldDisableDate = function (day) {
+      var shouldDisableDate = _this.props.shouldDisableDate;
+      return _this.validateMinMaxDate(day) || Boolean(shouldDisableDate && shouldDisableDate(day));
+    };
+
+    _this.handleDaySelect = function (day, isFinish) {
+      if (isFinish === void 0) {
+        isFinish = true;
+      }
+
+      var _a = _this.props,
+          date = _a.date,
+          utils = _a.utils;
+
+      _this.props.onChange(utils.mergeDateAndTime(day, date), isFinish);
+    };
+
+    _this.moveToDay = function (day) {
+      var utils = _this.props.utils;
+
+      if (day && !_this.shouldDisableDate(day)) {
+        if (utils.getMonth(day) !== utils.getMonth(_this.state.currentMonth)) {
+          _this.handleChangeMonth(utils.startOfMonth(day), 'left');
+        }
+
+        _this.handleDaySelect(day, false);
+      }
+    };
+
+    _this.handleKeyDown = function (event) {
+      var _a = _this.props,
+          theme = _a.theme,
+          date = _a.date,
+          utils = _a.utils;
+      runKeyHandler(event, {
+        ArrowUp: function () {
+          return _this.moveToDay(utils.addDays(date, -7));
+        },
+        ArrowDown: function () {
+          return _this.moveToDay(utils.addDays(date, 7));
+        },
+        ArrowLeft: function () {
+          return _this.moveToDay(utils.addDays(date, theme.direction === 'ltr' ? -1 : 1));
+        },
+        ArrowRight: function () {
+          return _this.moveToDay(utils.addDays(date, theme.direction === 'ltr' ? 1 : -1));
+        }
+      });
+    };
+
+    _this.renderWeeks = function () {
+      var _a = _this.props,
+          utils = _a.utils,
+          classes = _a.classes;
+      var weeks = utils.getWeekArray(_this.state.currentMonth);
+      return weeks.map(function (week) {
+        return Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])("div", {
+          key: "week-" + week[0].toString(),
+          className: classes.week
+        }, _this.renderDays(week));
+      });
+    };
+
+    _this.renderDays = function (week) {
+      var _a = _this.props,
+          date = _a.date,
+          renderDay = _a.renderDay,
+          utils = _a.utils;
+      var now = utils.date();
+      var selectedDate = utils.startOfDay(date);
+      var currentMonthNumber = utils.getMonth(_this.state.currentMonth);
+      return week.map(function (day) {
+        var disabled = _this.shouldDisableDate(day);
+
+        var isDayInCurrentMonth = utils.getMonth(day) === currentMonthNumber;
+        var dayComponent = Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(Day, {
+          disabled: disabled,
+          current: utils.isSameDay(day, now),
+          hidden: !isDayInCurrentMonth,
+          selected: utils.isSameDay(selectedDate, day)
+        }, utils.getDayText(day));
+
+        if (renderDay) {
+          dayComponent = renderDay(day, selectedDate, isDayInCurrentMonth, dayComponent);
+        }
+
+        return Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(DayWrapper, {
+          value: day,
+          key: day.toString(),
+          disabled: disabled,
+          dayInCurrentMonth: isDayInCurrentMonth,
+          onSelect: _this.handleDaySelect
+        }, dayComponent);
+      });
+    };
+
+    return _this;
+  }
+
+  Calendar.getDerivedStateFromProps = function (nextProps, state) {
+    var utils = nextProps.utils,
+        nextDate = nextProps.date;
+
+    if (!utils.isEqual(nextDate, state.lastDate)) {
+      var nextMonth = utils.getMonth(nextDate);
+      var lastDate = state.lastDate || nextDate;
+      var lastMonth = utils.getMonth(lastDate);
+      return {
+        lastDate: nextDate,
+        currentMonth: nextProps.utils.startOfMonth(nextDate),
+        // prettier-ignore
+        slideDirection: nextMonth === lastMonth ? state.slideDirection : utils.isAfterDay(nextDate, lastDate) ? 'left' : 'right'
+      };
+    }
+
+    return null;
+  };
+
+  Calendar.prototype.componentDidMount = function () {
+    var _a = this.props,
+        date = _a.date,
+        minDate = _a.minDate,
+        maxDate = _a.maxDate,
+        utils = _a.utils,
+        disablePast = _a.disablePast,
+        disableFuture = _a.disableFuture;
+
+    if (this.shouldDisableDate(date)) {
+      var closestEnabledDate = findClosestEnabledDate({
+        date: date,
+        utils: utils,
+        minDate: utils.date(minDate),
+        maxDate: utils.date(maxDate),
+        disablePast: Boolean(disablePast),
+        disableFuture: Boolean(disableFuture),
+        shouldDisableDate: this.shouldDisableDate
+      });
+      this.handleDaySelect(closestEnabledDate, false);
+    }
+  };
+
+  Calendar.prototype.render = function () {
+    var _a = this.state,
+        currentMonth = _a.currentMonth,
+        slideDirection = _a.slideDirection;
+    var _b = this.props,
+        classes = _b.classes,
+        allowKeyboardControl = _b.allowKeyboardControl,
+        leftArrowButtonProps = _b.leftArrowButtonProps,
+        leftArrowIcon = _b.leftArrowIcon,
+        rightArrowButtonProps = _b.rightArrowButtonProps,
+        rightArrowIcon = _b.rightArrowIcon,
+        loadingIndicator = _b.loadingIndicator;
+    var loadingElement = loadingIndicator ? loadingIndicator : Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(__WEBPACK_IMPORTED_MODULE_11__material_ui_core_CircularProgress__["a" /* default */], null);
+    return Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(__WEBPACK_IMPORTED_MODULE_1_react__["Fragment"], null, allowKeyboardControl && Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(KeyDownListener, {
+      onKeyDown: this.handleKeyDown
+    }), Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(CalendarHeader, {
+      currentMonth: currentMonth,
+      slideDirection: slideDirection,
+      onMonthChange: this.handleChangeMonth,
+      leftArrowIcon: leftArrowIcon,
+      leftArrowButtonProps: leftArrowButtonProps,
+      rightArrowIcon: rightArrowIcon,
+      rightArrowButtonProps: rightArrowButtonProps,
+      disablePrevMonth: this.shouldDisablePrevMonth(),
+      disableNextMonth: this.shouldDisableNextMonth()
+    }), Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(SlideTransition, {
+      slideDirection: slideDirection,
+      transKey: currentMonth.toString(),
+      className: classes.transitionContainer
+    }, Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(__WEBPACK_IMPORTED_MODULE_1_react__["Fragment"], null, this.state.loadingQueue > 0 && Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])("div", {
+      className: classes.progressContainer
+    }, loadingElement) || Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])("div", null, this.renderWeeks()))));
+  };
+
+   true ? Calendar.propTypes = {
+    renderDay: __WEBPACK_IMPORTED_MODULE_2_prop_types__["func"],
+    shouldDisableDate: __WEBPACK_IMPORTED_MODULE_2_prop_types__["func"],
+    allowKeyboardControl: __WEBPACK_IMPORTED_MODULE_2_prop_types__["bool"]
+  } : void 0;
+  Calendar.defaultProps = {
+    minDate: new Date('1900-01-01'),
+    maxDate: new Date('2100-01-01'),
+    disablePast: false,
+    disableFuture: false,
+    allowKeyboardControl: true
+  };
+  return Calendar;
+}(__WEBPACK_IMPORTED_MODULE_1_react__["Component"]);
+var styles$1 = function (theme) {
+  return {
+    transitionContainer: {
+      minHeight: 36 * 6,
+      marginTop: theme.spacing(1.5)
+    },
+    progressContainer: {
+      width: '100%',
+      height: '100%',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center'
+    },
+    week: {
+      display: 'flex',
+      justifyContent: 'center'
+    }
+  };
+};
+var Calendar$1 = Object(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__["withStyles"])(styles$1, {
+  name: 'MuiPickersCalendar',
+  withTheme: true
+})(withUtils()(Calendar));
+
+function useViews(views, openTo, onChange) {
+  var _a = Object(__WEBPACK_IMPORTED_MODULE_1_react__["useState"])(openTo && arrayIncludes(views, openTo) ? openTo : views[0]),
+      openView = _a[0],
+      setOpenView = _a[1];
+
+  var handleChangeAndOpenNext = Object(__WEBPACK_IMPORTED_MODULE_1_react__["useCallback"])(function (date, isFinish) {
+    var nextViewToOpen = views[views.indexOf(openView) + 1];
+
+    if (isFinish && nextViewToOpen) {
+      // do not close picker if needs to show next view
+      onChange(date, false);
+      setOpenView(nextViewToOpen);
+      return;
+    }
+
+    onChange(date, Boolean(isFinish));
+  }, [onChange, openView, views]);
+  return {
+    handleChangeAndOpenNext: handleChangeAndOpenNext,
+    openView: openView,
+    setOpenView: setOpenView
+  };
+}
+
+var useStyles$6 = Object(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__["makeStyles"])(function (theme) {
+  return {
+    root: {
+      height: 40,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      cursor: 'pointer',
+      outline: 'none',
+      '&:focus': {
+        color: theme.palette.primary.main,
+        fontWeight: theme.typography.fontWeightMedium
+      }
+    },
+    yearSelected: {
+      margin: '10px 0',
+      fontWeight: theme.typography.fontWeightMedium
+    },
+    yearDisabled: {
+      pointerEvents: 'none',
+      color: theme.palette.text.hint
+    }
+  };
+}, {
+  name: 'MuiPickersYear'
+});
+var Year = function (_a) {
+  var _b;
+
+  var onSelect = _a.onSelect,
+      forwardedRef = _a.forwardedRef,
+      value = _a.value,
+      selected = _a.selected,
+      disabled = _a.disabled,
+      children = _a.children,
+      other = Object(__WEBPACK_IMPORTED_MODULE_0_tslib__["c" /* __rest */])(_a, ["onSelect", "forwardedRef", "value", "selected", "disabled", "children"]);
+
+  var classes = useStyles$6();
+  var handleClick = Object(__WEBPACK_IMPORTED_MODULE_1_react__["useCallback"])(function () {
+    return onSelect(value);
+  }, [onSelect, value]);
+  return Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(__WEBPACK_IMPORTED_MODULE_4__material_ui_core_Typography__["a" /* default */], Object(__WEBPACK_IMPORTED_MODULE_0_tslib__["a" /* __assign */])({
+    role: "button",
+    component: "div",
+    tabIndex: disabled ? -1 : 0,
+    onClick: handleClick,
+    onKeyPress: handleClick,
+    color: selected ? 'primary' : undefined,
+    variant: selected ? 'h5' : 'subtitle1',
+    children: children,
+    ref: forwardedRef,
+    className: Object(__WEBPACK_IMPORTED_MODULE_3_clsx__["a" /* default */])(classes.root, (_b = {}, _b[classes.yearSelected] = selected, _b[classes.yearDisabled] = disabled, _b))
+  }, other));
+};
+Year.displayName = 'Year';
+var Year$1 = Object(__WEBPACK_IMPORTED_MODULE_1_react__["forwardRef"])(function (props, ref) {
+  return Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(Year, Object(__WEBPACK_IMPORTED_MODULE_0_tslib__["a" /* __assign */])({}, props, {
+    forwardedRef: ref
+  }));
+});
+
+var useStyles$7 = Object(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__["makeStyles"])({
+  container: {
+    height: 300,
+    overflowY: 'auto'
+  }
+}, {
+  name: 'MuiPickersYearSelection'
+});
+var YearSelection = function (_a) {
+  var date = _a.date,
+      onChange = _a.onChange,
+      onYearChange = _a.onYearChange,
+      minDate = _a.minDate,
+      maxDate = _a.maxDate,
+      disablePast = _a.disablePast,
+      disableFuture = _a.disableFuture,
+      animateYearScrolling = _a.animateYearScrolling;
+  var utils = useUtils();
+  var classes = useStyles$7();
+  var selectedYearRef = Object(__WEBPACK_IMPORTED_MODULE_1_react__["useRef"])(null);
+  Object(__WEBPACK_IMPORTED_MODULE_1_react__["useEffect"])(function () {
+    if (selectedYearRef.current && selectedYearRef.current.scrollIntoView) {
+      selectedYearRef.current.scrollIntoView({
+        behavior: animateYearScrolling ? 'smooth' : 'auto'
+      });
+    }
+  }, []); // eslint-disable-line
+
+  var currentYear = utils.getYear(date);
+  var onYearSelect = Object(__WEBPACK_IMPORTED_MODULE_1_react__["useCallback"])(function (year) {
+    var newDate = utils.setYear(date, year);
+
+    if (onYearChange) {
+      onYearChange(newDate);
+    }
+
+    onChange(newDate, true);
+  }, [date, onChange, onYearChange, utils]);
+  return Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])("div", {
+    className: classes.container
+  }, utils.getYearRange(minDate, maxDate).map(function (year) {
+    var yearNumber = utils.getYear(year);
+    var selected = yearNumber === currentYear;
+    return Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(Year$1, {
+      key: utils.getYearText(year),
+      selected: selected,
+      value: yearNumber,
+      onSelect: onYearSelect,
+      ref: selected ? selectedYearRef : undefined,
+      disabled: Boolean(disablePast && utils.isBeforeYear(year, utils.date()) || disableFuture && utils.isAfterYear(year, utils.date()))
+    }, utils.getYearText(year));
+  }));
+};
+
+var useStyles$8 = Object(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__["makeStyles"])(function (theme) {
+  return {
+    root: {
+      flex: '1 0 33.33%',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      cursor: 'pointer',
+      outline: 'none',
+      height: 75,
+      transition: theme.transitions.create('font-size', {
+        duration: '100ms'
+      }),
+      '&:focus': {
+        color: theme.palette.primary.main,
+        fontWeight: theme.typography.fontWeightMedium
+      }
+    },
+    monthSelected: {
+      color: theme.palette.primary.main,
+      fontWeight: theme.typography.fontWeightMedium
+    },
+    monthDisabled: {
+      pointerEvents: 'none',
+      color: theme.palette.text.hint
+    }
+  };
+}, {
+  name: 'MuiPickersMonth'
+});
+var Month = function (_a) {
+  var _b;
+
+  var selected = _a.selected,
+      onSelect = _a.onSelect,
+      disabled = _a.disabled,
+      value = _a.value,
+      children = _a.children,
+      other = Object(__WEBPACK_IMPORTED_MODULE_0_tslib__["c" /* __rest */])(_a, ["selected", "onSelect", "disabled", "value", "children"]);
+
+  var classes = useStyles$8();
+  var handleSelection = Object(__WEBPACK_IMPORTED_MODULE_1_react__["useCallback"])(function () {
+    onSelect(value);
+  }, [onSelect, value]);
+  return Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(__WEBPACK_IMPORTED_MODULE_4__material_ui_core_Typography__["a" /* default */], Object(__WEBPACK_IMPORTED_MODULE_0_tslib__["a" /* __assign */])({
+    role: "button",
+    component: "div",
+    className: Object(__WEBPACK_IMPORTED_MODULE_3_clsx__["a" /* default */])(classes.root, (_b = {}, _b[classes.monthSelected] = selected, _b[classes.monthDisabled] = disabled, _b)),
+    tabIndex: disabled ? -1 : 0,
+    onClick: handleSelection,
+    onKeyPress: handleSelection,
+    color: selected ? 'primary' : undefined,
+    variant: selected ? 'h5' : 'subtitle1',
+    children: children
+  }, other));
+};
+Month.displayName = 'Month';
+
+var useStyles$9 = Object(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__["makeStyles"])({
+  container: {
+    width: 310,
+    display: 'flex',
+    flexWrap: 'wrap',
+    alignContent: 'stretch'
+  }
+}, {
+  name: 'MuiPickersMonthSelection'
+});
+var MonthSelection = function (_a) {
+  var disablePast = _a.disablePast,
+      disableFuture = _a.disableFuture,
+      minDate = _a.minDate,
+      maxDate = _a.maxDate,
+      date = _a.date,
+      onMonthChange = _a.onMonthChange,
+      onChange = _a.onChange;
+  var utils = useUtils();
+  var classes = useStyles$9();
+  var currentMonth = utils.getMonth(date);
+
+  var shouldDisableMonth = function (month) {
+    var now = utils.date();
+    var utilMinDate = utils.date(minDate);
+    var utilMaxDate = utils.date(maxDate);
+    var firstEnabledMonth = utils.startOfMonth(disablePast && utils.isAfter(now, utilMinDate) ? now : utilMinDate);
+    var lastEnabledMonth = utils.startOfMonth(disableFuture && utils.isBefore(now, utilMaxDate) ? now : utilMaxDate);
+    var isBeforeFirstEnabled = utils.isBefore(month, firstEnabledMonth);
+    var isAfterLastEnabled = utils.isAfter(month, lastEnabledMonth);
+    return isBeforeFirstEnabled || isAfterLastEnabled;
+  };
+
+  var onMonthSelect = Object(__WEBPACK_IMPORTED_MODULE_1_react__["useCallback"])(function (month) {
+    var newDate = utils.setMonth(date, month);
+    onChange(newDate, true);
+
+    if (onMonthChange) {
+      onMonthChange(newDate);
+    }
+  }, [date, onChange, onMonthChange, utils]);
+  return Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])("div", {
+    className: classes.container
+  }, utils.getMonthArray(date).map(function (month) {
+    var monthNumber = utils.getMonth(month);
+    var monthText = utils.format(month, 'MMM');
+    return Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(Month, {
+      key: monthText,
+      value: monthNumber,
+      selected: monthNumber === currentMonth,
+      onSelect: onMonthSelect,
+      disabled: shouldDisableMonth(month)
+    }, monthText);
+  }));
+};
+
+var ClockType;
+
+(function (ClockType) {
+  ClockType["HOURS"] = "hours";
+  ClockType["MINUTES"] = "minutes";
+  ClockType["SECONDS"] = "seconds";
+})(ClockType || (ClockType = {}));
+
+var ClockType$1 = ClockType;
+
+var ClockPointer =
+/*@__PURE__*/
+function (_super) {
+  Object(__WEBPACK_IMPORTED_MODULE_0_tslib__["b" /* __extends */])(ClockPointer, _super);
+
+  function ClockPointer() {
+    var _this = _super !== null && _super.apply(this, arguments) || this;
+
+    _this.state = {
+      toAnimateTransform: false,
+      previousType: undefined
+    };
+
+    _this.getAngleStyle = function () {
+      var _a = _this.props,
+          value = _a.value,
+          isInner = _a.isInner,
+          type = _a.type;
+      var max = type === ClockType$1.HOURS ? 12 : 60;
+      var angle = 360 / max * value;
+
+      if (type === ClockType$1.HOURS && value > 12) {
+        angle -= 360; // round up angle to max 360 degrees
+      }
+
+      return {
+        height: isInner ? '26%' : '40%',
+        transform: "rotateZ(" + angle + "deg)"
+      };
+    };
+
+    return _this;
+  }
+
+  ClockPointer.prototype.render = function () {
+    var _a, _b;
+
+    var _c = this.props,
+        classes = _c.classes,
+        hasSelected = _c.hasSelected;
+    return Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])("div", {
+      style: this.getAngleStyle(),
+      className: Object(__WEBPACK_IMPORTED_MODULE_3_clsx__["a" /* default */])(classes.pointer, (_a = {}, _a[classes.animateTransform] = this.state.toAnimateTransform, _a))
+    }, Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])("div", {
+      className: Object(__WEBPACK_IMPORTED_MODULE_3_clsx__["a" /* default */])(classes.thumb, (_b = {}, _b[classes.noPoint] = hasSelected, _b))
+    }));
+  };
+
+  ClockPointer.getDerivedStateFromProps = function (nextProps, state) {
+    if (nextProps.type !== state.previousType) {
+      return {
+        toAnimateTransform: true,
+        previousType: nextProps.type
+      };
+    }
+
+    return {
+      toAnimateTransform: false,
+      previousType: nextProps.type
+    };
+  };
+
+  return ClockPointer;
+}(__WEBPACK_IMPORTED_MODULE_1_react__["Component"]);
+var styles$2 = function (theme) {
+  return Object(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__["createStyles"])({
+    pointer: {
+      width: 2,
+      backgroundColor: theme.palette.primary.main,
+      position: 'absolute',
+      left: 'calc(50% - 1px)',
+      bottom: '50%',
+      transformOrigin: 'center bottom 0px'
+    },
+    animateTransform: {
+      transition: theme.transitions.create(['transform', 'height'])
+    },
+    thumb: {
+      width: 4,
+      height: 4,
+      backgroundColor: theme.palette.primary.contrastText,
+      borderRadius: '100%',
+      position: 'absolute',
+      top: -21,
+      left: -15,
+      border: "14px solid " + theme.palette.primary.main,
+      boxSizing: 'content-box'
+    },
+    noPoint: {
+      backgroundColor: theme.palette.primary.main
+    }
+  });
+};
+var ClockPointer$1 = Object(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__["withStyles"])(styles$2, {
+  name: 'MuiPickersClockPointer'
+})(ClockPointer);
+
+var center = {
+  x: 260 / 2,
+  y: 260 / 2
+};
+var basePoint = {
+  x: center.x,
+  y: 0
+};
+var cx = basePoint.x - center.x;
+var cy = basePoint.y - center.y;
+
+var rad2deg = function (rad) {
+  return rad * 57.29577951308232;
+};
+
+var getAngleValue = function (step, offsetX, offsetY) {
+  var x = offsetX - center.x;
+  var y = offsetY - center.y;
+  var atan = Math.atan2(cx, cy) - Math.atan2(x, y);
+  var deg = rad2deg(atan);
+  deg = Math.round(deg / step) * step;
+  deg %= 360;
+  var value = Math.floor(deg / step) || 0;
+  var delta = Math.pow(x, 2) + Math.pow(y, 2);
+  var distance = Math.sqrt(delta);
+  return {
+    value: value,
+    distance: distance
+  };
+};
+
+var getHours = function (offsetX, offsetY, ampm) {
+  var _a = getAngleValue(30, offsetX, offsetY),
+      value = _a.value,
+      distance = _a.distance;
+
+  value = value || 12;
+
+  if (!ampm) {
+    if (distance < 90) {
+      value += 12;
+      value %= 24;
+    }
+  } else {
+    value %= 12;
+  }
+
+  return value;
+};
+var getMinutes = function (offsetX, offsetY, step) {
+  if (step === void 0) {
+    step = 1;
+  }
+
+  var angleStep = step * 6;
+  var value = getAngleValue(angleStep, offsetX, offsetY).value;
+  value = value * step % 60;
+  return value;
+};
+var getMeridiem = function (date, utils) {
+  return utils.getHours(date) >= 12 ? 'pm' : 'am';
+};
+var convertToMeridiem = function (time, meridiem, ampm, utils) {
+  if (ampm) {
+    var currentMeridiem = utils.getHours(time) >= 12 ? 'pm' : 'am';
+
+    if (currentMeridiem !== meridiem) {
+      var hours = meridiem === 'am' ? utils.getHours(time) - 12 : utils.getHours(time) + 12;
+      return utils.setHours(time, hours);
+    }
+  }
+
+  return time;
+};
+
+var Clock =
+/*@__PURE__*/
+function (_super) {
+  Object(__WEBPACK_IMPORTED_MODULE_0_tslib__["b" /* __extends */])(Clock, _super);
+
+  function Clock() {
+    var _this = _super !== null && _super.apply(this, arguments) || this;
+
+    _this.isMoving = false;
+
+    _this.handleTouchMove = function (e) {
+      _this.isMoving = true;
+
+      _this.setTime(e);
+    };
+
+    _this.handleTouchEnd = function (e) {
+      if (_this.isMoving) {
+        _this.setTime(e, true);
+
+        _this.isMoving = false;
+      }
+    };
+
+    _this.handleMove = function (e) {
+      e.preventDefault();
+      e.stopPropagation(); // MouseEvent.which is deprecated, but MouseEvent.buttons is not supported in Safari
+
+      var isButtonPressed = typeof e.buttons === 'undefined' ? e.nativeEvent.which === 1 : e.buttons === 1;
+
+      if (isButtonPressed) {
+        _this.setTime(e.nativeEvent, false);
+      }
+    };
+
+    _this.handleMouseUp = function (e) {
+      if (_this.isMoving) {
+        _this.isMoving = false;
+      }
+
+      _this.setTime(e.nativeEvent, true);
+    };
+
+    _this.hasSelected = function () {
+      var _a = _this.props,
+          type = _a.type,
+          value = _a.value;
+
+      if (type === ClockType$1.HOURS) {
+        return true;
+      }
+
+      return value % 5 === 0;
+    };
+
+    return _this;
+  }
+
+  Clock.prototype.setTime = function (e, isFinish) {
+    if (isFinish === void 0) {
+      isFinish = false;
+    }
+
+    var offsetX = e.offsetX,
+        offsetY = e.offsetY;
+
+    if (typeof offsetX === 'undefined') {
+      var rect = e.target.getBoundingClientRect();
+      offsetX = e.changedTouches[0].clientX - rect.left;
+      offsetY = e.changedTouches[0].clientY - rect.top;
+    }
+
+    var value = this.props.type === ClockType$1.SECONDS || this.props.type === ClockType$1.MINUTES ? getMinutes(offsetX, offsetY, this.props.minutesStep) : getHours(offsetX, offsetY, Boolean(this.props.ampm));
+    this.props.onChange(value, isFinish);
+  };
+
+  Clock.prototype.render = function () {
+    var _a = this.props,
+        classes = _a.classes,
+        value = _a.value,
+        children = _a.children,
+        type = _a.type,
+        ampm = _a.ampm;
+    var isPointerInner = !ampm && type === ClockType$1.HOURS && (value < 1 || value > 12);
+    return Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])("div", {
+      className: classes.container
+    }, Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])("div", {
+      className: classes.clock
+    }, Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])("div", {
+      role: "menu",
+      tabIndex: -1,
+      className: classes.squareMask,
+      onTouchMove: this.handleTouchMove,
+      onTouchEnd: this.handleTouchEnd,
+      onMouseUp: this.handleMouseUp,
+      onMouseMove: this.handleMove
+    }), Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])("div", {
+      className: classes.pin
+    }), Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(ClockPointer$1, {
+      type: type,
+      value: value,
+      isInner: isPointerInner,
+      hasSelected: this.hasSelected()
+    }), children));
+  };
+
+   true ? Clock.propTypes = {
+    type: Object(__WEBPACK_IMPORTED_MODULE_2_prop_types__["oneOf"])(Object.keys(ClockType$1).map(function (key) {
+      return ClockType$1[key];
+    })).isRequired,
+    value: __WEBPACK_IMPORTED_MODULE_2_prop_types__["number"].isRequired,
+    onChange: __WEBPACK_IMPORTED_MODULE_2_prop_types__["func"].isRequired,
+    children: Object(__WEBPACK_IMPORTED_MODULE_2_prop_types__["arrayOf"])(__WEBPACK_IMPORTED_MODULE_2_prop_types__["node"]).isRequired,
+    ampm: __WEBPACK_IMPORTED_MODULE_2_prop_types__["bool"],
+    minutesStep: __WEBPACK_IMPORTED_MODULE_2_prop_types__["number"],
+    innerRef: __WEBPACK_IMPORTED_MODULE_2_prop_types__["any"]
+  } : void 0;
+  Clock.defaultProps = {
+    ampm: false,
+    minutesStep: 1
+  };
+  return Clock;
+}(__WEBPACK_IMPORTED_MODULE_1_react__["Component"]);
+var styles$3 = function (theme) {
+  return Object(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__["createStyles"])({
+    container: {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'flex-end',
+      margin: theme.spacing(2) + "px 0 " + theme.spacing(1) + "px"
+    },
+    clock: {
+      backgroundColor: 'rgba(0,0,0,.07)',
+      borderRadius: '50%',
+      height: 260,
+      width: 260,
+      position: 'relative',
+      pointerEvents: 'none',
+      zIndex: 1
+    },
+    squareMask: {
+      width: '100%',
+      height: '100%',
+      position: 'absolute',
+      pointerEvents: 'auto',
+      outline: 'none',
+      touchActions: 'none',
+      userSelect: 'none',
+      '&:active': {
+        cursor: 'move'
+      }
+    },
+    pin: {
+      width: 6,
+      height: 6,
+      borderRadius: '50%',
+      backgroundColor: theme.palette.primary.main,
+      position: 'absolute',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)'
+    }
+  });
+};
+var Clock$1 = Object(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__["withStyles"])(styles$3, {
+  name: 'MuiPickersClock'
+})(Clock);
+
+var positions = {
+  0: [0, 40],
+  1: [55, 19.6],
+  2: [94.4, 59.5],
+  3: [109, 114],
+  4: [94.4, 168.5],
+  5: [54.5, 208.4],
+  6: [0, 223],
+  7: [-54.5, 208.4],
+  8: [-94.4, 168.5],
+  9: [-109, 114],
+  10: [-94.4, 59.5],
+  11: [-54.5, 19.6],
+  12: [0, 5],
+  13: [36.9, 49.9],
+  14: [64, 77],
+  15: [74, 114],
+  16: [64, 151],
+  17: [37, 178],
+  18: [0, 188],
+  19: [-37, 178],
+  20: [-64, 151],
+  21: [-74, 114],
+  22: [-64, 77],
+  23: [-37, 50]
+};
+var useStyles$a = Object(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__["makeStyles"])(function (theme) {
+  var size = theme.spacing(4);
+  return {
+    clockNumber: {
+      width: size,
+      height: 32,
+      userSelect: 'none',
+      position: 'absolute',
+      left: "calc(50% - " + size / 2 + "px)",
+      display: 'inline-flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderRadius: '50%',
+      color: theme.palette.type === 'light' ? theme.palette.text.primary : theme.palette.text.hint
+    },
+    clockNumberSelected: {
+      color: theme.palette.primary.contrastText
+    }
+  };
+}, {
+  name: 'MuiPickersClockNumber'
+});
+var ClockNumber = function (_a) {
+  var _b;
+
+  var selected = _a.selected,
+      label = _a.label,
+      index = _a.index,
+      isInner = _a.isInner;
+  var classes = useStyles$a();
+  var className = Object(__WEBPACK_IMPORTED_MODULE_3_clsx__["a" /* default */])(classes.clockNumber, (_b = {}, _b[classes.clockNumberSelected] = selected, _b));
+  var transformStyle = Object(__WEBPACK_IMPORTED_MODULE_1_react__["useMemo"])(function () {
+    var position = positions[index];
+    return {
+      transform: "translate(" + position[0] + "px, " + position[1] + "px"
+    };
+  }, [index]);
+  return Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(__WEBPACK_IMPORTED_MODULE_4__material_ui_core_Typography__["a" /* default */], {
+    component: "span",
+    className: className,
+    variant: isInner ? 'body2' : 'body1',
+    style: transformStyle,
+    children: label
+  });
+};
+
+var getHourNumbers = function (_a) {
+  var ampm = _a.ampm,
+      utils = _a.utils,
+      date = _a.date;
+  var currentHours = utils.getHours(date);
+  var hourNumbers = [];
+  var startHour = ampm ? 1 : 0;
+  var endHour = ampm ? 12 : 23;
+
+  var isSelected = function (hour) {
+    if (ampm) {
+      if (hour === 12) {
+        return currentHours === 12 || currentHours === 0;
+      }
+
+      return currentHours === hour || currentHours - 12 === hour;
+    }
+
+    return currentHours === hour;
+  };
+
+  for (var hour = startHour; hour <= endHour; hour += 1) {
+    var label = hour.toString();
+
+    if (hour === 0) {
+      label = '00';
+    }
+
+    var props = {
+      index: hour,
+      label: utils.formatNumber(label),
+      selected: isSelected(hour),
+      isInner: !ampm && (hour === 0 || hour > 12)
+    };
+    hourNumbers.push(Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(ClockNumber, Object(__WEBPACK_IMPORTED_MODULE_0_tslib__["a" /* __assign */])({
+      key: hour
+    }, props)));
+  }
+
+  return hourNumbers;
+};
+var getMinutesNumbers = function (_a) {
+  var value = _a.value,
+      utils = _a.utils;
+  var f = utils.formatNumber;
+  return [Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(ClockNumber, {
+    label: f('00'),
+    selected: value === 0,
+    index: 12,
+    key: 12
+  }), Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(ClockNumber, {
+    label: f('05'),
+    selected: value === 5,
+    index: 1,
+    key: 1
+  }), Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(ClockNumber, {
+    label: f('10'),
+    selected: value === 10,
+    index: 2,
+    key: 2
+  }), Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(ClockNumber, {
+    label: f('15'),
+    selected: value === 15,
+    index: 3,
+    key: 3
+  }), Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(ClockNumber, {
+    label: f('20'),
+    selected: value === 20,
+    index: 4,
+    key: 4
+  }), Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(ClockNumber, {
+    label: f('25'),
+    selected: value === 25,
+    index: 5,
+    key: 5
+  }), Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(ClockNumber, {
+    label: f('30'),
+    selected: value === 30,
+    index: 6,
+    key: 6
+  }), Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(ClockNumber, {
+    label: f('35'),
+    selected: value === 35,
+    index: 7,
+    key: 7
+  }), Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(ClockNumber, {
+    label: f('40'),
+    selected: value === 40,
+    index: 8,
+    key: 8
+  }), Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(ClockNumber, {
+    label: f('45'),
+    selected: value === 45,
+    index: 9,
+    key: 9
+  }), Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(ClockNumber, {
+    label: f('50'),
+    selected: value === 50,
+    index: 10,
+    key: 10
+  }), Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(ClockNumber, {
+    label: f('55'),
+    selected: value === 55,
+    index: 11,
+    key: 11
+  })];
+};
+
+var TimePickerView = function (_a) {
+  var type = _a.type,
+      onHourChange = _a.onHourChange,
+      onMinutesChange = _a.onMinutesChange,
+      onSecondsChange = _a.onSecondsChange,
+      ampm = _a.ampm,
+      date = _a.date,
+      minutesStep = _a.minutesStep;
+  var utils = useUtils();
+  var viewProps = Object(__WEBPACK_IMPORTED_MODULE_1_react__["useMemo"])(function () {
+    switch (type) {
+      case ClockType$1.HOURS:
+        return {
+          value: utils.getHours(date),
+          children: getHourNumbers({
+            date: date,
+            utils: utils,
+            ampm: Boolean(ampm)
+          }),
+          onChange: function (value, isFinish) {
+            var currentMeridiem = getMeridiem(date, utils);
+            var updatedTimeWithMeridiem = convertToMeridiem(utils.setHours(date, value), currentMeridiem, Boolean(ampm), utils);
+            onHourChange(updatedTimeWithMeridiem, isFinish);
+          }
+        };
+
+      case ClockType$1.MINUTES:
+        var minutesValue = utils.getMinutes(date);
+        return {
+          value: minutesValue,
+          children: getMinutesNumbers({
+            value: minutesValue,
+            utils: utils
+          }),
+          onChange: function (value, isFinish) {
+            var updatedTime = utils.setMinutes(date, value);
+            onMinutesChange(updatedTime, isFinish);
+          }
+        };
+
+      case ClockType$1.SECONDS:
+        var secondsValue = utils.getSeconds(date);
+        return {
+          value: secondsValue,
+          children: getMinutesNumbers({
+            value: secondsValue,
+            utils: utils
+          }),
+          onChange: function (value, isFinish) {
+            var updatedTime = utils.setSeconds(date, value);
+            onSecondsChange(updatedTime, isFinish);
+          }
+        };
+
+      default:
+        throw new Error('You must provide the type for TimePickerView');
+    }
+  }, [ampm, date, onHourChange, onMinutesChange, onSecondsChange, type, utils]);
+  return Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(Clock$1, Object(__WEBPACK_IMPORTED_MODULE_0_tslib__["a" /* __assign */])({
+    type: type,
+    ampm: ampm,
+    minutesStep: minutesStep
+  }, viewProps));
+};
+TimePickerView.displayName = 'TimePickerView';
+ true ? TimePickerView.propTypes = {
+  date: __WEBPACK_IMPORTED_MODULE_2_prop_types__["object"].isRequired,
+  onHourChange: __WEBPACK_IMPORTED_MODULE_2_prop_types__["func"].isRequired,
+  onMinutesChange: __WEBPACK_IMPORTED_MODULE_2_prop_types__["func"].isRequired,
+  onSecondsChange: __WEBPACK_IMPORTED_MODULE_2_prop_types__["func"].isRequired,
+  ampm: __WEBPACK_IMPORTED_MODULE_2_prop_types__["bool"],
+  minutesStep: __WEBPACK_IMPORTED_MODULE_2_prop_types__["number"],
+  type: Object(__WEBPACK_IMPORTED_MODULE_2_prop_types__["oneOf"])(Object.keys(ClockType$1).map(function (key) {
+    return ClockType$1[key];
+  })).isRequired
+} : void 0;
+TimePickerView.defaultProps = {
+  ampm: true,
+  minutesStep: 1
+};
+var ClockView = Object(__WEBPACK_IMPORTED_MODULE_1_react__["memo"])(TimePickerView);
+
+var viewsMap = {
+  year: YearSelection,
+  month: MonthSelection,
+  date: Calendar$1,
+  hours: TimePickerView,
+  minutes: TimePickerView,
+  seconds: TimePickerView
+};
+var useStyles$b = Object(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__["makeStyles"])({
+  pickerView: {
+    minHeight: 305,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center'
+  }
+}, {
+  name: 'MuiPickersBasePicker'
+});
+var Picker = function (props) {
+  var date = props.date,
+      ampm = props.ampm,
+      views = props.views,
+      disableToolbar = props.disableToolbar,
+      disablePast = props.disablePast,
+      disableFuture = props.disableFuture,
+      hideTabs = props.hideTabs,
+      onChange = props.onChange,
+      openTo = props.openTo,
+      minutesStep = props.minutesStep,
+      dateRangeIcon = props.dateRangeIcon,
+      timeIcon = props.timeIcon,
+      unparsedMinDate = props.minDate,
+      unparsedMaxDate = props.maxDate,
+      animateYearScrolling = props.animateYearScrolling,
+      leftArrowIcon = props.leftArrowIcon,
+      rightArrowIcon = props.rightArrowIcon,
+      renderDay = props.renderDay,
+      shouldDisableDate = props.shouldDisableDate,
+      allowKeyboardControl = props.allowKeyboardControl,
+      onMonthChange = props.onMonthChange,
+      onYearChange = props.onYearChange,
+      leftArrowButtonProps = props.leftArrowButtonProps,
+      rightArrowButtonProps = props.rightArrowButtonProps,
+      ToolbarComponent = props.ToolbarComponent,
+      loadingIndicator = props.loadingIndicator;
+  var utils = useUtils();
+  var classes = useStyles$b();
+
+  var _a = useViews(views, openTo, onChange),
+      openView = _a.openView,
+      setOpenView = _a.setOpenView,
+      handleChangeAndOpenNext = _a.handleChangeAndOpenNext;
+
+  var minDate = Object(__WEBPACK_IMPORTED_MODULE_1_react__["useMemo"])(function () {
+    return utils.date(unparsedMinDate);
+  }, [unparsedMinDate, utils]);
+  var maxDate = Object(__WEBPACK_IMPORTED_MODULE_1_react__["useMemo"])(function () {
+    return utils.date(unparsedMaxDate);
+  }, [unparsedMaxDate, utils]);
+  return Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(__WEBPACK_IMPORTED_MODULE_1_react__["Fragment"], null, !disableToolbar && Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(ToolbarComponent, Object(__WEBPACK_IMPORTED_MODULE_0_tslib__["a" /* __assign */])({
+    date: date,
+    onChange: onChange,
+    setOpenView: setOpenView,
+    openView: openView,
+    hideTabs: hideTabs,
+    dateRangeIcon: dateRangeIcon,
+    timeIcon: timeIcon
+  }, props)), Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])("div", {
+    className: classes.pickerView
+  }, openView === 'year' && Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(YearSelection, {
+    date: date,
+    onChange: handleChangeAndOpenNext,
+    minDate: minDate,
+    maxDate: maxDate,
+    disablePast: disablePast,
+    disableFuture: disableFuture,
+    onYearChange: onYearChange,
+    animateYearScrolling: animateYearScrolling
+  }), openView === 'month' && Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(MonthSelection, {
+    date: date,
+    onChange: handleChangeAndOpenNext,
+    minDate: minDate,
+    maxDate: maxDate,
+    disablePast: disablePast,
+    disableFuture: disableFuture,
+    onMonthChange: onMonthChange
+  }), openView === 'date' && Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(Calendar$1, {
+    date: date,
+    onChange: handleChangeAndOpenNext,
+    onMonthChange: onMonthChange,
+    disablePast: disablePast,
+    disableFuture: disableFuture,
+    minDate: minDate,
+    maxDate: maxDate,
+    leftArrowIcon: leftArrowIcon,
+    leftArrowButtonProps: leftArrowButtonProps,
+    rightArrowIcon: rightArrowIcon,
+    rightArrowButtonProps: rightArrowButtonProps,
+    renderDay: renderDay,
+    shouldDisableDate: shouldDisableDate,
+    allowKeyboardControl: allowKeyboardControl,
+    loadingIndicator: loadingIndicator
+  }), (openView === 'hours' || openView === 'minutes' || openView === 'seconds') && Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(TimePickerView, {
+    date: date,
+    ampm: ampm,
+    type: openView,
+    minutesStep: minutesStep,
+    onHourChange: handleChangeAndOpenNext,
+    onMinutesChange: handleChangeAndOpenNext,
+    onSecondsChange: handleChangeAndOpenNext
+  })));
+};
+Picker.defaultProps = Object(__WEBPACK_IMPORTED_MODULE_0_tslib__["a" /* __assign */])({}, datePickerDefaultProps, {
+  views: Object.keys(viewsMap)
+});
+
+var DIALOG_WIDTH = 310;
+var DIALOG_WIDTH_WIDER = 325;
+
+var ModalDialog = function (_a) {
+  var _b, _c;
+
+  var children = _a.children,
+      classes = _a.classes,
+      onAccept = _a.onAccept,
+      onDismiss = _a.onDismiss,
+      onClear = _a.onClear,
+      onSetToday = _a.onSetToday,
+      okLabel = _a.okLabel,
+      cancelLabel = _a.cancelLabel,
+      clearLabel = _a.clearLabel,
+      todayLabel = _a.todayLabel,
+      clearable = _a.clearable,
+      showTodayButton = _a.showTodayButton,
+      showTabs = _a.showTabs,
+      wider = _a.wider,
+      other = Object(__WEBPACK_IMPORTED_MODULE_0_tslib__["c" /* __rest */])(_a, ["children", "classes", "onAccept", "onDismiss", "onClear", "onSetToday", "okLabel", "cancelLabel", "clearLabel", "todayLabel", "clearable", "showTodayButton", "showTabs", "wider"]);
+
+  return Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(__WEBPACK_IMPORTED_MODULE_14__material_ui_core_Dialog__["a" /* default */], Object(__WEBPACK_IMPORTED_MODULE_0_tslib__["a" /* __assign */])({
+    role: "dialog",
+    onClose: onDismiss,
+    classes: {
+      paper: Object(__WEBPACK_IMPORTED_MODULE_3_clsx__["a" /* default */])(classes.dialogRoot, (_b = {}, _b[classes.dialogRootWider] = wider, _b))
+    }
+  }, other), Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(__WEBPACK_IMPORTED_MODULE_13__material_ui_core_DialogContent__["a" /* default */], {
+    children: children,
+    className: classes.dialog
+  }), Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(__WEBPACK_IMPORTED_MODULE_12__material_ui_core_DialogActions__["a" /* default */], {
+    classes: {
+      root: Object(__WEBPACK_IMPORTED_MODULE_3_clsx__["a" /* default */])((_c = {}, _c[classes.withAdditionalAction] = clearable || showTodayButton, _c))
+    }
+  }, clearable && Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(__WEBPACK_IMPORTED_MODULE_6__material_ui_core_Button__["default"], {
+    color: "primary",
+    onClick: onClear
+  }, clearLabel), !clearable && showTodayButton && Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(__WEBPACK_IMPORTED_MODULE_6__material_ui_core_Button__["default"], {
+    color: "primary",
+    onClick: onSetToday
+  }, todayLabel), cancelLabel && Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(__WEBPACK_IMPORTED_MODULE_6__material_ui_core_Button__["default"], {
+    color: "primary",
+    onClick: onDismiss
+  }, cancelLabel), okLabel && Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(__WEBPACK_IMPORTED_MODULE_6__material_ui_core_Button__["default"], {
+    color: "primary",
+    onClick: onAccept
+  }, okLabel)));
+};
+ModalDialog.displayName = 'ModalDialog';
+var styles$4 = Object(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__["createStyles"])({
+  dialogRoot: {
+    minWidth: DIALOG_WIDTH,
+    maxWidth: DIALOG_WIDTH_WIDER
+  },
+  dialogRootWider: {
+    minWidth: DIALOG_WIDTH_WIDER
+  },
+  dialog: {
+    // minHeight: dialogHeight,
+    overflow: 'hidden',
+    '&:first-child': {
+      padding: 0
+    }
+  },
+  withAdditionalAction: {
+    // set justifyContent to default value to fix IE11 layout bug
+    // see https://github.com/dmtrKovalenko/material-ui-pickers/pull/267
+    justifyContent: 'flex-start',
+    '& > *:first-child': {
+      marginRight: 'auto'
+    }
+  }
+});
+var ModalDialog$1 = Object(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__["withStyles"])(styles$4, {
+  name: 'MuiPickersModal'
+})(ModalDialog);
+
+var ModalWrapper = function (_a) {
+  var open = _a.open,
+      children = _a.children,
+      okLabel = _a.okLabel,
+      cancelLabel = _a.cancelLabel,
+      clearLabel = _a.clearLabel,
+      todayLabel = _a.todayLabel,
+      showTodayButton = _a.showTodayButton,
+      clearable = _a.clearable,
+      DialogProps = _a.DialogProps,
+      showTabs = _a.showTabs,
+      wider = _a.wider,
+      InputComponent = _a.InputComponent,
+      DateInputProps = _a.DateInputProps,
+      onClear = _a.onClear,
+      onAccept = _a.onAccept,
+      onDismiss = _a.onDismiss,
+      onSetToday = _a.onSetToday,
+      other = Object(__WEBPACK_IMPORTED_MODULE_0_tslib__["c" /* __rest */])(_a, ["open", "children", "okLabel", "cancelLabel", "clearLabel", "todayLabel", "showTodayButton", "clearable", "DialogProps", "showTabs", "wider", "InputComponent", "DateInputProps", "onClear", "onAccept", "onDismiss", "onSetToday"]);
+
+  useKeyDown(open, {
+    Enter: onAccept
+  });
+  return Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(__WEBPACK_IMPORTED_MODULE_1_react__["Fragment"], null, Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(InputComponent, Object(__WEBPACK_IMPORTED_MODULE_0_tslib__["a" /* __assign */])({}, other, DateInputProps)), Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(ModalDialog$1, Object(__WEBPACK_IMPORTED_MODULE_0_tslib__["a" /* __assign */])({
+    wider: wider,
+    showTabs: showTabs,
+    open: open,
+    onClear: onClear,
+    onAccept: onAccept,
+    onDismiss: onDismiss,
+    onSetToday: onSetToday,
+    clearLabel: clearLabel,
+    todayLabel: todayLabel,
+    okLabel: okLabel,
+    cancelLabel: cancelLabel,
+    clearable: clearable,
+    showTodayButton: showTodayButton,
+    children: children
+  }, DialogProps)));
+};
+ true ? ModalWrapper.propTypes = {
+  okLabel: __WEBPACK_IMPORTED_MODULE_2_prop_types__["node"],
+  cancelLabel: __WEBPACK_IMPORTED_MODULE_2_prop_types__["node"],
+  clearLabel: __WEBPACK_IMPORTED_MODULE_2_prop_types__["node"],
+  clearable: __WEBPACK_IMPORTED_MODULE_2_prop_types__["bool"],
+  todayLabel: __WEBPACK_IMPORTED_MODULE_2_prop_types__["node"],
+  showTodayButton: __WEBPACK_IMPORTED_MODULE_2_prop_types__["bool"],
+  DialogProps: __WEBPACK_IMPORTED_MODULE_2_prop_types__["object"]
+} : void 0;
+ModalWrapper.defaultProps = {
+  okLabel: 'OK',
+  cancelLabel: 'Cancel',
+  clearLabel: 'Clear',
+  todayLabel: 'Today',
+  clearable: false,
+  showTodayButton: false
+};
+
+var useStyles$c = Object(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__["makeStyles"])({
+  popoverPaper: {
+    width: DIALOG_WIDTH,
+    paddingBottom: 8
+  },
+  popoverPaperWider: {
+    width: DIALOG_WIDTH_WIDER
+  }
+}, {
+  name: 'MuiPickersInlineWrapper'
+});
+var InlineWrapper = function (_a) {
+  var _b;
+
+  var open = _a.open,
+      wider = _a.wider,
+      children = _a.children,
+      PopoverProps = _a.PopoverProps,
+      onClear = _a.onClear,
+      onDismiss = _a.onDismiss,
+      onSetToday = _a.onSetToday,
+      onAccept = _a.onAccept,
+      showTabs = _a.showTabs,
+      DateInputProps = _a.DateInputProps,
+      InputComponent = _a.InputComponent,
+      other = Object(__WEBPACK_IMPORTED_MODULE_0_tslib__["c" /* __rest */])(_a, ["open", "wider", "children", "PopoverProps", "onClear", "onDismiss", "onSetToday", "onAccept", "showTabs", "DateInputProps", "InputComponent"]);
+
+  var ref = Object(__WEBPACK_IMPORTED_MODULE_1_react__["useRef"])();
+  var classes = useStyles$c();
+  useKeyDown(open, {
+    Enter: onAccept
+  });
+  return Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(__WEBPACK_IMPORTED_MODULE_1_react__["Fragment"], null, Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(InputComponent, Object(__WEBPACK_IMPORTED_MODULE_0_tslib__["a" /* __assign */])({}, other, DateInputProps, {
+    inputRef: ref
+  })), Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(__WEBPACK_IMPORTED_MODULE_15__material_ui_core_Popover__["a" /* default */], Object(__WEBPACK_IMPORTED_MODULE_0_tslib__["a" /* __assign */])({
+    open: open,
+    onClose: onAccept,
+    anchorEl: ref.current,
+    classes: {
+      paper: Object(__WEBPACK_IMPORTED_MODULE_3_clsx__["a" /* default */])(classes.popoverPaper, (_b = {}, _b[classes.popoverPaperWider] = wider, _b))
+    },
+    anchorOrigin: {
+      vertical: 'bottom',
+      horizontal: 'right'
+    },
+    transformOrigin: {
+      vertical: 'top',
+      horizontal: 'right'
+    },
+    children: children
+  }, PopoverProps)));
+};
+ true ? InlineWrapper.propTypes = {
+  onOpen: __WEBPACK_IMPORTED_MODULE_2_prop_types__["func"],
+  onClose: __WEBPACK_IMPORTED_MODULE_2_prop_types__["func"],
+  PopoverProps: __WEBPACK_IMPORTED_MODULE_2_prop_types__["object"]
+} : void 0;
+
+function getWrapperFromVariant(variant) {
+  switch (variant) {
+    case 'inline':
+      return InlineWrapper;
+
+    default:
+      return ModalWrapper;
+  }
+}
+var Wrapper = function (_a) {
+  var variant = _a.variant,
+      props = Object(__WEBPACK_IMPORTED_MODULE_0_tslib__["c" /* __rest */])(_a, ["variant"]);
+
+  var Component = getWrapperFromVariant(variant);
+  return Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(Component, Object(__WEBPACK_IMPORTED_MODULE_0_tslib__["a" /* __assign */])({}, props));
+};
+
+function useOpenState(_a) {
+  var _b;
+
+  var open = _a.open,
+      onOpen = _a.onOpen,
+      onClose = _a.onClose;
+  var setIsOpenState = null;
+
+  if (open === undefined || open === null) {
+    // The component is uncontrolled, so we need to give it its own state.
+    _b = Object(__WEBPACK_IMPORTED_MODULE_1_react__["useState"])(false), open = _b[0], setIsOpenState = _b[1];
+  } // prettier-ignore
+
+
+  var setIsOpen = Object(__WEBPACK_IMPORTED_MODULE_1_react__["useCallback"])(function (newIsOpen) {
+    setIsOpenState && setIsOpenState(newIsOpen);
+    return newIsOpen ? onOpen && onOpen() : onClose && onClose();
+  }, [onOpen, onClose, setIsOpenState]);
+  return {
+    isOpen: open,
+    setIsOpen: setIsOpen
+  };
+}
+
+var getDisplayDate = function (value, format, utils, isEmpty, _a) {
+  var invalidLabel = _a.invalidLabel,
+      emptyLabel = _a.emptyLabel,
+      labelFunc = _a.labelFunc;
+  var date = utils.date(value);
+
+  if (labelFunc) {
+    return labelFunc(isEmpty ? null : date, invalidLabel);
+  }
+
+  if (isEmpty) {
+    return emptyLabel || '';
+  }
+
+  return utils.isValid(date) ? utils.format(date, format) : invalidLabel;
+};
+
+var getComparisonMaxDate = function (utils, strictCompareDates, date) {
+  if (strictCompareDates) {
+    return date;
+  }
+
+  return utils.endOfDay(date);
+};
+
+var getComparisonMinDate = function (utils, strictCompareDates, date) {
+  if (strictCompareDates) {
+    return date;
+  }
+
+  return utils.startOfDay(date);
+};
+
+var validate = function (value, utils, _a // DateTimePicker doesn't support
+) {
+  var maxDate = _a.maxDate,
+      minDate = _a.minDate,
+      disablePast = _a.disablePast,
+      disableFuture = _a.disableFuture,
+      maxDateMessage = _a.maxDateMessage,
+      minDateMessage = _a.minDateMessage,
+      invalidDateMessage = _a.invalidDateMessage,
+      strictCompareDates = _a.strictCompareDates;
+  var parsedValue = utils.date(value); // if null - do not show error
+
+  if (value === null) {
+    return '';
+  }
+
+  if (!utils.isValid(value)) {
+    return invalidDateMessage;
+  }
+
+  if (maxDate && utils.isAfter(parsedValue, getComparisonMaxDate(utils, !!strictCompareDates, utils.date(maxDate)))) {
+    return maxDateMessage;
+  }
+
+  if (disableFuture && utils.isAfter(parsedValue, getComparisonMaxDate(utils, !!strictCompareDates, utils.date()))) {
+    return maxDateMessage;
+  }
+
+  if (minDate && utils.isBefore(parsedValue, getComparisonMinDate(utils, !!strictCompareDates, utils.date(minDate)))) {
+    return minDateMessage;
+  }
+
+  if (disablePast && utils.isBefore(parsedValue, getComparisonMinDate(utils, !!strictCompareDates, utils.date()))) {
+    return minDateMessage;
+  }
+
+  return '';
+};
+function pick12hOr24hFormat(userFormat, ampm, formats) {
+  if (ampm === void 0) {
+    ampm = true;
+  }
+
+  if (userFormat) {
+    return userFormat;
+  }
+
+  return ampm ? formats['12h'] : formats['24h'];
+}
+function makeMaskFromFormat(format, numberMaskChar) {
+  return format.replace(/[a-z]/gi, numberMaskChar);
+}
+var maskedDateFormatter = function (mask, numberMaskChar, refuse) {
+  return function (value) {
+    if (value === '') {
+      return value;
+    }
+
+    var result = '';
+    var parsed = value.replace(refuse, '');
+    var i = 0;
+    var n = 0;
+
+    while (i < mask.length) {
+      var maskChar = mask[i];
+
+      if (maskChar === numberMaskChar && n < parsed.length) {
+        var parsedChar = parsed[n];
+        result += parsedChar;
+        n += 1;
+      } else {
+        result += maskChar;
+      }
+
+      i += 1;
+    }
+
+    return result;
+  };
+};
+
+var useValueToDate = function (utils, _a) {
+  var value = _a.value,
+      initialFocusedDate = _a.initialFocusedDate;
+  var nowRef = Object(__WEBPACK_IMPORTED_MODULE_1_react__["useRef"])(utils.date());
+  var date = utils.date(value || initialFocusedDate || nowRef.current);
+  return date && utils.isValid(date) ? date : nowRef.current;
+};
+
+function useDateValues(props, options) {
+  var utils = useUtils();
+  var date = useValueToDate(utils, props);
+  var format = props.format || options.getDefaultFormat();
+  return {
+    date: date,
+    format: format
+  };
+}
+
+function usePickerState(props, options) {
+  var autoOk = props.autoOk,
+      disabled = props.disabled,
+      onAccept = props.onAccept,
+      onChange = props.onChange,
+      onError = props.onError,
+      value = props.value,
+      variant = props.variant;
+  var utils = useUtils();
+
+  var _a = useOpenState(props),
+      isOpen = _a.isOpen,
+      setIsOpen = _a.setIsOpen;
+
+  var _b = useDateValues(props, options),
+      date = _b.date,
+      format = _b.format;
+
+  var _c = Object(__WEBPACK_IMPORTED_MODULE_1_react__["useState"])(date),
+      pickerDate = _c[0],
+      setPickerDate = _c[1];
+
+  Object(__WEBPACK_IMPORTED_MODULE_1_react__["useEffect"])(function () {
+    // if value was changed in closed state - treat it as accepted
+    if (!isOpen && !utils.isEqual(pickerDate, date)) {
+      setPickerDate(date);
+    }
+  }, [date, isOpen, pickerDate, utils]);
+  var acceptDate = Object(__WEBPACK_IMPORTED_MODULE_1_react__["useCallback"])(function (acceptedDate) {
+    setIsOpen(false);
+    onChange(acceptedDate);
+
+    if (onAccept) {
+      onAccept(acceptedDate);
+    }
+  }, [onAccept, onChange, setIsOpen]);
+  var wrapperProps = Object(__WEBPACK_IMPORTED_MODULE_1_react__["useMemo"])(function () {
+    return {
+      format: format,
+      open: isOpen,
+      onClear: function () {
+        return acceptDate(null);
+      },
+      onAccept: function () {
+        return acceptDate(pickerDate);
+      },
+      onSetToday: function () {
+        return setPickerDate(utils.date());
+      },
+      onDismiss: function () {
+        setIsOpen(false);
+      }
+    };
+  }, [acceptDate, format, isOpen, pickerDate, setIsOpen, utils]);
+  var pickerProps = Object(__WEBPACK_IMPORTED_MODULE_1_react__["useMemo"])(function () {
+    return {
+      date: pickerDate,
+      onChange: function (newDate, isFinish) {
+        if (isFinish === void 0) {
+          isFinish = true;
+        }
+
+        setPickerDate(newDate);
+
+        if (variant === 'inline') {
+          onChange(newDate);
+        }
+
+        if (isFinish && autoOk) {
+          acceptDate(newDate);
+        }
+      }
+    };
+  }, [acceptDate, autoOk, onChange, pickerDate, variant]);
+  var validationError = validate(value, utils, props);
+  Object(__WEBPACK_IMPORTED_MODULE_1_react__["useEffect"])(function () {
+    if (validationError && onError) {
+      onError(validationError, value);
+    }
+  }, [onError, validationError, value]);
+  var inputValue = getDisplayDate(date, format, utils, value === null, props);
+  var inputProps = Object(__WEBPACK_IMPORTED_MODULE_1_react__["useMemo"])(function () {
+    return {
+      inputValue: inputValue,
+      validationError: validationError,
+      onClick: function () {
+        return !disabled && setIsOpen(true);
+      }
+    };
+  }, [disabled, inputValue, setIsOpen, validationError]);
+  var pickerState = {
+    pickerProps: pickerProps,
+    inputProps: inputProps,
+    wrapperProps: wrapperProps
+  };
+  Object(__WEBPACK_IMPORTED_MODULE_1_react__["useDebugValue"])(pickerState);
+  return pickerState;
+}
+
+var PureDateInput = function (_a) {
+  var inputValue = _a.inputValue,
+      inputVariant = _a.inputVariant,
+      validationError = _a.validationError,
+      InputProps = _a.InputProps,
+      _b = _a.TextFieldComponent,
+      TextFieldComponent = _b === void 0 ? __WEBPACK_IMPORTED_MODULE_16__material_ui_core_TextField__["default"] : _b,
+      other = Object(__WEBPACK_IMPORTED_MODULE_0_tslib__["c" /* __rest */])(_a, ["inputValue", "inputVariant", "validationError", "InputProps", "TextFieldComponent"]);
+
+  var PureDateInputProps = Object(__WEBPACK_IMPORTED_MODULE_1_react__["useMemo"])(function () {
+    return Object(__WEBPACK_IMPORTED_MODULE_0_tslib__["a" /* __assign */])({}, InputProps, {
+      readOnly: true
+    });
+  }, [InputProps]);
+  return Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(TextFieldComponent, Object(__WEBPACK_IMPORTED_MODULE_0_tslib__["a" /* __assign */])({
+    error: Boolean(validationError),
+    helperText: validationError
+  }, other, {
+    // do not overridable
+    value: inputValue,
+    variant: inputVariant,
+    InputProps: PureDateInputProps
+  }));
+};
+PureDateInput.displayName = 'PureDateInput';
+
+function makePurePicker(_a) {
+  var useOptions = _a.useOptions,
+      ToolbarComponent = _a.ToolbarComponent;
+
+  function WrappedPurePicker(props) {
+    var allowKeyboardControl = props.allowKeyboardControl,
+        ampm = props.ampm,
+        hideTabs = props.hideTabs,
+        animateYearScrolling = props.animateYearScrolling,
+        autoOk = props.autoOk,
+        disableFuture = props.disableFuture,
+        disablePast = props.disablePast,
+        format = props.format,
+        forwardedRef = props.forwardedRef,
+        initialFocusedDate = props.initialFocusedDate,
+        invalidDateMessage = props.invalidDateMessage,
+        labelFunc = props.labelFunc,
+        leftArrowIcon = props.leftArrowIcon,
+        leftArrowButtonProps = props.leftArrowButtonProps,
+        maxDate = props.maxDate,
+        maxDateMessage = props.maxDateMessage,
+        minDate = props.minDate,
+        onOpen = props.onOpen,
+        onClose = props.onClose,
+        minDateMessage = props.minDateMessage,
+        strictCompareDates = props.strictCompareDates,
+        minutesStep = props.minutesStep,
+        onAccept = props.onAccept,
+        onChange = props.onChange,
+        onMonthChange = props.onMonthChange,
+        onYearChange = props.onYearChange,
+        renderDay = props.renderDay,
+        views = props.views,
+        openTo = props.openTo,
+        rightArrowIcon = props.rightArrowIcon,
+        rightArrowButtonProps = props.rightArrowButtonProps,
+        shouldDisableDate = props.shouldDisableDate,
+        dateRangeIcon = props.dateRangeIcon,
+        emptyLabel = props.emptyLabel,
+        invalidLabel = props.invalidLabel,
+        timeIcon = props.timeIcon,
+        value = props.value,
+        variant = props.variant,
+        disableToolbar = props.disableToolbar,
+        loadingIndicator = props.loadingIndicator,
+        other = Object(__WEBPACK_IMPORTED_MODULE_0_tslib__["c" /* __rest */])(props, ["allowKeyboardControl", "ampm", "hideTabs", "animateYearScrolling", "autoOk", "disableFuture", "disablePast", "format", "forwardedRef", "initialFocusedDate", "invalidDateMessage", "labelFunc", "leftArrowIcon", "leftArrowButtonProps", "maxDate", "maxDateMessage", "minDate", "onOpen", "onClose", "minDateMessage", "strictCompareDates", "minutesStep", "onAccept", "onChange", "onMonthChange", "onYearChange", "renderDay", "views", "openTo", "rightArrowIcon", "rightArrowButtonProps", "shouldDisableDate", "dateRangeIcon", "emptyLabel", "invalidLabel", "timeIcon", "value", "variant", "disableToolbar", "loadingIndicator"]);
+
+    var options = useOptions(props);
+
+    var _a = usePickerState(props, options),
+        pickerProps = _a.pickerProps,
+        inputProps = _a.inputProps,
+        wrapperProps = _a.wrapperProps;
+
+    return Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(Wrapper, Object(__WEBPACK_IMPORTED_MODULE_0_tslib__["a" /* __assign */])({
+      variant: variant,
+      InputComponent: PureDateInput,
+      DateInputProps: inputProps
+    }, wrapperProps, other), Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(Picker, Object(__WEBPACK_IMPORTED_MODULE_0_tslib__["a" /* __assign */])({}, pickerProps, {
+      disableToolbar: disableToolbar,
+      ToolbarComponent: ToolbarComponent,
+      hideTabs: hideTabs,
+      ampm: ampm,
+      views: views,
+      openTo: openTo,
+      allowKeyboardControl: allowKeyboardControl,
+      minutesStep: minutesStep,
+      animateYearScrolling: animateYearScrolling,
+      disableFuture: disableFuture,
+      disablePast: disablePast,
+      leftArrowIcon: leftArrowIcon,
+      leftArrowButtonProps: leftArrowButtonProps,
+      maxDate: maxDate,
+      minDate: minDate,
+      strictCompareDates: strictCompareDates,
+      onMonthChange: onMonthChange,
+      onYearChange: onYearChange,
+      renderDay: renderDay,
+      dateRangeIcon: dateRangeIcon,
+      timeIcon: timeIcon,
+      rightArrowIcon: rightArrowIcon,
+      rightArrowButtonProps: rightArrowButtonProps,
+      shouldDisableDate: shouldDisableDate,
+      loadingIndicator: loadingIndicator
+    })));
+  }
+
+  return WrappedPurePicker;
+}
+
+var KeyboardIcon = function (props) {
+  return __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_10__material_ui_core_SvgIcon__["default"], Object(__WEBPACK_IMPORTED_MODULE_0_tslib__["a" /* __assign */])({}, props), __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("path", {
+    d: "M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"
+  }), __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("path", {
+    fill: "none",
+    d: "M0 0h24v24H0z"
+  }));
+};
+
+var KeyboardDateInput = function (_a) {
+  var inputValue = _a.inputValue,
+      inputVariant = _a.inputVariant,
+      validationError = _a.validationError,
+      KeyboardButtonProps = _a.KeyboardButtonProps,
+      InputAdornmentProps = _a.InputAdornmentProps,
+      onClick = _a.onClick,
+      onChange = _a.onChange,
+      InputProps = _a.InputProps,
+      mask = _a.mask,
+      _b = _a.maskChar,
+      maskChar = _b === void 0 ? '_' : _b,
+      _c = _a.refuse,
+      refuse = _c === void 0 ? /[^\dap]+/gi : _c,
+      format = _a.format,
+      keyboardIcon = _a.keyboardIcon,
+      disabled = _a.disabled,
+      rifmFormatter = _a.rifmFormatter,
+      _d = _a.TextFieldComponent,
+      TextFieldComponent = _d === void 0 ? __WEBPACK_IMPORTED_MODULE_16__material_ui_core_TextField__["default"] : _d,
+      other = Object(__WEBPACK_IMPORTED_MODULE_0_tslib__["c" /* __rest */])(_a, ["inputValue", "inputVariant", "validationError", "KeyboardButtonProps", "InputAdornmentProps", "onClick", "onChange", "InputProps", "mask", "maskChar", "refuse", "format", "keyboardIcon", "disabled", "rifmFormatter", "TextFieldComponent"]);
+
+  var inputMask = mask || makeMaskFromFormat(format, maskChar); // prettier-ignore
+
+  var formatter = Object(__WEBPACK_IMPORTED_MODULE_1_react__["useCallback"])(maskedDateFormatter(inputMask, maskChar, refuse), [mask, maskChar]);
+  var position = InputAdornmentProps && InputAdornmentProps.position ? InputAdornmentProps.position : 'end';
+  return Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(__WEBPACK_IMPORTED_MODULE_18_rifm__["a" /* Rifm */], {
+    value: inputValue,
+    onChange: onChange,
+    refuse: refuse,
+    format: rifmFormatter || formatter
+  }, function (_a) {
+    var _b;
+
+    var onChange = _a.onChange,
+        value = _a.value;
+    return Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(TextFieldComponent, Object(__WEBPACK_IMPORTED_MODULE_0_tslib__["a" /* __assign */])({
+      disabled: disabled,
+      error: Boolean(validationError),
+      helperText: validationError
+    }, other, {
+      value: value,
+      onChange: onChange,
+      variant: inputVariant,
+      InputProps: Object(__WEBPACK_IMPORTED_MODULE_0_tslib__["a" /* __assign */])({}, InputProps, (_b = {}, _b[position + "Adornment"] = Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(__WEBPACK_IMPORTED_MODULE_17__material_ui_core_InputAdornment__["a" /* default */], Object(__WEBPACK_IMPORTED_MODULE_0_tslib__["a" /* __assign */])({
+        position: position
+      }, InputAdornmentProps), Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(__WEBPACK_IMPORTED_MODULE_19__material_ui_core__["IconButton"], Object(__WEBPACK_IMPORTED_MODULE_0_tslib__["a" /* __assign */])({
+        disabled: disabled
+      }, KeyboardButtonProps, {
+        onClick: onClick
+      }), keyboardIcon)), _b))
+    }));
+  });
+};
+
+KeyboardDateInput.defaultProps = {
+  keyboardIcon: Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(KeyboardIcon, null)
+};
+
+function parseInputString(value, utils, format) {
+  try {
+    return utils.parse(value, format);
+  } catch (_a) {
+    return null;
+  }
+}
+
+function useKeyboardPickerState(props, options) {
+  var _a = props.format,
+      format = _a === void 0 ? options.getDefaultFormat() : _a,
+      inputValue = props.inputValue,
+      onChange = props.onChange,
+      value = props.value;
+  var utils = useUtils();
+  var displayDate = getDisplayDate(value, format, utils, value === null, props);
+
+  var _b = Object(__WEBPACK_IMPORTED_MODULE_1_react__["useState"])(displayDate),
+      innerInputValue = _b[0],
+      setInnerInputValue = _b[1];
+
+  var dateValue = inputValue ? parseInputString(inputValue, utils, format) : value;
+  Object(__WEBPACK_IMPORTED_MODULE_1_react__["useEffect"])(function () {
+    if (value === null || utils.isValid(value)) {
+      setInnerInputValue(displayDate);
+    }
+  }, [displayDate, setInnerInputValue, utils, value]);
+  var handleKeyboardChange = Object(__WEBPACK_IMPORTED_MODULE_1_react__["useCallback"])(function (date) {
+    onChange(date, date === null ? null : utils.format(date, format));
+  }, [format, onChange, utils]);
+
+  var _c = usePickerState(Object(__WEBPACK_IMPORTED_MODULE_0_tslib__["a" /* __assign */])({}, props, {
+    value: dateValue,
+    onChange: handleKeyboardChange
+  }), options),
+      innerInputProps = _c.inputProps,
+      wrapperProps = _c.wrapperProps,
+      pickerProps = _c.pickerProps;
+
+  var inputProps = Object(__WEBPACK_IMPORTED_MODULE_1_react__["useMemo"])(function () {
+    return Object(__WEBPACK_IMPORTED_MODULE_0_tslib__["a" /* __assign */])({}, innerInputProps, {
+      format: wrapperProps.format,
+      inputValue: inputValue || innerInputValue,
+      onChange: function (value) {
+        setInnerInputValue(value);
+        var date = value === '' ? null : utils.parse(value, wrapperProps.format);
+        onChange(date, value);
+      }
+    });
+  }, [innerInputProps, innerInputValue, inputValue, onChange, utils, wrapperProps.format]);
+  return {
+    inputProps: inputProps,
+    wrapperProps: wrapperProps,
+    pickerProps: pickerProps
+  };
+}
+
+// TODO investigate how to reduce duplications
+
+function makeKeyboardPicker(_a) {
+  var useOptions = _a.useOptions,
+      ToolbarComponent = _a.ToolbarComponent;
+
+  function WrappedKeyboardPicker(props) {
+    var allowKeyboardControl = props.allowKeyboardControl,
+        ampm = props.ampm,
+        hideTabs = props.hideTabs,
+        animateYearScrolling = props.animateYearScrolling,
+        autoOk = props.autoOk,
+        disableFuture = props.disableFuture,
+        disablePast = props.disablePast,
+        format = props.format,
+        forwardedRef = props.forwardedRef,
+        initialFocusedDate = props.initialFocusedDate,
+        invalidDateMessage = props.invalidDateMessage,
+        labelFunc = props.labelFunc,
+        leftArrowIcon = props.leftArrowIcon,
+        leftArrowButtonProps = props.leftArrowButtonProps,
+        maxDate = props.maxDate,
+        maxDateMessage = props.maxDateMessage,
+        minDate = props.minDate,
+        onOpen = props.onOpen,
+        onClose = props.onClose,
+        minDateMessage = props.minDateMessage,
+        strictCompareDates = props.strictCompareDates,
+        minutesStep = props.minutesStep,
+        onAccept = props.onAccept,
+        onChange = props.onChange,
+        onMonthChange = props.onMonthChange,
+        onYearChange = props.onYearChange,
+        renderDay = props.renderDay,
+        views = props.views,
+        openTo = props.openTo,
+        rightArrowIcon = props.rightArrowIcon,
+        rightArrowButtonProps = props.rightArrowButtonProps,
+        shouldDisableDate = props.shouldDisableDate,
+        value = props.value,
+        dateRangeIcon = props.dateRangeIcon,
+        emptyLabel = props.emptyLabel,
+        invalidLabel = props.invalidLabel,
+        timeIcon = props.timeIcon,
+        variant = props.variant,
+        disableToolbar = props.disableToolbar,
+        loadingIndicator = props.loadingIndicator,
+        other = Object(__WEBPACK_IMPORTED_MODULE_0_tslib__["c" /* __rest */])(props, ["allowKeyboardControl", "ampm", "hideTabs", "animateYearScrolling", "autoOk", "disableFuture", "disablePast", "format", "forwardedRef", "initialFocusedDate", "invalidDateMessage", "labelFunc", "leftArrowIcon", "leftArrowButtonProps", "maxDate", "maxDateMessage", "minDate", "onOpen", "onClose", "minDateMessage", "strictCompareDates", "minutesStep", "onAccept", "onChange", "onMonthChange", "onYearChange", "renderDay", "views", "openTo", "rightArrowIcon", "rightArrowButtonProps", "shouldDisableDate", "value", "dateRangeIcon", "emptyLabel", "invalidLabel", "timeIcon", "variant", "disableToolbar", "loadingIndicator"]);
+
+    var options = useOptions(props);
+
+    var _a = useKeyboardPickerState(props, options),
+        pickerProps = _a.pickerProps,
+        inputProps = _a.inputProps,
+        wrapperProps = _a.wrapperProps;
+
+    return Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(Wrapper, Object(__WEBPACK_IMPORTED_MODULE_0_tslib__["a" /* __assign */])({
+      variant: variant,
+      InputComponent: KeyboardDateInput,
+      DateInputProps: inputProps
+    }, wrapperProps, other), Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(Picker, Object(__WEBPACK_IMPORTED_MODULE_0_tslib__["a" /* __assign */])({}, pickerProps, {
+      ToolbarComponent: ToolbarComponent,
+      disableToolbar: disableToolbar,
+      hideTabs: hideTabs,
+      ampm: ampm,
+      views: views,
+      openTo: openTo,
+      allowKeyboardControl: allowKeyboardControl,
+      minutesStep: minutesStep,
+      animateYearScrolling: animateYearScrolling,
+      disableFuture: disableFuture,
+      disablePast: disablePast,
+      leftArrowIcon: leftArrowIcon,
+      leftArrowButtonProps: leftArrowButtonProps,
+      maxDate: maxDate,
+      minDate: minDate,
+      strictCompareDates: strictCompareDates,
+      onMonthChange: onMonthChange,
+      onYearChange: onYearChange,
+      renderDay: renderDay,
+      dateRangeIcon: dateRangeIcon,
+      timeIcon: timeIcon,
+      rightArrowIcon: rightArrowIcon,
+      rightArrowButtonProps: rightArrowButtonProps,
+      shouldDisableDate: shouldDisableDate,
+      loadingIndicator: loadingIndicator
+    })));
+  }
+
+  return WrappedKeyboardPicker;
+}
+
+var defaultProps = Object(__WEBPACK_IMPORTED_MODULE_0_tslib__["a" /* __assign */])({}, datePickerDefaultProps, {
+  openTo: 'date',
+  views: ['year', 'date']
+});
+
+function useOptions(props) {
+  var utils = useUtils();
+  return {
+    getDefaultFormat: function () {
+      return getFormatByViews(props.views, utils);
+    }
+  };
+}
+
+var DatePicker = makePurePicker({
+  useOptions: useOptions,
+  ToolbarComponent: DatePickerToolbar
+});
+var KeyboardDatePicker = makeKeyboardPicker({
+  useOptions: useOptions,
+  ToolbarComponent: DatePickerToolbar
+});
+DatePicker.defaultProps = defaultProps;
+KeyboardDatePicker.defaultProps = defaultProps;
+
+var useStyles$d = Object(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__["makeStyles"])({
+  toolbar: {
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  toolbarLeftPadding: {
+    paddingLeft: 50
+  },
+  separator: {
+    margin: '0 4px 0 2px',
+    cursor: 'default'
+  },
+  ampmSelection: {
+    marginLeft: 20,
+    marginRight: -20,
+    display: 'flex',
+    flexDirection: 'column'
+  },
+  ampmSelectionWithSeconds: {
+    marginLeft: 15,
+    marginRight: 10
+  },
+  ampmLabel: {
+    fontSize: 18
+  },
+  hourMinuteLabel: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end'
+  },
+  hourMinuteLabelReverse: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
+    flexDirection: 'row-reverse'
+  }
+}, {
+  name: 'MuiPickersTimePickerToolbar'
+});
+function useMeridiemMode(date, ampm, onChange) {
+  var utils = useUtils();
+  var meridiemMode = getMeridiem(date, utils);
+  var handleMeridiemChange = Object(__WEBPACK_IMPORTED_MODULE_1_react__["useCallback"])(function (mode) {
+    var timeWithMeridiem = convertToMeridiem(date, mode, Boolean(ampm), utils);
+    onChange(timeWithMeridiem, false);
+  }, [ampm, date, onChange, utils]);
+  return {
+    meridiemMode: meridiemMode,
+    handleMeridiemChange: handleMeridiemChange
+  };
+}
+
+var TimePickerToolbar = function (_a) {
+  var _b, _c;
+
+  var date = _a.date,
+      views = _a.views,
+      ampm = _a.ampm,
+      openView = _a.openView,
+      onChange = _a.onChange,
+      setOpenView = _a.setOpenView;
+  var utils = useUtils();
+  var theme = Object(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__["useTheme"])();
+  var classes = useStyles$d();
+
+  var _d = useMeridiemMode(date, ampm, onChange),
+      meridiemMode = _d.meridiemMode,
+      handleMeridiemChange = _d.handleMeridiemChange;
+
+  var hourMinuteClassName = theme.direction === 'rtl' ? classes.hourMinuteLabelReverse : classes.hourMinuteLabel;
+  return Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(PickerToolbar, {
+    className: Object(__WEBPACK_IMPORTED_MODULE_3_clsx__["a" /* default */])(classes.toolbar, (_b = {}, _b[classes.toolbarLeftPadding] = ampm, _b))
+  }, Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])("div", {
+    className: hourMinuteClassName
+  }, arrayIncludes(views, 'hours') && Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(__WEBPACK_IMPORTED_MODULE_1_react__["Fragment"], null, Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(ToolbarButton$1, {
+    variant: "h2",
+    onClick: function () {
+      return setOpenView(ClockType$1.HOURS);
+    },
+    selected: openView === ClockType$1.HOURS,
+    label: utils.getHourText(date, Boolean(ampm))
+  }), Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(ToolbarText, {
+    variant: "h2",
+    label: ":",
+    selected: false,
+    className: classes.separator
+  })), arrayIncludes(views, 'minutes') && Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(ToolbarButton$1, {
+    variant: "h2",
+    onClick: function () {
+      return setOpenView(ClockType$1.MINUTES);
+    },
+    selected: openView === ClockType$1.MINUTES,
+    label: utils.getMinuteText(date)
+  }), arrayIncludes(views, 'seconds') && Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(__WEBPACK_IMPORTED_MODULE_1_react__["Fragment"], null, Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(ToolbarText, {
+    variant: "h2",
+    label: ":",
+    selected: false,
+    className: classes.separator
+  }), Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(ToolbarButton$1, {
+    variant: "h2",
+    onClick: function () {
+      return setOpenView(ClockType$1.SECONDS);
+    },
+    selected: openView === ClockType$1.SECONDS,
+    label: utils.getSecondText(date)
+  }))), ampm && Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])("div", {
+    className: Object(__WEBPACK_IMPORTED_MODULE_3_clsx__["a" /* default */])(classes.ampmSelection, (_c = {}, _c[classes.ampmSelectionWithSeconds] = arrayIncludes(views, 'seconds'), _c))
+  }, Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(ToolbarButton$1, {
+    disableRipple: true,
+    variant: "subtitle1",
+    selected: meridiemMode === 'am',
+    typographyClassName: classes.ampmLabel,
+    label: utils.getMeridiemText('am'),
+    onClick: function () {
+      return handleMeridiemChange('am');
+    }
+  }), Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(ToolbarButton$1, {
+    disableRipple: true,
+    variant: "subtitle1",
+    selected: meridiemMode === 'pm',
+    typographyClassName: classes.ampmLabel,
+    label: utils.getMeridiemText('pm'),
+    onClick: function () {
+      return handleMeridiemChange('pm');
+    }
+  })));
+};
+
+var defaultProps$1 = Object(__WEBPACK_IMPORTED_MODULE_0_tslib__["a" /* __assign */])({}, timePickerDefaultProps, {
+  openTo: 'hours',
+  views: ['hours', 'minutes']
+});
+
+function useOptions$1(props) {
+  var utils = useUtils();
+  return {
+    getDefaultFormat: function () {
+      return pick12hOr24hFormat(props.format, props.ampm, {
+        '12h': utils.time12hFormat,
+        '24h': utils.time24hFormat
+      });
+    }
+  };
+}
+
+var TimePicker = makePurePicker({
+  useOptions: useOptions$1,
+  ToolbarComponent: TimePickerToolbar
+});
+var KeyboardTimePicker = makeKeyboardPicker({
+  useOptions: useOptions$1,
+  ToolbarComponent: TimePickerToolbar
+});
+TimePicker.defaultProps = defaultProps$1;
+KeyboardTimePicker.defaultProps = defaultProps$1;
+
+var TimeIcon = function (props) {
+  return __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_10__material_ui_core_SvgIcon__["default"], Object(__WEBPACK_IMPORTED_MODULE_0_tslib__["a" /* __assign */])({}, props), __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("path", {
+    d: "M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"
+  }), __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("path", {
+    fill: "none",
+    d: "M0 0h24v24H0z"
+  }), __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("path", {
+    d: "M12.5 7H11v6l5.25 3.15.75-1.23-4.5-2.67z"
+  }));
+};
+
+var DateRangeIcon = function (props) {
+  return __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_10__material_ui_core_SvgIcon__["default"], Object(__WEBPACK_IMPORTED_MODULE_0_tslib__["a" /* __assign */])({}, props), __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("path", {
+    d: "M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"
+  }), __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("path", {
+    fill: "none",
+    d: "M0 0h24v24H0z"
+  }));
+};
+
+var viewToTabIndex = function (openView) {
+  if (openView === 'date' || openView === 'year') {
+    return 'date';
+  }
+
+  return 'time';
+};
+
+var tabIndexToView = function (tab) {
+  if (tab === 'date') {
+    return 'date';
+  }
+
+  return 'hours';
+};
+
+var useStyles$e = Object(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__["makeStyles"])(function (theme) {
+  // prettier-ignore
+  var tabsBackground = theme.palette.type === 'light' ? theme.palette.primary.main : theme.palette.background.default;
+  return {
+    tabs: {
+      color: theme.palette.getContrastText(tabsBackground),
+      backgroundColor: tabsBackground
+    }
+  };
+}, {
+  name: 'MuiPickerDTTabs'
+});
+var DateTimePickerTabs = function (_a) {
+  var view = _a.view,
+      onChange = _a.onChange,
+      dateRangeIcon = _a.dateRangeIcon,
+      timeIcon = _a.timeIcon;
+  var classes = useStyles$e();
+  var theme = Object(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__["useTheme"])();
+  var indicatorColor = theme.palette.type === 'light' ? 'secondary' : 'primary';
+
+  var handleChange = function (e, value) {
+    if (value !== viewToTabIndex(view)) {
+      onChange(tabIndexToView(value));
+    }
+  };
+
+  return Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(__WEBPACK_IMPORTED_MODULE_22__material_ui_core_Paper__["a" /* default */], null, Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(__WEBPACK_IMPORTED_MODULE_21__material_ui_core_Tabs__["a" /* default */], {
+    variant: "fullWidth",
+    value: viewToTabIndex(view),
+    onChange: handleChange,
+    className: classes.tabs,
+    indicatorColor: indicatorColor
+  }, Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(__WEBPACK_IMPORTED_MODULE_20__material_ui_core_Tab__["a" /* default */], {
+    value: "date",
+    icon: Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(__WEBPACK_IMPORTED_MODULE_1_react__["Fragment"], null, dateRangeIcon)
+  }), Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(__WEBPACK_IMPORTED_MODULE_20__material_ui_core_Tab__["a" /* default */], {
+    value: "time",
+    icon: Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(__WEBPACK_IMPORTED_MODULE_1_react__["Fragment"], null, timeIcon)
+  })));
+};
+DateTimePickerTabs.defaultProps = {
+  dateRangeIcon: Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(DateRangeIcon, null),
+  timeIcon: Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(TimeIcon, null)
+};
+
+var useStyles$f = Object(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__["makeStyles"])(function (_) {
+  return {
+    toolbar: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      paddingLeft: 16,
+      paddingRight: 16,
+      justifyContent: 'space-around'
+    },
+    separator: {
+      margin: '0 4px 0 2px',
+      cursor: 'default'
+    }
+  };
+}, {
+  name: 'MuiPickerDTToolbar'
+});
+var DateTimePickerToolbar = function (_a) {
+  var date = _a.date,
+      openView = _a.openView,
+      setOpenView = _a.setOpenView,
+      ampm = _a.ampm,
+      hideTabs = _a.hideTabs,
+      dateRangeIcon = _a.dateRangeIcon,
+      timeIcon = _a.timeIcon,
+      onChange = _a.onChange;
+  var utils = useUtils();
+  var classes = useStyles$f();
+  var showTabs = !hideTabs && typeof window !== 'undefined' && window.innerHeight > 667;
+
+  var _b = useMeridiemMode(date, ampm, onChange),
+      meridiemMode = _b.meridiemMode,
+      handleMeridiemChange = _b.handleMeridiemChange;
+
+  var theme = Object(__WEBPACK_IMPORTED_MODULE_5__material_ui_core_styles__["useTheme"])();
+  var rtl = theme.direction === 'rtl';
+  return Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(__WEBPACK_IMPORTED_MODULE_1_react__["Fragment"], null, Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(PickerToolbar, {
+    className: classes.toolbar
+  }, Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(__WEBPACK_IMPORTED_MODULE_19__material_ui_core__["Grid"], {
+    container: true,
+    justify: "center",
+    wrap: "nowrap"
+  }, Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(__WEBPACK_IMPORTED_MODULE_19__material_ui_core__["Grid"], {
+    item: true,
+    container: true,
+    xs: 5,
+    justify: "flex-start",
+    direction: "column"
+  }, Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])("div", null, Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(ToolbarButton$1, {
+    variant: "subtitle1",
+    onClick: function () {
+      return setOpenView('year');
+    },
+    selected: openView === 'year',
+    label: utils.getYearText(date)
+  })), Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])("div", null, Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(ToolbarButton$1, {
+    variant: "h4",
+    onClick: function () {
+      return setOpenView('date');
+    },
+    selected: openView === 'date',
+    label: utils.getDateTimePickerHeaderText(date)
+  }))), Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(__WEBPACK_IMPORTED_MODULE_19__material_ui_core__["Grid"], {
+    item: true,
+    container: true,
+    xs: 6,
+    justify: "center",
+    alignItems: "flex-end",
+    direction: rtl ? 'row-reverse' : 'row'
+  }, Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(ToolbarButton$1, {
+    variant: "h3",
+    onClick: function () {
+      return setOpenView('hours');
+    },
+    selected: openView === 'hours',
+    label: utils.getHourText(date, ampm)
+  }), Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(ToolbarText, {
+    variant: "h3",
+    label: ":",
+    className: classes.separator
+  }), Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(ToolbarButton$1, {
+    variant: "h3",
+    onClick: function () {
+      return setOpenView('minutes');
+    },
+    selected: openView === 'minutes',
+    label: utils.getMinuteText(date)
+  })), ampm && Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(__WEBPACK_IMPORTED_MODULE_19__material_ui_core__["Grid"], {
+    item: true,
+    container: true,
+    xs: 1,
+    direction: "column",
+    justify: "flex-end"
+  }, Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(ToolbarButton$1, {
+    variant: "subtitle1",
+    selected: meridiemMode === 'am',
+    label: utils.getMeridiemText('am'),
+    onClick: function () {
+      return handleMeridiemChange('am');
+    }
+  }), Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(ToolbarButton$1, {
+    variant: "subtitle1",
+    selected: meridiemMode === 'pm',
+    label: utils.getMeridiemText('pm'),
+    onClick: function () {
+      return handleMeridiemChange('pm');
+    }
+  })))), showTabs && Object(__WEBPACK_IMPORTED_MODULE_1_react__["createElement"])(DateTimePickerTabs, {
+    dateRangeIcon: dateRangeIcon,
+    timeIcon: timeIcon,
+    view: openView,
+    onChange: setOpenView
+  }));
+};
+
+var defaultProps$2 = Object(__WEBPACK_IMPORTED_MODULE_0_tslib__["a" /* __assign */])({}, dateTimePickerDefaultProps, {
+  wider: true,
+  openTo: 'date',
+  views: ['year', 'date', 'hours', 'minutes']
+});
+
+function useOptions$2(props) {
+  var utils = useUtils();
+  return {
+    getDefaultFormat: function () {
+      return pick12hOr24hFormat(props.format, props.ampm, {
+        '12h': utils.dateTime12hFormat,
+        '24h': utils.dateTime24hFormat
+      });
+    }
+  };
+}
+
+var DateTimePicker = makePurePicker({
+  useOptions: useOptions$2,
+  ToolbarComponent: DateTimePickerToolbar
+});
+var KeyboardDateTimePicker = makeKeyboardPicker({
+  useOptions: useOptions$2,
+  ToolbarComponent: DateTimePickerToolbar
+});
+DateTimePicker.defaultProps = defaultProps$2;
+KeyboardDateTimePicker.defaultProps = defaultProps$2;
+
+
+//# sourceMappingURL=material-ui-pickers.esm.js.map
+
+
+/***/ }),
+/* 646 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["b"] = __extends;
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __assign; });
+/* harmony export (immutable) */ __webpack_exports__["c"] = __rest;
+/* unused harmony export __decorate */
+/* unused harmony export __param */
+/* unused harmony export __metadata */
+/* unused harmony export __awaiter */
+/* unused harmony export __generator */
+/* unused harmony export __exportStar */
+/* unused harmony export __values */
+/* unused harmony export __read */
+/* unused harmony export __spread */
+/* unused harmony export __await */
+/* unused harmony export __asyncGenerator */
+/* unused harmony export __asyncDelegator */
+/* unused harmony export __asyncValues */
+/* unused harmony export __makeTemplateObject */
+/* unused harmony export __importStar */
+/* unused harmony export __importDefault */
+/*! *****************************************************************************
+Copyright (c) Microsoft Corporation. All rights reserved.
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+this file except in compliance with the License. You may obtain a copy of the
+License at http://www.apache.org/licenses/LICENSE-2.0
+
+THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
+WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
+MERCHANTABLITY OR NON-INFRINGEMENT.
+
+See the Apache Version 2.0 License for specific language governing permissions
+and limitations under the License.
+***************************************************************************** */
+/* global Reflect, Promise */
+
+var extendStatics = function(d, b) {
+    extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return extendStatics(d, b);
+};
+
+function __extends(d, b) {
+    extendStatics(d, b);
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+}
+
+var __assign = function() {
+    __assign = Object.assign || function __assign(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+        }
+        return t;
+    }
+    return __assign.apply(this, arguments);
+}
+
+function __rest(s, e) {
+    var t = {};
+    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+        t[p] = s[p];
+    if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) if (e.indexOf(p[i]) < 0)
+            t[p[i]] = s[p[i]];
+    return t;
+}
+
+function __decorate(decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+}
+
+function __param(paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+}
+
+function __metadata(metadataKey, metadataValue) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(metadataKey, metadataValue);
+}
+
+function __awaiter(thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+}
+
+function __generator(thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+}
+
+function __exportStar(m, exports) {
+    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+}
+
+function __values(o) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator], i = 0;
+    if (m) return m.call(o);
+    return {
+        next: function () {
+            if (o && i >= o.length) o = void 0;
+            return { value: o && o[i++], done: !o };
+        }
+    };
+}
+
+function __read(o, n) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator];
+    if (!m) return o;
+    var i = m.call(o), r, ar = [], e;
+    try {
+        while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
+    }
+    catch (error) { e = { error: error }; }
+    finally {
+        try {
+            if (r && !r.done && (m = i["return"])) m.call(i);
+        }
+        finally { if (e) throw e.error; }
+    }
+    return ar;
+}
+
+function __spread() {
+    for (var ar = [], i = 0; i < arguments.length; i++)
+        ar = ar.concat(__read(arguments[i]));
+    return ar;
+}
+
+function __await(v) {
+    return this instanceof __await ? (this.v = v, this) : new __await(v);
+}
+
+function __asyncGenerator(thisArg, _arguments, generator) {
+    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+    var g = generator.apply(thisArg, _arguments || []), i, q = [];
+    return i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i;
+    function verb(n) { if (g[n]) i[n] = function (v) { return new Promise(function (a, b) { q.push([n, v, a, b]) > 1 || resume(n, v); }); }; }
+    function resume(n, v) { try { step(g[n](v)); } catch (e) { settle(q[0][3], e); } }
+    function step(r) { r.value instanceof __await ? Promise.resolve(r.value.v).then(fulfill, reject) : settle(q[0][2], r); }
+    function fulfill(value) { resume("next", value); }
+    function reject(value) { resume("throw", value); }
+    function settle(f, v) { if (f(v), q.shift(), q.length) resume(q[0][0], q[0][1]); }
+}
+
+function __asyncDelegator(o) {
+    var i, p;
+    return i = {}, verb("next"), verb("throw", function (e) { throw e; }), verb("return"), i[Symbol.iterator] = function () { return this; }, i;
+    function verb(n, f) { i[n] = o[n] ? function (v) { return (p = !p) ? { value: __await(o[n](v)), done: n === "return" } : f ? f(v) : v; } : f; }
+}
+
+function __asyncValues(o) {
+    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+    var m = o[Symbol.asyncIterator], i;
+    return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
+    function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
+    function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
+}
+
+function __makeTemplateObject(cooked, raw) {
+    if (Object.defineProperty) { Object.defineProperty(cooked, "raw", { value: raw }); } else { cooked.raw = raw; }
+    return cooked;
+};
+
+function __importStar(mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result.default = mod;
+    return result;
+}
+
+function __importDefault(mod) {
+    return (mod && mod.__esModule) ? mod : { default: mod };
+}
+
+
+/***/ }),
+/* 647 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__CSSTransition__ = __webpack_require__(648);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__CSSTransition__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ReplaceTransition__ = __webpack_require__(649);
+/* unused harmony reexport ReplaceTransition */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__TransitionGroup__ = __webpack_require__(590);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_2__TransitionGroup__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Transition__ = __webpack_require__(586);
+/* unused harmony reexport Transition */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__config__ = __webpack_require__(587);
+/* unused harmony reexport config */
+
+
+
+
+
+
+/***/ }),
+/* 648 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_runtime_helpers_esm_extends__ = __webpack_require__(585);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__babel_runtime_helpers_esm_objectWithoutPropertiesLoose__ = __webpack_require__(579);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__babel_runtime_helpers_esm_inheritsLoose__ = __webpack_require__(580);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_prop_types__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_prop_types__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_dom_helpers_class_addClass__ = __webpack_require__(169);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_dom_helpers_class_addClass___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_dom_helpers_class_addClass__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_dom_helpers_class_removeClass__ = __webpack_require__(170);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_dom_helpers_class_removeClass___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_dom_helpers_class_removeClass__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__Transition__ = __webpack_require__(586);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__utils_PropTypes__ = __webpack_require__(588);
+
+
+
+
+
+
+
+
+
+
+var _addClass = function addClass(node, classes) {
+  return node && classes && classes.split(' ').forEach(function (c) {
+    return __WEBPACK_IMPORTED_MODULE_4_dom_helpers_class_addClass___default()(node, c);
+  });
+};
+
+var removeClass = function removeClass(node, classes) {
+  return node && classes && classes.split(' ').forEach(function (c) {
+    return __WEBPACK_IMPORTED_MODULE_5_dom_helpers_class_removeClass___default()(node, c);
+  });
+};
+/**
+ * A transition component inspired by the excellent
+ * [ng-animate](http://www.nganimate.org/) library, you should use it if you're
+ * using CSS transitions or animations. It's built upon the
+ * [`Transition`](https://reactcommunity.org/react-transition-group/transition)
+ * component, so it inherits all of its props.
+ *
+ * `CSSTransition` applies a pair of class names during the `appear`, `enter`,
+ * and `exit` states of the transition. The first class is applied and then a
+ * second `*-active` class in order to activate the CSS transition. After the
+ * transition, matching `*-done` class names are applied to persist the
+ * transition state.
+ *
+ * ```jsx
+ * function App() {
+ *   const [inProp, setInProp] = useState(false);
+ *   return (
+ *     <div>
+ *       <CSSTransition in={inProp} timeout={200} classNames="my-node">
+ *         <div>
+ *           {"I'll receive my-node-* classes"}
+ *         </div>
+ *       </CSSTransition>
+ *       <button type="button" onClick={() => setInProp(true)}>
+ *         Click to Enter
+ *       </button>
+ *     </div>
+ *   );
+ * }
+ * ```
+ *
+ * When the `in` prop is set to `true`, the child component will first receive
+ * the class `example-enter`, then the `example-enter-active` will be added in
+ * the next tick. `CSSTransition` [forces a
+ * reflow](https://github.com/reactjs/react-transition-group/blob/5007303e729a74be66a21c3e2205e4916821524b/src/CSSTransition.js#L208-L215)
+ * between before adding the `example-enter-active`. This is an important trick
+ * because it allows us to transition between `example-enter` and
+ * `example-enter-active` even though they were added immediately one after
+ * another. Most notably, this is what makes it possible for us to animate
+ * _appearance_.
+ *
+ * ```css
+ * .my-node-enter {
+ *   opacity: 0;
+ * }
+ * .my-node-enter-active {
+ *   opacity: 1;
+ *   transition: opacity 200ms;
+ * }
+ * .my-node-exit {
+ *   opacity: 1;
+ * }
+ * .my-node-exit-active {
+ *   opacity: 0;
+ *   transition: opacity 200ms;
+ * }
+ * ```
+ *
+ * `*-active` classes represent which styles you want to animate **to**.
+ */
+
+
+var CSSTransition =
+/*#__PURE__*/
+function (_React$Component) {
+  Object(__WEBPACK_IMPORTED_MODULE_2__babel_runtime_helpers_esm_inheritsLoose__["a" /* default */])(CSSTransition, _React$Component);
+
+  function CSSTransition() {
+    var _this;
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _this = _React$Component.call.apply(_React$Component, [this].concat(args)) || this;
+    _this.appliedClasses = {
+      appear: {},
+      enter: {},
+      exit: {}
+    };
+
+    _this.onEnter = function (node, appearing) {
+      _this.removeClasses(node, 'exit');
+
+      _this.addClass(node, appearing ? 'appear' : 'enter', 'base');
+
+      if (_this.props.onEnter) {
+        _this.props.onEnter(node, appearing);
+      }
+    };
+
+    _this.onEntering = function (node, appearing) {
+      var type = appearing ? 'appear' : 'enter';
+
+      _this.addClass(node, type, 'active');
+
+      if (_this.props.onEntering) {
+        _this.props.onEntering(node, appearing);
+      }
+    };
+
+    _this.onEntered = function (node, appearing) {
+      var type = appearing ? 'appear' : 'enter';
+
+      _this.removeClasses(node, type);
+
+      _this.addClass(node, type, 'done');
+
+      if (_this.props.onEntered) {
+        _this.props.onEntered(node, appearing);
+      }
+    };
+
+    _this.onExit = function (node) {
+      _this.removeClasses(node, 'appear');
+
+      _this.removeClasses(node, 'enter');
+
+      _this.addClass(node, 'exit', 'base');
+
+      if (_this.props.onExit) {
+        _this.props.onExit(node);
+      }
+    };
+
+    _this.onExiting = function (node) {
+      _this.addClass(node, 'exit', 'active');
+
+      if (_this.props.onExiting) {
+        _this.props.onExiting(node);
+      }
+    };
+
+    _this.onExited = function (node) {
+      _this.removeClasses(node, 'exit');
+
+      _this.addClass(node, 'exit', 'done');
+
+      if (_this.props.onExited) {
+        _this.props.onExited(node);
+      }
+    };
+
+    _this.getClassNames = function (type) {
+      var classNames = _this.props.classNames;
+      var isStringClassNames = typeof classNames === 'string';
+      var prefix = isStringClassNames && classNames ? classNames + "-" : '';
+      var baseClassName = isStringClassNames ? "" + prefix + type : classNames[type];
+      var activeClassName = isStringClassNames ? baseClassName + "-active" : classNames[type + "Active"];
+      var doneClassName = isStringClassNames ? baseClassName + "-done" : classNames[type + "Done"];
+      return {
+        baseClassName: baseClassName,
+        activeClassName: activeClassName,
+        doneClassName: doneClassName
+      };
+    };
+
+    return _this;
+  }
+
+  var _proto = CSSTransition.prototype;
+
+  _proto.addClass = function addClass(node, type, phase) {
+    var className = this.getClassNames(type)[phase + "ClassName"];
+
+    if (type === 'appear' && phase === 'done') {
+      className += " " + this.getClassNames('enter').doneClassName;
+    } // This is for to force a repaint,
+    // which is necessary in order to transition styles when adding a class name.
+
+
+    if (phase === 'active') {
+      /* eslint-disable no-unused-expressions */
+      node && node.scrollTop;
+    }
+
+    this.appliedClasses[type][phase] = className;
+
+    _addClass(node, className);
+  };
+
+  _proto.removeClasses = function removeClasses(node, type) {
+    var _this$appliedClasses$ = this.appliedClasses[type],
+        baseClassName = _this$appliedClasses$.base,
+        activeClassName = _this$appliedClasses$.active,
+        doneClassName = _this$appliedClasses$.done;
+    this.appliedClasses[type] = {};
+
+    if (baseClassName) {
+      removeClass(node, baseClassName);
+    }
+
+    if (activeClassName) {
+      removeClass(node, activeClassName);
+    }
+
+    if (doneClassName) {
+      removeClass(node, doneClassName);
+    }
+  };
+
+  _proto.render = function render() {
+    var _this$props = this.props,
+        _ = _this$props.classNames,
+        props = Object(__WEBPACK_IMPORTED_MODULE_1__babel_runtime_helpers_esm_objectWithoutPropertiesLoose__["a" /* default */])(_this$props, ["classNames"]);
+
+    return __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__Transition__["a" /* default */], Object(__WEBPACK_IMPORTED_MODULE_0__babel_runtime_helpers_esm_extends__["a" /* default */])({}, props, {
+      onEnter: this.onEnter,
+      onEntered: this.onEntered,
+      onEntering: this.onEntering,
+      onExit: this.onExit,
+      onExiting: this.onExiting,
+      onExited: this.onExited
+    }));
+  };
+
+  return CSSTransition;
+}(__WEBPACK_IMPORTED_MODULE_6_react___default.a.Component);
+
+CSSTransition.defaultProps = {
+  classNames: ''
+};
+CSSTransition.propTypes =  true ? Object(__WEBPACK_IMPORTED_MODULE_0__babel_runtime_helpers_esm_extends__["a" /* default */])({}, __WEBPACK_IMPORTED_MODULE_7__Transition__["a" /* default */].propTypes, {
+  /**
+   * The animation classNames applied to the component as it enters, exits or
+   * has finished the transition. A single name can be provided and it will be
+   * suffixed for each stage: e.g.
+   *
+   * `classNames="fade"` applies `fade-enter`, `fade-enter-active`,
+   * `fade-enter-done`, `fade-exit`, `fade-exit-active`, `fade-exit-done`,
+   * `fade-appear`, `fade-appear-active`, and `fade-appear-done`.
+   *
+   * **Note**: `fade-appear-done` and `fade-enter-done` will _both_ be applied.
+   * This allows you to define different behavior for when appearing is done and
+   * when regular entering is done, using selectors like
+   * `.fade-enter-done:not(.fade-appear-done)`. For example, you could apply an
+   * epic entrance animation when element first appears in the DOM using
+   * [Animate.css](https://daneden.github.io/animate.css/). Otherwise you can
+   * simply use `fade-enter-done` for defining both cases.
+   *
+   * Each individual classNames can also be specified independently like:
+   *
+   * ```js
+   * classNames={{
+   *  appear: 'my-appear',
+   *  appearActive: 'my-active-appear',
+   *  appearDone: 'my-done-appear',
+   *  enter: 'my-enter',
+   *  enterActive: 'my-active-enter',
+   *  enterDone: 'my-done-enter',
+   *  exit: 'my-exit',
+   *  exitActive: 'my-active-exit',
+   *  exitDone: 'my-done-exit',
+   * }}
+   * ```
+   *
+   * If you want to set these classes using CSS Modules:
+   *
+   * ```js
+   * import styles from './styles.css';
+   * ```
+   *
+   * you might want to use camelCase in your CSS file, that way could simply
+   * spread them instead of listing them one by one:
+   *
+   * ```js
+   * classNames={{ ...styles }}
+   * ```
+   *
+   * @type {string | {
+   *  appear?: string,
+   *  appearActive?: string,
+   *  appearDone?: string,
+   *  enter?: string,
+   *  enterActive?: string,
+   *  enterDone?: string,
+   *  exit?: string,
+   *  exitActive?: string,
+   *  exitDone?: string,
+   * }}
+   */
+  classNames: __WEBPACK_IMPORTED_MODULE_8__utils_PropTypes__["a" /* classNamesShape */],
+
+  /**
+   * A `<Transition>` callback fired immediately after the 'enter' or 'appear' class is
+   * applied.
+   *
+   * @type Function(node: HtmlElement, isAppearing: bool)
+   */
+  onEnter: __WEBPACK_IMPORTED_MODULE_3_prop_types__["func"],
+
+  /**
+   * A `<Transition>` callback fired immediately after the 'enter-active' or
+   * 'appear-active' class is applied.
+   *
+   * @type Function(node: HtmlElement, isAppearing: bool)
+   */
+  onEntering: __WEBPACK_IMPORTED_MODULE_3_prop_types__["func"],
+
+  /**
+   * A `<Transition>` callback fired immediately after the 'enter' or
+   * 'appear' classes are **removed** and the `done` class is added to the DOM node.
+   *
+   * @type Function(node: HtmlElement, isAppearing: bool)
+   */
+  onEntered: __WEBPACK_IMPORTED_MODULE_3_prop_types__["func"],
+
+  /**
+   * A `<Transition>` callback fired immediately after the 'exit' class is
+   * applied.
+   *
+   * @type Function(node: HtmlElement)
+   */
+  onExit: __WEBPACK_IMPORTED_MODULE_3_prop_types__["func"],
+
+  /**
+   * A `<Transition>` callback fired immediately after the 'exit-active' is applied.
+   *
+   * @type Function(node: HtmlElement)
+   */
+  onExiting: __WEBPACK_IMPORTED_MODULE_3_prop_types__["func"],
+
+  /**
+   * A `<Transition>` callback fired immediately after the 'exit' classes
+   * are **removed** and the `exit-done` class is added to the DOM node.
+   *
+   * @type Function(node: HtmlElement)
+   */
+  onExited: __WEBPACK_IMPORTED_MODULE_3_prop_types__["func"]
+}) : {};
+/* harmony default export */ __webpack_exports__["a"] = (CSSTransition);
+
+/***/ }),
+/* 649 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_runtime_helpers_esm_objectWithoutPropertiesLoose__ = __webpack_require__(579);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__babel_runtime_helpers_esm_inheritsLoose__ = __webpack_require__(580);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_prop_types__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_prop_types__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_react_dom__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_react_dom__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__TransitionGroup__ = __webpack_require__(590);
+
+
+
+
+
+
+/**
+ * The `<ReplaceTransition>` component is a specialized `Transition` component
+ * that animates between two children.
+ *
+ * ```jsx
+ * <ReplaceTransition in>
+ *   <Fade><div>I appear first</div></Fade>
+ *   <Fade><div>I replace the above</div></Fade>
+ * </ReplaceTransition>
+ * ```
+ */
+
+var ReplaceTransition =
+/*#__PURE__*/
+function (_React$Component) {
+  Object(__WEBPACK_IMPORTED_MODULE_1__babel_runtime_helpers_esm_inheritsLoose__["a" /* default */])(ReplaceTransition, _React$Component);
+
+  function ReplaceTransition() {
+    var _this;
+
+    for (var _len = arguments.length, _args = new Array(_len), _key = 0; _key < _len; _key++) {
+      _args[_key] = arguments[_key];
+    }
+
+    _this = _React$Component.call.apply(_React$Component, [this].concat(_args)) || this;
+
+    _this.handleEnter = function () {
+      for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+        args[_key2] = arguments[_key2];
+      }
+
+      return _this.handleLifecycle('onEnter', 0, args);
+    };
+
+    _this.handleEntering = function () {
+      for (var _len3 = arguments.length, args = new Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
+        args[_key3] = arguments[_key3];
+      }
+
+      return _this.handleLifecycle('onEntering', 0, args);
+    };
+
+    _this.handleEntered = function () {
+      for (var _len4 = arguments.length, args = new Array(_len4), _key4 = 0; _key4 < _len4; _key4++) {
+        args[_key4] = arguments[_key4];
+      }
+
+      return _this.handleLifecycle('onEntered', 0, args);
+    };
+
+    _this.handleExit = function () {
+      for (var _len5 = arguments.length, args = new Array(_len5), _key5 = 0; _key5 < _len5; _key5++) {
+        args[_key5] = arguments[_key5];
+      }
+
+      return _this.handleLifecycle('onExit', 1, args);
+    };
+
+    _this.handleExiting = function () {
+      for (var _len6 = arguments.length, args = new Array(_len6), _key6 = 0; _key6 < _len6; _key6++) {
+        args[_key6] = arguments[_key6];
+      }
+
+      return _this.handleLifecycle('onExiting', 1, args);
+    };
+
+    _this.handleExited = function () {
+      for (var _len7 = arguments.length, args = new Array(_len7), _key7 = 0; _key7 < _len7; _key7++) {
+        args[_key7] = arguments[_key7];
+      }
+
+      return _this.handleLifecycle('onExited', 1, args);
+    };
+
+    return _this;
+  }
+
+  var _proto = ReplaceTransition.prototype;
+
+  _proto.handleLifecycle = function handleLifecycle(handler, idx, originalArgs) {
+    var _child$props;
+
+    var children = this.props.children;
+    var child = __WEBPACK_IMPORTED_MODULE_3_react___default.a.Children.toArray(children)[idx];
+    if (child.props[handler]) (_child$props = child.props)[handler].apply(_child$props, originalArgs);
+    if (this.props[handler]) this.props[handler](Object(__WEBPACK_IMPORTED_MODULE_4_react_dom__["findDOMNode"])(this));
+  };
+
+  _proto.render = function render() {
+    var _this$props = this.props,
+        children = _this$props.children,
+        inProp = _this$props.in,
+        props = Object(__WEBPACK_IMPORTED_MODULE_0__babel_runtime_helpers_esm_objectWithoutPropertiesLoose__["a" /* default */])(_this$props, ["children", "in"]);
+
+    var _React$Children$toArr = __WEBPACK_IMPORTED_MODULE_3_react___default.a.Children.toArray(children),
+        first = _React$Children$toArr[0],
+        second = _React$Children$toArr[1];
+
+    delete props.onEnter;
+    delete props.onEntering;
+    delete props.onEntered;
+    delete props.onExit;
+    delete props.onExiting;
+    delete props.onExited;
+    return __WEBPACK_IMPORTED_MODULE_3_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__TransitionGroup__["a" /* default */], props, inProp ? __WEBPACK_IMPORTED_MODULE_3_react___default.a.cloneElement(first, {
+      key: 'first',
+      onEnter: this.handleEnter,
+      onEntering: this.handleEntering,
+      onEntered: this.handleEntered
+    }) : __WEBPACK_IMPORTED_MODULE_3_react___default.a.cloneElement(second, {
+      key: 'second',
+      onEnter: this.handleExit,
+      onEntering: this.handleExiting,
+      onEntered: this.handleExited
+    }));
+  };
+
+  return ReplaceTransition;
+}(__WEBPACK_IMPORTED_MODULE_3_react___default.a.Component);
+
+ReplaceTransition.propTypes =  true ? {
+  in: __WEBPACK_IMPORTED_MODULE_2_prop_types___default.a.bool.isRequired,
+  children: function children(props, propName) {
+    if (__WEBPACK_IMPORTED_MODULE_3_react___default.a.Children.count(props[propName]) !== 2) return new Error("\"" + propName + "\" must be exactly two transition components.");
+    return null;
+  }
+} : {};
+/* unused harmony default export */ var _unused_webpack_default_export = (ReplaceTransition);
+
+/***/ }),
+/* 650 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = _assertThisInitialized;
+function _assertThisInitialized(self) {
+  if (self === void 0) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
+
+  return self;
+}
+
+/***/ }),
+/* 651 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = getChildMapping;
+/* unused harmony export mergeChildMappings */
+/* harmony export (immutable) */ __webpack_exports__["b"] = getInitialChildMapping;
+/* harmony export (immutable) */ __webpack_exports__["c"] = getNextChildMapping;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+
+/**
+ * Given `this.props.children`, return an object mapping key to child.
+ *
+ * @param {*} children `this.props.children`
+ * @return {object} Mapping of key to child
+ */
+
+function getChildMapping(children, mapFn) {
+  var mapper = function mapper(child) {
+    return mapFn && Object(__WEBPACK_IMPORTED_MODULE_0_react__["isValidElement"])(child) ? mapFn(child) : child;
+  };
+
+  var result = Object.create(null);
+  if (children) __WEBPACK_IMPORTED_MODULE_0_react__["Children"].map(children, function (c) {
+    return c;
+  }).forEach(function (child) {
+    // run the map function here instead so that the key is the computed one
+    result[child.key] = mapper(child);
+  });
+  return result;
+}
+/**
+ * When you're adding or removing children some may be added or removed in the
+ * same render pass. We want to show *both* since we want to simultaneously
+ * animate elements in and out. This function takes a previous set of keys
+ * and a new set of keys and merges them with its best guess of the correct
+ * ordering. In the future we may expose some of the utilities in
+ * ReactMultiChild to make this easy, but for now React itself does not
+ * directly have this concept of the union of prevChildren and nextChildren
+ * so we implement it here.
+ *
+ * @param {object} prev prev children as returned from
+ * `ReactTransitionChildMapping.getChildMapping()`.
+ * @param {object} next next children as returned from
+ * `ReactTransitionChildMapping.getChildMapping()`.
+ * @return {object} a key set that contains all keys in `prev` and all keys
+ * in `next` in a reasonable order.
+ */
+
+function mergeChildMappings(prev, next) {
+  prev = prev || {};
+  next = next || {};
+
+  function getValueForKey(key) {
+    return key in next ? next[key] : prev[key];
+  } // For each key of `next`, the list of keys to insert before that key in
+  // the combined list
+
+
+  var nextKeysPending = Object.create(null);
+  var pendingKeys = [];
+
+  for (var prevKey in prev) {
+    if (prevKey in next) {
+      if (pendingKeys.length) {
+        nextKeysPending[prevKey] = pendingKeys;
+        pendingKeys = [];
+      }
+    } else {
+      pendingKeys.push(prevKey);
+    }
+  }
+
+  var i;
+  var childMapping = {};
+
+  for (var nextKey in next) {
+    if (nextKeysPending[nextKey]) {
+      for (i = 0; i < nextKeysPending[nextKey].length; i++) {
+        var pendingNextKey = nextKeysPending[nextKey][i];
+        childMapping[nextKeysPending[nextKey][i]] = getValueForKey(pendingNextKey);
+      }
+    }
+
+    childMapping[nextKey] = getValueForKey(nextKey);
+  } // Finally, add the keys which didn't appear before any key in `next`
+
+
+  for (i = 0; i < pendingKeys.length; i++) {
+    childMapping[pendingKeys[i]] = getValueForKey(pendingKeys[i]);
+  }
+
+  return childMapping;
+}
+
+function getProp(child, prop, props) {
+  return props[prop] != null ? props[prop] : child.props[prop];
+}
+
+function getInitialChildMapping(props, onExited) {
+  return getChildMapping(props.children, function (child) {
+    return Object(__WEBPACK_IMPORTED_MODULE_0_react__["cloneElement"])(child, {
+      onExited: onExited.bind(null, child),
+      in: true,
+      appear: getProp(child, 'appear', props),
+      enter: getProp(child, 'enter', props),
+      exit: getProp(child, 'exit', props)
+    });
+  });
+}
+function getNextChildMapping(nextProps, prevChildMapping, onExited) {
+  var nextChildMapping = getChildMapping(nextProps.children);
+  var children = mergeChildMappings(prevChildMapping, nextChildMapping);
+  Object.keys(children).forEach(function (key) {
+    var child = children[key];
+    if (!Object(__WEBPACK_IMPORTED_MODULE_0_react__["isValidElement"])(child)) return;
+    var hasPrev = key in prevChildMapping;
+    var hasNext = key in nextChildMapping;
+    var prevChild = prevChildMapping[key];
+    var isLeaving = Object(__WEBPACK_IMPORTED_MODULE_0_react__["isValidElement"])(prevChild) && !prevChild.props.in; // item is new (entering)
+
+    if (hasNext && (!hasPrev || isLeaving)) {
+      // console.log('entering', key)
+      children[key] = Object(__WEBPACK_IMPORTED_MODULE_0_react__["cloneElement"])(child, {
+        onExited: onExited.bind(null, child),
+        in: true,
+        exit: getProp(child, 'exit', nextProps),
+        enter: getProp(child, 'enter', nextProps)
+      });
+    } else if (!hasNext && hasPrev && !isLeaving) {
+      // item is old (exiting)
+      // console.log('leaving', key)
+      children[key] = Object(__WEBPACK_IMPORTED_MODULE_0_react__["cloneElement"])(child, {
+        in: false
+      });
+    } else if (hasNext && hasPrev && Object(__WEBPACK_IMPORTED_MODULE_0_react__["isValidElement"])(prevChild)) {
+      // item hasn't changed transition states
+      // copy over the last transition props;
+      // console.log('unchanged', key)
+      children[key] = Object(__WEBPACK_IMPORTED_MODULE_0_react__["cloneElement"])(child, {
+        onExited: onExited.bind(null, child),
+        in: prevChild.props.in,
+        exit: getProp(child, 'exit', nextProps),
+        enter: getProp(child, 'enter', nextProps)
+      });
+    }
+  });
+  return children;
+}
+
+/***/ }),
+/* 652 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Rifm; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_runtime_helpers_esm_inheritsLoose__ = __webpack_require__(167);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react__);
+
+
+
+var Rifm =
+/*#__PURE__*/
+function (_React$Component) {
+  Object(__WEBPACK_IMPORTED_MODULE_0__babel_runtime_helpers_esm_inheritsLoose__["a" /* default */])(Rifm, _React$Component);
+
+  function Rifm(props) {
+    var _this;
+
+    _this = _React$Component.call(this, props) || this;
+    _this._state = null;
+    _this._del = false;
+
+    _this._handleChange = function (evt) {
+      if (true) {
+        if (evt.target.type === 'number') {
+          console.error('Rifm does not support input type=number, use type=tel instead.');
+          return;
+        }
+      } // FUTURE: use evt.nativeEvent.inputType for del event, see comments at onkeydown
+
+
+      var stateValue = _this.state.value;
+      var value = evt.target.value;
+      var input = evt.target;
+      var op = value.length > stateValue.length;
+      var del = _this._del;
+
+      var noOp = stateValue === _this.props.format(value);
+
+      _this.setState({
+        value: value,
+        local: true
+      }, function () {
+        var selectionStart = input.selectionStart;
+        var refuse = _this.props.refuse || /[^\d]+/g;
+        var before = value.substr(0, selectionStart).replace(refuse, '');
+        _this._state = {
+          input: input,
+          before: before,
+          op: op,
+          di: del && noOp,
+          del: del
+        };
+
+        if (_this.props.replace && _this.props.replace(stateValue) && op && !noOp) {
+          var start = -1;
+
+          for (var i = 0; i !== before.length; ++i) {
+            start = Math.max(start, value.toLowerCase().indexOf(before[i].toLowerCase(), start + 1));
+          }
+
+          var c = value.substr(start + 1).replace(refuse, '')[0];
+          start = value.indexOf(c, start + 1);
+          value = "" + value.substr(0, start) + value.substr(start + 1);
+        }
+
+        var fv = _this.props.format(value);
+
+        if (stateValue === fv) {
+          _this.setState({
+            value: value
+          });
+        } else {
+          _this.props.onChange(fv);
+        }
+      });
+    };
+
+    _this._hKD = function (evt) {
+      if (evt.code === 'Delete') {
+        _this._del = true;
+      }
+    };
+
+    _this._hKU = function (evt) {
+      if (evt.code === 'Delete') {
+        _this._del = false;
+      }
+    };
+
+    _this.state = {
+      value: props.value,
+      local: true
+    };
+    return _this;
+  }
+
+  Rifm.getDerivedStateFromProps = function getDerivedStateFromProps(props, state) {
+    return {
+      value: state.local ? state.value : props.value,
+      local: false
+    };
+  };
+
+  var _proto = Rifm.prototype;
+
+  _proto.render = function render() {
+    var _handleChange = this._handleChange,
+        value = this.state.value,
+        children = this.props.children;
+    return children({
+      value: value,
+      onChange: _handleChange
+    });
+  } // delete when  https://developer.mozilla.org/en-US/docs/Web/API/InputEvent/inputType will be supported by all major browsers
+  ;
+
+  _proto.componentWillUnmount = function componentWillUnmount() {
+    document.removeEventListener('keydown', this._hKD);
+    document.removeEventListener('keyup', this._hKU);
+  } // delete when  https://developer.mozilla.org/en-US/docs/Web/API/InputEvent/inputType will be supported by all major browsers
+  ;
+
+  _proto.componentDidMount = function componentDidMount() {
+    document.addEventListener('keydown', this._hKD);
+    document.addEventListener('keyup', this._hKU);
+  };
+
+  _proto.componentDidUpdate = function componentDidUpdate() {
+    var _state = this._state;
+
+    if (_state) {
+      var value = this.state.value;
+      var start = -1;
+
+      for (var i = 0; i !== _state.before.length; ++i) {
+        start = Math.max(start, value.toLowerCase().indexOf(_state.before[i].toLowerCase(), start + 1));
+      } // format usually looks better without this
+
+
+      if (this.props.replace && (_state.op || _state.del && !_state.di)) {
+        while (value[start + 1] && (this.props.refuse || /[^\d]+/).test(value[start + 1])) {
+          start += 1;
+        }
+      }
+
+      _state.input.selectionStart = _state.input.selectionEnd = start + 1 + (_state.di ? 1 : 0);
+    }
+
+    this._state = null;
+  };
+
+  return Rifm;
+}(__WEBPACK_IMPORTED_MODULE_1_react__["Component"]);
+
+
+
+
+/***/ }),
+/* 653 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _index = _interopRequireDefault(__webpack_require__(654));
+
+var _index2 = _interopRequireDefault(__webpack_require__(655));
+
+var _index3 = _interopRequireDefault(__webpack_require__(657));
+
+var _index4 = _interopRequireDefault(__webpack_require__(658));
+
+var _index5 = _interopRequireDefault(__webpack_require__(660));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * @type {Locale}
+ * @category Locales
+ * @summary Spanish locale.
+ * @language Spanish
+ * @iso-639-2 spa
+ * @author Juan Angosto [@juanangosto]{@link https://github.com/juanangosto}
+ * @author Guillermo Grau [@guigrpa]{@link https://github.com/guigrpa}
+ * @author Fernando Agüero [@fjaguero]{@link https://github.com/fjaguero}
+ * @author Gastón Haro [@harogaston]{@link https://github.com/harogaston}
+ * @author Yago Carballo [@YagoCarballo]{@link https://github.com/YagoCarballo}
+ */
+var locale = {
+  formatDistance: _index.default,
+  formatLong: _index2.default,
+  formatRelative: _index3.default,
+  localize: _index4.default,
+  match: _index5.default,
+  options: {
+    weekStartsOn: 1
+    /* Monday */
+    ,
+    firstWeekContainsDate: 1
+  }
+};
+var _default = locale;
+exports.default = _default;
+module.exports = exports.default;
+
+/***/ }),
+/* 654 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = formatDistance;
+var formatDistanceLocale = {
+  lessThanXSeconds: {
+    one: 'menos de un segundo',
+    other: 'menos de {{count}} segundos'
+  },
+  xSeconds: {
+    one: '1 segundo',
+    other: '{{count}} segundos'
+  },
+  halfAMinute: 'medio minuto',
+  lessThanXMinutes: {
+    one: 'menos de un minuto',
+    other: 'menos de {{count}} minutos'
+  },
+  xMinutes: {
+    one: '1 minuto',
+    other: '{{count}} minutos'
+  },
+  aboutXHours: {
+    one: 'alrededor de 1 hora',
+    other: 'alrededor de {{count}} horas'
+  },
+  xHours: {
+    one: '1 hora',
+    other: '{{count}} horas'
+  },
+  xDays: {
+    one: '1 día',
+    other: '{{count}} días'
+  },
+  aboutXMonths: {
+    one: 'alrededor de 1 mes',
+    other: 'alrededor de {{count}} meses'
+  },
+  xMonths: {
+    one: '1 mes',
+    other: '{{count}} meses'
+  },
+  aboutXYears: {
+    one: 'alrededor de 1 año',
+    other: 'alrededor de {{count}} años'
+  },
+  xYears: {
+    one: '1 año',
+    other: '{{count}} años'
+  },
+  overXYears: {
+    one: 'más de 1 año',
+    other: 'más de {{count}} años'
+  },
+  almostXYears: {
+    one: 'casi 1 año',
+    other: 'casi {{count}} años'
+  }
+};
+
+function formatDistance(token, count, options) {
+  options = options || {};
+  var result;
+
+  if (typeof formatDistanceLocale[token] === 'string') {
+    result = formatDistanceLocale[token];
+  } else if (count === 1) {
+    result = formatDistanceLocale[token].one;
+  } else {
+    result = formatDistanceLocale[token].other.replace('{{count}}', count);
+  }
+
+  if (options.addSuffix) {
+    if (options.comparison > 0) {
+      return 'en ' + result;
+    } else {
+      return 'hace ' + result;
+    }
+  }
+
+  return result;
+}
+
+module.exports = exports.default;
+
+/***/ }),
+/* 655 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _index = _interopRequireDefault(__webpack_require__(656));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var dateFormats = {
+  full: "EEEE, d 'de' MMMM y",
+  long: "d 'de' MMMM y",
+  medium: 'd MMM y',
+  short: 'dd/MM/y'
+};
+var timeFormats = {
+  full: 'HH:mm:ss zzzz',
+  long: 'HH:mm:ss z',
+  medium: 'HH:mm:ss',
+  short: 'HH:mm'
+};
+var dateTimeFormats = {
+  full: "{{date}} 'a las' {{time}}",
+  long: "{{date}} 'a las' {{time}}",
+  medium: '{{date}}, {{time}}',
+  short: '{{date}}, {{time}}'
+};
+var formatLong = {
+  date: (0, _index.default)({
+    formats: dateFormats,
+    defaultWidth: 'full'
+  }),
+  time: (0, _index.default)({
+    formats: timeFormats,
+    defaultWidth: 'full'
+  }),
+  dateTime: (0, _index.default)({
+    formats: dateTimeFormats,
+    defaultWidth: 'full'
+  })
+};
+var _default = formatLong;
+exports.default = _default;
+module.exports = exports.default;
+
+/***/ }),
+/* 656 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = buildFormatLongFn;
+
+function buildFormatLongFn(args) {
+  return function (dirtyOptions) {
+    var options = dirtyOptions || {};
+    var width = options.width ? String(options.width) : args.defaultWidth;
+    var format = args.formats[width] || args.formats[args.defaultWidth];
+    return format;
+  };
+}
+
+module.exports = exports.default;
+
+/***/ }),
+/* 657 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = formatRelative;
+var formatRelativeLocale = {
+  lastWeek: "'el' eeee 'pasado a la' LT",
+  yesterday: "'ayer a la' p",
+  today: "'hoy a la' p",
+  tomorrow: "'mañana a la' p",
+  nextWeek: "eeee 'a la' p",
+  other: 'P'
+};
+var formatRelativeLocalePlural = {
+  lastWeek: "'el' eeee 'pasado a las' p",
+  yesterday: "'ayer a las' p",
+  today: "'hoy a las' p",
+  tomorrow: "'mañana a las' p",
+  nextWeek: "eeee 'a las' p",
+  other: 'P'
+};
+
+function formatRelative(token, date, _baseDate, _options) {
+  if (date.getUTCHours() !== 1) {
+    return formatRelativeLocalePlural[token];
+  }
+
+  return formatRelativeLocale[token];
+}
+
+module.exports = exports.default;
+
+/***/ }),
+/* 658 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _index = _interopRequireDefault(__webpack_require__(659));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var eraValues = {
+  narrow: ['AC', 'DC'],
+  abbreviated: ['AC', 'DC'],
+  wide: ['antes de cristo', 'después de cristo']
+};
+var quarterValues = {
+  narrow: ['1', '2', '3', '4'],
+  abbreviated: ['T1', 'T2', 'T3', 'T4'],
+  wide: ['1º trimestre', '2º trimestre', '3º trimestre', '4º trimestre']
+};
+var monthValues = {
+  narrow: ['e', 'f', 'm', 'a', 'm', 'j', 'j', 'a', 's', 'o', 'n', 'd'],
+  abbreviated: ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'],
+  wide: ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre']
+};
+var dayValues = {
+  narrow: ['d', 'l', 'm', 'm', 'j', 'v', 's'],
+  short: ['do', 'lu', 'ma', 'mi', 'ju', 'vi', 'sa'],
+  abbreviated: ['dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sab'],
+  wide: ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado']
+};
+var dayPeriodValues = {
+  narrow: {
+    am: 'a',
+    pm: 'p',
+    midnight: 'mn',
+    noon: 'md',
+    morning: 'mañana',
+    afternoon: 'tarde',
+    evening: 'tarde',
+    night: 'noche'
+  },
+  abbreviated: {
+    am: 'AM',
+    pm: 'PM',
+    midnight: 'medianoche',
+    noon: 'mediodia',
+    morning: 'mañana',
+    afternoon: 'tarde',
+    evening: 'tarde',
+    night: 'noche'
+  },
+  wide: {
+    am: 'a.m.',
+    pm: 'p.m.',
+    midnight: 'medianoche',
+    noon: 'mediodia',
+    morning: 'mañana',
+    afternoon: 'tarde',
+    evening: 'tarde',
+    night: 'noche'
+  }
+};
+var formattingDayPeriodValues = {
+  narrow: {
+    am: 'a',
+    pm: 'p',
+    midnight: 'mn',
+    noon: 'md',
+    morning: 'de la mañana',
+    afternoon: 'de la tarde',
+    evening: 'de la tarde',
+    night: 'de la noche'
+  },
+  abbreviated: {
+    am: 'AM',
+    pm: 'PM',
+    midnight: 'medianoche',
+    noon: 'mediodia',
+    morning: 'de la mañana',
+    afternoon: 'de la tarde',
+    evening: 'de la tarde',
+    night: 'de la noche'
+  },
+  wide: {
+    am: 'a.m.',
+    pm: 'p.m.',
+    midnight: 'medianoche',
+    noon: 'mediodia',
+    morning: 'de la mañana',
+    afternoon: 'de la tarde',
+    evening: 'de la tarde',
+    night: 'de la noche'
+  }
+};
+
+function ordinalNumber(dirtyNumber) {
+  var number = Number(dirtyNumber);
+  return number + 'º';
+}
+
+var localize = {
+  ordinalNumber: ordinalNumber,
+  era: (0, _index.default)({
+    values: eraValues,
+    defaultWidth: 'wide'
+  }),
+  quarter: (0, _index.default)({
+    values: quarterValues,
+    defaultWidth: 'wide',
+    argumentCallback: function (quarter) {
+      return Number(quarter) - 1;
+    }
+  }),
+  month: (0, _index.default)({
+    values: monthValues,
+    defaultWidth: 'wide'
+  }),
+  day: (0, _index.default)({
+    values: dayValues,
+    defaultWidth: 'wide'
+  }),
+  dayPeriod: (0, _index.default)({
+    values: dayPeriodValues,
+    defaultWidth: 'wide',
+    formattingValues: formattingDayPeriodValues,
+    defaultFormattingWidth: 'wide'
+  })
+};
+var _default = localize;
+exports.default = _default;
+module.exports = exports.default;
+
+/***/ }),
+/* 659 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = buildLocalizeFn;
+
+function buildLocalizeFn(args) {
+  return function (dirtyIndex, dirtyOptions) {
+    var options = dirtyOptions || {};
+    var context = options.context ? String(options.context) : 'standalone';
+    var valuesArray;
+
+    if (context === 'formatting' && args.formattingValues) {
+      var defaultWidth = args.defaultFormattingWidth || args.defaultWidth;
+      var width = options.width ? String(options.width) : defaultWidth;
+      valuesArray = args.formattingValues[width] || args.formattingValues[defaultWidth];
+    } else {
+      var _defaultWidth = args.defaultWidth;
+
+      var _width = options.width ? String(options.width) : args.defaultWidth;
+
+      valuesArray = args.values[_width] || args.values[_defaultWidth];
+    }
+
+    var index = args.argumentCallback ? args.argumentCallback(dirtyIndex) : dirtyIndex;
+    return valuesArray[index];
+  };
+}
+
+module.exports = exports.default;
+
+/***/ }),
+/* 660 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _index = _interopRequireDefault(__webpack_require__(661));
+
+var _index2 = _interopRequireDefault(__webpack_require__(662));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var matchOrdinalNumberPattern = /^(\d+)(º)?/i;
+var parseOrdinalNumberPattern = /\d+/i;
+var matchEraPatterns = {
+  narrow: /^(ac|dc|a|d)/i,
+  abbreviated: /^(a\.?\s?c\.?|a\.?\s?e\.?\s?c\.?|d\.?\s?c\.?|e\.?\s?c\.?)/i,
+  wide: /^(antes de cristo|antes de la era com[uú]n|despu[eé]s de cristo|era com[uú]n)/i
+};
+var parseEraPatterns = {
+  any: [/^ac/i, /^dc/i],
+  wide: [/^(antes de cristo|antes de la era com[uú]n)/i, /^(despu[eé]s de cristo|era com[uú]n)/i]
+};
+var matchQuarterPatterns = {
+  narrow: /^[1234]/i,
+  abbreviated: /^T[1234]/i,
+  wide: /^[1234](º)? trimestre/i
+};
+var parseQuarterPatterns = {
+  any: [/1/i, /2/i, /3/i, /4/i]
+};
+var matchMonthPatterns = {
+  narrow: /^[efmajsond]/i,
+  abbreviated: /^(ene|feb|mar|abr|may|jun|jul|ago|sep|oct|nov|dic)/i,
+  wide: /^(enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|octubre|noviembre|diciembre)/i
+};
+var parseMonthPatterns = {
+  narrow: [/^e/i, /^f/i, /^m/i, /^a/i, /^m/i, /^j/i, /^j/i, /^a/i, /^s/i, /^o/i, /^n/i, /^d/i],
+  any: [/^en/i, /^feb/i, /^mar/i, /^abr/i, /^may/i, /^jun/i, /^jul/i, /^ago/i, /^sep/i, /^oct/i, /^nov/i, /^dic/i]
+};
+var matchDayPatterns = {
+  narrow: /^[dlmjvs]/i,
+  short: /^(do|lu|ma|mi|ju|vi|sa)/i,
+  abbreviated: /^(dom|lun|mar|mie|jue|vie|sab)/i,
+  wide: /^(domingo|lunes|martes|miercoles|jueves|viernes|s[áa]bado)/i
+};
+var parseDayPatterns = {
+  narrow: [/^d/i, /^l/i, /^m/i, /^m/i, /^j/i, /^v/i, /^s/i],
+  any: [/^do/i, /^lu/i, /^ma/i, /^mi/i, /^ju/i, /^vi/i, /^sa/i]
+};
+var matchDayPeriodPatterns = {
+  narrow: /^(a|p|mn|md|(de la|a las) (mañana|tarde|noche))/i,
+  any: /^([ap]\.?\s?m\.?|medianoche|mediodia|(de la|a las) (mañana|tarde|noche))/i
+};
+var parseDayPeriodPatterns = {
+  any: {
+    am: /^a/i,
+    pm: /^p/i,
+    midnight: /^mn/i,
+    noon: /^md/i,
+    morning: /mañana/i,
+    afternoon: /tarde/i,
+    evening: /tarde/i,
+    night: /noche/i
+  }
+};
+var match = {
+  ordinalNumber: (0, _index.default)({
+    matchPattern: matchOrdinalNumberPattern,
+    parsePattern: parseOrdinalNumberPattern,
+    valueCallback: function (value) {
+      return parseInt(value, 10);
+    }
+  }),
+  era: (0, _index2.default)({
+    matchPatterns: matchEraPatterns,
+    defaultMatchWidth: 'wide',
+    parsePatterns: parseEraPatterns,
+    defaultParseWidth: 'any'
+  }),
+  quarter: (0, _index2.default)({
+    matchPatterns: matchQuarterPatterns,
+    defaultMatchWidth: 'wide',
+    parsePatterns: parseQuarterPatterns,
+    defaultParseWidth: 'any',
+    valueCallback: function (index) {
+      return index + 1;
+    }
+  }),
+  month: (0, _index2.default)({
+    matchPatterns: matchMonthPatterns,
+    defaultMatchWidth: 'wide',
+    parsePatterns: parseMonthPatterns,
+    defaultParseWidth: 'any'
+  }),
+  day: (0, _index2.default)({
+    matchPatterns: matchDayPatterns,
+    defaultMatchWidth: 'wide',
+    parsePatterns: parseDayPatterns,
+    defaultParseWidth: 'any'
+  }),
+  dayPeriod: (0, _index2.default)({
+    matchPatterns: matchDayPeriodPatterns,
+    defaultMatchWidth: 'any',
+    parsePatterns: parseDayPeriodPatterns,
+    defaultParseWidth: 'any'
+  })
+};
+var _default = match;
+exports.default = _default;
+module.exports = exports.default;
+
+/***/ }),
+/* 661 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = buildMatchPatternFn;
+
+function buildMatchPatternFn(args) {
+  return function (dirtyString, dirtyOptions) {
+    var string = String(dirtyString);
+    var options = dirtyOptions || {};
+    var matchResult = string.match(args.matchPattern);
+
+    if (!matchResult) {
+      return null;
+    }
+
+    var matchedString = matchResult[0];
+    var parseResult = string.match(args.parsePattern);
+
+    if (!parseResult) {
+      return null;
+    }
+
+    var value = args.valueCallback ? args.valueCallback(parseResult[0]) : parseResult[0];
+    value = options.valueCallback ? options.valueCallback(value) : value;
+    return {
+      value: value,
+      rest: string.slice(matchedString.length)
+    };
+  };
+}
+
+module.exports = exports.default;
+
+/***/ }),
+/* 662 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = buildMatchFn;
+
+function buildMatchFn(args) {
+  return function (dirtyString, dirtyOptions) {
+    var string = String(dirtyString);
+    var options = dirtyOptions || {};
+    var width = options.width;
+    var matchPattern = width && args.matchPatterns[width] || args.matchPatterns[args.defaultMatchWidth];
+    var matchResult = string.match(matchPattern);
+
+    if (!matchResult) {
+      return null;
+    }
+
+    var matchedString = matchResult[0];
+    var parsePatterns = width && args.parsePatterns[width] || args.parsePatterns[args.defaultParseWidth];
+    var value;
+
+    if (Object.prototype.toString.call(parsePatterns) === '[object Array]') {
+      value = parsePatterns.findIndex(function (pattern) {
+        return pattern.test(string);
+      });
+    } else {
+      value = findKey(parsePatterns, function (pattern) {
+        return pattern.test(string);
+      });
+    }
+
+    value = args.valueCallback ? args.valueCallback(value) : value;
+    value = options.valueCallback ? options.valueCallback(value) : value;
+    return {
+      value: value,
+      rest: string.slice(matchedString.length)
+    };
+  };
+}
+
+function findKey(object, predicate) {
+  for (var key in object) {
+    if (object.hasOwnProperty(key) && predicate(object[key])) {
+      return key;
+    }
+  }
+}
+
+module.exports = exports.default;
+
+/***/ }),
+/* 663 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_date_fns_addDays__ = __webpack_require__(664);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_date_fns_addMonths__ = __webpack_require__(591);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_date_fns_addYears__ = __webpack_require__(665);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_date_fns_differenceInMilliseconds__ = __webpack_require__(666);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_date_fns_eachDayOfInterval__ = __webpack_require__(667);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_date_fns_endOfDay__ = __webpack_require__(668);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_date_fns_endOfWeek__ = __webpack_require__(669);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_date_fns_endOfYear__ = __webpack_require__(670);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_date_fns_format__ = __webpack_require__(671);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_date_fns_getHours__ = __webpack_require__(687);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_date_fns_getSeconds__ = __webpack_require__(688);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_date_fns_getYear__ = __webpack_require__(689);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_date_fns_isAfter__ = __webpack_require__(690);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_date_fns_isBefore__ = __webpack_require__(691);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_date_fns_isEqual__ = __webpack_require__(692);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_date_fns_isSameDay__ = __webpack_require__(693);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16_date_fns_isValid__ = __webpack_require__(593);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17_date_fns_parse__ = __webpack_require__(694);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18_date_fns_setHours__ = __webpack_require__(701);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19_date_fns_setMinutes__ = __webpack_require__(702);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20_date_fns_setMonth__ = __webpack_require__(703);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21_date_fns_setSeconds__ = __webpack_require__(704);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22_date_fns_setYear__ = __webpack_require__(705);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23_date_fns_startOfDay__ = __webpack_require__(603);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24_date_fns_startOfMonth__ = __webpack_require__(706);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25_date_fns_endOfMonth__ = __webpack_require__(707);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26_date_fns_startOfWeek__ = __webpack_require__(708);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27_date_fns_startOfYear__ = __webpack_require__(709);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var DateFnsUtils = /** @class */ (function () {
+    function DateFnsUtils(_a) {
+        var locale = (_a === void 0 ? {} : _a).locale;
+        this.yearFormat = "yyyy";
+        this.yearMonthFormat = "MMMM yyyy";
+        this.dateTime12hFormat = "MMMM do hh:mm aaaa";
+        this.dateTime24hFormat = "MMMM do HH:mm";
+        this.time12hFormat = "hh:mm a";
+        this.time24hFormat = "HH:mm";
+        this.dateFormat = "MMMM do";
+        this.locale = locale;
+    }
+    // Note: date-fns input types are more lenient than this adapter, so we need to expose our more
+    // strict signature and delegate to the more lenient signature. Otherwise, we have downstream type errors upon usage.
+    DateFnsUtils.prototype.addDays = function (value, count) {
+        return Object(__WEBPACK_IMPORTED_MODULE_0_date_fns_addDays__["a" /* default */])(value, count);
+    };
+    DateFnsUtils.prototype.isValid = function (value) {
+        return Object(__WEBPACK_IMPORTED_MODULE_16_date_fns_isValid__["a" /* default */])(this.date(value));
+    };
+    DateFnsUtils.prototype.getDiff = function (value, comparing) {
+        return Object(__WEBPACK_IMPORTED_MODULE_3_date_fns_differenceInMilliseconds__["a" /* default */])(value, this.date(comparing));
+    };
+    DateFnsUtils.prototype.isAfter = function (value, comparing) {
+        return Object(__WEBPACK_IMPORTED_MODULE_12_date_fns_isAfter__["a" /* default */])(value, comparing);
+    };
+    DateFnsUtils.prototype.isBefore = function (value, comparing) {
+        return Object(__WEBPACK_IMPORTED_MODULE_13_date_fns_isBefore__["a" /* default */])(value, comparing);
+    };
+    DateFnsUtils.prototype.startOfDay = function (value) {
+        return Object(__WEBPACK_IMPORTED_MODULE_23_date_fns_startOfDay__["a" /* default */])(value);
+    };
+    DateFnsUtils.prototype.endOfDay = function (value) {
+        return Object(__WEBPACK_IMPORTED_MODULE_5_date_fns_endOfDay__["a" /* default */])(value);
+    };
+    DateFnsUtils.prototype.getHours = function (value) {
+        return Object(__WEBPACK_IMPORTED_MODULE_9_date_fns_getHours__["a" /* default */])(value);
+    };
+    DateFnsUtils.prototype.setHours = function (value, count) {
+        return Object(__WEBPACK_IMPORTED_MODULE_18_date_fns_setHours__["a" /* default */])(value, count);
+    };
+    DateFnsUtils.prototype.setMinutes = function (value, count) {
+        return Object(__WEBPACK_IMPORTED_MODULE_19_date_fns_setMinutes__["a" /* default */])(value, count);
+    };
+    DateFnsUtils.prototype.getSeconds = function (value) {
+        return Object(__WEBPACK_IMPORTED_MODULE_10_date_fns_getSeconds__["a" /* default */])(value);
+    };
+    DateFnsUtils.prototype.setSeconds = function (value, count) {
+        return Object(__WEBPACK_IMPORTED_MODULE_21_date_fns_setSeconds__["a" /* default */])(value, count);
+    };
+    DateFnsUtils.prototype.isSameDay = function (value, comparing) {
+        return Object(__WEBPACK_IMPORTED_MODULE_15_date_fns_isSameDay__["a" /* default */])(value, comparing);
+    };
+    DateFnsUtils.prototype.startOfMonth = function (value) {
+        return Object(__WEBPACK_IMPORTED_MODULE_24_date_fns_startOfMonth__["a" /* default */])(value);
+    };
+    DateFnsUtils.prototype.endOfMonth = function (value) {
+        return Object(__WEBPACK_IMPORTED_MODULE_25_date_fns_endOfMonth__["a" /* default */])(value);
+    };
+    DateFnsUtils.prototype.getYear = function (value) {
+        return Object(__WEBPACK_IMPORTED_MODULE_11_date_fns_getYear__["a" /* default */])(value);
+    };
+    DateFnsUtils.prototype.setYear = function (value, count) {
+        return Object(__WEBPACK_IMPORTED_MODULE_22_date_fns_setYear__["a" /* default */])(value, count);
+    };
+    DateFnsUtils.prototype.date = function (value) {
+        if (typeof value === "undefined") {
+            return new Date();
+        }
+        if (value === null) {
+            return null;
+        }
+        return new Date(value);
+    };
+    DateFnsUtils.prototype.parse = function (value, formatString) {
+        if (value === "") {
+            return null;
+        }
+        return Object(__WEBPACK_IMPORTED_MODULE_17_date_fns_parse__["a" /* default */])(value, formatString, new Date(), { locale: this.locale });
+    };
+    DateFnsUtils.prototype.format = function (date, formatString) {
+        return Object(__WEBPACK_IMPORTED_MODULE_8_date_fns_format__["a" /* default */])(date, formatString, { locale: this.locale });
+    };
+    DateFnsUtils.prototype.isEqual = function (date, comparing) {
+        if (date === null && comparing === null) {
+            return true;
+        }
+        return Object(__WEBPACK_IMPORTED_MODULE_14_date_fns_isEqual__["a" /* default */])(date, comparing);
+    };
+    DateFnsUtils.prototype.isNull = function (date) {
+        return date === null;
+    };
+    DateFnsUtils.prototype.isAfterDay = function (date, value) {
+        return Object(__WEBPACK_IMPORTED_MODULE_12_date_fns_isAfter__["a" /* default */])(date, Object(__WEBPACK_IMPORTED_MODULE_5_date_fns_endOfDay__["a" /* default */])(value));
+    };
+    DateFnsUtils.prototype.isBeforeDay = function (date, value) {
+        return Object(__WEBPACK_IMPORTED_MODULE_13_date_fns_isBefore__["a" /* default */])(date, Object(__WEBPACK_IMPORTED_MODULE_23_date_fns_startOfDay__["a" /* default */])(value));
+    };
+    DateFnsUtils.prototype.isBeforeYear = function (date, value) {
+        return Object(__WEBPACK_IMPORTED_MODULE_13_date_fns_isBefore__["a" /* default */])(date, Object(__WEBPACK_IMPORTED_MODULE_27_date_fns_startOfYear__["a" /* default */])(value));
+    };
+    DateFnsUtils.prototype.isAfterYear = function (date, value) {
+        return Object(__WEBPACK_IMPORTED_MODULE_12_date_fns_isAfter__["a" /* default */])(date, Object(__WEBPACK_IMPORTED_MODULE_7_date_fns_endOfYear__["a" /* default */])(value));
+    };
+    DateFnsUtils.prototype.formatNumber = function (numberToFormat) {
+        return numberToFormat;
+    };
+    DateFnsUtils.prototype.getMinutes = function (date) {
+        return date.getMinutes();
+    };
+    DateFnsUtils.prototype.getMonth = function (date) {
+        return date.getMonth();
+    };
+    DateFnsUtils.prototype.setMonth = function (date, count) {
+        return Object(__WEBPACK_IMPORTED_MODULE_20_date_fns_setMonth__["a" /* default */])(date, count);
+    };
+    DateFnsUtils.prototype.getMeridiemText = function (ampm) {
+        return ampm === "am" ? "AM" : "PM";
+    };
+    DateFnsUtils.prototype.getNextMonth = function (date) {
+        return Object(__WEBPACK_IMPORTED_MODULE_1_date_fns_addMonths__["a" /* default */])(date, 1);
+    };
+    DateFnsUtils.prototype.getPreviousMonth = function (date) {
+        return Object(__WEBPACK_IMPORTED_MODULE_1_date_fns_addMonths__["a" /* default */])(date, -1);
+    };
+    DateFnsUtils.prototype.getMonthArray = function (date) {
+        var firstMonth = Object(__WEBPACK_IMPORTED_MODULE_27_date_fns_startOfYear__["a" /* default */])(date);
+        var monthArray = [firstMonth];
+        while (monthArray.length < 12) {
+            var prevMonth = monthArray[monthArray.length - 1];
+            monthArray.push(this.getNextMonth(prevMonth));
+        }
+        return monthArray;
+    };
+    DateFnsUtils.prototype.mergeDateAndTime = function (date, time) {
+        return this.setMinutes(this.setHours(date, this.getHours(time)), this.getMinutes(time));
+    };
+    DateFnsUtils.prototype.getWeekdays = function () {
+        var _this = this;
+        var now = new Date();
+        return Object(__WEBPACK_IMPORTED_MODULE_4_date_fns_eachDayOfInterval__["a" /* default */])({
+            start: Object(__WEBPACK_IMPORTED_MODULE_26_date_fns_startOfWeek__["a" /* default */])(now, { locale: this.locale }),
+            end: Object(__WEBPACK_IMPORTED_MODULE_6_date_fns_endOfWeek__["a" /* default */])(now, { locale: this.locale })
+        }).map(function (day) { return Object(__WEBPACK_IMPORTED_MODULE_8_date_fns_format__["a" /* default */])(day, "EEEEEE", { locale: _this.locale }); });
+    };
+    DateFnsUtils.prototype.getWeekArray = function (date) {
+        var start = Object(__WEBPACK_IMPORTED_MODULE_26_date_fns_startOfWeek__["a" /* default */])(Object(__WEBPACK_IMPORTED_MODULE_24_date_fns_startOfMonth__["a" /* default */])(date), { locale: this.locale });
+        var end = Object(__WEBPACK_IMPORTED_MODULE_6_date_fns_endOfWeek__["a" /* default */])(Object(__WEBPACK_IMPORTED_MODULE_25_date_fns_endOfMonth__["a" /* default */])(date), { locale: this.locale });
+        var count = 0;
+        var current = start;
+        var nestedWeeks = [];
+        while (Object(__WEBPACK_IMPORTED_MODULE_13_date_fns_isBefore__["a" /* default */])(current, end)) {
+            var weekNumber = Math.floor(count / 7);
+            nestedWeeks[weekNumber] = nestedWeeks[weekNumber] || [];
+            nestedWeeks[weekNumber].push(current);
+            current = Object(__WEBPACK_IMPORTED_MODULE_0_date_fns_addDays__["a" /* default */])(current, 1);
+            count += 1;
+        }
+        return nestedWeeks;
+    };
+    DateFnsUtils.prototype.getYearRange = function (start, end) {
+        var startDate = Object(__WEBPACK_IMPORTED_MODULE_27_date_fns_startOfYear__["a" /* default */])(start);
+        var endDate = Object(__WEBPACK_IMPORTED_MODULE_7_date_fns_endOfYear__["a" /* default */])(end);
+        var years = [];
+        var current = startDate;
+        while (Object(__WEBPACK_IMPORTED_MODULE_13_date_fns_isBefore__["a" /* default */])(current, endDate)) {
+            years.push(current);
+            current = Object(__WEBPACK_IMPORTED_MODULE_2_date_fns_addYears__["a" /* default */])(current, 1);
+        }
+        return years;
+    };
+    // displaying methpds
+    DateFnsUtils.prototype.getCalendarHeaderText = function (date) {
+        return Object(__WEBPACK_IMPORTED_MODULE_8_date_fns_format__["a" /* default */])(date, this.yearMonthFormat, { locale: this.locale });
+    };
+    DateFnsUtils.prototype.getYearText = function (date) {
+        return Object(__WEBPACK_IMPORTED_MODULE_8_date_fns_format__["a" /* default */])(date, "yyyy", { locale: this.locale });
+    };
+    DateFnsUtils.prototype.getDatePickerHeaderText = function (date) {
+        return Object(__WEBPACK_IMPORTED_MODULE_8_date_fns_format__["a" /* default */])(date, "EEE, MMM d", { locale: this.locale });
+    };
+    DateFnsUtils.prototype.getDateTimePickerHeaderText = function (date) {
+        return Object(__WEBPACK_IMPORTED_MODULE_8_date_fns_format__["a" /* default */])(date, "MMM d", { locale: this.locale });
+    };
+    DateFnsUtils.prototype.getMonthText = function (date) {
+        return Object(__WEBPACK_IMPORTED_MODULE_8_date_fns_format__["a" /* default */])(date, "MMMM", { locale: this.locale });
+    };
+    DateFnsUtils.prototype.getDayText = function (date) {
+        return Object(__WEBPACK_IMPORTED_MODULE_8_date_fns_format__["a" /* default */])(date, "d", { locale: this.locale });
+    };
+    DateFnsUtils.prototype.getHourText = function (date, ampm) {
+        return Object(__WEBPACK_IMPORTED_MODULE_8_date_fns_format__["a" /* default */])(date, ampm ? "hh" : "HH", { locale: this.locale });
+    };
+    DateFnsUtils.prototype.getMinuteText = function (date) {
+        return Object(__WEBPACK_IMPORTED_MODULE_8_date_fns_format__["a" /* default */])(date, "mm", { locale: this.locale });
+    };
+    DateFnsUtils.prototype.getSecondText = function (date) {
+        return Object(__WEBPACK_IMPORTED_MODULE_8_date_fns_format__["a" /* default */])(date, "ss", { locale: this.locale });
+    };
+    return DateFnsUtils;
+}());
+
+/* harmony default export */ __webpack_exports__["default"] = (DateFnsUtils);
+
+
+/***/ }),
+/* 664 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = addDays;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__lib_toInteger_index_js__ = __webpack_require__(483);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__toDate_index_js__ = __webpack_require__(83);
+
+
+/**
+ * @name addDays
+ * @category Day Helpers
+ * @summary Add the specified number of days to the given date.
+ *
+ * @description
+ * Add the specified number of days to the given date.
+ *
+ * ### v2.0.0 breaking changes:
+ *
+ * - [Changes that are common for the whole library](https://github.com/date-fns/date-fns/blob/master/docs/upgradeGuide.md#Common-Changes).
+ *
+ * @param {Date|Number} date - the date to be changed
+ * @param {Number} amount - the amount of days to be added
+ * @returns {Date} the new date with the days added
+ * @throws {TypeError} 2 arguments required
+ *
+ * @example
+ * // Add 10 days to 1 September 2014:
+ * var result = addDays(new Date(2014, 8, 1), 10)
+ * //=> Thu Sep 11 2014 00:00:00
+ */
+
+function addDays(dirtyDate, dirtyAmount) {
+  if (arguments.length < 2) {
+    throw new TypeError('2 arguments required, but only ' + arguments.length + ' present');
+  }
+
+  var date = Object(__WEBPACK_IMPORTED_MODULE_1__toDate_index_js__["a" /* default */])(dirtyDate);
+  var amount = Object(__WEBPACK_IMPORTED_MODULE_0__lib_toInteger_index_js__["a" /* default */])(dirtyAmount);
+  date.setDate(date.getDate() + amount);
+  return date;
+}
+
+/***/ }),
+/* 665 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = addYears;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__lib_toInteger_index_js__ = __webpack_require__(483);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__addMonths_index_js__ = __webpack_require__(591);
+
+
+/**
+ * @name addYears
+ * @category Year Helpers
+ * @summary Add the specified number of years to the given date.
+ *
+ * @description
+ * Add the specified number of years to the given date.
+ *
+ * ### v2.0.0 breaking changes:
+ *
+ * - [Changes that are common for the whole library](https://github.com/date-fns/date-fns/blob/master/docs/upgradeGuide.md#Common-Changes).
+ *
+ * @param {Date|Number} date - the date to be changed
+ * @param {Number} amount - the amount of years to be added
+ * @returns {Date} the new date with the years added
+ * @throws {TypeError} 2 arguments required
+ *
+ * @example
+ * // Add 5 years to 1 September 2014:
+ * var result = addYears(new Date(2014, 8, 1), 5)
+ * //=> Sun Sep 01 2019 00:00:00
+ */
+
+function addYears(dirtyDate, dirtyAmount) {
+  if (arguments.length < 2) {
+    throw new TypeError('2 arguments required, but only ' + arguments.length + ' present');
+  }
+
+  var amount = Object(__WEBPACK_IMPORTED_MODULE_0__lib_toInteger_index_js__["a" /* default */])(dirtyAmount);
+  return Object(__WEBPACK_IMPORTED_MODULE_1__addMonths_index_js__["a" /* default */])(dirtyDate, amount * 12);
+}
+
+/***/ }),
+/* 666 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = differenceInMilliseconds;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__toDate_index_js__ = __webpack_require__(83);
+
+/**
+ * @name differenceInMilliseconds
+ * @category Millisecond Helpers
+ * @summary Get the number of milliseconds between the given dates.
+ *
+ * @description
+ * Get the number of milliseconds between the given dates.
+ *
+ * ### v2.0.0 breaking changes:
+ *
+ * - [Changes that are common for the whole library](https://github.com/date-fns/date-fns/blob/master/docs/upgradeGuide.md#Common-Changes).
+ *
+ * @param {Date|Number} dateLeft - the later date
+ * @param {Date|Number} dateRight - the earlier date
+ * @returns {Number} the number of milliseconds
+ * @throws {TypeError} 2 arguments required
+ *
+ * @example
+ * // How many milliseconds are between
+ * // 2 July 2014 12:30:20.600 and 2 July 2014 12:30:21.700?
+ * var result = differenceInMilliseconds(
+ *   new Date(2014, 6, 2, 12, 30, 21, 700),
+ *   new Date(2014, 6, 2, 12, 30, 20, 600)
+ * )
+ * //=> 1100
+ */
+
+function differenceInMilliseconds(dirtyDateLeft, dirtyDateRight) {
+  if (arguments.length < 2) {
+    throw new TypeError('2 arguments required, but only ' + arguments.length + ' present');
+  }
+
+  var dateLeft = Object(__WEBPACK_IMPORTED_MODULE_0__toDate_index_js__["a" /* default */])(dirtyDateLeft);
+  var dateRight = Object(__WEBPACK_IMPORTED_MODULE_0__toDate_index_js__["a" /* default */])(dirtyDateRight);
+  return dateLeft.getTime() - dateRight.getTime();
+}
+
+/***/ }),
+/* 667 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = eachDayOfInterval;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__toDate_index_js__ = __webpack_require__(83);
+
+/**
+ * @name eachDayOfInterval
+ * @category Interval Helpers
+ * @summary Return the array of dates within the specified time interval.
+ *
+ * @description
+ * Return the array of dates within the specified time interval.
+ *
+ * ### v2.0.0 breaking changes:
+ *
+ * - [Changes that are common for the whole library](https://github.com/date-fns/date-fns/blob/master/docs/upgradeGuide.md#Common-Changes).
+ *
+ * - The function was renamed from `eachDay` to `eachDayOfInterval`.
+ *   This change was made to mirror the use of the word "interval" in standard ISO 8601:2004 terminology:
+ *
+ *   ```
+ *   2.1.3
+ *   time interval
+ *   part of the time axis limited by two instants
+ *   ```
+ *
+ *   Also, this function now accepts an object with `start` and `end` properties
+ *   instead of two arguments as an interval.
+ *   This function now throws `RangeError` if the start of the interval is after its end
+ *   or if any date in the interval is `Invalid Date`.
+ *
+ *   ```javascript
+ *   // Before v2.0.0
+ *
+ *   eachDay(new Date(2014, 0, 10), new Date(2014, 0, 20))
+ *
+ *   // v2.0.0 onward
+ *
+ *   eachDayOfInterval(
+ *     { start: new Date(2014, 0, 10), end: new Date(2014, 0, 20) }
+ *   )
+ *   ```
+ *
+ * @param {Interval} interval - the interval. See [Interval]{@link docs/types/Interval}
+ * @param {Object} [options] - an object with options.
+ * @param {Number} [options.step=1] - the step to increment by. The value should be more than 1.
+ * @returns {Date[]} the array with starts of days from the day of the interval start to the day of the interval end
+ * @throws {TypeError} 1 argument required
+ * @throws {RangeError} `options.step` must be a number greater than 1
+ * @throws {RangeError} The start of an interval cannot be after its end
+ * @throws {RangeError} Date in interval cannot be `Invalid Date`
+ *
+ * @example
+ * // Each day between 6 October 2014 and 10 October 2014:
+ * var result = eachDayOfInterval({
+ *   start: new Date(2014, 9, 6),
+ *   end: new Date(2014, 9, 10)
+ * })
+ * //=> [
+ * //   Mon Oct 06 2014 00:00:00,
+ * //   Tue Oct 07 2014 00:00:00,
+ * //   Wed Oct 08 2014 00:00:00,
+ * //   Thu Oct 09 2014 00:00:00,
+ * //   Fri Oct 10 2014 00:00:00
+ * // ]
+ */
+
+function eachDayOfInterval(dirtyInterval, options) {
+  if (arguments.length < 1) {
+    throw new TypeError('1 argument required, but only ' + arguments.length + ' present');
+  }
+
+  var interval = dirtyInterval || {};
+  var startDate = Object(__WEBPACK_IMPORTED_MODULE_0__toDate_index_js__["a" /* default */])(interval.start);
+  var endDate = Object(__WEBPACK_IMPORTED_MODULE_0__toDate_index_js__["a" /* default */])(interval.end);
+  var endTime = endDate.getTime(); // Throw an exception if start date is after end date or if any date is `Invalid Date`
+
+  if (!(startDate.getTime() <= endTime)) {
+    throw new RangeError('Invalid interval');
+  }
+
+  var dates = [];
+  var currentDate = startDate;
+  currentDate.setHours(0, 0, 0, 0);
+  var step = options && 'step' in options ? Number(options.step) : 1;
+  if (step < 1 || isNaN(step)) throw new RangeError('`options.step` must be a number greater than 1');
+
+  while (currentDate.getTime() <= endTime) {
+    dates.push(Object(__WEBPACK_IMPORTED_MODULE_0__toDate_index_js__["a" /* default */])(currentDate));
+    currentDate.setDate(currentDate.getDate() + step);
+    currentDate.setHours(0, 0, 0, 0);
+  }
+
+  return dates;
+}
+
+/***/ }),
+/* 668 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = endOfDay;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__toDate_index_js__ = __webpack_require__(83);
+
+/**
+ * @name endOfDay
+ * @category Day Helpers
+ * @summary Return the end of a day for the given date.
+ *
+ * @description
+ * Return the end of a day for the given date.
+ * The result will be in the local timezone.
+ *
+ * ### v2.0.0 breaking changes:
+ *
+ * - [Changes that are common for the whole library](https://github.com/date-fns/date-fns/blob/master/docs/upgradeGuide.md#Common-Changes).
+ *
+ * @param {Date|Number} date - the original date
+ * @returns {Date} the end of a day
+ * @throws {TypeError} 1 argument required
+ *
+ * @example
+ * // The end of a day for 2 September 2014 11:55:00:
+ * var result = endOfDay(new Date(2014, 8, 2, 11, 55, 0))
+ * //=> Tue Sep 02 2014 23:59:59.999
+ */
+
+function endOfDay(dirtyDate) {
+  if (arguments.length < 1) {
+    throw new TypeError('1 argument required, but only ' + arguments.length + ' present');
+  }
+
+  var date = Object(__WEBPACK_IMPORTED_MODULE_0__toDate_index_js__["a" /* default */])(dirtyDate);
+  date.setHours(23, 59, 59, 999);
+  return date;
+}
+
+/***/ }),
+/* 669 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = endOfWeek;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__toDate_index_js__ = __webpack_require__(83);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__lib_toInteger_index_js__ = __webpack_require__(483);
+
+
+/**
+ * @name endOfWeek
+ * @category Week Helpers
+ * @summary Return the end of a week for the given date.
+ *
+ * @description
+ * Return the end of a week for the given date.
+ * The result will be in the local timezone.
+ *
+ * ### v2.0.0 breaking changes:
+ *
+ * - [Changes that are common for the whole library](https://github.com/date-fns/date-fns/blob/master/docs/upgradeGuide.md#Common-Changes).
+ *
+ * @param {Date|Number} date - the original date
+ * @param {Object} [options] - an object with options.
+ * @param {Locale} [options.locale=defaultLocale] - the locale object. See [Locale]{@link https://date-fns.org/docs/Locale}
+ * @param {0|1|2|3|4|5|6} [options.weekStartsOn=0] - the index of the first day of the week (0 - Sunday)
+ * @returns {Date} the end of a week
+ * @throws {TypeError} 1 argument required
+ * @throws {RangeError} `options.weekStartsOn` must be between 0 and 6
+ *
+ * @example
+ * // The end of a week for 2 September 2014 11:55:00:
+ * var result = endOfWeek(new Date(2014, 8, 2, 11, 55, 0))
+ * //=> Sat Sep 06 2014 23:59:59.999
+ *
+ * @example
+ * // If the week starts on Monday, the end of the week for 2 September 2014 11:55:00:
+ * var result = endOfWeek(new Date(2014, 8, 2, 11, 55, 0), { weekStartsOn: 1 })
+ * //=> Sun Sep 07 2014 23:59:59.999
+ */
+
+function endOfWeek(dirtyDate, dirtyOptions) {
+  if (arguments.length < 1) {
+    throw new TypeError('1 argument required, but only ' + arguments.length + ' present');
+  }
+
+  var options = dirtyOptions || {};
+  var locale = options.locale;
+  var localeWeekStartsOn = locale && locale.options && locale.options.weekStartsOn;
+  var defaultWeekStartsOn = localeWeekStartsOn == null ? 0 : Object(__WEBPACK_IMPORTED_MODULE_1__lib_toInteger_index_js__["a" /* default */])(localeWeekStartsOn);
+  var weekStartsOn = options.weekStartsOn == null ? defaultWeekStartsOn : Object(__WEBPACK_IMPORTED_MODULE_1__lib_toInteger_index_js__["a" /* default */])(options.weekStartsOn); // Test if weekStartsOn is between 0 and 6 _and_ is not NaN
+
+  if (!(weekStartsOn >= 0 && weekStartsOn <= 6)) {
+    throw new RangeError('weekStartsOn must be between 0 and 6 inclusively');
+  }
+
+  var date = Object(__WEBPACK_IMPORTED_MODULE_0__toDate_index_js__["a" /* default */])(dirtyDate);
+  var day = date.getDay();
+  var diff = (day < weekStartsOn ? -7 : 0) + 6 - (day - weekStartsOn);
+  date.setDate(date.getDate() + diff);
+  date.setHours(23, 59, 59, 999);
+  return date;
+}
+
+/***/ }),
+/* 670 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = endOfYear;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__toDate_index_js__ = __webpack_require__(83);
+
+/**
+ * @name endOfYear
+ * @category Year Helpers
+ * @summary Return the end of a year for the given date.
+ *
+ * @description
+ * Return the end of a year for the given date.
+ * The result will be in the local timezone.
+ *
+ * ### v2.0.0 breaking changes:
+ *
+ * - [Changes that are common for the whole library](https://github.com/date-fns/date-fns/blob/master/docs/upgradeGuide.md#Common-Changes).
+ *
+ * @param {Date|Number} date - the original date
+ * @returns {Date} the end of a year
+ * @throws {TypeError} 1 argument required
+ *
+ * @example
+ * // The end of a year for 2 September 2014 11:55:00:
+ * var result = endOfYear(new Date(2014, 8, 2, 11, 55, 00))
+ * //=> Wed Dec 31 2014 23:59:59.999
+ */
+
+function endOfYear(dirtyDate) {
+  if (arguments.length < 1) {
+    throw new TypeError('1 argument required, but only ' + arguments.length + ' present');
+  }
+
+  var date = Object(__WEBPACK_IMPORTED_MODULE_0__toDate_index_js__["a" /* default */])(dirtyDate);
+  var year = date.getFullYear();
+  date.setFullYear(year + 1, 0, 0);
+  date.setHours(23, 59, 59, 999);
+  return date;
+}
+
+/***/ }),
+/* 671 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = format;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__isValid_index_js__ = __webpack_require__(593);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__locale_en_US_index_js__ = __webpack_require__(594);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__subMilliseconds_index_js__ = __webpack_require__(595);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__toDate_index_js__ = __webpack_require__(83);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__lib_format_formatters_index_js__ = __webpack_require__(682);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__lib_format_longFormatters_index_js__ = __webpack_require__(600);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__lib_getTimezoneOffsetInMilliseconds_index_js__ = __webpack_require__(601);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__lib_protectedTokens_index_js__ = __webpack_require__(602);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__lib_toInteger_index_js__ = __webpack_require__(483);
+
+
+
+
+
+
+
+
+ // This RegExp consists of three parts separated by `|`:
+// - [yYQqMLwIdDecihHKkms]o matches any available ordinal number token
+//   (one of the certain letters followed by `o`)
+// - (\w)\1* matches any sequences of the same letter
+// - '' matches two quote characters in a row
+// - '(''|[^'])+('|$) matches anything surrounded by two quote characters ('),
+//   except a single quote symbol, which ends the sequence.
+//   Two quote characters do not end the sequence.
+//   If there is no matching single quote
+//   then the sequence will continue until the end of the string.
+// - . matches any single character unmatched by previous parts of the RegExps
+
+var formattingTokensRegExp = /[yYQqMLwIdDecihHKkms]o|(\w)\1*|''|'(''|[^'])+('|$)|./g; // This RegExp catches symbols escaped by quotes, and also
+// sequences of symbols P, p, and the combinations like `PPPPPPPppppp`
+
+var longFormattingTokensRegExp = /P+p+|P+|p+|''|'(''|[^'])+('|$)|./g;
+var escapedStringRegExp = /^'(.*?)'?$/;
+var doubleQuoteRegExp = /''/g;
+var unescapedLatinCharacterRegExp = /[a-zA-Z]/;
+/**
+ * @name format
+ * @category Common Helpers
+ * @summary Format the date.
+ *
+ * @description
+ * Return the formatted date string in the given format. The result may vary by locale.
+ *
+ * > ⚠️ Please note that the `format` tokens differ from Moment.js and other libraries.
+ * > See: https://git.io/fxCyr
+ *
+ * The characters wrapped between two single quotes characters (') are escaped.
+ * Two single quotes in a row, whether inside or outside a quoted sequence, represent a 'real' single quote.
+ * (see the last example)
+ *
+ * Format of the string is based on Unicode Technical Standard #35:
+ * https://www.unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table
+ * with a few additions (see note 7 below the table).
+ *
+ * Accepted patterns:
+ * | Unit                            | Pattern | Result examples                   | Notes |
+ * |---------------------------------|---------|-----------------------------------|-------|
+ * | Era                             | G..GGG  | AD, BC                            |       |
+ * |                                 | GGGG    | Anno Domini, Before Christ        | 2     |
+ * |                                 | GGGGG   | A, B                              |       |
+ * | Calendar year                   | y       | 44, 1, 1900, 2017                 | 5     |
+ * |                                 | yo      | 44th, 1st, 0th, 17th              | 5,7   |
+ * |                                 | yy      | 44, 01, 00, 17                    | 5     |
+ * |                                 | yyy     | 044, 001, 1900, 2017              | 5     |
+ * |                                 | yyyy    | 0044, 0001, 1900, 2017            | 5     |
+ * |                                 | yyyyy   | ...                               | 3,5   |
+ * | Local week-numbering year       | Y       | 44, 1, 1900, 2017                 | 5     |
+ * |                                 | Yo      | 44th, 1st, 1900th, 2017th         | 5,7   |
+ * |                                 | YY      | 44, 01, 00, 17                    | 5,8   |
+ * |                                 | YYY     | 044, 001, 1900, 2017              | 5     |
+ * |                                 | YYYY    | 0044, 0001, 1900, 2017            | 5,8   |
+ * |                                 | YYYYY   | ...                               | 3,5   |
+ * | ISO week-numbering year         | R       | -43, 0, 1, 1900, 2017             | 5,7   |
+ * |                                 | RR      | -43, 00, 01, 1900, 2017           | 5,7   |
+ * |                                 | RRR     | -043, 000, 001, 1900, 2017        | 5,7   |
+ * |                                 | RRRR    | -0043, 0000, 0001, 1900, 2017     | 5,7   |
+ * |                                 | RRRRR   | ...                               | 3,5,7 |
+ * | Extended year                   | u       | -43, 0, 1, 1900, 2017             | 5     |
+ * |                                 | uu      | -43, 01, 1900, 2017               | 5     |
+ * |                                 | uuu     | -043, 001, 1900, 2017             | 5     |
+ * |                                 | uuuu    | -0043, 0001, 1900, 2017           | 5     |
+ * |                                 | uuuuu   | ...                               | 3,5   |
+ * | Quarter (formatting)            | Q       | 1, 2, 3, 4                        |       |
+ * |                                 | Qo      | 1st, 2nd, 3rd, 4th                | 7     |
+ * |                                 | QQ      | 01, 02, 03, 04                    |       |
+ * |                                 | QQQ     | Q1, Q2, Q3, Q4                    |       |
+ * |                                 | QQQQ    | 1st quarter, 2nd quarter, ...     | 2     |
+ * |                                 | QQQQQ   | 1, 2, 3, 4                        | 4     |
+ * | Quarter (stand-alone)           | q       | 1, 2, 3, 4                        |       |
+ * |                                 | qo      | 1st, 2nd, 3rd, 4th                | 7     |
+ * |                                 | qq      | 01, 02, 03, 04                    |       |
+ * |                                 | qqq     | Q1, Q2, Q3, Q4                    |       |
+ * |                                 | qqqq    | 1st quarter, 2nd quarter, ...     | 2     |
+ * |                                 | qqqqq   | 1, 2, 3, 4                        | 4     |
+ * | Month (formatting)              | M       | 1, 2, ..., 12                     |       |
+ * |                                 | Mo      | 1st, 2nd, ..., 12th               | 7     |
+ * |                                 | MM      | 01, 02, ..., 12                   |       |
+ * |                                 | MMM     | Jan, Feb, ..., Dec                |       |
+ * |                                 | MMMM    | January, February, ..., December  | 2     |
+ * |                                 | MMMMM   | J, F, ..., D                      |       |
+ * | Month (stand-alone)             | L       | 1, 2, ..., 12                     |       |
+ * |                                 | Lo      | 1st, 2nd, ..., 12th               | 7     |
+ * |                                 | LL      | 01, 02, ..., 12                   |       |
+ * |                                 | LLL     | Jan, Feb, ..., Dec                |       |
+ * |                                 | LLLL    | January, February, ..., December  | 2     |
+ * |                                 | LLLLL   | J, F, ..., D                      |       |
+ * | Local week of year              | w       | 1, 2, ..., 53                     |       |
+ * |                                 | wo      | 1st, 2nd, ..., 53th               | 7     |
+ * |                                 | ww      | 01, 02, ..., 53                   |       |
+ * | ISO week of year                | I       | 1, 2, ..., 53                     | 7     |
+ * |                                 | Io      | 1st, 2nd, ..., 53th               | 7     |
+ * |                                 | II      | 01, 02, ..., 53                   | 7     |
+ * | Day of month                    | d       | 1, 2, ..., 31                     |       |
+ * |                                 | do      | 1st, 2nd, ..., 31st               | 7     |
+ * |                                 | dd      | 01, 02, ..., 31                   |       |
+ * | Day of year                     | D       | 1, 2, ..., 365, 366               | 9     |
+ * |                                 | Do      | 1st, 2nd, ..., 365th, 366th       | 7     |
+ * |                                 | DD      | 01, 02, ..., 365, 366             | 9     |
+ * |                                 | DDD     | 001, 002, ..., 365, 366           |       |
+ * |                                 | DDDD    | ...                               | 3     |
+ * | Day of week (formatting)        | E..EEE  | Mon, Tue, Wed, ..., Su            |       |
+ * |                                 | EEEE    | Monday, Tuesday, ..., Sunday      | 2     |
+ * |                                 | EEEEE   | M, T, W, T, F, S, S               |       |
+ * |                                 | EEEEEE  | Mo, Tu, We, Th, Fr, Su, Sa        |       |
+ * | ISO day of week (formatting)    | i       | 1, 2, 3, ..., 7                   | 7     |
+ * |                                 | io      | 1st, 2nd, ..., 7th                | 7     |
+ * |                                 | ii      | 01, 02, ..., 07                   | 7     |
+ * |                                 | iii     | Mon, Tue, Wed, ..., Su            | 7     |
+ * |                                 | iiii    | Monday, Tuesday, ..., Sunday      | 2,7   |
+ * |                                 | iiiii   | M, T, W, T, F, S, S               | 7     |
+ * |                                 | iiiiii  | Mo, Tu, We, Th, Fr, Su, Sa        | 7     |
+ * | Local day of week (formatting)  | e       | 2, 3, 4, ..., 1                   |       |
+ * |                                 | eo      | 2nd, 3rd, ..., 1st                | 7     |
+ * |                                 | ee      | 02, 03, ..., 01                   |       |
+ * |                                 | eee     | Mon, Tue, Wed, ..., Su            |       |
+ * |                                 | eeee    | Monday, Tuesday, ..., Sunday      | 2     |
+ * |                                 | eeeee   | M, T, W, T, F, S, S               |       |
+ * |                                 | eeeeee  | Mo, Tu, We, Th, Fr, Su, Sa        |       |
+ * | Local day of week (stand-alone) | c       | 2, 3, 4, ..., 1                   |       |
+ * |                                 | co      | 2nd, 3rd, ..., 1st                | 7     |
+ * |                                 | cc      | 02, 03, ..., 01                   |       |
+ * |                                 | ccc     | Mon, Tue, Wed, ..., Su            |       |
+ * |                                 | cccc    | Monday, Tuesday, ..., Sunday      | 2     |
+ * |                                 | ccccc   | M, T, W, T, F, S, S               |       |
+ * |                                 | cccccc  | Mo, Tu, We, Th, Fr, Su, Sa        |       |
+ * | AM, PM                          | a..aaa  | AM, PM                            |       |
+ * |                                 | aaaa    | a.m., p.m.                        | 2     |
+ * |                                 | aaaaa   | a, p                              |       |
+ * | AM, PM, noon, midnight          | b..bbb  | AM, PM, noon, midnight            |       |
+ * |                                 | bbbb    | a.m., p.m., noon, midnight        | 2     |
+ * |                                 | bbbbb   | a, p, n, mi                       |       |
+ * | Flexible day period             | B..BBB  | at night, in the morning, ...     |       |
+ * |                                 | BBBB    | at night, in the morning, ...     | 2     |
+ * |                                 | BBBBB   | at night, in the morning, ...     |       |
+ * | Hour [1-12]                     | h       | 1, 2, ..., 11, 12                 |       |
+ * |                                 | ho      | 1st, 2nd, ..., 11th, 12th         | 7     |
+ * |                                 | hh      | 01, 02, ..., 11, 12               |       |
+ * | Hour [0-23]                     | H       | 0, 1, 2, ..., 23                  |       |
+ * |                                 | Ho      | 0th, 1st, 2nd, ..., 23rd          | 7     |
+ * |                                 | HH      | 00, 01, 02, ..., 23               |       |
+ * | Hour [0-11]                     | K       | 1, 2, ..., 11, 0                  |       |
+ * |                                 | Ko      | 1st, 2nd, ..., 11th, 0th          | 7     |
+ * |                                 | KK      | 1, 2, ..., 11, 0                  |       |
+ * | Hour [1-24]                     | k       | 24, 1, 2, ..., 23                 |       |
+ * |                                 | ko      | 24th, 1st, 2nd, ..., 23rd         | 7     |
+ * |                                 | kk      | 24, 01, 02, ..., 23               |       |
+ * | Minute                          | m       | 0, 1, ..., 59                     |       |
+ * |                                 | mo      | 0th, 1st, ..., 59th               | 7     |
+ * |                                 | mm      | 00, 01, ..., 59                   |       |
+ * | Second                          | s       | 0, 1, ..., 59                     |       |
+ * |                                 | so      | 0th, 1st, ..., 59th               | 7     |
+ * |                                 | ss      | 00, 01, ..., 59                   |       |
+ * | Fraction of second              | S       | 0, 1, ..., 9                      |       |
+ * |                                 | SS      | 00, 01, ..., 99                   |       |
+ * |                                 | SSS     | 000, 0001, ..., 999               |       |
+ * |                                 | SSSS    | ...                               | 3     |
+ * | Timezone (ISO-8601 w/ Z)        | X       | -08, +0530, Z                     |       |
+ * |                                 | XX      | -0800, +0530, Z                   |       |
+ * |                                 | XXX     | -08:00, +05:30, Z                 |       |
+ * |                                 | XXXX    | -0800, +0530, Z, +123456          | 2     |
+ * |                                 | XXXXX   | -08:00, +05:30, Z, +12:34:56      |       |
+ * | Timezone (ISO-8601 w/o Z)       | x       | -08, +0530, +00                   |       |
+ * |                                 | xx      | -0800, +0530, +0000               |       |
+ * |                                 | xxx     | -08:00, +05:30, +00:00            | 2     |
+ * |                                 | xxxx    | -0800, +0530, +0000, +123456      |       |
+ * |                                 | xxxxx   | -08:00, +05:30, +00:00, +12:34:56 |       |
+ * | Timezone (GMT)                  | O...OOO | GMT-8, GMT+5:30, GMT+0            |       |
+ * |                                 | OOOO    | GMT-08:00, GMT+05:30, GMT+00:00   | 2     |
+ * | Timezone (specific non-locat.)  | z...zzz | GMT-8, GMT+5:30, GMT+0            | 6     |
+ * |                                 | zzzz    | GMT-08:00, GMT+05:30, GMT+00:00   | 2,6   |
+ * | Seconds timestamp               | t       | 512969520                         | 7     |
+ * |                                 | tt      | ...                               | 3,7   |
+ * | Milliseconds timestamp          | T       | 512969520900                      | 7     |
+ * |                                 | TT      | ...                               | 3,7   |
+ * | Long localized date             | P       | 05/29/1453                        | 7     |
+ * |                                 | PP      | May 29, 1453                      | 7     |
+ * |                                 | PPP     | May 29th, 1453                    | 7     |
+ * |                                 | PPPP    | Sunday, May 29th, 1453            | 2,7   |
+ * | Long localized time             | p       | 12:00 AM                          | 7     |
+ * |                                 | pp      | 12:00:00 AM                       | 7     |
+ * |                                 | ppp     | 12:00:00 AM GMT+2                 | 7     |
+ * |                                 | pppp    | 12:00:00 AM GMT+02:00             | 2,7   |
+ * | Combination of date and time    | Pp      | 05/29/1453, 12:00 AM              | 7     |
+ * |                                 | PPpp    | May 29, 1453, 12:00:00 AM         | 7     |
+ * |                                 | PPPppp  | May 29th, 1453 at ...             | 7     |
+ * |                                 | PPPPpppp| Sunday, May 29th, 1453 at ...     | 2,7   |
+ * Notes:
+ * 1. "Formatting" units (e.g. formatting quarter) in the default en-US locale
+ *    are the same as "stand-alone" units, but are different in some languages.
+ *    "Formatting" units are declined according to the rules of the language
+ *    in the context of a date. "Stand-alone" units are always nominative singular:
+ *
+ *    `format(new Date(2017, 10, 6), 'do LLLL', {locale: cs}) //=> '6. listopad'`
+ *
+ *    `format(new Date(2017, 10, 6), 'do MMMM', {locale: cs}) //=> '6. listopadu'`
+ *
+ * 2. Any sequence of the identical letters is a pattern, unless it is escaped by
+ *    the single quote characters (see below).
+ *    If the sequence is longer than listed in table (e.g. `EEEEEEEEEEE`)
+ *    the output will be the same as default pattern for this unit, usually
+ *    the longest one (in case of ISO weekdays, `EEEE`). Default patterns for units
+ *    are marked with "2" in the last column of the table.
+ *
+ *    `format(new Date(2017, 10, 6), 'MMM') //=> 'Nov'`
+ *
+ *    `format(new Date(2017, 10, 6), 'MMMM') //=> 'November'`
+ *
+ *    `format(new Date(2017, 10, 6), 'MMMMM') //=> 'N'`
+ *
+ *    `format(new Date(2017, 10, 6), 'MMMMMM') //=> 'November'`
+ *
+ *    `format(new Date(2017, 10, 6), 'MMMMMMM') //=> 'November'`
+ *
+ * 3. Some patterns could be unlimited length (such as `yyyyyyyy`).
+ *    The output will be padded with zeros to match the length of the pattern.
+ *
+ *    `format(new Date(2017, 10, 6), 'yyyyyyyy') //=> '00002017'`
+ *
+ * 4. `QQQQQ` and `qqqqq` could be not strictly numerical in some locales.
+ *    These tokens represent the shortest form of the quarter.
+ *
+ * 5. The main difference between `y` and `u` patterns are B.C. years:
+ *
+ *    | Year | `y` | `u` |
+ *    |------|-----|-----|
+ *    | AC 1 |   1 |   1 |
+ *    | BC 1 |   1 |   0 |
+ *    | BC 2 |   2 |  -1 |
+ *
+ *    Also `yy` always returns the last two digits of a year,
+ *    while `uu` pads single digit years to 2 characters and returns other years unchanged:
+ *
+ *    | Year | `yy` | `uu` |
+ *    |------|------|------|
+ *    | 1    |   01 |   01 |
+ *    | 14   |   14 |   14 |
+ *    | 376  |   76 |  376 |
+ *    | 1453 |   53 | 1453 |
+ *
+ *    The same difference is true for local and ISO week-numbering years (`Y` and `R`),
+ *    except local week-numbering years are dependent on `options.weekStartsOn`
+ *    and `options.firstWeekContainsDate` (compare [getISOWeekYear]{@link https://date-fns.org/docs/getISOWeekYear}
+ *    and [getWeekYear]{@link https://date-fns.org/docs/getWeekYear}).
+ *
+ * 6. Specific non-location timezones are currently unavailable in `date-fns`,
+ *    so right now these tokens fall back to GMT timezones.
+ *
+ * 7. These patterns are not in the Unicode Technical Standard #35:
+ *    - `i`: ISO day of week
+ *    - `I`: ISO week of year
+ *    - `R`: ISO week-numbering year
+ *    - `t`: seconds timestamp
+ *    - `T`: milliseconds timestamp
+ *    - `o`: ordinal number modifier
+ *    - `P`: long localized date
+ *    - `p`: long localized time
+ *
+ * 8. `YY` and `YYYY` tokens represent week-numbering years but they are often confused with years.
+ *    You should enable `options.useAdditionalWeekYearTokens` to use them. See: https://git.io/fxCyr
+ *
+ * 9. `D` and `DD` tokens represent days of the year but they are ofthen confused with days of the month.
+ *    You should enable `options.useAdditionalDayOfYearTokens` to use them. See: https://git.io/fxCyr
+ *
+ * ### v2.0.0 breaking changes:
+ *
+ * - [Changes that are common for the whole library](https://github.com/date-fns/date-fns/blob/master/docs/upgradeGuide.md#Common-Changes).
+ *
+ * - The second argument is now required for the sake of explicitness.
+ *
+ *   ```javascript
+ *   // Before v2.0.0
+ *   format(new Date(2016, 0, 1))
+ *
+ *   // v2.0.0 onward
+ *   format(new Date(2016, 0, 1), "yyyy-MM-dd'T'HH:mm:ss.SSSxxx")
+ *   ```
+ *
+ * - New format string API for `format` function
+ *   which is based on [Unicode Technical Standard #35](https://www.unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table).
+ *   See [this post](https://blog.date-fns.org/post/unicode-tokens-in-date-fns-v2-sreatyki91jg) for more details.
+ *
+ * - Characters are now escaped using single quote symbols (`'`) instead of square brackets.
+ *
+ * @param {Date|Number} date - the original date
+ * @param {String} format - the string of tokens
+ * @param {Object} [options] - an object with options.
+ * @param {Locale} [options.locale=defaultLocale] - the locale object. See [Locale]{@link https://date-fns.org/docs/Locale}
+ * @param {0|1|2|3|4|5|6} [options.weekStartsOn=0] - the index of the first day of the week (0 - Sunday)
+ * @param {Number} [options.firstWeekContainsDate=1] - the day of January, which is
+ * @param {Boolean} [options.useAdditionalWeekYearTokens=false] - if true, allows usage of the week-numbering year tokens `YY` and `YYYY`;
+ *   see: https://git.io/fxCyr
+ * @param {Boolean} [options.useAdditionalDayOfYearTokens=false] - if true, allows usage of the day of year tokens `D` and `DD`;
+ *   see: https://git.io/fxCyr
+ * @returns {String} the formatted date string
+ * @throws {TypeError} 2 arguments required
+ * @throws {RangeError} `options.locale` must contain `localize` property
+ * @throws {RangeError} `options.locale` must contain `formatLong` property
+ * @throws {RangeError} `options.weekStartsOn` must be between 0 and 6
+ * @throws {RangeError} `options.firstWeekContainsDate` must be between 1 and 7
+ * @throws {RangeError} use `yyyy` instead of `YYYY` for formatting years; see: https://git.io/fxCyr
+ * @throws {RangeError} use `yy` instead of `YY` for formatting years; see: https://git.io/fxCyr
+ * @throws {RangeError} use `d` instead of `D` for formatting days of the month; see: https://git.io/fxCyr
+ * @throws {RangeError} use `dd` instead of `DD` for formatting days of the month; see: https://git.io/fxCyr
+ * @throws {RangeError} format string contains an unescaped latin alphabet character
+ *
+ * @example
+ * // Represent 11 February 2014 in middle-endian format:
+ * var result = format(new Date(2014, 1, 11), 'MM/dd/yyyy')
+ * //=> '02/11/2014'
+ *
+ * @example
+ * // Represent 2 July 2014 in Esperanto:
+ * import { eoLocale } from 'date-fns/locale/eo'
+ * var result = format(new Date(2014, 6, 2), "do 'de' MMMM yyyy", {
+ *   locale: eoLocale
+ * })
+ * //=> '2-a de julio 2014'
+ *
+ * @example
+ * // Escape string by single quote characters:
+ * var result = format(new Date(2014, 6, 2, 15), "h 'o''clock'")
+ * //=> "3 o'clock"
+ */
+
+function format(dirtyDate, dirtyFormatStr, dirtyOptions) {
+  if (arguments.length < 2) {
+    throw new TypeError('2 arguments required, but only ' + arguments.length + ' present');
+  }
+
+  var formatStr = String(dirtyFormatStr);
+  var options = dirtyOptions || {};
+  var locale = options.locale || __WEBPACK_IMPORTED_MODULE_1__locale_en_US_index_js__["a" /* default */];
+  var localeFirstWeekContainsDate = locale.options && locale.options.firstWeekContainsDate;
+  var defaultFirstWeekContainsDate = localeFirstWeekContainsDate == null ? 1 : Object(__WEBPACK_IMPORTED_MODULE_8__lib_toInteger_index_js__["a" /* default */])(localeFirstWeekContainsDate);
+  var firstWeekContainsDate = options.firstWeekContainsDate == null ? defaultFirstWeekContainsDate : Object(__WEBPACK_IMPORTED_MODULE_8__lib_toInteger_index_js__["a" /* default */])(options.firstWeekContainsDate); // Test if weekStartsOn is between 1 and 7 _and_ is not NaN
+
+  if (!(firstWeekContainsDate >= 1 && firstWeekContainsDate <= 7)) {
+    throw new RangeError('firstWeekContainsDate must be between 1 and 7 inclusively');
+  }
+
+  var localeWeekStartsOn = locale.options && locale.options.weekStartsOn;
+  var defaultWeekStartsOn = localeWeekStartsOn == null ? 0 : Object(__WEBPACK_IMPORTED_MODULE_8__lib_toInteger_index_js__["a" /* default */])(localeWeekStartsOn);
+  var weekStartsOn = options.weekStartsOn == null ? defaultWeekStartsOn : Object(__WEBPACK_IMPORTED_MODULE_8__lib_toInteger_index_js__["a" /* default */])(options.weekStartsOn); // Test if weekStartsOn is between 0 and 6 _and_ is not NaN
+
+  if (!(weekStartsOn >= 0 && weekStartsOn <= 6)) {
+    throw new RangeError('weekStartsOn must be between 0 and 6 inclusively');
+  }
+
+  if (!locale.localize) {
+    throw new RangeError('locale must contain localize property');
+  }
+
+  if (!locale.formatLong) {
+    throw new RangeError('locale must contain formatLong property');
+  }
+
+  var originalDate = Object(__WEBPACK_IMPORTED_MODULE_3__toDate_index_js__["a" /* default */])(dirtyDate);
+
+  if (!Object(__WEBPACK_IMPORTED_MODULE_0__isValid_index_js__["a" /* default */])(originalDate)) {
+    throw new RangeError('Invalid time value');
+  } // Convert the date in system timezone to the same date in UTC+00:00 timezone.
+  // This ensures that when UTC functions will be implemented, locales will be compatible with them.
+  // See an issue about UTC functions: https://github.com/date-fns/date-fns/issues/376
+
+
+  var timezoneOffset = Object(__WEBPACK_IMPORTED_MODULE_6__lib_getTimezoneOffsetInMilliseconds_index_js__["a" /* default */])(originalDate);
+  var utcDate = Object(__WEBPACK_IMPORTED_MODULE_2__subMilliseconds_index_js__["a" /* default */])(originalDate, timezoneOffset);
+  var formatterOptions = {
+    firstWeekContainsDate: firstWeekContainsDate,
+    weekStartsOn: weekStartsOn,
+    locale: locale,
+    _originalDate: originalDate
+  };
+  var result = formatStr.match(longFormattingTokensRegExp).map(function (substring) {
+    var firstCharacter = substring[0];
+
+    if (firstCharacter === 'p' || firstCharacter === 'P') {
+      var longFormatter = __WEBPACK_IMPORTED_MODULE_5__lib_format_longFormatters_index_js__["a" /* default */][firstCharacter];
+      return longFormatter(substring, locale.formatLong, formatterOptions);
+    }
+
+    return substring;
+  }).join('').match(formattingTokensRegExp).map(function (substring) {
+    // Replace two single quote characters with one single quote character
+    if (substring === "''") {
+      return "'";
+    }
+
+    var firstCharacter = substring[0];
+
+    if (firstCharacter === "'") {
+      return cleanEscapedString(substring);
+    }
+
+    var formatter = __WEBPACK_IMPORTED_MODULE_4__lib_format_formatters_index_js__["a" /* default */][firstCharacter];
+
+    if (formatter) {
+      if (!options.useAdditionalWeekYearTokens && Object(__WEBPACK_IMPORTED_MODULE_7__lib_protectedTokens_index_js__["b" /* isProtectedWeekYearToken */])(substring)) {
+        Object(__WEBPACK_IMPORTED_MODULE_7__lib_protectedTokens_index_js__["c" /* throwProtectedError */])(substring);
+      }
+
+      if (!options.useAdditionalDayOfYearTokens && Object(__WEBPACK_IMPORTED_MODULE_7__lib_protectedTokens_index_js__["a" /* isProtectedDayOfYearToken */])(substring)) {
+        Object(__WEBPACK_IMPORTED_MODULE_7__lib_protectedTokens_index_js__["c" /* throwProtectedError */])(substring);
+      }
+
+      return formatter(utcDate, substring, locale.localize, formatterOptions);
+    }
+
+    if (firstCharacter.match(unescapedLatinCharacterRegExp)) {
+      throw new RangeError('Format string contains an unescaped latin alphabet character `' + firstCharacter + '`');
+    }
+
+    return substring;
+  }).join('');
+  return result;
+}
+
+function cleanEscapedString(input) {
+  return input.match(escapedStringRegExp)[1].replace(doubleQuoteRegExp, "'");
+}
+
+/***/ }),
+/* 672 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = formatDistance;
+var formatDistanceLocale = {
+  lessThanXSeconds: {
+    one: 'less than a second',
+    other: 'less than {{count}} seconds'
+  },
+  xSeconds: {
+    one: '1 second',
+    other: '{{count}} seconds'
+  },
+  halfAMinute: 'half a minute',
+  lessThanXMinutes: {
+    one: 'less than a minute',
+    other: 'less than {{count}} minutes'
+  },
+  xMinutes: {
+    one: '1 minute',
+    other: '{{count}} minutes'
+  },
+  aboutXHours: {
+    one: 'about 1 hour',
+    other: 'about {{count}} hours'
+  },
+  xHours: {
+    one: '1 hour',
+    other: '{{count}} hours'
+  },
+  xDays: {
+    one: '1 day',
+    other: '{{count}} days'
+  },
+  aboutXMonths: {
+    one: 'about 1 month',
+    other: 'about {{count}} months'
+  },
+  xMonths: {
+    one: '1 month',
+    other: '{{count}} months'
+  },
+  aboutXYears: {
+    one: 'about 1 year',
+    other: 'about {{count}} years'
+  },
+  xYears: {
+    one: '1 year',
+    other: '{{count}} years'
+  },
+  overXYears: {
+    one: 'over 1 year',
+    other: 'over {{count}} years'
+  },
+  almostXYears: {
+    one: 'almost 1 year',
+    other: 'almost {{count}} years'
+  }
+};
+function formatDistance(token, count, options) {
+  options = options || {};
+  var result;
+
+  if (typeof formatDistanceLocale[token] === 'string') {
+    result = formatDistanceLocale[token];
+  } else if (count === 1) {
+    result = formatDistanceLocale[token].one;
+  } else {
+    result = formatDistanceLocale[token].other.replace('{{count}}', count);
+  }
+
+  if (options.addSuffix) {
+    if (options.comparison > 0) {
+      return 'in ' + result;
+    } else {
+      return result + ' ago';
+    }
+  }
+
+  return result;
+}
+
+/***/ }),
+/* 673 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__lib_buildFormatLongFn_index_js__ = __webpack_require__(674);
+
+var dateFormats = {
+  full: 'EEEE, MMMM do, y',
+  long: 'MMMM do, y',
+  medium: 'MMM d, y',
+  short: 'MM/dd/yyyy'
+};
+var timeFormats = {
+  full: 'h:mm:ss a zzzz',
+  long: 'h:mm:ss a z',
+  medium: 'h:mm:ss a',
+  short: 'h:mm a'
+};
+var dateTimeFormats = {
+  full: "{{date}} 'at' {{time}}",
+  long: "{{date}} 'at' {{time}}",
+  medium: '{{date}}, {{time}}',
+  short: '{{date}}, {{time}}'
+};
+var formatLong = {
+  date: Object(__WEBPACK_IMPORTED_MODULE_0__lib_buildFormatLongFn_index_js__["a" /* default */])({
+    formats: dateFormats,
+    defaultWidth: 'full'
+  }),
+  time: Object(__WEBPACK_IMPORTED_MODULE_0__lib_buildFormatLongFn_index_js__["a" /* default */])({
+    formats: timeFormats,
+    defaultWidth: 'full'
+  }),
+  dateTime: Object(__WEBPACK_IMPORTED_MODULE_0__lib_buildFormatLongFn_index_js__["a" /* default */])({
+    formats: dateTimeFormats,
+    defaultWidth: 'full'
+  })
+};
+/* harmony default export */ __webpack_exports__["a"] = (formatLong);
+
+/***/ }),
+/* 674 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = buildFormatLongFn;
+function buildFormatLongFn(args) {
+  return function (dirtyOptions) {
+    var options = dirtyOptions || {};
+    var width = options.width ? String(options.width) : args.defaultWidth;
+    var format = args.formats[width] || args.formats[args.defaultWidth];
+    return format;
+  };
+}
+
+/***/ }),
+/* 675 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = formatRelative;
+var formatRelativeLocale = {
+  lastWeek: "'last' eeee 'at' p",
+  yesterday: "'yesterday at' p",
+  today: "'today at' p",
+  tomorrow: "'tomorrow at' p",
+  nextWeek: "eeee 'at' p",
+  other: 'P'
+};
+function formatRelative(token, _date, _baseDate, _options) {
+  return formatRelativeLocale[token];
+}
+
+/***/ }),
+/* 676 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__lib_buildLocalizeFn_index_js__ = __webpack_require__(677);
+
+var eraValues = {
+  narrow: ['B', 'A'],
+  abbreviated: ['BC', 'AD'],
+  wide: ['Before Christ', 'Anno Domini']
+};
+var quarterValues = {
+  narrow: ['1', '2', '3', '4'],
+  abbreviated: ['Q1', 'Q2', 'Q3', 'Q4'],
+  wide: ['1st quarter', '2nd quarter', '3rd quarter', '4th quarter'] // Note: in English, the names of days of the week and months are capitalized.
+  // If you are making a new locale based on this one, check if the same is true for the language you're working on.
+  // Generally, formatted dates should look like they are in the middle of a sentence,
+  // e.g. in Spanish language the weekdays and months should be in the lowercase.
+
+};
+var monthValues = {
+  narrow: ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'],
+  abbreviated: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+  wide: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+};
+var dayValues = {
+  narrow: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
+  short: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+  abbreviated: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+  wide: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+};
+var dayPeriodValues = {
+  narrow: {
+    am: 'a',
+    pm: 'p',
+    midnight: 'mi',
+    noon: 'n',
+    morning: 'morning',
+    afternoon: 'afternoon',
+    evening: 'evening',
+    night: 'night'
+  },
+  abbreviated: {
+    am: 'AM',
+    pm: 'PM',
+    midnight: 'midnight',
+    noon: 'noon',
+    morning: 'morning',
+    afternoon: 'afternoon',
+    evening: 'evening',
+    night: 'night'
+  },
+  wide: {
+    am: 'a.m.',
+    pm: 'p.m.',
+    midnight: 'midnight',
+    noon: 'noon',
+    morning: 'morning',
+    afternoon: 'afternoon',
+    evening: 'evening',
+    night: 'night'
+  }
+};
+var formattingDayPeriodValues = {
+  narrow: {
+    am: 'a',
+    pm: 'p',
+    midnight: 'mi',
+    noon: 'n',
+    morning: 'in the morning',
+    afternoon: 'in the afternoon',
+    evening: 'in the evening',
+    night: 'at night'
+  },
+  abbreviated: {
+    am: 'AM',
+    pm: 'PM',
+    midnight: 'midnight',
+    noon: 'noon',
+    morning: 'in the morning',
+    afternoon: 'in the afternoon',
+    evening: 'in the evening',
+    night: 'at night'
+  },
+  wide: {
+    am: 'a.m.',
+    pm: 'p.m.',
+    midnight: 'midnight',
+    noon: 'noon',
+    morning: 'in the morning',
+    afternoon: 'in the afternoon',
+    evening: 'in the evening',
+    night: 'at night'
+  }
+};
+
+function ordinalNumber(dirtyNumber, _dirtyOptions) {
+  var number = Number(dirtyNumber); // If ordinal numbers depend on context, for example,
+  // if they are different for different grammatical genders,
+  // use `options.unit`:
+  //
+  //   var options = dirtyOptions || {}
+  //   var unit = String(options.unit)
+  //
+  // where `unit` can be 'year', 'quarter', 'month', 'week', 'date', 'dayOfYear',
+  // 'day', 'hour', 'minute', 'second'
+
+  var rem100 = number % 100;
+
+  if (rem100 > 20 || rem100 < 10) {
+    switch (rem100 % 10) {
+      case 1:
+        return number + 'st';
+
+      case 2:
+        return number + 'nd';
+
+      case 3:
+        return number + 'rd';
+    }
+  }
+
+  return number + 'th';
+}
+
+var localize = {
+  ordinalNumber: ordinalNumber,
+  era: Object(__WEBPACK_IMPORTED_MODULE_0__lib_buildLocalizeFn_index_js__["a" /* default */])({
+    values: eraValues,
+    defaultWidth: 'wide'
+  }),
+  quarter: Object(__WEBPACK_IMPORTED_MODULE_0__lib_buildLocalizeFn_index_js__["a" /* default */])({
+    values: quarterValues,
+    defaultWidth: 'wide',
+    argumentCallback: function (quarter) {
+      return Number(quarter) - 1;
+    }
+  }),
+  month: Object(__WEBPACK_IMPORTED_MODULE_0__lib_buildLocalizeFn_index_js__["a" /* default */])({
+    values: monthValues,
+    defaultWidth: 'wide'
+  }),
+  day: Object(__WEBPACK_IMPORTED_MODULE_0__lib_buildLocalizeFn_index_js__["a" /* default */])({
+    values: dayValues,
+    defaultWidth: 'wide'
+  }),
+  dayPeriod: Object(__WEBPACK_IMPORTED_MODULE_0__lib_buildLocalizeFn_index_js__["a" /* default */])({
+    values: dayPeriodValues,
+    defaultWidth: 'wide',
+    formattingValues: formattingDayPeriodValues,
+    defaultFormattingWidth: 'wide'
+  })
+};
+/* harmony default export */ __webpack_exports__["a"] = (localize);
+
+/***/ }),
+/* 677 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = buildLocalizeFn;
+function buildLocalizeFn(args) {
+  return function (dirtyIndex, dirtyOptions) {
+    var options = dirtyOptions || {};
+    var context = options.context ? String(options.context) : 'standalone';
+    var valuesArray;
+
+    if (context === 'formatting' && args.formattingValues) {
+      var defaultWidth = args.defaultFormattingWidth || args.defaultWidth;
+      var width = options.width ? String(options.width) : defaultWidth;
+      valuesArray = args.formattingValues[width] || args.formattingValues[defaultWidth];
+    } else {
+      var _defaultWidth = args.defaultWidth;
+
+      var _width = options.width ? String(options.width) : args.defaultWidth;
+
+      valuesArray = args.values[_width] || args.values[_defaultWidth];
+    }
+
+    var index = args.argumentCallback ? args.argumentCallback(dirtyIndex) : dirtyIndex;
+    return valuesArray[index];
+  };
+}
+
+/***/ }),
+/* 678 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__lib_buildMatchPatternFn_index_js__ = __webpack_require__(679);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__lib_buildMatchFn_index_js__ = __webpack_require__(680);
+
+
+var matchOrdinalNumberPattern = /^(\d+)(th|st|nd|rd)?/i;
+var parseOrdinalNumberPattern = /\d+/i;
+var matchEraPatterns = {
+  narrow: /^(b|a)/i,
+  abbreviated: /^(b\.?\s?c\.?|b\.?\s?c\.?\s?e\.?|a\.?\s?d\.?|c\.?\s?e\.?)/i,
+  wide: /^(before christ|before common era|anno domini|common era)/i
+};
+var parseEraPatterns = {
+  any: [/^b/i, /^(a|c)/i]
+};
+var matchQuarterPatterns = {
+  narrow: /^[1234]/i,
+  abbreviated: /^q[1234]/i,
+  wide: /^[1234](th|st|nd|rd)? quarter/i
+};
+var parseQuarterPatterns = {
+  any: [/1/i, /2/i, /3/i, /4/i]
+};
+var matchMonthPatterns = {
+  narrow: /^[jfmasond]/i,
+  abbreviated: /^(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)/i,
+  wide: /^(january|february|march|april|may|june|july|august|september|october|november|december)/i
+};
+var parseMonthPatterns = {
+  narrow: [/^j/i, /^f/i, /^m/i, /^a/i, /^m/i, /^j/i, /^j/i, /^a/i, /^s/i, /^o/i, /^n/i, /^d/i],
+  any: [/^ja/i, /^f/i, /^mar/i, /^ap/i, /^may/i, /^jun/i, /^jul/i, /^au/i, /^s/i, /^o/i, /^n/i, /^d/i]
+};
+var matchDayPatterns = {
+  narrow: /^[smtwf]/i,
+  short: /^(su|mo|tu|we|th|fr|sa)/i,
+  abbreviated: /^(sun|mon|tue|wed|thu|fri|sat)/i,
+  wide: /^(sunday|monday|tuesday|wednesday|thursday|friday|saturday)/i
+};
+var parseDayPatterns = {
+  narrow: [/^s/i, /^m/i, /^t/i, /^w/i, /^t/i, /^f/i, /^s/i],
+  any: [/^su/i, /^m/i, /^tu/i, /^w/i, /^th/i, /^f/i, /^sa/i]
+};
+var matchDayPeriodPatterns = {
+  narrow: /^(a|p|mi|n|(in the|at) (morning|afternoon|evening|night))/i,
+  any: /^([ap]\.?\s?m\.?|midnight|noon|(in the|at) (morning|afternoon|evening|night))/i
+};
+var parseDayPeriodPatterns = {
+  any: {
+    am: /^a/i,
+    pm: /^p/i,
+    midnight: /^mi/i,
+    noon: /^no/i,
+    morning: /morning/i,
+    afternoon: /afternoon/i,
+    evening: /evening/i,
+    night: /night/i
+  }
+};
+var match = {
+  ordinalNumber: Object(__WEBPACK_IMPORTED_MODULE_0__lib_buildMatchPatternFn_index_js__["a" /* default */])({
+    matchPattern: matchOrdinalNumberPattern,
+    parsePattern: parseOrdinalNumberPattern,
+    valueCallback: function (value) {
+      return parseInt(value, 10);
+    }
+  }),
+  era: Object(__WEBPACK_IMPORTED_MODULE_1__lib_buildMatchFn_index_js__["a" /* default */])({
+    matchPatterns: matchEraPatterns,
+    defaultMatchWidth: 'wide',
+    parsePatterns: parseEraPatterns,
+    defaultParseWidth: 'any'
+  }),
+  quarter: Object(__WEBPACK_IMPORTED_MODULE_1__lib_buildMatchFn_index_js__["a" /* default */])({
+    matchPatterns: matchQuarterPatterns,
+    defaultMatchWidth: 'wide',
+    parsePatterns: parseQuarterPatterns,
+    defaultParseWidth: 'any',
+    valueCallback: function (index) {
+      return index + 1;
+    }
+  }),
+  month: Object(__WEBPACK_IMPORTED_MODULE_1__lib_buildMatchFn_index_js__["a" /* default */])({
+    matchPatterns: matchMonthPatterns,
+    defaultMatchWidth: 'wide',
+    parsePatterns: parseMonthPatterns,
+    defaultParseWidth: 'any'
+  }),
+  day: Object(__WEBPACK_IMPORTED_MODULE_1__lib_buildMatchFn_index_js__["a" /* default */])({
+    matchPatterns: matchDayPatterns,
+    defaultMatchWidth: 'wide',
+    parsePatterns: parseDayPatterns,
+    defaultParseWidth: 'any'
+  }),
+  dayPeriod: Object(__WEBPACK_IMPORTED_MODULE_1__lib_buildMatchFn_index_js__["a" /* default */])({
+    matchPatterns: matchDayPeriodPatterns,
+    defaultMatchWidth: 'any',
+    parsePatterns: parseDayPeriodPatterns,
+    defaultParseWidth: 'any'
+  })
+};
+/* harmony default export */ __webpack_exports__["a"] = (match);
+
+/***/ }),
+/* 679 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = buildMatchPatternFn;
+function buildMatchPatternFn(args) {
+  return function (dirtyString, dirtyOptions) {
+    var string = String(dirtyString);
+    var options = dirtyOptions || {};
+    var matchResult = string.match(args.matchPattern);
+
+    if (!matchResult) {
+      return null;
+    }
+
+    var matchedString = matchResult[0];
+    var parseResult = string.match(args.parsePattern);
+
+    if (!parseResult) {
+      return null;
+    }
+
+    var value = args.valueCallback ? args.valueCallback(parseResult[0]) : parseResult[0];
+    value = options.valueCallback ? options.valueCallback(value) : value;
+    return {
+      value: value,
+      rest: string.slice(matchedString.length)
+    };
+  };
+}
+
+/***/ }),
+/* 680 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = buildMatchFn;
+function buildMatchFn(args) {
+  return function (dirtyString, dirtyOptions) {
+    var string = String(dirtyString);
+    var options = dirtyOptions || {};
+    var width = options.width;
+    var matchPattern = width && args.matchPatterns[width] || args.matchPatterns[args.defaultMatchWidth];
+    var matchResult = string.match(matchPattern);
+
+    if (!matchResult) {
+      return null;
+    }
+
+    var matchedString = matchResult[0];
+    var parsePatterns = width && args.parsePatterns[width] || args.parsePatterns[args.defaultParseWidth];
+    var value;
+
+    if (Object.prototype.toString.call(parsePatterns) === '[object Array]') {
+      value = parsePatterns.findIndex(function (pattern) {
+        return pattern.test(string);
+      });
+    } else {
+      value = findKey(parsePatterns, function (pattern) {
+        return pattern.test(string);
+      });
+    }
+
+    value = args.valueCallback ? args.valueCallback(value) : value;
+    value = options.valueCallback ? options.valueCallback(value) : value;
+    return {
+      value: value,
+      rest: string.slice(matchedString.length)
+    };
+  };
+}
+
+function findKey(object, predicate) {
+  for (var key in object) {
+    if (object.hasOwnProperty(key) && predicate(object[key])) {
+      return key;
+    }
+  }
+}
+
+/***/ }),
+/* 681 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = addMilliseconds;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__lib_toInteger_index_js__ = __webpack_require__(483);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__toDate_index_js__ = __webpack_require__(83);
+
+
+/**
+ * @name addMilliseconds
+ * @category Millisecond Helpers
+ * @summary Add the specified number of milliseconds to the given date.
+ *
+ * @description
+ * Add the specified number of milliseconds to the given date.
+ *
+ * ### v2.0.0 breaking changes:
+ *
+ * - [Changes that are common for the whole library](https://github.com/date-fns/date-fns/blob/master/docs/upgradeGuide.md#Common-Changes).
+ *
+ * @param {Date|Number} date - the date to be changed
+ * @param {Number} amount - the amount of milliseconds to be added
+ * @returns {Date} the new date with the milliseconds added
+ * @throws {TypeError} 2 arguments required
+ *
+ * @example
+ * // Add 750 milliseconds to 10 July 2014 12:45:30.000:
+ * var result = addMilliseconds(new Date(2014, 6, 10, 12, 45, 30, 0), 750)
+ * //=> Thu Jul 10 2014 12:45:30.750
+ */
+
+function addMilliseconds(dirtyDate, dirtyAmount) {
+  if (arguments.length < 2) {
+    throw new TypeError('2 arguments required, but only ' + arguments.length + ' present');
+  }
+
+  var timestamp = Object(__WEBPACK_IMPORTED_MODULE_1__toDate_index_js__["a" /* default */])(dirtyDate).getTime();
+  var amount = Object(__WEBPACK_IMPORTED_MODULE_0__lib_toInteger_index_js__["a" /* default */])(dirtyAmount);
+  return new Date(timestamp + amount);
+}
+
+/***/ }),
+/* 682 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__lightFormatters_index_js__ = __webpack_require__(683);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__lib_getUTCDayOfYear_index_js__ = __webpack_require__(684);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__lib_getUTCISOWeek_index_js__ = __webpack_require__(597);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__lib_getUTCISOWeekYear_index_js__ = __webpack_require__(598);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__lib_getUTCWeek_index_js__ = __webpack_require__(599);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__lib_getUTCWeekYear_index_js__ = __webpack_require__(584);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__addLeadingZeros_index_js__ = __webpack_require__(596);
+
+
+
+
+
+
+
+var dayPeriodEnum = {
+  am: 'am',
+  pm: 'pm',
+  midnight: 'midnight',
+  noon: 'noon',
+  morning: 'morning',
+  afternoon: 'afternoon',
+  evening: 'evening',
+  night: 'night'
+  /*
+   * |     | Unit                           |     | Unit                           |
+   * |-----|--------------------------------|-----|--------------------------------|
+   * |  a  | AM, PM                         |  A* | Milliseconds in day            |
+   * |  b  | AM, PM, noon, midnight         |  B  | Flexible day period            |
+   * |  c  | Stand-alone local day of week  |  C* | Localized hour w/ day period   |
+   * |  d  | Day of month                   |  D  | Day of year                    |
+   * |  e  | Local day of week              |  E  | Day of week                    |
+   * |  f  |                                |  F* | Day of week in month           |
+   * |  g* | Modified Julian day            |  G  | Era                            |
+   * |  h  | Hour [1-12]                    |  H  | Hour [0-23]                    |
+   * |  i! | ISO day of week                |  I! | ISO week of year               |
+   * |  j* | Localized hour w/ day period   |  J* | Localized hour w/o day period  |
+   * |  k  | Hour [1-24]                    |  K  | Hour [0-11]                    |
+   * |  l* | (deprecated)                   |  L  | Stand-alone month              |
+   * |  m  | Minute                         |  M  | Month                          |
+   * |  n  |                                |  N  |                                |
+   * |  o! | Ordinal number modifier        |  O  | Timezone (GMT)                 |
+   * |  p! | Long localized time            |  P! | Long localized date            |
+   * |  q  | Stand-alone quarter            |  Q  | Quarter                        |
+   * |  r* | Related Gregorian year         |  R! | ISO week-numbering year        |
+   * |  s  | Second                         |  S  | Fraction of second             |
+   * |  t! | Seconds timestamp              |  T! | Milliseconds timestamp         |
+   * |  u  | Extended year                  |  U* | Cyclic year                    |
+   * |  v* | Timezone (generic non-locat.)  |  V* | Timezone (location)            |
+   * |  w  | Local week of year             |  W* | Week of month                  |
+   * |  x  | Timezone (ISO-8601 w/o Z)      |  X  | Timezone (ISO-8601)            |
+   * |  y  | Year (abs)                     |  Y  | Local week-numbering year      |
+   * |  z  | Timezone (specific non-locat.) |  Z* | Timezone (aliases)             |
+   *
+   * Letters marked by * are not implemented but reserved by Unicode standard.
+   *
+   * Letters marked by ! are non-standard, but implemented by date-fns:
+   * - `o` modifies the previous token to turn it into an ordinal (see `format` docs)
+   * - `i` is ISO day of week. For `i` and `ii` is returns numeric ISO week days,
+   *   i.e. 7 for Sunday, 1 for Monday, etc.
+   * - `I` is ISO week of year, as opposed to `w` which is local week of year.
+   * - `R` is ISO week-numbering year, as opposed to `Y` which is local week-numbering year.
+   *   `R` is supposed to be used in conjunction with `I` and `i`
+   *   for universal ISO week-numbering date, whereas
+   *   `Y` is supposed to be used in conjunction with `w` and `e`
+   *   for week-numbering date specific to the locale.
+   * - `P` is long localized date format
+   * - `p` is long localized time format
+   */
+
+};
+var formatters = {
+  // Era
+  G: function (date, token, localize) {
+    var era = date.getUTCFullYear() > 0 ? 1 : 0;
+
+    switch (token) {
+      // AD, BC
+      case 'G':
+      case 'GG':
+      case 'GGG':
+        return localize.era(era, {
+          width: 'abbreviated'
+        });
+      // A, B
+
+      case 'GGGGG':
+        return localize.era(era, {
+          width: 'narrow'
+        });
+      // Anno Domini, Before Christ
+
+      case 'GGGG':
+      default:
+        return localize.era(era, {
+          width: 'wide'
+        });
+    }
+  },
+  // Year
+  y: function (date, token, localize) {
+    // Ordinal number
+    if (token === 'yo') {
+      var signedYear = date.getUTCFullYear(); // Returns 1 for 1 BC (which is year 0 in JavaScript)
+
+      var year = signedYear > 0 ? signedYear : 1 - signedYear;
+      return localize.ordinalNumber(year, {
+        unit: 'year'
+      });
+    }
+
+    return __WEBPACK_IMPORTED_MODULE_0__lightFormatters_index_js__["a" /* default */].y(date, token);
+  },
+  // Local week-numbering year
+  Y: function (date, token, localize, options) {
+    var signedWeekYear = Object(__WEBPACK_IMPORTED_MODULE_5__lib_getUTCWeekYear_index_js__["a" /* default */])(date, options); // Returns 1 for 1 BC (which is year 0 in JavaScript)
+
+    var weekYear = signedWeekYear > 0 ? signedWeekYear : 1 - signedWeekYear; // Two digit year
+
+    if (token === 'YY') {
+      var twoDigitYear = weekYear % 100;
+      return Object(__WEBPACK_IMPORTED_MODULE_6__addLeadingZeros_index_js__["a" /* default */])(twoDigitYear, 2);
+    } // Ordinal number
+
+
+    if (token === 'Yo') {
+      return localize.ordinalNumber(weekYear, {
+        unit: 'year'
+      });
+    } // Padding
+
+
+    return Object(__WEBPACK_IMPORTED_MODULE_6__addLeadingZeros_index_js__["a" /* default */])(weekYear, token.length);
+  },
+  // ISO week-numbering year
+  R: function (date, token) {
+    var isoWeekYear = Object(__WEBPACK_IMPORTED_MODULE_3__lib_getUTCISOWeekYear_index_js__["a" /* default */])(date); // Padding
+
+    return Object(__WEBPACK_IMPORTED_MODULE_6__addLeadingZeros_index_js__["a" /* default */])(isoWeekYear, token.length);
+  },
+  // Extended year. This is a single number designating the year of this calendar system.
+  // The main difference between `y` and `u` localizers are B.C. years:
+  // | Year | `y` | `u` |
+  // |------|-----|-----|
+  // | AC 1 |   1 |   1 |
+  // | BC 1 |   1 |   0 |
+  // | BC 2 |   2 |  -1 |
+  // Also `yy` always returns the last two digits of a year,
+  // while `uu` pads single digit years to 2 characters and returns other years unchanged.
+  u: function (date, token) {
+    var year = date.getUTCFullYear();
+    return Object(__WEBPACK_IMPORTED_MODULE_6__addLeadingZeros_index_js__["a" /* default */])(year, token.length);
+  },
+  // Quarter
+  Q: function (date, token, localize) {
+    var quarter = Math.ceil((date.getUTCMonth() + 1) / 3);
+
+    switch (token) {
+      // 1, 2, 3, 4
+      case 'Q':
+        return String(quarter);
+      // 01, 02, 03, 04
+
+      case 'QQ':
+        return Object(__WEBPACK_IMPORTED_MODULE_6__addLeadingZeros_index_js__["a" /* default */])(quarter, 2);
+      // 1st, 2nd, 3rd, 4th
+
+      case 'Qo':
+        return localize.ordinalNumber(quarter, {
+          unit: 'quarter'
+        });
+      // Q1, Q2, Q3, Q4
+
+      case 'QQQ':
+        return localize.quarter(quarter, {
+          width: 'abbreviated',
+          context: 'formatting'
+        });
+      // 1, 2, 3, 4 (narrow quarter; could be not numerical)
+
+      case 'QQQQQ':
+        return localize.quarter(quarter, {
+          width: 'narrow',
+          context: 'formatting'
+        });
+      // 1st quarter, 2nd quarter, ...
+
+      case 'QQQQ':
+      default:
+        return localize.quarter(quarter, {
+          width: 'wide',
+          context: 'formatting'
+        });
+    }
+  },
+  // Stand-alone quarter
+  q: function (date, token, localize) {
+    var quarter = Math.ceil((date.getUTCMonth() + 1) / 3);
+
+    switch (token) {
+      // 1, 2, 3, 4
+      case 'q':
+        return String(quarter);
+      // 01, 02, 03, 04
+
+      case 'qq':
+        return Object(__WEBPACK_IMPORTED_MODULE_6__addLeadingZeros_index_js__["a" /* default */])(quarter, 2);
+      // 1st, 2nd, 3rd, 4th
+
+      case 'qo':
+        return localize.ordinalNumber(quarter, {
+          unit: 'quarter'
+        });
+      // Q1, Q2, Q3, Q4
+
+      case 'qqq':
+        return localize.quarter(quarter, {
+          width: 'abbreviated',
+          context: 'standalone'
+        });
+      // 1, 2, 3, 4 (narrow quarter; could be not numerical)
+
+      case 'qqqqq':
+        return localize.quarter(quarter, {
+          width: 'narrow',
+          context: 'standalone'
+        });
+      // 1st quarter, 2nd quarter, ...
+
+      case 'qqqq':
+      default:
+        return localize.quarter(quarter, {
+          width: 'wide',
+          context: 'standalone'
+        });
+    }
+  },
+  // Month
+  M: function (date, token, localize) {
+    var month = date.getUTCMonth();
+
+    switch (token) {
+      case 'M':
+      case 'MM':
+        return __WEBPACK_IMPORTED_MODULE_0__lightFormatters_index_js__["a" /* default */].M(date, token);
+      // 1st, 2nd, ..., 12th
+
+      case 'Mo':
+        return localize.ordinalNumber(month + 1, {
+          unit: 'month'
+        });
+      // Jan, Feb, ..., Dec
+
+      case 'MMM':
+        return localize.month(month, {
+          width: 'abbreviated',
+          context: 'formatting'
+        });
+      // J, F, ..., D
+
+      case 'MMMMM':
+        return localize.month(month, {
+          width: 'narrow',
+          context: 'formatting'
+        });
+      // January, February, ..., December
+
+      case 'MMMM':
+      default:
+        return localize.month(month, {
+          width: 'wide',
+          context: 'formatting'
+        });
+    }
+  },
+  // Stand-alone month
+  L: function (date, token, localize) {
+    var month = date.getUTCMonth();
+
+    switch (token) {
+      // 1, 2, ..., 12
+      case 'L':
+        return String(month + 1);
+      // 01, 02, ..., 12
+
+      case 'LL':
+        return Object(__WEBPACK_IMPORTED_MODULE_6__addLeadingZeros_index_js__["a" /* default */])(month + 1, 2);
+      // 1st, 2nd, ..., 12th
+
+      case 'Lo':
+        return localize.ordinalNumber(month + 1, {
+          unit: 'month'
+        });
+      // Jan, Feb, ..., Dec
+
+      case 'LLL':
+        return localize.month(month, {
+          width: 'abbreviated',
+          context: 'standalone'
+        });
+      // J, F, ..., D
+
+      case 'LLLLL':
+        return localize.month(month, {
+          width: 'narrow',
+          context: 'standalone'
+        });
+      // January, February, ..., December
+
+      case 'LLLL':
+      default:
+        return localize.month(month, {
+          width: 'wide',
+          context: 'standalone'
+        });
+    }
+  },
+  // Local week of year
+  w: function (date, token, localize, options) {
+    var week = Object(__WEBPACK_IMPORTED_MODULE_4__lib_getUTCWeek_index_js__["a" /* default */])(date, options);
+
+    if (token === 'wo') {
+      return localize.ordinalNumber(week, {
+        unit: 'week'
+      });
+    }
+
+    return Object(__WEBPACK_IMPORTED_MODULE_6__addLeadingZeros_index_js__["a" /* default */])(week, token.length);
+  },
+  // ISO week of year
+  I: function (date, token, localize) {
+    var isoWeek = Object(__WEBPACK_IMPORTED_MODULE_2__lib_getUTCISOWeek_index_js__["a" /* default */])(date);
+
+    if (token === 'Io') {
+      return localize.ordinalNumber(isoWeek, {
+        unit: 'week'
+      });
+    }
+
+    return Object(__WEBPACK_IMPORTED_MODULE_6__addLeadingZeros_index_js__["a" /* default */])(isoWeek, token.length);
+  },
+  // Day of the month
+  d: function (date, token, localize) {
+    if (token === 'do') {
+      return localize.ordinalNumber(date.getUTCDate(), {
+        unit: 'date'
+      });
+    }
+
+    return __WEBPACK_IMPORTED_MODULE_0__lightFormatters_index_js__["a" /* default */].d(date, token);
+  },
+  // Day of year
+  D: function (date, token, localize) {
+    var dayOfYear = Object(__WEBPACK_IMPORTED_MODULE_1__lib_getUTCDayOfYear_index_js__["a" /* default */])(date);
+
+    if (token === 'Do') {
+      return localize.ordinalNumber(dayOfYear, {
+        unit: 'dayOfYear'
+      });
+    }
+
+    return Object(__WEBPACK_IMPORTED_MODULE_6__addLeadingZeros_index_js__["a" /* default */])(dayOfYear, token.length);
+  },
+  // Day of week
+  E: function (date, token, localize) {
+    var dayOfWeek = date.getUTCDay();
+
+    switch (token) {
+      // Tue
+      case 'E':
+      case 'EE':
+      case 'EEE':
+        return localize.day(dayOfWeek, {
+          width: 'abbreviated',
+          context: 'formatting'
+        });
+      // T
+
+      case 'EEEEE':
+        return localize.day(dayOfWeek, {
+          width: 'narrow',
+          context: 'formatting'
+        });
+      // Tu
+
+      case 'EEEEEE':
+        return localize.day(dayOfWeek, {
+          width: 'short',
+          context: 'formatting'
+        });
+      // Tuesday
+
+      case 'EEEE':
+      default:
+        return localize.day(dayOfWeek, {
+          width: 'wide',
+          context: 'formatting'
+        });
+    }
+  },
+  // Local day of week
+  e: function (date, token, localize, options) {
+    var dayOfWeek = date.getUTCDay();
+    var localDayOfWeek = (dayOfWeek - options.weekStartsOn + 8) % 7 || 7;
+
+    switch (token) {
+      // Numerical value (Nth day of week with current locale or weekStartsOn)
+      case 'e':
+        return String(localDayOfWeek);
+      // Padded numerical value
+
+      case 'ee':
+        return Object(__WEBPACK_IMPORTED_MODULE_6__addLeadingZeros_index_js__["a" /* default */])(localDayOfWeek, 2);
+      // 1st, 2nd, ..., 7th
+
+      case 'eo':
+        return localize.ordinalNumber(localDayOfWeek, {
+          unit: 'day'
+        });
+
+      case 'eee':
+        return localize.day(dayOfWeek, {
+          width: 'abbreviated',
+          context: 'formatting'
+        });
+      // T
+
+      case 'eeeee':
+        return localize.day(dayOfWeek, {
+          width: 'narrow',
+          context: 'formatting'
+        });
+      // Tu
+
+      case 'eeeeee':
+        return localize.day(dayOfWeek, {
+          width: 'short',
+          context: 'formatting'
+        });
+      // Tuesday
+
+      case 'eeee':
+      default:
+        return localize.day(dayOfWeek, {
+          width: 'wide',
+          context: 'formatting'
+        });
+    }
+  },
+  // Stand-alone local day of week
+  c: function (date, token, localize, options) {
+    var dayOfWeek = date.getUTCDay();
+    var localDayOfWeek = (dayOfWeek - options.weekStartsOn + 8) % 7 || 7;
+
+    switch (token) {
+      // Numerical value (same as in `e`)
+      case 'c':
+        return String(localDayOfWeek);
+      // Padded numerical value
+
+      case 'cc':
+        return Object(__WEBPACK_IMPORTED_MODULE_6__addLeadingZeros_index_js__["a" /* default */])(localDayOfWeek, token.length);
+      // 1st, 2nd, ..., 7th
+
+      case 'co':
+        return localize.ordinalNumber(localDayOfWeek, {
+          unit: 'day'
+        });
+
+      case 'ccc':
+        return localize.day(dayOfWeek, {
+          width: 'abbreviated',
+          context: 'standalone'
+        });
+      // T
+
+      case 'ccccc':
+        return localize.day(dayOfWeek, {
+          width: 'narrow',
+          context: 'standalone'
+        });
+      // Tu
+
+      case 'cccccc':
+        return localize.day(dayOfWeek, {
+          width: 'short',
+          context: 'standalone'
+        });
+      // Tuesday
+
+      case 'cccc':
+      default:
+        return localize.day(dayOfWeek, {
+          width: 'wide',
+          context: 'standalone'
+        });
+    }
+  },
+  // ISO day of week
+  i: function (date, token, localize) {
+    var dayOfWeek = date.getUTCDay();
+    var isoDayOfWeek = dayOfWeek === 0 ? 7 : dayOfWeek;
+
+    switch (token) {
+      // 2
+      case 'i':
+        return String(isoDayOfWeek);
+      // 02
+
+      case 'ii':
+        return Object(__WEBPACK_IMPORTED_MODULE_6__addLeadingZeros_index_js__["a" /* default */])(isoDayOfWeek, token.length);
+      // 2nd
+
+      case 'io':
+        return localize.ordinalNumber(isoDayOfWeek, {
+          unit: 'day'
+        });
+      // Tue
+
+      case 'iii':
+        return localize.day(dayOfWeek, {
+          width: 'abbreviated',
+          context: 'formatting'
+        });
+      // T
+
+      case 'iiiii':
+        return localize.day(dayOfWeek, {
+          width: 'narrow',
+          context: 'formatting'
+        });
+      // Tu
+
+      case 'iiiiii':
+        return localize.day(dayOfWeek, {
+          width: 'short',
+          context: 'formatting'
+        });
+      // Tuesday
+
+      case 'iiii':
+      default:
+        return localize.day(dayOfWeek, {
+          width: 'wide',
+          context: 'formatting'
+        });
+    }
+  },
+  // AM or PM
+  a: function (date, token, localize) {
+    var hours = date.getUTCHours();
+    var dayPeriodEnumValue = hours / 12 >= 1 ? 'pm' : 'am';
+
+    switch (token) {
+      case 'a':
+      case 'aa':
+      case 'aaa':
+        return localize.dayPeriod(dayPeriodEnumValue, {
+          width: 'abbreviated',
+          context: 'formatting'
+        });
+
+      case 'aaaaa':
+        return localize.dayPeriod(dayPeriodEnumValue, {
+          width: 'narrow',
+          context: 'formatting'
+        });
+
+      case 'aaaa':
+      default:
+        return localize.dayPeriod(dayPeriodEnumValue, {
+          width: 'wide',
+          context: 'formatting'
+        });
+    }
+  },
+  // AM, PM, midnight, noon
+  b: function (date, token, localize) {
+    var hours = date.getUTCHours();
+    var dayPeriodEnumValue;
+
+    if (hours === 12) {
+      dayPeriodEnumValue = dayPeriodEnum.noon;
+    } else if (hours === 0) {
+      dayPeriodEnumValue = dayPeriodEnum.midnight;
+    } else {
+      dayPeriodEnumValue = hours / 12 >= 1 ? 'pm' : 'am';
+    }
+
+    switch (token) {
+      case 'b':
+      case 'bb':
+      case 'bbb':
+        return localize.dayPeriod(dayPeriodEnumValue, {
+          width: 'abbreviated',
+          context: 'formatting'
+        });
+
+      case 'bbbbb':
+        return localize.dayPeriod(dayPeriodEnumValue, {
+          width: 'narrow',
+          context: 'formatting'
+        });
+
+      case 'bbbb':
+      default:
+        return localize.dayPeriod(dayPeriodEnumValue, {
+          width: 'wide',
+          context: 'formatting'
+        });
+    }
+  },
+  // in the morning, in the afternoon, in the evening, at night
+  B: function (date, token, localize) {
+    var hours = date.getUTCHours();
+    var dayPeriodEnumValue;
+
+    if (hours >= 17) {
+      dayPeriodEnumValue = dayPeriodEnum.evening;
+    } else if (hours >= 12) {
+      dayPeriodEnumValue = dayPeriodEnum.afternoon;
+    } else if (hours >= 4) {
+      dayPeriodEnumValue = dayPeriodEnum.morning;
+    } else {
+      dayPeriodEnumValue = dayPeriodEnum.night;
+    }
+
+    switch (token) {
+      case 'B':
+      case 'BB':
+      case 'BBB':
+        return localize.dayPeriod(dayPeriodEnumValue, {
+          width: 'abbreviated',
+          context: 'formatting'
+        });
+
+      case 'BBBBB':
+        return localize.dayPeriod(dayPeriodEnumValue, {
+          width: 'narrow',
+          context: 'formatting'
+        });
+
+      case 'BBBB':
+      default:
+        return localize.dayPeriod(dayPeriodEnumValue, {
+          width: 'wide',
+          context: 'formatting'
+        });
+    }
+  },
+  // Hour [1-12]
+  h: function (date, token, localize) {
+    if (token === 'ho') {
+      var hours = date.getUTCHours() % 12;
+      if (hours === 0) hours = 12;
+      return localize.ordinalNumber(hours, {
+        unit: 'hour'
+      });
+    }
+
+    return __WEBPACK_IMPORTED_MODULE_0__lightFormatters_index_js__["a" /* default */].h(date, token);
+  },
+  // Hour [0-23]
+  H: function (date, token, localize) {
+    if (token === 'Ho') {
+      return localize.ordinalNumber(date.getUTCHours(), {
+        unit: 'hour'
+      });
+    }
+
+    return __WEBPACK_IMPORTED_MODULE_0__lightFormatters_index_js__["a" /* default */].H(date, token);
+  },
+  // Hour [0-11]
+  K: function (date, token, localize) {
+    var hours = date.getUTCHours() % 12;
+
+    if (token === 'Ko') {
+      return localize.ordinalNumber(hours, {
+        unit: 'hour'
+      });
+    }
+
+    return Object(__WEBPACK_IMPORTED_MODULE_6__addLeadingZeros_index_js__["a" /* default */])(hours, token.length);
+  },
+  // Hour [1-24]
+  k: function (date, token, localize) {
+    var hours = date.getUTCHours();
+    if (hours === 0) hours = 24;
+
+    if (token === 'ko') {
+      return localize.ordinalNumber(hours, {
+        unit: 'hour'
+      });
+    }
+
+    return Object(__WEBPACK_IMPORTED_MODULE_6__addLeadingZeros_index_js__["a" /* default */])(hours, token.length);
+  },
+  // Minute
+  m: function (date, token, localize) {
+    if (token === 'mo') {
+      return localize.ordinalNumber(date.getUTCMinutes(), {
+        unit: 'minute'
+      });
+    }
+
+    return __WEBPACK_IMPORTED_MODULE_0__lightFormatters_index_js__["a" /* default */].m(date, token);
+  },
+  // Second
+  s: function (date, token, localize) {
+    if (token === 'so') {
+      return localize.ordinalNumber(date.getUTCSeconds(), {
+        unit: 'second'
+      });
+    }
+
+    return __WEBPACK_IMPORTED_MODULE_0__lightFormatters_index_js__["a" /* default */].s(date, token);
+  },
+  // Fraction of second
+  S: function (date, token) {
+    return __WEBPACK_IMPORTED_MODULE_0__lightFormatters_index_js__["a" /* default */].S(date, token);
+  },
+  // Timezone (ISO-8601. If offset is 0, output is always `'Z'`)
+  X: function (date, token, _localize, options) {
+    var originalDate = options._originalDate || date;
+    var timezoneOffset = originalDate.getTimezoneOffset();
+
+    if (timezoneOffset === 0) {
+      return 'Z';
+    }
+
+    switch (token) {
+      // Hours and optional minutes
+      case 'X':
+        return formatTimezoneWithOptionalMinutes(timezoneOffset);
+      // Hours, minutes and optional seconds without `:` delimiter
+      // Note: neither ISO-8601 nor JavaScript supports seconds in timezone offsets
+      // so this token always has the same output as `XX`
+
+      case 'XXXX':
+      case 'XX':
+        // Hours and minutes without `:` delimiter
+        return formatTimezone(timezoneOffset);
+      // Hours, minutes and optional seconds with `:` delimiter
+      // Note: neither ISO-8601 nor JavaScript supports seconds in timezone offsets
+      // so this token always has the same output as `XXX`
+
+      case 'XXXXX':
+      case 'XXX': // Hours and minutes with `:` delimiter
+
+      default:
+        return formatTimezone(timezoneOffset, ':');
+    }
+  },
+  // Timezone (ISO-8601. If offset is 0, output is `'+00:00'` or equivalent)
+  x: function (date, token, _localize, options) {
+    var originalDate = options._originalDate || date;
+    var timezoneOffset = originalDate.getTimezoneOffset();
+
+    switch (token) {
+      // Hours and optional minutes
+      case 'x':
+        return formatTimezoneWithOptionalMinutes(timezoneOffset);
+      // Hours, minutes and optional seconds without `:` delimiter
+      // Note: neither ISO-8601 nor JavaScript supports seconds in timezone offsets
+      // so this token always has the same output as `xx`
+
+      case 'xxxx':
+      case 'xx':
+        // Hours and minutes without `:` delimiter
+        return formatTimezone(timezoneOffset);
+      // Hours, minutes and optional seconds with `:` delimiter
+      // Note: neither ISO-8601 nor JavaScript supports seconds in timezone offsets
+      // so this token always has the same output as `xxx`
+
+      case 'xxxxx':
+      case 'xxx': // Hours and minutes with `:` delimiter
+
+      default:
+        return formatTimezone(timezoneOffset, ':');
+    }
+  },
+  // Timezone (GMT)
+  O: function (date, token, _localize, options) {
+    var originalDate = options._originalDate || date;
+    var timezoneOffset = originalDate.getTimezoneOffset();
+
+    switch (token) {
+      // Short
+      case 'O':
+      case 'OO':
+      case 'OOO':
+        return 'GMT' + formatTimezoneShort(timezoneOffset, ':');
+      // Long
+
+      case 'OOOO':
+      default:
+        return 'GMT' + formatTimezone(timezoneOffset, ':');
+    }
+  },
+  // Timezone (specific non-location)
+  z: function (date, token, _localize, options) {
+    var originalDate = options._originalDate || date;
+    var timezoneOffset = originalDate.getTimezoneOffset();
+
+    switch (token) {
+      // Short
+      case 'z':
+      case 'zz':
+      case 'zzz':
+        return 'GMT' + formatTimezoneShort(timezoneOffset, ':');
+      // Long
+
+      case 'zzzz':
+      default:
+        return 'GMT' + formatTimezone(timezoneOffset, ':');
+    }
+  },
+  // Seconds timestamp
+  t: function (date, token, _localize, options) {
+    var originalDate = options._originalDate || date;
+    var timestamp = Math.floor(originalDate.getTime() / 1000);
+    return Object(__WEBPACK_IMPORTED_MODULE_6__addLeadingZeros_index_js__["a" /* default */])(timestamp, token.length);
+  },
+  // Milliseconds timestamp
+  T: function (date, token, _localize, options) {
+    var originalDate = options._originalDate || date;
+    var timestamp = originalDate.getTime();
+    return Object(__WEBPACK_IMPORTED_MODULE_6__addLeadingZeros_index_js__["a" /* default */])(timestamp, token.length);
+  }
+};
+
+function formatTimezoneShort(offset, dirtyDelimiter) {
+  var sign = offset > 0 ? '-' : '+';
+  var absOffset = Math.abs(offset);
+  var hours = Math.floor(absOffset / 60);
+  var minutes = absOffset % 60;
+
+  if (minutes === 0) {
+    return sign + String(hours);
+  }
+
+  var delimiter = dirtyDelimiter || '';
+  return sign + String(hours) + delimiter + Object(__WEBPACK_IMPORTED_MODULE_6__addLeadingZeros_index_js__["a" /* default */])(minutes, 2);
+}
+
+function formatTimezoneWithOptionalMinutes(offset, dirtyDelimiter) {
+  if (offset % 60 === 0) {
+    var sign = offset > 0 ? '-' : '+';
+    return sign + Object(__WEBPACK_IMPORTED_MODULE_6__addLeadingZeros_index_js__["a" /* default */])(Math.abs(offset) / 60, 2);
+  }
+
+  return formatTimezone(offset, dirtyDelimiter);
+}
+
+function formatTimezone(offset, dirtyDelimiter) {
+  var delimiter = dirtyDelimiter || '';
+  var sign = offset > 0 ? '-' : '+';
+  var absOffset = Math.abs(offset);
+  var hours = Object(__WEBPACK_IMPORTED_MODULE_6__addLeadingZeros_index_js__["a" /* default */])(Math.floor(absOffset / 60), 2);
+  var minutes = Object(__WEBPACK_IMPORTED_MODULE_6__addLeadingZeros_index_js__["a" /* default */])(absOffset % 60, 2);
+  return sign + hours + delimiter + minutes;
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (formatters);
+
+/***/ }),
+/* 683 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__addLeadingZeros_index_js__ = __webpack_require__(596);
+
+/*
+ * |     | Unit                           |     | Unit                           |
+ * |-----|--------------------------------|-----|--------------------------------|
+ * |  a  | AM, PM                         |  A* |                                |
+ * |  d  | Day of month                   |  D  |                                |
+ * |  h  | Hour [1-12]                    |  H  | Hour [0-23]                    |
+ * |  m  | Minute                         |  M  | Month                          |
+ * |  s  | Second                         |  S  | Fraction of second             |
+ * |  y  | Year (abs)                     |  Y  |                                |
+ *
+ * Letters marked by * are not implemented but reserved by Unicode standard.
+ */
+
+var formatters = {
+  // Year
+  y: function (date, token) {
+    // From http://www.unicode.org/reports/tr35/tr35-31/tr35-dates.html#Date_Format_tokens
+    // | Year     |     y | yy |   yyy |  yyyy | yyyyy |
+    // |----------|-------|----|-------|-------|-------|
+    // | AD 1     |     1 | 01 |   001 |  0001 | 00001 |
+    // | AD 12    |    12 | 12 |   012 |  0012 | 00012 |
+    // | AD 123   |   123 | 23 |   123 |  0123 | 00123 |
+    // | AD 1234  |  1234 | 34 |  1234 |  1234 | 01234 |
+    // | AD 12345 | 12345 | 45 | 12345 | 12345 | 12345 |
+    var signedYear = date.getUTCFullYear(); // Returns 1 for 1 BC (which is year 0 in JavaScript)
+
+    var year = signedYear > 0 ? signedYear : 1 - signedYear;
+    return Object(__WEBPACK_IMPORTED_MODULE_0__addLeadingZeros_index_js__["a" /* default */])(token === 'yy' ? year % 100 : year, token.length);
+  },
+  // Month
+  M: function (date, token) {
+    var month = date.getUTCMonth();
+    return token === 'M' ? String(month + 1) : Object(__WEBPACK_IMPORTED_MODULE_0__addLeadingZeros_index_js__["a" /* default */])(month + 1, 2);
+  },
+  // Day of the month
+  d: function (date, token) {
+    return Object(__WEBPACK_IMPORTED_MODULE_0__addLeadingZeros_index_js__["a" /* default */])(date.getUTCDate(), token.length);
+  },
+  // AM or PM
+  a: function (date, token) {
+    var dayPeriodEnumValue = date.getUTCHours() / 12 >= 1 ? 'pm' : 'am';
+
+    switch (token) {
+      case 'a':
+      case 'aa':
+      case 'aaa':
+        return dayPeriodEnumValue.toUpperCase();
+
+      case 'aaaaa':
+        return dayPeriodEnumValue[0];
+
+      case 'aaaa':
+      default:
+        return dayPeriodEnumValue === 'am' ? 'a.m.' : 'p.m.';
+    }
+  },
+  // Hour [1-12]
+  h: function (date, token) {
+    return Object(__WEBPACK_IMPORTED_MODULE_0__addLeadingZeros_index_js__["a" /* default */])(date.getUTCHours() % 12 || 12, token.length);
+  },
+  // Hour [0-23]
+  H: function (date, token) {
+    return Object(__WEBPACK_IMPORTED_MODULE_0__addLeadingZeros_index_js__["a" /* default */])(date.getUTCHours(), token.length);
+  },
+  // Minute
+  m: function (date, token) {
+    return Object(__WEBPACK_IMPORTED_MODULE_0__addLeadingZeros_index_js__["a" /* default */])(date.getUTCMinutes(), token.length);
+  },
+  // Second
+  s: function (date, token) {
+    return Object(__WEBPACK_IMPORTED_MODULE_0__addLeadingZeros_index_js__["a" /* default */])(date.getUTCSeconds(), token.length);
+  },
+  // Fraction of second
+  S: function (date, token) {
+    var numberOfDigits = token.length;
+    var milliseconds = date.getUTCMilliseconds();
+    var fractionalSeconds = Math.floor(milliseconds * Math.pow(10, numberOfDigits - 3));
+    return Object(__WEBPACK_IMPORTED_MODULE_0__addLeadingZeros_index_js__["a" /* default */])(fractionalSeconds, token.length);
+  }
+};
+/* harmony default export */ __webpack_exports__["a"] = (formatters);
+
+/***/ }),
+/* 684 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = getUTCDayOfYear;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__toDate_index_js__ = __webpack_require__(83);
+
+var MILLISECONDS_IN_DAY = 86400000; // This function will be a part of public API when UTC function will be implemented.
+// See issue: https://github.com/date-fns/date-fns/issues/376
+
+function getUTCDayOfYear(dirtyDate) {
+  if (arguments.length < 1) {
+    throw new TypeError('1 argument required, but only ' + arguments.length + ' present');
+  }
+
+  var date = Object(__WEBPACK_IMPORTED_MODULE_0__toDate_index_js__["a" /* default */])(dirtyDate);
+  var timestamp = date.getTime();
+  date.setUTCMonth(0, 1);
+  date.setUTCHours(0, 0, 0, 0);
+  var startOfYearTimestamp = date.getTime();
+  var difference = timestamp - startOfYearTimestamp;
+  return Math.floor(difference / MILLISECONDS_IN_DAY) + 1;
+}
+
+/***/ }),
+/* 685 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = startOfUTCISOWeekYear;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__getUTCISOWeekYear_index_js__ = __webpack_require__(598);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__startOfUTCISOWeek_index_js__ = __webpack_require__(581);
+
+ // This function will be a part of public API when UTC function will be implemented.
+// See issue: https://github.com/date-fns/date-fns/issues/376
+
+function startOfUTCISOWeekYear(dirtyDate) {
+  if (arguments.length < 1) {
+    throw new TypeError('1 argument required, but only ' + arguments.length + ' present');
+  }
+
+  var year = Object(__WEBPACK_IMPORTED_MODULE_0__getUTCISOWeekYear_index_js__["a" /* default */])(dirtyDate);
+  var fourthOfJanuary = new Date(0);
+  fourthOfJanuary.setUTCFullYear(year, 0, 4);
+  fourthOfJanuary.setUTCHours(0, 0, 0, 0);
+  var date = Object(__WEBPACK_IMPORTED_MODULE_1__startOfUTCISOWeek_index_js__["a" /* default */])(fourthOfJanuary);
+  return date;
+}
+
+/***/ }),
+/* 686 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = startOfUTCWeekYear;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__toInteger_index_js__ = __webpack_require__(483);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__getUTCWeekYear_index_js__ = __webpack_require__(584);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__startOfUTCWeek_index_js__ = __webpack_require__(582);
+
+
+ // This function will be a part of public API when UTC function will be implemented.
+// See issue: https://github.com/date-fns/date-fns/issues/376
+
+function startOfUTCWeekYear(dirtyDate, dirtyOptions) {
+  if (arguments.length < 1) {
+    throw new TypeError('1 argument required, but only ' + arguments.length + ' present');
+  }
+
+  var options = dirtyOptions || {};
+  var locale = options.locale;
+  var localeFirstWeekContainsDate = locale && locale.options && locale.options.firstWeekContainsDate;
+  var defaultFirstWeekContainsDate = localeFirstWeekContainsDate == null ? 1 : Object(__WEBPACK_IMPORTED_MODULE_0__toInteger_index_js__["a" /* default */])(localeFirstWeekContainsDate);
+  var firstWeekContainsDate = options.firstWeekContainsDate == null ? defaultFirstWeekContainsDate : Object(__WEBPACK_IMPORTED_MODULE_0__toInteger_index_js__["a" /* default */])(options.firstWeekContainsDate);
+  var year = Object(__WEBPACK_IMPORTED_MODULE_1__getUTCWeekYear_index_js__["a" /* default */])(dirtyDate, dirtyOptions);
+  var firstWeek = new Date(0);
+  firstWeek.setUTCFullYear(year, 0, firstWeekContainsDate);
+  firstWeek.setUTCHours(0, 0, 0, 0);
+  var date = Object(__WEBPACK_IMPORTED_MODULE_2__startOfUTCWeek_index_js__["a" /* default */])(firstWeek, dirtyOptions);
+  return date;
+}
+
+/***/ }),
+/* 687 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = getHours;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__toDate_index_js__ = __webpack_require__(83);
+
+/**
+ * @name getHours
+ * @category Hour Helpers
+ * @summary Get the hours of the given date.
+ *
+ * @description
+ * Get the hours of the given date.
+ *
+ * ### v2.0.0 breaking changes:
+ *
+ * - [Changes that are common for the whole library](https://github.com/date-fns/date-fns/blob/master/docs/upgradeGuide.md#Common-Changes).
+ *
+ * @param {Date|Number} date - the given date
+ * @returns {Number} the hours
+ * @throws {TypeError} 1 argument required
+ *
+ * @example
+ * // Get the hours of 29 February 2012 11:45:00:
+ * var result = getHours(new Date(2012, 1, 29, 11, 45))
+ * //=> 11
+ */
+
+function getHours(dirtyDate) {
+  if (arguments.length < 1) {
+    throw new TypeError('1 argument required, but only ' + arguments.length + ' present');
+  }
+
+  var date = Object(__WEBPACK_IMPORTED_MODULE_0__toDate_index_js__["a" /* default */])(dirtyDate);
+  var hours = date.getHours();
+  return hours;
+}
+
+/***/ }),
+/* 688 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = getSeconds;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__toDate_index_js__ = __webpack_require__(83);
+
+/**
+ * @name getSeconds
+ * @category Second Helpers
+ * @summary Get the seconds of the given date.
+ *
+ * @description
+ * Get the seconds of the given date.
+ *
+ * ### v2.0.0 breaking changes:
+ *
+ * - [Changes that are common for the whole library](https://github.com/date-fns/date-fns/blob/master/docs/upgradeGuide.md#Common-Changes).
+ *
+ * @param {Date|Number} date - the given date
+ * @returns {Number} the seconds
+ * @throws {TypeError} 1 argument required
+ *
+ * @example
+ * // Get the seconds of 29 February 2012 11:45:05.123:
+ * var result = getSeconds(new Date(2012, 1, 29, 11, 45, 5, 123))
+ * //=> 5
+ */
+
+function getSeconds(dirtyDate) {
+  if (arguments.length < 1) {
+    throw new TypeError('1 argument required, but only ' + arguments.length + ' present');
+  }
+
+  var date = Object(__WEBPACK_IMPORTED_MODULE_0__toDate_index_js__["a" /* default */])(dirtyDate);
+  var seconds = date.getSeconds();
+  return seconds;
+}
+
+/***/ }),
+/* 689 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = getYear;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__toDate_index_js__ = __webpack_require__(83);
+
+/**
+ * @name getYear
+ * @category Year Helpers
+ * @summary Get the year of the given date.
+ *
+ * @description
+ * Get the year of the given date.
+ *
+ * ### v2.0.0 breaking changes:
+ *
+ * - [Changes that are common for the whole library](https://github.com/date-fns/date-fns/blob/master/docs/upgradeGuide.md#Common-Changes).
+ *
+ * @param {Date|Number} date - the given date
+ * @returns {Number} the year
+ * @throws {TypeError} 1 argument required
+ *
+ * @example
+ * // Which year is 2 July 2014?
+ * var result = getYear(new Date(2014, 6, 2))
+ * //=> 2014
+ */
+
+function getYear(dirtyDate) {
+  if (arguments.length < 1) {
+    throw new TypeError('1 argument required, but only ' + arguments.length + ' present');
+  }
+
+  var date = Object(__WEBPACK_IMPORTED_MODULE_0__toDate_index_js__["a" /* default */])(dirtyDate);
+  var year = date.getFullYear();
+  return year;
+}
+
+/***/ }),
+/* 690 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = isAfter;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__toDate_index_js__ = __webpack_require__(83);
+
+/**
+ * @name isAfter
+ * @category Common Helpers
+ * @summary Is the first date after the second one?
+ *
+ * @description
+ * Is the first date after the second one?
+ *
+ * ### v2.0.0 breaking changes:
+ *
+ * - [Changes that are common for the whole library](https://github.com/date-fns/date-fns/blob/master/docs/upgradeGuide.md#Common-Changes).
+ *
+ * @param {Date|Number} date - the date that should be after the other one to return true
+ * @param {Date|Number} dateToCompare - the date to compare with
+ * @returns {Boolean} the first date is after the second date
+ * @throws {TypeError} 2 arguments required
+ *
+ * @example
+ * // Is 10 July 1989 after 11 February 1987?
+ * var result = isAfter(new Date(1989, 6, 10), new Date(1987, 1, 11))
+ * //=> true
+ */
+
+function isAfter(dirtyDate, dirtyDateToCompare) {
+  if (arguments.length < 2) {
+    throw new TypeError('2 arguments required, but only ' + arguments.length + ' present');
+  }
+
+  var date = Object(__WEBPACK_IMPORTED_MODULE_0__toDate_index_js__["a" /* default */])(dirtyDate);
+  var dateToCompare = Object(__WEBPACK_IMPORTED_MODULE_0__toDate_index_js__["a" /* default */])(dirtyDateToCompare);
+  return date.getTime() > dateToCompare.getTime();
+}
+
+/***/ }),
+/* 691 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = isBefore;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__toDate_index_js__ = __webpack_require__(83);
+
+/**
+ * @name isBefore
+ * @category Common Helpers
+ * @summary Is the first date before the second one?
+ *
+ * @description
+ * Is the first date before the second one?
+ *
+ * ### v2.0.0 breaking changes:
+ *
+ * - [Changes that are common for the whole library](https://github.com/date-fns/date-fns/blob/master/docs/upgradeGuide.md#Common-Changes).
+ *
+ * @param {Date|Number} date - the date that should be before the other one to return true
+ * @param {Date|Number} dateToCompare - the date to compare with
+ * @returns {Boolean} the first date is before the second date
+ * @throws {TypeError} 2 arguments required
+ *
+ * @example
+ * // Is 10 July 1989 before 11 February 1987?
+ * var result = isBefore(new Date(1989, 6, 10), new Date(1987, 1, 11))
+ * //=> false
+ */
+
+function isBefore(dirtyDate, dirtyDateToCompare) {
+  if (arguments.length < 2) {
+    throw new TypeError('2 arguments required, but only ' + arguments.length + ' present');
+  }
+
+  var date = Object(__WEBPACK_IMPORTED_MODULE_0__toDate_index_js__["a" /* default */])(dirtyDate);
+  var dateToCompare = Object(__WEBPACK_IMPORTED_MODULE_0__toDate_index_js__["a" /* default */])(dirtyDateToCompare);
+  return date.getTime() < dateToCompare.getTime();
+}
+
+/***/ }),
+/* 692 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = isEqual;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__toDate_index_js__ = __webpack_require__(83);
+
+/**
+ * @name isEqual
+ * @category Common Helpers
+ * @summary Are the given dates equal?
+ *
+ * @description
+ * Are the given dates equal?
+ *
+ * ### v2.0.0 breaking changes:
+ *
+ * - [Changes that are common for the whole library](https://github.com/date-fns/date-fns/blob/master/docs/upgradeGuide.md#Common-Changes).
+ *
+ * @param {Date|Number} dateLeft - the first date to compare
+ * @param {Date|Number} dateRight - the second date to compare
+ * @returns {Boolean} the dates are equal
+ * @throws {TypeError} 2 arguments required
+ *
+ * @example
+ * // Are 2 July 2014 06:30:45.000 and 2 July 2014 06:30:45.500 equal?
+ * var result = isEqual(
+ *   new Date(2014, 6, 2, 6, 30, 45, 0),
+ *   new Date(2014, 6, 2, 6, 30, 45, 500)
+ * )
+ * //=> false
+ */
+
+function isEqual(dirtyLeftDate, dirtyRightDate) {
+  if (arguments.length < 2) {
+    throw new TypeError('2 arguments required, but only ' + arguments.length + ' present');
+  }
+
+  var dateLeft = Object(__WEBPACK_IMPORTED_MODULE_0__toDate_index_js__["a" /* default */])(dirtyLeftDate);
+  var dateRight = Object(__WEBPACK_IMPORTED_MODULE_0__toDate_index_js__["a" /* default */])(dirtyRightDate);
+  return dateLeft.getTime() === dateRight.getTime();
+}
+
+/***/ }),
+/* 693 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = isSameDay;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__startOfDay_index_js__ = __webpack_require__(603);
+
+/**
+ * @name isSameDay
+ * @category Day Helpers
+ * @summary Are the given dates in the same day?
+ *
+ * @description
+ * Are the given dates in the same day?
+ *
+ * ### v2.0.0 breaking changes:
+ *
+ * - [Changes that are common for the whole library](https://github.com/date-fns/date-fns/blob/master/docs/upgradeGuide.md#Common-Changes).
+ *
+ * @param {Date|Number} dateLeft - the first date to check
+ * @param {Date|Number} dateRight - the second date to check
+ * @returns {Boolean} the dates are in the same day
+ * @throws {TypeError} 2 arguments required
+ *
+ * @example
+ * // Are 4 September 06:00:00 and 4 September 18:00:00 in the same day?
+ * var result = isSameDay(new Date(2014, 8, 4, 6, 0), new Date(2014, 8, 4, 18, 0))
+ * //=> true
+ */
+
+function isSameDay(dirtyDateLeft, dirtyDateRight) {
+  if (arguments.length < 2) {
+    throw new TypeError('2 arguments required, but only ' + arguments.length + ' present');
+  }
+
+  var dateLeftStartOfDay = Object(__WEBPACK_IMPORTED_MODULE_0__startOfDay_index_js__["a" /* default */])(dirtyDateLeft);
+  var dateRightStartOfDay = Object(__WEBPACK_IMPORTED_MODULE_0__startOfDay_index_js__["a" /* default */])(dirtyDateRight);
+  return dateLeftStartOfDay.getTime() === dateRightStartOfDay.getTime();
+}
+
+/***/ }),
+/* 694 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = parse;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__lib_toInteger_index_js__ = __webpack_require__(483);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__lib_assign_index_js__ = __webpack_require__(695);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__lib_getTimezoneOffsetInMilliseconds_index_js__ = __webpack_require__(601);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__toDate_index_js__ = __webpack_require__(83);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__subMilliseconds_index_js__ = __webpack_require__(595);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__locale_en_US_index_js__ = __webpack_require__(594);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__lib_parsers_index_js__ = __webpack_require__(696);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__lib_format_longFormatters_index_js__ = __webpack_require__(600);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__lib_protectedTokens_index_js__ = __webpack_require__(602);
+
+
+
+
+
+
+
+
+
+var TIMEZONE_UNIT_PRIORITY = 10; // This RegExp consists of three parts separated by `|`:
+// - [yYQqMLwIdDecihHKkms]o matches any available ordinal number token
+//   (one of the certain letters followed by `o`)
+// - (\w)\1* matches any sequences of the same letter
+// - '' matches two quote characters in a row
+// - '(''|[^'])+('|$) matches anything surrounded by two quote characters ('),
+//   except a single quote symbol, which ends the sequence.
+//   Two quote characters do not end the sequence.
+//   If there is no matching single quote
+//   then the sequence will continue until the end of the string.
+// - . matches any single character unmatched by previous parts of the RegExps
+
+var formattingTokensRegExp = /[yYQqMLwIdDecihHKkms]o|(\w)\1*|''|'(''|[^'])+('|$)|./g; // This RegExp catches symbols escaped by quotes, and also
+// sequences of symbols P, p, and the combinations like `PPPPPPPppppp`
+
+var longFormattingTokensRegExp = /P+p+|P+|p+|''|'(''|[^'])+('|$)|./g;
+var escapedStringRegExp = /^'(.*?)'?$/;
+var doubleQuoteRegExp = /''/g;
+var notWhitespaceRegExp = /\S/;
+var unescapedLatinCharacterRegExp = /[a-zA-Z]/;
+/**
+ * @name parse
+ * @category Common Helpers
+ * @summary Parse the date.
+ *
+ * @description
+ * Return the date parsed from string using the given format string.
+ *
+ * > ⚠️ Please note that the `format` tokens differ from Moment.js and other libraries.
+ * > See: https://git.io/fxCyr
+ *
+ * The characters in the format string wrapped between two single quotes characters (') are escaped.
+ * Two single quotes in a row, whether inside or outside a quoted sequence, represent a 'real' single quote.
+ *
+ * Format of the format string is based on Unicode Technical Standard #35:
+ * https://www.unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table
+ * with a few additions (see note 5 below the table).
+ *
+ * Accepted format string patterns:
+ * | Unit                            |Prior| Pattern | Result examples                   | Notes |
+ * |---------------------------------|-----|---------|-----------------------------------|-------|
+ * | Era                             | 140 | G..GGG  | AD, BC                            |       |
+ * |                                 |     | GGGG    | Anno Domini, Before Christ        | 2     |
+ * |                                 |     | GGGGG   | A, B                              |       |
+ * | Calendar year                   | 130 | y       | 44, 1, 1900, 2017, 9999           | 4     |
+ * |                                 |     | yo      | 44th, 1st, 1900th, 9999999th      | 4,5   |
+ * |                                 |     | yy      | 44, 01, 00, 17                    | 4     |
+ * |                                 |     | yyy     | 044, 001, 123, 999                | 4     |
+ * |                                 |     | yyyy    | 0044, 0001, 1900, 2017            | 4     |
+ * |                                 |     | yyyyy   | ...                               | 2,4   |
+ * | Local week-numbering year       | 130 | Y       | 44, 1, 1900, 2017, 9000           | 4     |
+ * |                                 |     | Yo      | 44th, 1st, 1900th, 9999999th      | 4,5   |
+ * |                                 |     | YY      | 44, 01, 00, 17                    | 4,6   |
+ * |                                 |     | YYY     | 044, 001, 123, 999                | 4     |
+ * |                                 |     | YYYY    | 0044, 0001, 1900, 2017            | 4,6   |
+ * |                                 |     | YYYYY   | ...                               | 2,4   |
+ * | ISO week-numbering year         | 130 | R       | -43, 1, 1900, 2017, 9999, -9999   | 4,5   |
+ * |                                 |     | RR      | -43, 01, 00, 17                   | 4,5   |
+ * |                                 |     | RRR     | -043, 001, 123, 999, -999         | 4,5   |
+ * |                                 |     | RRRR    | -0043, 0001, 2017, 9999, -9999    | 4,5   |
+ * |                                 |     | RRRRR   | ...                               | 2,4,5 |
+ * | Extended year                   | 130 | u       | -43, 1, 1900, 2017, 9999, -999    | 4     |
+ * |                                 |     | uu      | -43, 01, 99, -99                  | 4     |
+ * |                                 |     | uuu     | -043, 001, 123, 999, -999         | 4     |
+ * |                                 |     | uuuu    | -0043, 0001, 2017, 9999, -9999    | 4     |
+ * |                                 |     | uuuuu   | ...                               | 2,4   |
+ * | Quarter (formatting)            | 120 | Q       | 1, 2, 3, 4                        |       |
+ * |                                 |     | Qo      | 1st, 2nd, 3rd, 4th                | 5     |
+ * |                                 |     | QQ      | 01, 02, 03, 04                    |       |
+ * |                                 |     | QQQ     | Q1, Q2, Q3, Q4                    |       |
+ * |                                 |     | QQQQ    | 1st quarter, 2nd quarter, ...     | 2     |
+ * |                                 |     | QQQQQ   | 1, 2, 3, 4                        | 4     |
+ * | Quarter (stand-alone)           | 120 | q       | 1, 2, 3, 4                        |       |
+ * |                                 |     | qo      | 1st, 2nd, 3rd, 4th                | 5     |
+ * |                                 |     | qq      | 01, 02, 03, 04                    |       |
+ * |                                 |     | qqq     | Q1, Q2, Q3, Q4                    |       |
+ * |                                 |     | qqqq    | 1st quarter, 2nd quarter, ...     | 2     |
+ * |                                 |     | qqqqq   | 1, 2, 3, 4                        | 3     |
+ * | Month (formatting)              | 110 | M       | 1, 2, ..., 12                     |       |
+ * |                                 |     | Mo      | 1st, 2nd, ..., 12th               | 5     |
+ * |                                 |     | MM      | 01, 02, ..., 12                   |       |
+ * |                                 |     | MMM     | Jan, Feb, ..., Dec                |       |
+ * |                                 |     | MMMM    | January, February, ..., December  | 2     |
+ * |                                 |     | MMMMM   | J, F, ..., D                      |       |
+ * | Month (stand-alone)             | 110 | L       | 1, 2, ..., 12                     |       |
+ * |                                 |     | Lo      | 1st, 2nd, ..., 12th               | 5     |
+ * |                                 |     | LL      | 01, 02, ..., 12                   |       |
+ * |                                 |     | LLL     | Jan, Feb, ..., Dec                |       |
+ * |                                 |     | LLLL    | January, February, ..., December  | 2     |
+ * |                                 |     | LLLLL   | J, F, ..., D                      |       |
+ * | Local week of year              | 100 | w       | 1, 2, ..., 53                     |       |
+ * |                                 |     | wo      | 1st, 2nd, ..., 53th               | 5     |
+ * |                                 |     | ww      | 01, 02, ..., 53                   |       |
+ * | ISO week of year                | 100 | I       | 1, 2, ..., 53                     | 5     |
+ * |                                 |     | Io      | 1st, 2nd, ..., 53th               | 5     |
+ * |                                 |     | II      | 01, 02, ..., 53                   | 5     |
+ * | Day of month                    |  90 | d       | 1, 2, ..., 31                     |       |
+ * |                                 |     | do      | 1st, 2nd, ..., 31st               | 5     |
+ * |                                 |     | dd      | 01, 02, ..., 31                   |       |
+ * | Day of year                     |  90 | D       | 1, 2, ..., 365, 366               | 7     |
+ * |                                 |     | Do      | 1st, 2nd, ..., 365th, 366th       | 5     |
+ * |                                 |     | DD      | 01, 02, ..., 365, 366             | 7     |
+ * |                                 |     | DDD     | 001, 002, ..., 365, 366           |       |
+ * |                                 |     | DDDD    | ...                               | 2     |
+ * | Day of week (formatting)        |  90 | E..EEE  | Mon, Tue, Wed, ..., Su            |       |
+ * |                                 |     | EEEE    | Monday, Tuesday, ..., Sunday      | 2     |
+ * |                                 |     | EEEEE   | M, T, W, T, F, S, S               |       |
+ * |                                 |     | EEEEEE  | Mo, Tu, We, Th, Fr, Su, Sa        |       |
+ * | ISO day of week (formatting)    |  90 | i       | 1, 2, 3, ..., 7                   | 5     |
+ * |                                 |     | io      | 1st, 2nd, ..., 7th                | 5     |
+ * |                                 |     | ii      | 01, 02, ..., 07                   | 5     |
+ * |                                 |     | iii     | Mon, Tue, Wed, ..., Su            | 5     |
+ * |                                 |     | iiii    | Monday, Tuesday, ..., Sunday      | 2,5   |
+ * |                                 |     | iiiii   | M, T, W, T, F, S, S               | 5     |
+ * |                                 |     | iiiiii  | Mo, Tu, We, Th, Fr, Su, Sa        | 5     |
+ * | Local day of week (formatting)  |  90 | e       | 2, 3, 4, ..., 1                   |       |
+ * |                                 |     | eo      | 2nd, 3rd, ..., 1st                | 5     |
+ * |                                 |     | ee      | 02, 03, ..., 01                   |       |
+ * |                                 |     | eee     | Mon, Tue, Wed, ..., Su            |       |
+ * |                                 |     | eeee    | Monday, Tuesday, ..., Sunday      | 2     |
+ * |                                 |     | eeeee   | M, T, W, T, F, S, S               |       |
+ * |                                 |     | eeeeee  | Mo, Tu, We, Th, Fr, Su, Sa        |       |
+ * | Local day of week (stand-alone) |  90 | c       | 2, 3, 4, ..., 1                   |       |
+ * |                                 |     | co      | 2nd, 3rd, ..., 1st                | 5     |
+ * |                                 |     | cc      | 02, 03, ..., 01                   |       |
+ * |                                 |     | ccc     | Mon, Tue, Wed, ..., Su            |       |
+ * |                                 |     | cccc    | Monday, Tuesday, ..., Sunday      | 2     |
+ * |                                 |     | ccccc   | M, T, W, T, F, S, S               |       |
+ * |                                 |     | cccccc  | Mo, Tu, We, Th, Fr, Su, Sa        |       |
+ * | AM, PM                          |  80 | a..aaa  | AM, PM                            |       |
+ * |                                 |     | aaaa    | a.m., p.m.                        | 2     |
+ * |                                 |     | aaaaa   | a, p                              |       |
+ * | AM, PM, noon, midnight          |  80 | b..bbb  | AM, PM, noon, midnight            |       |
+ * |                                 |     | bbbb    | a.m., p.m., noon, midnight        | 2     |
+ * |                                 |     | bbbbb   | a, p, n, mi                       |       |
+ * | Flexible day period             |  80 | B..BBB  | at night, in the morning, ...     |       |
+ * |                                 |     | BBBB    | at night, in the morning, ...     | 2     |
+ * |                                 |     | BBBBB   | at night, in the morning, ...     |       |
+ * | Hour [1-12]                     |  70 | h       | 1, 2, ..., 11, 12                 |       |
+ * |                                 |     | ho      | 1st, 2nd, ..., 11th, 12th         | 5     |
+ * |                                 |     | hh      | 01, 02, ..., 11, 12               |       |
+ * | Hour [0-23]                     |  70 | H       | 0, 1, 2, ..., 23                  |       |
+ * |                                 |     | Ho      | 0th, 1st, 2nd, ..., 23rd          | 5     |
+ * |                                 |     | HH      | 00, 01, 02, ..., 23               |       |
+ * | Hour [0-11]                     |  70 | K       | 1, 2, ..., 11, 0                  |       |
+ * |                                 |     | Ko      | 1st, 2nd, ..., 11th, 0th          | 5     |
+ * |                                 |     | KK      | 1, 2, ..., 11, 0                  |       |
+ * | Hour [1-24]                     |  70 | k       | 24, 1, 2, ..., 23                 |       |
+ * |                                 |     | ko      | 24th, 1st, 2nd, ..., 23rd         | 5     |
+ * |                                 |     | kk      | 24, 01, 02, ..., 23               |       |
+ * | Minute                          |  60 | m       | 0, 1, ..., 59                     |       |
+ * |                                 |     | mo      | 0th, 1st, ..., 59th               | 5     |
+ * |                                 |     | mm      | 00, 01, ..., 59                   |       |
+ * | Second                          |  50 | s       | 0, 1, ..., 59                     |       |
+ * |                                 |     | so      | 0th, 1st, ..., 59th               | 5     |
+ * |                                 |     | ss      | 00, 01, ..., 59                   |       |
+ * | Seconds timestamp               |  40 | t       | 512969520                         |       |
+ * |                                 |     | tt      | ...                               | 2     |
+ * | Fraction of second              |  30 | S       | 0, 1, ..., 9                      |       |
+ * |                                 |     | SS      | 00, 01, ..., 99                   |       |
+ * |                                 |     | SSS     | 000, 0001, ..., 999               |       |
+ * |                                 |     | SSSS    | ...                               | 2     |
+ * | Milliseconds timestamp          |  20 | T       | 512969520900                      |       |
+ * |                                 |     | TT      | ...                               | 2     |
+ * | Timezone (ISO-8601 w/ Z)        |  10 | X       | -08, +0530, Z                     |       |
+ * |                                 |     | XX      | -0800, +0530, Z                   |       |
+ * |                                 |     | XXX     | -08:00, +05:30, Z                 |       |
+ * |                                 |     | XXXX    | -0800, +0530, Z, +123456          | 2     |
+ * |                                 |     | XXXXX   | -08:00, +05:30, Z, +12:34:56      |       |
+ * | Timezone (ISO-8601 w/o Z)       |  10 | x       | -08, +0530, +00                   |       |
+ * |                                 |     | xx      | -0800, +0530, +0000               |       |
+ * |                                 |     | xxx     | -08:00, +05:30, +00:00            | 2     |
+ * |                                 |     | xxxx    | -0800, +0530, +0000, +123456      |       |
+ * |                                 |     | xxxxx   | -08:00, +05:30, +00:00, +12:34:56 |       |
+ * | Long localized date             |  NA | P       | 05/29/1453                        | 5,8   |
+ * |                                 |     | PP      | May 29, 1453                      |       |
+ * |                                 |     | PPP     | May 29th, 1453                    |       |
+ * |                                 |     | PPPP    | Sunday, May 29th, 1453            | 2,5,8 |
+ * | Long localized time             |  NA | p       | 12:00 AM                          | 5,8   |
+ * |                                 |     | pp      | 12:00:00 AM                       |       |
+ * | Combination of date and time    |  NA | Pp      | 05/29/1453, 12:00 AM              |       |
+ * |                                 |     | PPpp    | May 29, 1453, 12:00:00 AM         |       |
+ * |                                 |     | PPPpp   | May 29th, 1453 at ...             |       |
+ * |                                 |     | PPPPpp  | Sunday, May 29th, 1453 at ...     | 2,5,8 |
+ * Notes:
+ * 1. "Formatting" units (e.g. formatting quarter) in the default en-US locale
+ *    are the same as "stand-alone" units, but are different in some languages.
+ *    "Formatting" units are declined according to the rules of the language
+ *    in the context of a date. "Stand-alone" units are always nominative singular.
+ *    In `format` function, they will produce different result:
+ *
+ *    `format(new Date(2017, 10, 6), 'do LLLL', {locale: cs}) //=> '6. listopad'`
+ *
+ *    `format(new Date(2017, 10, 6), 'do MMMM', {locale: cs}) //=> '6. listopadu'`
+ *
+ *    `parse` will try to match both formatting and stand-alone units interchangably.
+ *
+ * 2. Any sequence of the identical letters is a pattern, unless it is escaped by
+ *    the single quote characters (see below).
+ *    If the sequence is longer than listed in table:
+ *    - for numerical units (`yyyyyyyy`) `parse` will try to match a number
+ *      as wide as the sequence
+ *    - for text units (`MMMMMMMM`) `parse` will try to match the widest variation of the unit.
+ *      These variations are marked with "2" in the last column of the table.
+ *
+ * 3. `QQQQQ` and `qqqqq` could be not strictly numerical in some locales.
+ *    These tokens represent the shortest form of the quarter.
+ *
+ * 4. The main difference between `y` and `u` patterns are B.C. years:
+ *
+ *    | Year | `y` | `u` |
+ *    |------|-----|-----|
+ *    | AC 1 |   1 |   1 |
+ *    | BC 1 |   1 |   0 |
+ *    | BC 2 |   2 |  -1 |
+ *
+ *    Also `yy` will try to guess the century of two digit year by proximity with `baseDate`:
+ *
+ *    `parse('50', 'yy', new Date(2018, 0, 1)) //=> Sat Jan 01 2050 00:00:00`
+ *
+ *    `parse('75', 'yy', new Date(2018, 0, 1)) //=> Wed Jan 01 1975 00:00:00`
+ *
+ *    while `uu` will just assign the year as is:
+ *
+ *    `parse('50', 'uu', new Date(2018, 0, 1)) //=> Sat Jan 01 0050 00:00:00`
+ *
+ *    `parse('75', 'uu', new Date(2018, 0, 1)) //=> Tue Jan 01 0075 00:00:00`
+ *
+ *    The same difference is true for local and ISO week-numbering years (`Y` and `R`),
+ *    except local week-numbering years are dependent on `options.weekStartsOn`
+ *    and `options.firstWeekContainsDate` (compare [setISOWeekYear]{@link https://date-fns.org/docs/setISOWeekYear}
+ *    and [setWeekYear]{@link https://date-fns.org/docs/setWeekYear}).
+ *
+ * 5. These patterns are not in the Unicode Technical Standard #35:
+ *    - `i`: ISO day of week
+ *    - `I`: ISO week of year
+ *    - `R`: ISO week-numbering year
+ *    - `o`: ordinal number modifier
+ *    - `P`: long localized date
+ *    - `p`: long localized time
+ *
+ * 6. `YY` and `YYYY` tokens represent week-numbering years but they are often confused with years.
+ *    You should enable `options.useAdditionalWeekYearTokens` to use them. See: https://git.io/fxCyr
+ *
+ * 7. `D` and `DD` tokens represent days of the year but they are ofthen confused with days of the month.
+ *    You should enable `options.useAdditionalDayOfYearTokens` to use them. See: https://git.io/fxCyr
+ *
+ * 8. `P+` tokens do not have a defined priority since they are merely aliases to other tokens based
+ *    on the given locale.
+ *
+ *    using `en-US` locale: `P` => `MM/dd/yyyy`
+ *    using `en-US` locale: `p` => `hh:mm a`
+ *    using `pt-BR` locale: `P` => `dd/MM/yyyy`
+ *    using `pt-BR` locale: `p` => `HH:mm`
+ *
+ * Values will be assigned to the date in the descending order of its unit's priority.
+ * Units of an equal priority overwrite each other in the order of appearance.
+ *
+ * If no values of higher priority are parsed (e.g. when parsing string 'January 1st' without a year),
+ * the values will be taken from 3rd argument `baseDate` which works as a context of parsing.
+ *
+ * `baseDate` must be passed for correct work of the function.
+ * If you're not sure which `baseDate` to supply, create a new instance of Date:
+ * `parse('02/11/2014', 'MM/dd/yyyy', new Date())`
+ * In this case parsing will be done in the context of the current date.
+ * If `baseDate` is `Invalid Date` or a value not convertible to valid `Date`,
+ * then `Invalid Date` will be returned.
+ *
+ * The result may vary by locale.
+ *
+ * If `formatString` matches with `dateString` but does not provides tokens, `baseDate` will be returned.
+ *
+ * If parsing failed, `Invalid Date` will be returned.
+ * Invalid Date is a Date, whose time value is NaN.
+ * Time value of Date: http://es5.github.io/#x15.9.1.1
+ *
+ * ### v2.0.0 breaking changes:
+ *
+ * - [Changes that are common for the whole library](https://github.com/date-fns/date-fns/blob/master/docs/upgradeGuide.md#Common-Changes).
+ *
+ * - Old `parse` was renamed to `toDate`.
+ *   Now `parse` is a new function which parses a string using a provided format.
+ *
+ *   ```javascript
+ *   // Before v2.0.0
+ *   parse('2016-01-01')
+ *
+ *   // v2.0.0 onward
+ *   toDate('2016-01-01')
+ *   parse('2016-01-01', 'yyyy-MM-dd', new Date())
+ *   ```
+ *
+ * @param {String} dateString - the string to parse
+ * @param {String} formatString - the string of tokens
+ * @param {Date|Number} baseDate - defines values missing from the parsed dateString
+ * @param {Object} [options] - an object with options.
+ * @param {Locale} [options.locale=defaultLocale] - the locale object. See [Locale]{@link https://date-fns.org/docs/Locale}
+ * @param {0|1|2|3|4|5|6} [options.weekStartsOn=0] - the index of the first day of the week (0 - Sunday)
+ * @param {1|2|3|4|5|6|7} [options.firstWeekContainsDate=1] - the day of January, which is always in the first week of the year
+ * @param {Boolean} [options.useAdditionalWeekYearTokens=false] - if true, allows usage of the week-numbering year tokens `YY` and `YYYY`;
+ *   see: https://git.io/fxCyr
+ * @param {Boolean} [options.useAdditionalDayOfYearTokens=false] - if true, allows usage of the day of year tokens `D` and `DD`;
+ *   see: https://git.io/fxCyr
+ * @returns {Date} the parsed date
+ * @throws {TypeError} 3 arguments required
+ * @throws {RangeError} `options.weekStartsOn` must be between 0 and 6
+ * @throws {RangeError} `options.firstWeekContainsDate` must be between 1 and 7
+ * @throws {RangeError} `options.locale` must contain `match` property
+ * @throws {RangeError} use `yyyy` instead of `YYYY` for formatting years; see: https://git.io/fxCyr
+ * @throws {RangeError} use `yy` instead of `YY` for formatting years; see: https://git.io/fxCyr
+ * @throws {RangeError} use `d` instead of `D` for formatting days of the month; see: https://git.io/fxCyr
+ * @throws {RangeError} use `dd` instead of `DD` for formatting days of the month; see: https://git.io/fxCyr
+ * @throws {RangeError} format string contains an unescaped latin alphabet character
+ *
+ * @example
+ * // Parse 11 February 2014 from middle-endian format:
+ * var result = parse('02/11/2014', 'MM/dd/yyyy', new Date())
+ * //=> Tue Feb 11 2014 00:00:00
+ *
+ * @example
+ * // Parse 28th of February in Esperanto locale in the context of 2010 year:
+ * import eo from 'date-fns/locale/eo'
+ * var result = parse('28-a de februaro', "do 'de' MMMM", new Date(2010, 0, 1), {
+ *   locale: eo
+ * })
+ * //=> Sun Feb 28 2010 00:00:00
+ */
+
+function parse(dirtyDateString, dirtyFormatString, dirtyBaseDate, dirtyOptions) {
+  if (arguments.length < 3) {
+    throw new TypeError('3 arguments required, but only ' + arguments.length + ' present');
+  }
+
+  var dateString = String(dirtyDateString);
+  var formatString = String(dirtyFormatString);
+  var options = dirtyOptions || {};
+  var locale = options.locale || __WEBPACK_IMPORTED_MODULE_5__locale_en_US_index_js__["a" /* default */];
+
+  if (!locale.match) {
+    throw new RangeError('locale must contain match property');
+  }
+
+  var localeFirstWeekContainsDate = locale.options && locale.options.firstWeekContainsDate;
+  var defaultFirstWeekContainsDate = localeFirstWeekContainsDate == null ? 1 : Object(__WEBPACK_IMPORTED_MODULE_0__lib_toInteger_index_js__["a" /* default */])(localeFirstWeekContainsDate);
+  var firstWeekContainsDate = options.firstWeekContainsDate == null ? defaultFirstWeekContainsDate : Object(__WEBPACK_IMPORTED_MODULE_0__lib_toInteger_index_js__["a" /* default */])(options.firstWeekContainsDate); // Test if weekStartsOn is between 1 and 7 _and_ is not NaN
+
+  if (!(firstWeekContainsDate >= 1 && firstWeekContainsDate <= 7)) {
+    throw new RangeError('firstWeekContainsDate must be between 1 and 7 inclusively');
+  }
+
+  var localeWeekStartsOn = locale.options && locale.options.weekStartsOn;
+  var defaultWeekStartsOn = localeWeekStartsOn == null ? 0 : Object(__WEBPACK_IMPORTED_MODULE_0__lib_toInteger_index_js__["a" /* default */])(localeWeekStartsOn);
+  var weekStartsOn = options.weekStartsOn == null ? defaultWeekStartsOn : Object(__WEBPACK_IMPORTED_MODULE_0__lib_toInteger_index_js__["a" /* default */])(options.weekStartsOn); // Test if weekStartsOn is between 0 and 6 _and_ is not NaN
+
+  if (!(weekStartsOn >= 0 && weekStartsOn <= 6)) {
+    throw new RangeError('weekStartsOn must be between 0 and 6 inclusively');
+  }
+
+  if (formatString === '') {
+    if (dateString === '') {
+      return Object(__WEBPACK_IMPORTED_MODULE_3__toDate_index_js__["a" /* default */])(dirtyBaseDate);
+    } else {
+      return new Date(NaN);
+    }
+  }
+
+  var subFnOptions = {
+    firstWeekContainsDate: firstWeekContainsDate,
+    weekStartsOn: weekStartsOn,
+    locale: locale // If timezone isn't specified, it will be set to the system timezone
+
+  };
+  var setters = [{
+    priority: TIMEZONE_UNIT_PRIORITY,
+    set: dateToSystemTimezone,
+    index: 0
+  }];
+  var i;
+  var tokens = formatString.match(longFormattingTokensRegExp).map(function (substring) {
+    var firstCharacter = substring[0];
+
+    if (firstCharacter === 'p' || firstCharacter === 'P') {
+      var longFormatter = __WEBPACK_IMPORTED_MODULE_7__lib_format_longFormatters_index_js__["a" /* default */][firstCharacter];
+      return longFormatter(substring, locale.formatLong, subFnOptions);
+    }
+
+    return substring;
+  }).join('').match(formattingTokensRegExp);
+
+  for (i = 0; i < tokens.length; i++) {
+    var token = tokens[i];
+
+    if (!options.useAdditionalWeekYearTokens && Object(__WEBPACK_IMPORTED_MODULE_8__lib_protectedTokens_index_js__["b" /* isProtectedWeekYearToken */])(token)) {
+      Object(__WEBPACK_IMPORTED_MODULE_8__lib_protectedTokens_index_js__["c" /* throwProtectedError */])(token);
+    }
+
+    if (!options.useAdditionalDayOfYearTokens && Object(__WEBPACK_IMPORTED_MODULE_8__lib_protectedTokens_index_js__["a" /* isProtectedDayOfYearToken */])(token)) {
+      Object(__WEBPACK_IMPORTED_MODULE_8__lib_protectedTokens_index_js__["c" /* throwProtectedError */])(token);
+    }
+
+    var firstCharacter = token[0];
+    var parser = __WEBPACK_IMPORTED_MODULE_6__lib_parsers_index_js__["a" /* default */][firstCharacter];
+
+    if (parser) {
+      var parseResult = parser.parse(dateString, token, locale.match, subFnOptions);
+
+      if (!parseResult) {
+        return new Date(NaN);
+      }
+
+      setters.push({
+        priority: parser.priority,
+        set: parser.set,
+        validate: parser.validate,
+        value: parseResult.value,
+        index: setters.length
+      });
+      dateString = parseResult.rest;
+    } else {
+      if (firstCharacter.match(unescapedLatinCharacterRegExp)) {
+        throw new RangeError('Format string contains an unescaped latin alphabet character `' + firstCharacter + '`');
+      } // Replace two single quote characters with one single quote character
+
+
+      if (token === "''") {
+        token = "'";
+      } else if (firstCharacter === "'") {
+        token = cleanEscapedString(token);
+      } // Cut token from string, or, if string doesn't match the token, return Invalid Date
+
+
+      if (dateString.indexOf(token) === 0) {
+        dateString = dateString.slice(token.length);
+      } else {
+        return new Date(NaN);
+      }
+    }
+  } // Check if the remaining input contains something other than whitespace
+
+
+  if (dateString.length > 0 && notWhitespaceRegExp.test(dateString)) {
+    return new Date(NaN);
+  }
+
+  var uniquePrioritySetters = setters.map(function (setter) {
+    return setter.priority;
+  }).sort(function (a, b) {
+    return b - a;
+  }).filter(function (priority, index, array) {
+    return array.indexOf(priority) === index;
+  }).map(function (priority) {
+    return setters.filter(function (setter) {
+      return setter.priority === priority;
+    }).reverse();
+  }).map(function (setterArray) {
+    return setterArray[0];
+  });
+  var date = Object(__WEBPACK_IMPORTED_MODULE_3__toDate_index_js__["a" /* default */])(dirtyBaseDate);
+
+  if (isNaN(date)) {
+    return new Date(NaN);
+  } // Convert the date in system timezone to the same date in UTC+00:00 timezone.
+  // This ensures that when UTC functions will be implemented, locales will be compatible with them.
+  // See an issue about UTC functions: https://github.com/date-fns/date-fns/issues/37
+
+
+  var utcDate = Object(__WEBPACK_IMPORTED_MODULE_4__subMilliseconds_index_js__["a" /* default */])(date, Object(__WEBPACK_IMPORTED_MODULE_2__lib_getTimezoneOffsetInMilliseconds_index_js__["a" /* default */])(date));
+  var flags = {};
+
+  for (i = 0; i < uniquePrioritySetters.length; i++) {
+    var setter = uniquePrioritySetters[i];
+
+    if (setter.validate && !setter.validate(utcDate, setter.value, subFnOptions)) {
+      return new Date(NaN);
+    }
+
+    var result = setter.set(utcDate, flags, setter.value, subFnOptions); // Result is tuple (date, flags)
+
+    if (result[0]) {
+      utcDate = result[0];
+      Object(__WEBPACK_IMPORTED_MODULE_1__lib_assign_index_js__["a" /* default */])(flags, result[1]); // Result is date
+    } else {
+      utcDate = result;
+    }
+  }
+
+  return utcDate;
+}
+
+function dateToSystemTimezone(date, flags) {
+  if (flags.timestampIsSet) {
+    return date;
+  }
+
+  var convertedDate = new Date(0);
+  convertedDate.setFullYear(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());
+  convertedDate.setHours(date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds(), date.getUTCMilliseconds());
+  return convertedDate;
+}
+
+function cleanEscapedString(input) {
+  return input.match(escapedStringRegExp)[1].replace(doubleQuoteRegExp, "'");
+}
+
+/***/ }),
+/* 695 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = assign;
+function assign(target, dirtyObject) {
+  if (target == null) {
+    throw new TypeError('assign requires that input parameter not be null or undefined');
+  }
+
+  dirtyObject = dirtyObject || {};
+
+  for (var property in dirtyObject) {
+    if (dirtyObject.hasOwnProperty(property)) {
+      target[property] = dirtyObject[property];
+    }
+  }
+
+  return target;
+}
+
+/***/ }),
+/* 696 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__lib_getUTCWeekYear_index_js__ = __webpack_require__(584);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__lib_setUTCDay_index_js__ = __webpack_require__(697);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__lib_setUTCISODay_index_js__ = __webpack_require__(698);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__lib_setUTCISOWeek_index_js__ = __webpack_require__(699);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__lib_setUTCWeek_index_js__ = __webpack_require__(700);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__lib_startOfUTCISOWeek_index_js__ = __webpack_require__(581);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__lib_startOfUTCWeek_index_js__ = __webpack_require__(582);
+
+
+
+
+
+
+
+var MILLISECONDS_IN_HOUR = 3600000;
+var MILLISECONDS_IN_MINUTE = 60000;
+var MILLISECONDS_IN_SECOND = 1000;
+var numericPatterns = {
+  month: /^(1[0-2]|0?\d)/,
+  // 0 to 12
+  date: /^(3[0-1]|[0-2]?\d)/,
+  // 0 to 31
+  dayOfYear: /^(36[0-6]|3[0-5]\d|[0-2]?\d?\d)/,
+  // 0 to 366
+  week: /^(5[0-3]|[0-4]?\d)/,
+  // 0 to 53
+  hour23h: /^(2[0-3]|[0-1]?\d)/,
+  // 0 to 23
+  hour24h: /^(2[0-4]|[0-1]?\d)/,
+  // 0 to 24
+  hour11h: /^(1[0-1]|0?\d)/,
+  // 0 to 11
+  hour12h: /^(1[0-2]|0?\d)/,
+  // 0 to 12
+  minute: /^[0-5]?\d/,
+  // 0 to 59
+  second: /^[0-5]?\d/,
+  // 0 to 59
+  singleDigit: /^\d/,
+  // 0 to 9
+  twoDigits: /^\d{1,2}/,
+  // 0 to 99
+  threeDigits: /^\d{1,3}/,
+  // 0 to 999
+  fourDigits: /^\d{1,4}/,
+  // 0 to 9999
+  anyDigitsSigned: /^-?\d+/,
+  singleDigitSigned: /^-?\d/,
+  // 0 to 9, -0 to -9
+  twoDigitsSigned: /^-?\d{1,2}/,
+  // 0 to 99, -0 to -99
+  threeDigitsSigned: /^-?\d{1,3}/,
+  // 0 to 999, -0 to -999
+  fourDigitsSigned: /^-?\d{1,4}/ // 0 to 9999, -0 to -9999
+
+};
+var timezonePatterns = {
+  basicOptionalMinutes: /^([+-])(\d{2})(\d{2})?|Z/,
+  basic: /^([+-])(\d{2})(\d{2})|Z/,
+  basicOptionalSeconds: /^([+-])(\d{2})(\d{2})((\d{2}))?|Z/,
+  extended: /^([+-])(\d{2}):(\d{2})|Z/,
+  extendedOptionalSeconds: /^([+-])(\d{2}):(\d{2})(:(\d{2}))?|Z/
+};
+
+function parseNumericPattern(pattern, string, valueCallback) {
+  var matchResult = string.match(pattern);
+
+  if (!matchResult) {
+    return null;
+  }
+
+  var value = parseInt(matchResult[0], 10);
+  return {
+    value: valueCallback ? valueCallback(value) : value,
+    rest: string.slice(matchResult[0].length)
+  };
+}
+
+function parseTimezonePattern(pattern, string) {
+  var matchResult = string.match(pattern);
+
+  if (!matchResult) {
+    return null;
+  } // Input is 'Z'
+
+
+  if (matchResult[0] === 'Z') {
+    return {
+      value: 0,
+      rest: string.slice(1)
+    };
+  }
+
+  var sign = matchResult[1] === '+' ? 1 : -1;
+  var hours = matchResult[2] ? parseInt(matchResult[2], 10) : 0;
+  var minutes = matchResult[3] ? parseInt(matchResult[3], 10) : 0;
+  var seconds = matchResult[5] ? parseInt(matchResult[5], 10) : 0;
+  return {
+    value: sign * (hours * MILLISECONDS_IN_HOUR + minutes * MILLISECONDS_IN_MINUTE + seconds * MILLISECONDS_IN_SECOND),
+    rest: string.slice(matchResult[0].length)
+  };
+}
+
+function parseAnyDigitsSigned(string, valueCallback) {
+  return parseNumericPattern(numericPatterns.anyDigitsSigned, string, valueCallback);
+}
+
+function parseNDigits(n, string, valueCallback) {
+  switch (n) {
+    case 1:
+      return parseNumericPattern(numericPatterns.singleDigit, string, valueCallback);
+
+    case 2:
+      return parseNumericPattern(numericPatterns.twoDigits, string, valueCallback);
+
+    case 3:
+      return parseNumericPattern(numericPatterns.threeDigits, string, valueCallback);
+
+    case 4:
+      return parseNumericPattern(numericPatterns.fourDigits, string, valueCallback);
+
+    default:
+      return parseNumericPattern(new RegExp('^\\d{1,' + n + '}'), string, valueCallback);
+  }
+}
+
+function parseNDigitsSigned(n, string, valueCallback) {
+  switch (n) {
+    case 1:
+      return parseNumericPattern(numericPatterns.singleDigitSigned, string, valueCallback);
+
+    case 2:
+      return parseNumericPattern(numericPatterns.twoDigitsSigned, string, valueCallback);
+
+    case 3:
+      return parseNumericPattern(numericPatterns.threeDigitsSigned, string, valueCallback);
+
+    case 4:
+      return parseNumericPattern(numericPatterns.fourDigitsSigned, string, valueCallback);
+
+    default:
+      return parseNumericPattern(new RegExp('^-?\\d{1,' + n + '}'), string, valueCallback);
+  }
+}
+
+function dayPeriodEnumToHours(enumValue) {
+  switch (enumValue) {
+    case 'morning':
+      return 4;
+
+    case 'evening':
+      return 17;
+
+    case 'pm':
+    case 'noon':
+    case 'afternoon':
+      return 12;
+
+    case 'am':
+    case 'midnight':
+    case 'night':
+    default:
+      return 0;
+  }
+}
+
+function normalizeTwoDigitYear(twoDigitYear, currentYear) {
+  var isCommonEra = currentYear > 0; // Absolute number of the current year:
+  // 1 -> 1 AC
+  // 0 -> 1 BC
+  // -1 -> 2 BC
+
+  var absCurrentYear = isCommonEra ? currentYear : 1 - currentYear;
+  var result;
+
+  if (absCurrentYear <= 50) {
+    result = twoDigitYear || 100;
+  } else {
+    var rangeEnd = absCurrentYear + 50;
+    var rangeEndCentury = Math.floor(rangeEnd / 100) * 100;
+    var isPreviousCentury = twoDigitYear >= rangeEnd % 100;
+    result = twoDigitYear + rangeEndCentury - (isPreviousCentury ? 100 : 0);
+  }
+
+  return isCommonEra ? result : 1 - result;
+}
+
+var DAYS_IN_MONTH = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+var DAYS_IN_MONTH_LEAP_YEAR = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]; // User for validation
+
+function isLeapYearIndex(year) {
+  return year % 400 === 0 || year % 4 === 0 && year % 100 !== 0;
+}
+/*
+ * |     | Unit                           |     | Unit                           |
+ * |-----|--------------------------------|-----|--------------------------------|
+ * |  a  | AM, PM                         |  A* | Milliseconds in day            |
+ * |  b  | AM, PM, noon, midnight         |  B  | Flexible day period            |
+ * |  c  | Stand-alone local day of week  |  C* | Localized hour w/ day period   |
+ * |  d  | Day of month                   |  D  | Day of year                    |
+ * |  e  | Local day of week              |  E  | Day of week                    |
+ * |  f  |                                |  F* | Day of week in month           |
+ * |  g* | Modified Julian day            |  G  | Era                            |
+ * |  h  | Hour [1-12]                    |  H  | Hour [0-23]                    |
+ * |  i! | ISO day of week                |  I! | ISO week of year               |
+ * |  j* | Localized hour w/ day period   |  J* | Localized hour w/o day period  |
+ * |  k  | Hour [1-24]                    |  K  | Hour [0-11]                    |
+ * |  l* | (deprecated)                   |  L  | Stand-alone month              |
+ * |  m  | Minute                         |  M  | Month                          |
+ * |  n  |                                |  N  |                                |
+ * |  o! | Ordinal number modifier        |  O* | Timezone (GMT)                 |
+ * |  p  |                                |  P  |                                |
+ * |  q  | Stand-alone quarter            |  Q  | Quarter                        |
+ * |  r* | Related Gregorian year         |  R! | ISO week-numbering year        |
+ * |  s  | Second                         |  S  | Fraction of second             |
+ * |  t! | Seconds timestamp              |  T! | Milliseconds timestamp         |
+ * |  u  | Extended year                  |  U* | Cyclic year                    |
+ * |  v* | Timezone (generic non-locat.)  |  V* | Timezone (location)            |
+ * |  w  | Local week of year             |  W* | Week of month                  |
+ * |  x  | Timezone (ISO-8601 w/o Z)      |  X  | Timezone (ISO-8601)            |
+ * |  y  | Year (abs)                     |  Y  | Local week-numbering year      |
+ * |  z* | Timezone (specific non-locat.) |  Z* | Timezone (aliases)             |
+ *
+ * Letters marked by * are not implemented but reserved by Unicode standard.
+ *
+ * Letters marked by ! are non-standard, but implemented by date-fns:
+ * - `o` modifies the previous token to turn it into an ordinal (see `parse` docs)
+ * - `i` is ISO day of week. For `i` and `ii` is returns numeric ISO week days,
+ *   i.e. 7 for Sunday, 1 for Monday, etc.
+ * - `I` is ISO week of year, as opposed to `w` which is local week of year.
+ * - `R` is ISO week-numbering year, as opposed to `Y` which is local week-numbering year.
+ *   `R` is supposed to be used in conjunction with `I` and `i`
+ *   for universal ISO week-numbering date, whereas
+ *   `Y` is supposed to be used in conjunction with `w` and `e`
+ *   for week-numbering date specific to the locale.
+ */
+
+
+var parsers = {
+  // Era
+  G: {
+    priority: 140,
+    parse: function (string, token, match, _options) {
+      switch (token) {
+        // AD, BC
+        case 'G':
+        case 'GG':
+        case 'GGG':
+          return match.era(string, {
+            width: 'abbreviated'
+          }) || match.era(string, {
+            width: 'narrow'
+          });
+        // A, B
+
+        case 'GGGGG':
+          return match.era(string, {
+            width: 'narrow'
+          });
+        // Anno Domini, Before Christ
+
+        case 'GGGG':
+        default:
+          return match.era(string, {
+            width: 'wide'
+          }) || match.era(string, {
+            width: 'abbreviated'
+          }) || match.era(string, {
+            width: 'narrow'
+          });
+      }
+    },
+    set: function (date, _flags, value, _options) {
+      // Sets year 10 BC if BC, or 10 AC if AC
+      date.setUTCFullYear(value === 1 ? 10 : -9, 0, 1);
+      date.setUTCHours(0, 0, 0, 0);
+      return date;
+    }
+  },
+  // Year
+  y: {
+    // From http://www.unicode.org/reports/tr35/tr35-31/tr35-dates.html#Date_Format_Patterns
+    // | Year     |     y | yy |   yyy |  yyyy | yyyyy |
+    // |----------|-------|----|-------|-------|-------|
+    // | AD 1     |     1 | 01 |   001 |  0001 | 00001 |
+    // | AD 12    |    12 | 12 |   012 |  0012 | 00012 |
+    // | AD 123   |   123 | 23 |   123 |  0123 | 00123 |
+    // | AD 1234  |  1234 | 34 |  1234 |  1234 | 01234 |
+    // | AD 12345 | 12345 | 45 | 12345 | 12345 | 12345 |
+    priority: 130,
+    parse: function (string, token, match, _options) {
+      var valueCallback = function (year) {
+        return {
+          year: year,
+          isTwoDigitYear: token === 'yy'
+        };
+      };
+
+      switch (token) {
+        case 'y':
+          return parseNDigits(4, string, valueCallback);
+
+        case 'yo':
+          return match.ordinalNumber(string, {
+            unit: 'year',
+            valueCallback: valueCallback
+          });
+
+        default:
+          return parseNDigits(token.length, string, valueCallback);
+      }
+    },
+    validate: function (date, value, _options) {
+      return value.isTwoDigitYear || value.year > 0;
+    },
+    set: function (date, _flags, value, options) {
+      var currentYear = Object(__WEBPACK_IMPORTED_MODULE_0__lib_getUTCWeekYear_index_js__["a" /* default */])(date, options);
+
+      if (value.isTwoDigitYear) {
+        var normalizedTwoDigitYear = normalizeTwoDigitYear(value.year, currentYear);
+        date.setUTCFullYear(normalizedTwoDigitYear, 0, 1);
+        date.setUTCHours(0, 0, 0, 0);
+        return date;
+      }
+
+      var year = currentYear > 0 ? value.year : 1 - value.year;
+      date.setUTCFullYear(year, 0, 1);
+      date.setUTCHours(0, 0, 0, 0);
+      return date;
+    }
+  },
+  // Local week-numbering year
+  Y: {
+    priority: 130,
+    parse: function (string, token, match, _options) {
+      var valueCallback = function (year) {
+        return {
+          year: year,
+          isTwoDigitYear: token === 'YY'
+        };
+      };
+
+      switch (token) {
+        case 'Y':
+          return parseNDigits(4, string, valueCallback);
+
+        case 'Yo':
+          return match.ordinalNumber(string, {
+            unit: 'year',
+            valueCallback: valueCallback
+          });
+
+        default:
+          return parseNDigits(token.length, string, valueCallback);
+      }
+    },
+    validate: function (_date, value, _options) {
+      return value.isTwoDigitYear || value.year > 0;
+    },
+    set: function (date, _flags, value, options) {
+      var currentYear = date.getUTCFullYear();
+
+      if (value.isTwoDigitYear) {
+        var normalizedTwoDigitYear = normalizeTwoDigitYear(value.year, currentYear);
+        date.setUTCFullYear(normalizedTwoDigitYear, 0, options.firstWeekContainsDate);
+        date.setUTCHours(0, 0, 0, 0);
+        return Object(__WEBPACK_IMPORTED_MODULE_6__lib_startOfUTCWeek_index_js__["a" /* default */])(date, options);
+      }
+
+      var year = currentYear > 0 ? value.year : 1 - value.year;
+      date.setUTCFullYear(year, 0, options.firstWeekContainsDate);
+      date.setUTCHours(0, 0, 0, 0);
+      return Object(__WEBPACK_IMPORTED_MODULE_6__lib_startOfUTCWeek_index_js__["a" /* default */])(date, options);
+    }
+  },
+  // ISO week-numbering year
+  R: {
+    priority: 130,
+    parse: function (string, token, _match, _options) {
+      if (token === 'R') {
+        return parseNDigitsSigned(4, string);
+      }
+
+      return parseNDigitsSigned(token.length, string);
+    },
+    set: function (_date, _flags, value, _options) {
+      var firstWeekOfYear = new Date(0);
+      firstWeekOfYear.setUTCFullYear(value, 0, 4);
+      firstWeekOfYear.setUTCHours(0, 0, 0, 0);
+      return Object(__WEBPACK_IMPORTED_MODULE_5__lib_startOfUTCISOWeek_index_js__["a" /* default */])(firstWeekOfYear);
+    }
+  },
+  // Extended year
+  u: {
+    priority: 130,
+    parse: function (string, token, _match, _options) {
+      if (token === 'u') {
+        return parseNDigitsSigned(4, string);
+      }
+
+      return parseNDigitsSigned(token.length, string);
+    },
+    set: function (date, _flags, value, _options) {
+      date.setUTCFullYear(value, 0, 1);
+      date.setUTCHours(0, 0, 0, 0);
+      return date;
+    }
+  },
+  // Quarter
+  Q: {
+    priority: 120,
+    parse: function (string, token, match, _options) {
+      switch (token) {
+        // 1, 2, 3, 4
+        case 'Q':
+        case 'QQ':
+          // 01, 02, 03, 04
+          return parseNDigits(token.length, string);
+        // 1st, 2nd, 3rd, 4th
+
+        case 'Qo':
+          return match.ordinalNumber(string, {
+            unit: 'quarter'
+          });
+        // Q1, Q2, Q3, Q4
+
+        case 'QQQ':
+          return match.quarter(string, {
+            width: 'abbreviated',
+            context: 'formatting'
+          }) || match.quarter(string, {
+            width: 'narrow',
+            context: 'formatting'
+          });
+        // 1, 2, 3, 4 (narrow quarter; could be not numerical)
+
+        case 'QQQQQ':
+          return match.quarter(string, {
+            width: 'narrow',
+            context: 'formatting'
+          });
+        // 1st quarter, 2nd quarter, ...
+
+        case 'QQQQ':
+        default:
+          return match.quarter(string, {
+            width: 'wide',
+            context: 'formatting'
+          }) || match.quarter(string, {
+            width: 'abbreviated',
+            context: 'formatting'
+          }) || match.quarter(string, {
+            width: 'narrow',
+            context: 'formatting'
+          });
+      }
+    },
+    validate: function (_date, value, _options) {
+      return value >= 1 && value <= 4;
+    },
+    set: function (date, _flags, value, _options) {
+      date.setUTCMonth((value - 1) * 3, 1);
+      date.setUTCHours(0, 0, 0, 0);
+      return date;
+    }
+  },
+  // Stand-alone quarter
+  q: {
+    priority: 120,
+    parse: function (string, token, match, _options) {
+      switch (token) {
+        // 1, 2, 3, 4
+        case 'q':
+        case 'qq':
+          // 01, 02, 03, 04
+          return parseNDigits(token.length, string);
+        // 1st, 2nd, 3rd, 4th
+
+        case 'qo':
+          return match.ordinalNumber(string, {
+            unit: 'quarter'
+          });
+        // Q1, Q2, Q3, Q4
+
+        case 'qqq':
+          return match.quarter(string, {
+            width: 'abbreviated',
+            context: 'standalone'
+          }) || match.quarter(string, {
+            width: 'narrow',
+            context: 'standalone'
+          });
+        // 1, 2, 3, 4 (narrow quarter; could be not numerical)
+
+        case 'qqqqq':
+          return match.quarter(string, {
+            width: 'narrow',
+            context: 'standalone'
+          });
+        // 1st quarter, 2nd quarter, ...
+
+        case 'qqqq':
+        default:
+          return match.quarter(string, {
+            width: 'wide',
+            context: 'standalone'
+          }) || match.quarter(string, {
+            width: 'abbreviated',
+            context: 'standalone'
+          }) || match.quarter(string, {
+            width: 'narrow',
+            context: 'standalone'
+          });
+      }
+    },
+    validate: function (_date, value, _options) {
+      return value >= 1 && value <= 4;
+    },
+    set: function (date, _flags, value, _options) {
+      date.setUTCMonth((value - 1) * 3, 1);
+      date.setUTCHours(0, 0, 0, 0);
+      return date;
+    }
+  },
+  // Month
+  M: {
+    priority: 110,
+    parse: function (string, token, match, _options) {
+      var valueCallback = function (value) {
+        return value - 1;
+      };
+
+      switch (token) {
+        // 1, 2, ..., 12
+        case 'M':
+          return parseNumericPattern(numericPatterns.month, string, valueCallback);
+        // 01, 02, ..., 12
+
+        case 'MM':
+          return parseNDigits(2, string, valueCallback);
+        // 1st, 2nd, ..., 12th
+
+        case 'Mo':
+          return match.ordinalNumber(string, {
+            unit: 'month',
+            valueCallback: valueCallback
+          });
+        // Jan, Feb, ..., Dec
+
+        case 'MMM':
+          return match.month(string, {
+            width: 'abbreviated',
+            context: 'formatting'
+          }) || match.month(string, {
+            width: 'narrow',
+            context: 'formatting'
+          });
+        // J, F, ..., D
+
+        case 'MMMMM':
+          return match.month(string, {
+            width: 'narrow',
+            context: 'formatting'
+          });
+        // January, February, ..., December
+
+        case 'MMMM':
+        default:
+          return match.month(string, {
+            width: 'wide',
+            context: 'formatting'
+          }) || match.month(string, {
+            width: 'abbreviated',
+            context: 'formatting'
+          }) || match.month(string, {
+            width: 'narrow',
+            context: 'formatting'
+          });
+      }
+    },
+    validate: function (_date, value, _options) {
+      return value >= 0 && value <= 11;
+    },
+    set: function (date, _flags, value, _options) {
+      date.setUTCMonth(value, 1);
+      date.setUTCHours(0, 0, 0, 0);
+      return date;
+    }
+  },
+  // Stand-alone month
+  L: {
+    priority: 110,
+    parse: function (string, token, match, _options) {
+      var valueCallback = function (value) {
+        return value - 1;
+      };
+
+      switch (token) {
+        // 1, 2, ..., 12
+        case 'L':
+          return parseNumericPattern(numericPatterns.month, string, valueCallback);
+        // 01, 02, ..., 12
+
+        case 'LL':
+          return parseNDigits(2, string, valueCallback);
+        // 1st, 2nd, ..., 12th
+
+        case 'Lo':
+          return match.ordinalNumber(string, {
+            unit: 'month',
+            valueCallback: valueCallback
+          });
+        // Jan, Feb, ..., Dec
+
+        case 'LLL':
+          return match.month(string, {
+            width: 'abbreviated',
+            context: 'standalone'
+          }) || match.month(string, {
+            width: 'narrow',
+            context: 'standalone'
+          });
+        // J, F, ..., D
+
+        case 'LLLLL':
+          return match.month(string, {
+            width: 'narrow',
+            context: 'standalone'
+          });
+        // January, February, ..., December
+
+        case 'LLLL':
+        default:
+          return match.month(string, {
+            width: 'wide',
+            context: 'standalone'
+          }) || match.month(string, {
+            width: 'abbreviated',
+            context: 'standalone'
+          }) || match.month(string, {
+            width: 'narrow',
+            context: 'standalone'
+          });
+      }
+    },
+    validate: function (_date, value, _options) {
+      return value >= 0 && value <= 11;
+    },
+    set: function (date, _flags, value, _options) {
+      date.setUTCMonth(value, 1);
+      date.setUTCHours(0, 0, 0, 0);
+      return date;
+    }
+  },
+  // Local week of year
+  w: {
+    priority: 100,
+    parse: function (string, token, match, _options) {
+      switch (token) {
+        case 'w':
+          return parseNumericPattern(numericPatterns.week, string);
+
+        case 'wo':
+          return match.ordinalNumber(string, {
+            unit: 'week'
+          });
+
+        default:
+          return parseNDigits(token.length, string);
+      }
+    },
+    validate: function (_date, value, _options) {
+      return value >= 1 && value <= 53;
+    },
+    set: function (date, _flags, value, options) {
+      return Object(__WEBPACK_IMPORTED_MODULE_6__lib_startOfUTCWeek_index_js__["a" /* default */])(Object(__WEBPACK_IMPORTED_MODULE_4__lib_setUTCWeek_index_js__["a" /* default */])(date, value, options), options);
+    }
+  },
+  // ISO week of year
+  I: {
+    priority: 100,
+    parse: function (string, token, match, _options) {
+      switch (token) {
+        case 'I':
+          return parseNumericPattern(numericPatterns.week, string);
+
+        case 'Io':
+          return match.ordinalNumber(string, {
+            unit: 'week'
+          });
+
+        default:
+          return parseNDigits(token.length, string);
+      }
+    },
+    validate: function (_date, value, _options) {
+      return value >= 1 && value <= 53;
+    },
+    set: function (date, _flags, value, options) {
+      return Object(__WEBPACK_IMPORTED_MODULE_5__lib_startOfUTCISOWeek_index_js__["a" /* default */])(Object(__WEBPACK_IMPORTED_MODULE_3__lib_setUTCISOWeek_index_js__["a" /* default */])(date, value, options), options);
+    }
+  },
+  // Day of the month
+  d: {
+    priority: 90,
+    parse: function (string, token, match, _options) {
+      switch (token) {
+        case 'd':
+          return parseNumericPattern(numericPatterns.date, string);
+
+        case 'do':
+          return match.ordinalNumber(string, {
+            unit: 'date'
+          });
+
+        default:
+          return parseNDigits(token.length, string);
+      }
+    },
+    validate: function (date, value, _options) {
+      var year = date.getUTCFullYear();
+      var isLeapYear = isLeapYearIndex(year);
+      var month = date.getUTCMonth();
+
+      if (isLeapYear) {
+        return value >= 1 && value <= DAYS_IN_MONTH_LEAP_YEAR[month];
+      } else {
+        return value >= 1 && value <= DAYS_IN_MONTH[month];
+      }
+    },
+    set: function (date, _flags, value, _options) {
+      date.setUTCDate(value);
+      date.setUTCHours(0, 0, 0, 0);
+      return date;
+    }
+  },
+  // Day of year
+  D: {
+    priority: 90,
+    parse: function (string, token, match, _options) {
+      switch (token) {
+        case 'D':
+        case 'DD':
+          return parseNumericPattern(numericPatterns.dayOfYear, string);
+
+        case 'Do':
+          return match.ordinalNumber(string, {
+            unit: 'date'
+          });
+
+        default:
+          return parseNDigits(token.length, string);
+      }
+    },
+    validate: function (date, value, _options) {
+      var year = date.getUTCFullYear();
+      var isLeapYear = isLeapYearIndex(year);
+
+      if (isLeapYear) {
+        return value >= 1 && value <= 366;
+      } else {
+        return value >= 1 && value <= 365;
+      }
+    },
+    set: function (date, _flags, value, _options) {
+      date.setUTCMonth(0, value);
+      date.setUTCHours(0, 0, 0, 0);
+      return date;
+    }
+  },
+  // Day of week
+  E: {
+    priority: 90,
+    parse: function (string, token, match, _options) {
+      switch (token) {
+        // Tue
+        case 'E':
+        case 'EE':
+        case 'EEE':
+          return match.day(string, {
+            width: 'abbreviated',
+            context: 'formatting'
+          }) || match.day(string, {
+            width: 'short',
+            context: 'formatting'
+          }) || match.day(string, {
+            width: 'narrow',
+            context: 'formatting'
+          });
+        // T
+
+        case 'EEEEE':
+          return match.day(string, {
+            width: 'narrow',
+            context: 'formatting'
+          });
+        // Tu
+
+        case 'EEEEEE':
+          return match.day(string, {
+            width: 'short',
+            context: 'formatting'
+          }) || match.day(string, {
+            width: 'narrow',
+            context: 'formatting'
+          });
+        // Tuesday
+
+        case 'EEEE':
+        default:
+          return match.day(string, {
+            width: 'wide',
+            context: 'formatting'
+          }) || match.day(string, {
+            width: 'abbreviated',
+            context: 'formatting'
+          }) || match.day(string, {
+            width: 'short',
+            context: 'formatting'
+          }) || match.day(string, {
+            width: 'narrow',
+            context: 'formatting'
+          });
+      }
+    },
+    validate: function (_date, value, _options) {
+      return value >= 0 && value <= 6;
+    },
+    set: function (date, _flags, value, options) {
+      date = Object(__WEBPACK_IMPORTED_MODULE_1__lib_setUTCDay_index_js__["a" /* default */])(date, value, options);
+      date.setUTCHours(0, 0, 0, 0);
+      return date;
+    }
+  },
+  // Local day of week
+  e: {
+    priority: 90,
+    parse: function (string, token, match, options) {
+      var valueCallback = function (value) {
+        var wholeWeekDays = Math.floor((value - 1) / 7) * 7;
+        return (value + options.weekStartsOn + 6) % 7 + wholeWeekDays;
+      };
+
+      switch (token) {
+        // 3
+        case 'e':
+        case 'ee':
+          // 03
+          return parseNDigits(token.length, string, valueCallback);
+        // 3rd
+
+        case 'eo':
+          return match.ordinalNumber(string, {
+            unit: 'day',
+            valueCallback: valueCallback
+          });
+        // Tue
+
+        case 'eee':
+          return match.day(string, {
+            width: 'abbreviated',
+            context: 'formatting'
+          }) || match.day(string, {
+            width: 'short',
+            context: 'formatting'
+          }) || match.day(string, {
+            width: 'narrow',
+            context: 'formatting'
+          });
+        // T
+
+        case 'eeeee':
+          return match.day(string, {
+            width: 'narrow',
+            context: 'formatting'
+          });
+        // Tu
+
+        case 'eeeeee':
+          return match.day(string, {
+            width: 'short',
+            context: 'formatting'
+          }) || match.day(string, {
+            width: 'narrow',
+            context: 'formatting'
+          });
+        // Tuesday
+
+        case 'eeee':
+        default:
+          return match.day(string, {
+            width: 'wide',
+            context: 'formatting'
+          }) || match.day(string, {
+            width: 'abbreviated',
+            context: 'formatting'
+          }) || match.day(string, {
+            width: 'short',
+            context: 'formatting'
+          }) || match.day(string, {
+            width: 'narrow',
+            context: 'formatting'
+          });
+      }
+    },
+    validate: function (_date, value, _options) {
+      return value >= 0 && value <= 6;
+    },
+    set: function (date, _flags, value, options) {
+      date = Object(__WEBPACK_IMPORTED_MODULE_1__lib_setUTCDay_index_js__["a" /* default */])(date, value, options);
+      date.setUTCHours(0, 0, 0, 0);
+      return date;
+    }
+  },
+  // Stand-alone local day of week
+  c: {
+    priority: 90,
+    parse: function (string, token, match, options) {
+      var valueCallback = function (value) {
+        var wholeWeekDays = Math.floor((value - 1) / 7) * 7;
+        return (value + options.weekStartsOn + 6) % 7 + wholeWeekDays;
+      };
+
+      switch (token) {
+        // 3
+        case 'c':
+        case 'cc':
+          // 03
+          return parseNDigits(token.length, string, valueCallback);
+        // 3rd
+
+        case 'co':
+          return match.ordinalNumber(string, {
+            unit: 'day',
+            valueCallback: valueCallback
+          });
+        // Tue
+
+        case 'ccc':
+          return match.day(string, {
+            width: 'abbreviated',
+            context: 'standalone'
+          }) || match.day(string, {
+            width: 'short',
+            context: 'standalone'
+          }) || match.day(string, {
+            width: 'narrow',
+            context: 'standalone'
+          });
+        // T
+
+        case 'ccccc':
+          return match.day(string, {
+            width: 'narrow',
+            context: 'standalone'
+          });
+        // Tu
+
+        case 'cccccc':
+          return match.day(string, {
+            width: 'short',
+            context: 'standalone'
+          }) || match.day(string, {
+            width: 'narrow',
+            context: 'standalone'
+          });
+        // Tuesday
+
+        case 'cccc':
+        default:
+          return match.day(string, {
+            width: 'wide',
+            context: 'standalone'
+          }) || match.day(string, {
+            width: 'abbreviated',
+            context: 'standalone'
+          }) || match.day(string, {
+            width: 'short',
+            context: 'standalone'
+          }) || match.day(string, {
+            width: 'narrow',
+            context: 'standalone'
+          });
+      }
+    },
+    validate: function (_date, value, _options) {
+      return value >= 0 && value <= 6;
+    },
+    set: function (date, _flags, value, options) {
+      date = Object(__WEBPACK_IMPORTED_MODULE_1__lib_setUTCDay_index_js__["a" /* default */])(date, value, options);
+      date.setUTCHours(0, 0, 0, 0);
+      return date;
+    }
+  },
+  // ISO day of week
+  i: {
+    priority: 90,
+    parse: function (string, token, match, _options) {
+      var valueCallback = function (value) {
+        if (value === 0) {
+          return 7;
+        }
+
+        return value;
+      };
+
+      switch (token) {
+        // 2
+        case 'i':
+        case 'ii':
+          // 02
+          return parseNDigits(token.length, string);
+        // 2nd
+
+        case 'io':
+          return match.ordinalNumber(string, {
+            unit: 'day'
+          });
+        // Tue
+
+        case 'iii':
+          return match.day(string, {
+            width: 'abbreviated',
+            context: 'formatting',
+            valueCallback: valueCallback
+          }) || match.day(string, {
+            width: 'short',
+            context: 'formatting',
+            valueCallback: valueCallback
+          }) || match.day(string, {
+            width: 'narrow',
+            context: 'formatting',
+            valueCallback: valueCallback
+          });
+        // T
+
+        case 'iiiii':
+          return match.day(string, {
+            width: 'narrow',
+            context: 'formatting',
+            valueCallback: valueCallback
+          });
+        // Tu
+
+        case 'iiiiii':
+          return match.day(string, {
+            width: 'short',
+            context: 'formatting',
+            valueCallback: valueCallback
+          }) || match.day(string, {
+            width: 'narrow',
+            context: 'formatting',
+            valueCallback: valueCallback
+          });
+        // Tuesday
+
+        case 'iiii':
+        default:
+          return match.day(string, {
+            width: 'wide',
+            context: 'formatting',
+            valueCallback: valueCallback
+          }) || match.day(string, {
+            width: 'abbreviated',
+            context: 'formatting',
+            valueCallback: valueCallback
+          }) || match.day(string, {
+            width: 'short',
+            context: 'formatting',
+            valueCallback: valueCallback
+          }) || match.day(string, {
+            width: 'narrow',
+            context: 'formatting',
+            valueCallback: valueCallback
+          });
+      }
+    },
+    validate: function (_date, value, _options) {
+      return value >= 1 && value <= 7;
+    },
+    set: function (date, _flags, value, options) {
+      date = Object(__WEBPACK_IMPORTED_MODULE_2__lib_setUTCISODay_index_js__["a" /* default */])(date, value, options);
+      date.setUTCHours(0, 0, 0, 0);
+      return date;
+    }
+  },
+  // AM or PM
+  a: {
+    priority: 80,
+    parse: function (string, token, match, _options) {
+      switch (token) {
+        case 'a':
+        case 'aa':
+        case 'aaa':
+          return match.dayPeriod(string, {
+            width: 'abbreviated',
+            context: 'formatting'
+          }) || match.dayPeriod(string, {
+            width: 'narrow',
+            context: 'formatting'
+          });
+
+        case 'aaaaa':
+          return match.dayPeriod(string, {
+            width: 'narrow',
+            context: 'formatting'
+          });
+
+        case 'aaaa':
+        default:
+          return match.dayPeriod(string, {
+            width: 'wide',
+            context: 'formatting'
+          }) || match.dayPeriod(string, {
+            width: 'abbreviated',
+            context: 'formatting'
+          }) || match.dayPeriod(string, {
+            width: 'narrow',
+            context: 'formatting'
+          });
+      }
+    },
+    set: function (date, _flags, value, _options) {
+      date.setUTCHours(dayPeriodEnumToHours(value), 0, 0, 0);
+      return date;
+    }
+  },
+  // AM, PM, midnight
+  b: {
+    priority: 80,
+    parse: function (string, token, match, _options) {
+      switch (token) {
+        case 'b':
+        case 'bb':
+        case 'bbb':
+          return match.dayPeriod(string, {
+            width: 'abbreviated',
+            context: 'formatting'
+          }) || match.dayPeriod(string, {
+            width: 'narrow',
+            context: 'formatting'
+          });
+
+        case 'bbbbb':
+          return match.dayPeriod(string, {
+            width: 'narrow',
+            context: 'formatting'
+          });
+
+        case 'bbbb':
+        default:
+          return match.dayPeriod(string, {
+            width: 'wide',
+            context: 'formatting'
+          }) || match.dayPeriod(string, {
+            width: 'abbreviated',
+            context: 'formatting'
+          }) || match.dayPeriod(string, {
+            width: 'narrow',
+            context: 'formatting'
+          });
+      }
+    },
+    set: function (date, _flags, value, _options) {
+      date.setUTCHours(dayPeriodEnumToHours(value), 0, 0, 0);
+      return date;
+    }
+  },
+  // in the morning, in the afternoon, in the evening, at night
+  B: {
+    priority: 80,
+    parse: function (string, token, match, _options) {
+      switch (token) {
+        case 'B':
+        case 'BB':
+        case 'BBB':
+          return match.dayPeriod(string, {
+            width: 'abbreviated',
+            context: 'formatting'
+          }) || match.dayPeriod(string, {
+            width: 'narrow',
+            context: 'formatting'
+          });
+
+        case 'BBBBB':
+          return match.dayPeriod(string, {
+            width: 'narrow',
+            context: 'formatting'
+          });
+
+        case 'BBBB':
+        default:
+          return match.dayPeriod(string, {
+            width: 'wide',
+            context: 'formatting'
+          }) || match.dayPeriod(string, {
+            width: 'abbreviated',
+            context: 'formatting'
+          }) || match.dayPeriod(string, {
+            width: 'narrow',
+            context: 'formatting'
+          });
+      }
+    },
+    set: function (date, _flags, value, _options) {
+      date.setUTCHours(dayPeriodEnumToHours(value), 0, 0, 0);
+      return date;
+    }
+  },
+  // Hour [1-12]
+  h: {
+    priority: 70,
+    parse: function (string, token, match, _options) {
+      switch (token) {
+        case 'h':
+          return parseNumericPattern(numericPatterns.hour12h, string);
+
+        case 'ho':
+          return match.ordinalNumber(string, {
+            unit: 'hour'
+          });
+
+        default:
+          return parseNDigits(token.length, string);
+      }
+    },
+    validate: function (_date, value, _options) {
+      return value >= 1 && value <= 12;
+    },
+    set: function (date, _flags, value, _options) {
+      var isPM = date.getUTCHours() >= 12;
+
+      if (isPM && value < 12) {
+        date.setUTCHours(value + 12, 0, 0, 0);
+      } else if (!isPM && value === 12) {
+        date.setUTCHours(0, 0, 0, 0);
+      } else {
+        date.setUTCHours(value, 0, 0, 0);
+      }
+
+      return date;
+    }
+  },
+  // Hour [0-23]
+  H: {
+    priority: 70,
+    parse: function (string, token, match, _options) {
+      switch (token) {
+        case 'H':
+          return parseNumericPattern(numericPatterns.hour23h, string);
+
+        case 'Ho':
+          return match.ordinalNumber(string, {
+            unit: 'hour'
+          });
+
+        default:
+          return parseNDigits(token.length, string);
+      }
+    },
+    validate: function (_date, value, _options) {
+      return value >= 0 && value <= 23;
+    },
+    set: function (date, _flags, value, _options) {
+      date.setUTCHours(value, 0, 0, 0);
+      return date;
+    }
+  },
+  // Hour [0-11]
+  K: {
+    priority: 70,
+    parse: function (string, token, match, _options) {
+      switch (token) {
+        case 'K':
+          return parseNumericPattern(numericPatterns.hour11h, string);
+
+        case 'Ko':
+          return match.ordinalNumber(string, {
+            unit: 'hour'
+          });
+
+        default:
+          return parseNDigits(token.length, string);
+      }
+    },
+    validate: function (_date, value, _options) {
+      return value >= 0 && value <= 11;
+    },
+    set: function (date, _flags, value, _options) {
+      var isPM = date.getUTCHours() >= 12;
+
+      if (isPM && value < 12) {
+        date.setUTCHours(value + 12, 0, 0, 0);
+      } else {
+        date.setUTCHours(value, 0, 0, 0);
+      }
+
+      return date;
+    }
+  },
+  // Hour [1-24]
+  k: {
+    priority: 70,
+    parse: function (string, token, match, _options) {
+      switch (token) {
+        case 'k':
+          return parseNumericPattern(numericPatterns.hour24h, string);
+
+        case 'ko':
+          return match.ordinalNumber(string, {
+            unit: 'hour'
+          });
+
+        default:
+          return parseNDigits(token.length, string);
+      }
+    },
+    validate: function (_date, value, _options) {
+      return value >= 1 && value <= 24;
+    },
+    set: function (date, _flags, value, _options) {
+      var hours = value <= 24 ? value % 24 : value;
+      date.setUTCHours(hours, 0, 0, 0);
+      return date;
+    }
+  },
+  // Minute
+  m: {
+    priority: 60,
+    parse: function (string, token, match, _options) {
+      switch (token) {
+        case 'm':
+          return parseNumericPattern(numericPatterns.minute, string);
+
+        case 'mo':
+          return match.ordinalNumber(string, {
+            unit: 'minute'
+          });
+
+        default:
+          return parseNDigits(token.length, string);
+      }
+    },
+    validate: function (_date, value, _options) {
+      return value >= 0 && value <= 59;
+    },
+    set: function (date, _flags, value, _options) {
+      date.setUTCMinutes(value, 0, 0);
+      return date;
+    }
+  },
+  // Second
+  s: {
+    priority: 50,
+    parse: function (string, token, match, _options) {
+      switch (token) {
+        case 's':
+          return parseNumericPattern(numericPatterns.second, string);
+
+        case 'so':
+          return match.ordinalNumber(string, {
+            unit: 'second'
+          });
+
+        default:
+          return parseNDigits(token.length, string);
+      }
+    },
+    validate: function (_date, value, _options) {
+      return value >= 0 && value <= 59;
+    },
+    set: function (date, _flags, value, _options) {
+      date.setUTCSeconds(value, 0);
+      return date;
+    }
+  },
+  // Fraction of second
+  S: {
+    priority: 30,
+    parse: function (string, token, _match, _options) {
+      var valueCallback = function (value) {
+        return Math.floor(value * Math.pow(10, -token.length + 3));
+      };
+
+      return parseNDigits(token.length, string, valueCallback);
+    },
+    set: function (date, _flags, value, _options) {
+      date.setUTCMilliseconds(value);
+      return date;
+    }
+  },
+  // Timezone (ISO-8601. +00:00 is `'Z'`)
+  X: {
+    priority: 10,
+    parse: function (string, token, _match, _options) {
+      switch (token) {
+        case 'X':
+          return parseTimezonePattern(timezonePatterns.basicOptionalMinutes, string);
+
+        case 'XX':
+          return parseTimezonePattern(timezonePatterns.basic, string);
+
+        case 'XXXX':
+          return parseTimezonePattern(timezonePatterns.basicOptionalSeconds, string);
+
+        case 'XXXXX':
+          return parseTimezonePattern(timezonePatterns.extendedOptionalSeconds, string);
+
+        case 'XXX':
+        default:
+          return parseTimezonePattern(timezonePatterns.extended, string);
+      }
+    },
+    set: function (date, flags, value, _options) {
+      if (flags.timestampIsSet) {
+        return date;
+      }
+
+      return new Date(date.getTime() - value);
+    }
+  },
+  // Timezone (ISO-8601)
+  x: {
+    priority: 10,
+    parse: function (string, token, _match, _options) {
+      switch (token) {
+        case 'x':
+          return parseTimezonePattern(timezonePatterns.basicOptionalMinutes, string);
+
+        case 'xx':
+          return parseTimezonePattern(timezonePatterns.basic, string);
+
+        case 'xxxx':
+          return parseTimezonePattern(timezonePatterns.basicOptionalSeconds, string);
+
+        case 'xxxxx':
+          return parseTimezonePattern(timezonePatterns.extendedOptionalSeconds, string);
+
+        case 'xxx':
+        default:
+          return parseTimezonePattern(timezonePatterns.extended, string);
+      }
+    },
+    set: function (date, flags, value, _options) {
+      if (flags.timestampIsSet) {
+        return date;
+      }
+
+      return new Date(date.getTime() - value);
+    }
+  },
+  // Seconds timestamp
+  t: {
+    priority: 40,
+    parse: function (string, _token, _match, _options) {
+      return parseAnyDigitsSigned(string);
+    },
+    set: function (_date, _flags, value, _options) {
+      return [new Date(value * 1000), {
+        timestampIsSet: true
+      }];
+    }
+  },
+  // Milliseconds timestamp
+  T: {
+    priority: 20,
+    parse: function (string, _token, _match, _options) {
+      return parseAnyDigitsSigned(string);
+    },
+    set: function (_date, _flags, value, _options) {
+      return [new Date(value), {
+        timestampIsSet: true
+      }];
+    }
+  }
+};
+/* harmony default export */ __webpack_exports__["a"] = (parsers);
+
+/***/ }),
+/* 697 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = setUTCDay;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__toInteger_index_js__ = __webpack_require__(483);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__toDate_index_js__ = __webpack_require__(83);
+
+ // This function will be a part of public API when UTC function will be implemented.
+// See issue: https://github.com/date-fns/date-fns/issues/376
+
+function setUTCDay(dirtyDate, dirtyDay, dirtyOptions) {
+  if (arguments.length < 2) {
+    throw new TypeError('2 arguments required, but only ' + arguments.length + ' present');
+  }
+
+  var options = dirtyOptions || {};
+  var locale = options.locale;
+  var localeWeekStartsOn = locale && locale.options && locale.options.weekStartsOn;
+  var defaultWeekStartsOn = localeWeekStartsOn == null ? 0 : Object(__WEBPACK_IMPORTED_MODULE_0__toInteger_index_js__["a" /* default */])(localeWeekStartsOn);
+  var weekStartsOn = options.weekStartsOn == null ? defaultWeekStartsOn : Object(__WEBPACK_IMPORTED_MODULE_0__toInteger_index_js__["a" /* default */])(options.weekStartsOn); // Test if weekStartsOn is between 0 and 6 _and_ is not NaN
+
+  if (!(weekStartsOn >= 0 && weekStartsOn <= 6)) {
+    throw new RangeError('weekStartsOn must be between 0 and 6 inclusively');
+  }
+
+  var date = Object(__WEBPACK_IMPORTED_MODULE_1__toDate_index_js__["a" /* default */])(dirtyDate);
+  var day = Object(__WEBPACK_IMPORTED_MODULE_0__toInteger_index_js__["a" /* default */])(dirtyDay);
+  var currentDay = date.getUTCDay();
+  var remainder = day % 7;
+  var dayIndex = (remainder + 7) % 7;
+  var diff = (dayIndex < weekStartsOn ? 7 : 0) + day - currentDay;
+  date.setUTCDate(date.getUTCDate() + diff);
+  return date;
+}
+
+/***/ }),
+/* 698 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = setUTCISODay;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__toInteger_index_js__ = __webpack_require__(483);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__toDate_index_js__ = __webpack_require__(83);
+
+ // This function will be a part of public API when UTC function will be implemented.
+// See issue: https://github.com/date-fns/date-fns/issues/376
+
+function setUTCISODay(dirtyDate, dirtyDay) {
+  if (arguments.length < 2) {
+    throw new TypeError('2 arguments required, but only ' + arguments.length + ' present');
+  }
+
+  var day = Object(__WEBPACK_IMPORTED_MODULE_0__toInteger_index_js__["a" /* default */])(dirtyDay);
+
+  if (day % 7 === 0) {
+    day = day - 7;
+  }
+
+  var weekStartsOn = 1;
+  var date = Object(__WEBPACK_IMPORTED_MODULE_1__toDate_index_js__["a" /* default */])(dirtyDate);
+  var currentDay = date.getUTCDay();
+  var remainder = day % 7;
+  var dayIndex = (remainder + 7) % 7;
+  var diff = (dayIndex < weekStartsOn ? 7 : 0) + day - currentDay;
+  date.setUTCDate(date.getUTCDate() + diff);
+  return date;
+}
+
+/***/ }),
+/* 699 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = setUTCISOWeek;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__toInteger_index_js__ = __webpack_require__(483);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__toDate_index_js__ = __webpack_require__(83);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__getUTCISOWeek_index_js__ = __webpack_require__(597);
+
+
+ // This function will be a part of public API when UTC function will be implemented.
+// See issue: https://github.com/date-fns/date-fns/issues/376
+
+function setUTCISOWeek(dirtyDate, dirtyISOWeek) {
+  if (arguments.length < 2) {
+    throw new TypeError('2 arguments required, but only ' + arguments.length + ' present');
+  }
+
+  var date = Object(__WEBPACK_IMPORTED_MODULE_1__toDate_index_js__["a" /* default */])(dirtyDate);
+  var isoWeek = Object(__WEBPACK_IMPORTED_MODULE_0__toInteger_index_js__["a" /* default */])(dirtyISOWeek);
+  var diff = Object(__WEBPACK_IMPORTED_MODULE_2__getUTCISOWeek_index_js__["a" /* default */])(date) - isoWeek;
+  date.setUTCDate(date.getUTCDate() - diff * 7);
+  return date;
+}
+
+/***/ }),
+/* 700 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = setUTCWeek;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__toInteger_index_js__ = __webpack_require__(483);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__toDate_index_js__ = __webpack_require__(83);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__getUTCWeek_index_js__ = __webpack_require__(599);
+
+
+ // This function will be a part of public API when UTC function will be implemented.
+// See issue: https://github.com/date-fns/date-fns/issues/376
+
+function setUTCWeek(dirtyDate, dirtyWeek, options) {
+  if (arguments.length < 2) {
+    throw new TypeError('2 arguments required, but only ' + arguments.length + ' present');
+  }
+
+  var date = Object(__WEBPACK_IMPORTED_MODULE_1__toDate_index_js__["a" /* default */])(dirtyDate);
+  var week = Object(__WEBPACK_IMPORTED_MODULE_0__toInteger_index_js__["a" /* default */])(dirtyWeek);
+  var diff = Object(__WEBPACK_IMPORTED_MODULE_2__getUTCWeek_index_js__["a" /* default */])(date, options) - week;
+  date.setUTCDate(date.getUTCDate() - diff * 7);
+  return date;
+}
+
+/***/ }),
+/* 701 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = setHours;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__lib_toInteger_index_js__ = __webpack_require__(483);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__toDate_index_js__ = __webpack_require__(83);
+
+
+/**
+ * @name setHours
+ * @category Hour Helpers
+ * @summary Set the hours to the given date.
+ *
+ * @description
+ * Set the hours to the given date.
+ *
+ * ### v2.0.0 breaking changes:
+ *
+ * - [Changes that are common for the whole library](https://github.com/date-fns/date-fns/blob/master/docs/upgradeGuide.md#Common-Changes).
+ *
+ * @param {Date|Number} date - the date to be changed
+ * @param {Number} hours - the hours of the new date
+ * @returns {Date} the new date with the hours set
+ * @throws {TypeError} 2 arguments required
+ *
+ * @example
+ * // Set 4 hours to 1 September 2014 11:30:00:
+ * var result = setHours(new Date(2014, 8, 1, 11, 30), 4)
+ * //=> Mon Sep 01 2014 04:30:00
+ */
+
+function setHours(dirtyDate, dirtyHours) {
+  if (arguments.length < 2) {
+    throw new TypeError('2 arguments required, but only ' + arguments.length + ' present');
+  }
+
+  var date = Object(__WEBPACK_IMPORTED_MODULE_1__toDate_index_js__["a" /* default */])(dirtyDate);
+  var hours = Object(__WEBPACK_IMPORTED_MODULE_0__lib_toInteger_index_js__["a" /* default */])(dirtyHours);
+  date.setHours(hours);
+  return date;
+}
+
+/***/ }),
+/* 702 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = setMinutes;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__lib_toInteger_index_js__ = __webpack_require__(483);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__toDate_index_js__ = __webpack_require__(83);
+
+
+/**
+ * @name setMinutes
+ * @category Minute Helpers
+ * @summary Set the minutes to the given date.
+ *
+ * @description
+ * Set the minutes to the given date.
+ *
+ * ### v2.0.0 breaking changes:
+ *
+ * - [Changes that are common for the whole library](https://github.com/date-fns/date-fns/blob/master/docs/upgradeGuide.md#Common-Changes).
+ *
+ * @param {Date|Number} date - the date to be changed
+ * @param {Number} minutes - the minutes of the new date
+ * @returns {Date} the new date with the minutes set
+ * @throws {TypeError} 2 arguments required
+ *
+ * @example
+ * // Set 45 minutes to 1 September 2014 11:30:40:
+ * var result = setMinutes(new Date(2014, 8, 1, 11, 30, 40), 45)
+ * //=> Mon Sep 01 2014 11:45:40
+ */
+
+function setMinutes(dirtyDate, dirtyMinutes) {
+  if (arguments.length < 2) {
+    throw new TypeError('2 arguments required, but only ' + arguments.length + ' present');
+  }
+
+  var date = Object(__WEBPACK_IMPORTED_MODULE_1__toDate_index_js__["a" /* default */])(dirtyDate);
+  var minutes = Object(__WEBPACK_IMPORTED_MODULE_0__lib_toInteger_index_js__["a" /* default */])(dirtyMinutes);
+  date.setMinutes(minutes);
+  return date;
+}
+
+/***/ }),
+/* 703 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = setMonth;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__lib_toInteger_index_js__ = __webpack_require__(483);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__toDate_index_js__ = __webpack_require__(83);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__getDaysInMonth_index_js__ = __webpack_require__(592);
+
+
+
+/**
+ * @name setMonth
+ * @category Month Helpers
+ * @summary Set the month to the given date.
+ *
+ * @description
+ * Set the month to the given date.
+ *
+ * ### v2.0.0 breaking changes:
+ *
+ * - [Changes that are common for the whole library](https://github.com/date-fns/date-fns/blob/master/docs/upgradeGuide.md#Common-Changes).
+ *
+ * @param {Date|Number} date - the date to be changed
+ * @param {Number} month - the month of the new date
+ * @returns {Date} the new date with the month set
+ * @throws {TypeError} 2 arguments required
+ *
+ * @example
+ * // Set February to 1 September 2014:
+ * var result = setMonth(new Date(2014, 8, 1), 1)
+ * //=> Sat Feb 01 2014 00:00:00
+ */
+
+function setMonth(dirtyDate, dirtyMonth) {
+  if (arguments.length < 2) {
+    throw new TypeError('2 arguments required, but only ' + arguments.length + ' present');
+  }
+
+  var date = Object(__WEBPACK_IMPORTED_MODULE_1__toDate_index_js__["a" /* default */])(dirtyDate);
+  var month = Object(__WEBPACK_IMPORTED_MODULE_0__lib_toInteger_index_js__["a" /* default */])(dirtyMonth);
+  var year = date.getFullYear();
+  var day = date.getDate();
+  var dateWithDesiredMonth = new Date(0);
+  dateWithDesiredMonth.setFullYear(year, month, 15);
+  dateWithDesiredMonth.setHours(0, 0, 0, 0);
+  var daysInMonth = Object(__WEBPACK_IMPORTED_MODULE_2__getDaysInMonth_index_js__["a" /* default */])(dateWithDesiredMonth); // Set the last day of the new month
+  // if the original date was the last day of the longer month
+
+  date.setMonth(month, Math.min(day, daysInMonth));
+  return date;
+}
+
+/***/ }),
+/* 704 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = setSeconds;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__lib_toInteger_index_js__ = __webpack_require__(483);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__toDate_index_js__ = __webpack_require__(83);
+
+
+/**
+ * @name setSeconds
+ * @category Second Helpers
+ * @summary Set the seconds to the given date.
+ *
+ * @description
+ * Set the seconds to the given date.
+ *
+ * ### v2.0.0 breaking changes:
+ *
+ * - [Changes that are common for the whole library](https://github.com/date-fns/date-fns/blob/master/docs/upgradeGuide.md#Common-Changes).
+ *
+ * @param {Date|Number} date - the date to be changed
+ * @param {Number} seconds - the seconds of the new date
+ * @returns {Date} the new date with the seconds set
+ * @throws {TypeError} 2 arguments required
+ *
+ * @example
+ * // Set 45 seconds to 1 September 2014 11:30:40:
+ * var result = setSeconds(new Date(2014, 8, 1, 11, 30, 40), 45)
+ * //=> Mon Sep 01 2014 11:30:45
+ */
+
+function setSeconds(dirtyDate, dirtySeconds) {
+  if (arguments.length < 2) {
+    throw new TypeError('2 arguments required, but only ' + arguments.length + ' present');
+  }
+
+  var date = Object(__WEBPACK_IMPORTED_MODULE_1__toDate_index_js__["a" /* default */])(dirtyDate);
+  var seconds = Object(__WEBPACK_IMPORTED_MODULE_0__lib_toInteger_index_js__["a" /* default */])(dirtySeconds);
+  date.setSeconds(seconds);
+  return date;
+}
+
+/***/ }),
+/* 705 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = setYear;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__lib_toInteger_index_js__ = __webpack_require__(483);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__toDate_index_js__ = __webpack_require__(83);
+
+
+/**
+ * @name setYear
+ * @category Year Helpers
+ * @summary Set the year to the given date.
+ *
+ * @description
+ * Set the year to the given date.
+ *
+ * ### v2.0.0 breaking changes:
+ *
+ * - [Changes that are common for the whole library](https://github.com/date-fns/date-fns/blob/master/docs/upgradeGuide.md#Common-Changes).
+ *
+ * @param {Date|Number} date - the date to be changed
+ * @param {Number} year - the year of the new date
+ * @returns {Date} the new date with the year set
+ * @throws {TypeError} 2 arguments required
+ *
+ * @example
+ * // Set year 2013 to 1 September 2014:
+ * var result = setYear(new Date(2014, 8, 1), 2013)
+ * //=> Sun Sep 01 2013 00:00:00
+ */
+
+function setYear(dirtyDate, dirtyYear) {
+  if (arguments.length < 2) {
+    throw new TypeError('2 arguments required, but only ' + arguments.length + ' present');
+  }
+
+  var date = Object(__WEBPACK_IMPORTED_MODULE_1__toDate_index_js__["a" /* default */])(dirtyDate);
+  var year = Object(__WEBPACK_IMPORTED_MODULE_0__lib_toInteger_index_js__["a" /* default */])(dirtyYear); // Check if date is Invalid Date because Date.prototype.setFullYear ignores the value of Invalid Date
+
+  if (isNaN(date)) {
+    return new Date(NaN);
+  }
+
+  date.setFullYear(year);
+  return date;
+}
+
+/***/ }),
+/* 706 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = startOfMonth;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__toDate_index_js__ = __webpack_require__(83);
+
+/**
+ * @name startOfMonth
+ * @category Month Helpers
+ * @summary Return the start of a month for the given date.
+ *
+ * @description
+ * Return the start of a month for the given date.
+ * The result will be in the local timezone.
+ *
+ * ### v2.0.0 breaking changes:
+ *
+ * - [Changes that are common for the whole library](https://github.com/date-fns/date-fns/blob/master/docs/upgradeGuide.md#Common-Changes).
+ *
+ * @param {Date|Number} date - the original date
+ * @returns {Date} the start of a month
+ * @throws {TypeError} 1 argument required
+ *
+ * @example
+ * // The start of a month for 2 September 2014 11:55:00:
+ * var result = startOfMonth(new Date(2014, 8, 2, 11, 55, 0))
+ * //=> Mon Sep 01 2014 00:00:00
+ */
+
+function startOfMonth(dirtyDate) {
+  if (arguments.length < 1) {
+    throw new TypeError('1 argument required, but only ' + arguments.length + ' present');
+  }
+
+  var date = Object(__WEBPACK_IMPORTED_MODULE_0__toDate_index_js__["a" /* default */])(dirtyDate);
+  date.setDate(1);
+  date.setHours(0, 0, 0, 0);
+  return date;
+}
+
+/***/ }),
+/* 707 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = endOfMonth;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__toDate_index_js__ = __webpack_require__(83);
+
+/**
+ * @name endOfMonth
+ * @category Month Helpers
+ * @summary Return the end of a month for the given date.
+ *
+ * @description
+ * Return the end of a month for the given date.
+ * The result will be in the local timezone.
+ *
+ * ### v2.0.0 breaking changes:
+ *
+ * - [Changes that are common for the whole library](https://github.com/date-fns/date-fns/blob/master/docs/upgradeGuide.md#Common-Changes).
+ *
+ * @param {Date|Number} date - the original date
+ * @returns {Date} the end of a month
+ * @throws {TypeError} 1 argument required
+ *
+ * @example
+ * // The end of a month for 2 September 2014 11:55:00:
+ * var result = endOfMonth(new Date(2014, 8, 2, 11, 55, 0))
+ * //=> Tue Sep 30 2014 23:59:59.999
+ */
+
+function endOfMonth(dirtyDate) {
+  if (arguments.length < 1) {
+    throw new TypeError('1 argument required, but only ' + arguments.length + ' present');
+  }
+
+  var date = Object(__WEBPACK_IMPORTED_MODULE_0__toDate_index_js__["a" /* default */])(dirtyDate);
+  var month = date.getMonth();
+  date.setFullYear(date.getFullYear(), month + 1, 0);
+  date.setHours(23, 59, 59, 999);
+  return date;
+}
+
+/***/ }),
+/* 708 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = startOfWeek;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__toDate_index_js__ = __webpack_require__(83);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__lib_toInteger_index_js__ = __webpack_require__(483);
+
+
+/**
+ * @name startOfWeek
+ * @category Week Helpers
+ * @summary Return the start of a week for the given date.
+ *
+ * @description
+ * Return the start of a week for the given date.
+ * The result will be in the local timezone.
+ *
+ * ### v2.0.0 breaking changes:
+ *
+ * - [Changes that are common for the whole library](https://github.com/date-fns/date-fns/blob/master/docs/upgradeGuide.md#Common-Changes).
+ *
+ * @param {Date|Number} date - the original date
+ * @param {Object} [options] - an object with options.
+ * @param {Locale} [options.locale=defaultLocale] - the locale object. See [Locale]{@link https://date-fns.org/docs/Locale}
+ * @param {0|1|2|3|4|5|6} [options.weekStartsOn=0] - the index of the first day of the week (0 - Sunday)
+ * @returns {Date} the start of a week
+ * @throws {TypeError} 1 argument required
+ * @throws {RangeError} `options.weekStartsOn` must be between 0 and 6
+ *
+ * @example
+ * // The start of a week for 2 September 2014 11:55:00:
+ * var result = startOfWeek(new Date(2014, 8, 2, 11, 55, 0))
+ * //=> Sun Aug 31 2014 00:00:00
+ *
+ * @example
+ * // If the week starts on Monday, the start of the week for 2 September 2014 11:55:00:
+ * var result = startOfWeek(new Date(2014, 8, 2, 11, 55, 0), { weekStartsOn: 1 })
+ * //=> Mon Sep 01 2014 00:00:00
+ */
+
+function startOfWeek(dirtyDate, dirtyOptions) {
+  if (arguments.length < 1) {
+    throw new TypeError('1 argument required, but only ' + arguments.length + ' present');
+  }
+
+  var options = dirtyOptions || {};
+  var locale = options.locale;
+  var localeWeekStartsOn = locale && locale.options && locale.options.weekStartsOn;
+  var defaultWeekStartsOn = localeWeekStartsOn == null ? 0 : Object(__WEBPACK_IMPORTED_MODULE_1__lib_toInteger_index_js__["a" /* default */])(localeWeekStartsOn);
+  var weekStartsOn = options.weekStartsOn == null ? defaultWeekStartsOn : Object(__WEBPACK_IMPORTED_MODULE_1__lib_toInteger_index_js__["a" /* default */])(options.weekStartsOn); // Test if weekStartsOn is between 0 and 6 _and_ is not NaN
+
+  if (!(weekStartsOn >= 0 && weekStartsOn <= 6)) {
+    throw new RangeError('weekStartsOn must be between 0 and 6 inclusively');
+  }
+
+  var date = Object(__WEBPACK_IMPORTED_MODULE_0__toDate_index_js__["a" /* default */])(dirtyDate);
+  var day = date.getDay();
+  var diff = (day < weekStartsOn ? 7 : 0) + day - weekStartsOn;
+  date.setDate(date.getDate() - diff);
+  date.setHours(0, 0, 0, 0);
+  return date;
+}
+
+/***/ }),
+/* 709 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = startOfYear;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__toDate_index_js__ = __webpack_require__(83);
+
+/**
+ * @name startOfYear
+ * @category Year Helpers
+ * @summary Return the start of a year for the given date.
+ *
+ * @description
+ * Return the start of a year for the given date.
+ * The result will be in the local timezone.
+ *
+ * ### v2.0.0 breaking changes:
+ *
+ * - [Changes that are common for the whole library](https://github.com/date-fns/date-fns/blob/master/docs/upgradeGuide.md#Common-Changes).
+ *
+ * @param {Date|Number} date - the original date
+ * @returns {Date} the start of a year
+ * @throws {TypeError} 1 argument required
+ *
+ * @example
+ * // The start of a year for 2 September 2014 11:55:00:
+ * var result = startOfYear(new Date(2014, 8, 2, 11, 55, 00))
+ * //=> Wed Jan 01 2014 00:00:00
+ */
+
+function startOfYear(dirtyDate) {
+  if (arguments.length < 1) {
+    throw new TypeError('1 argument required, but only ' + arguments.length + ' present');
+  }
+
+  var cleanDate = Object(__WEBPACK_IMPORTED_MODULE_0__toDate_index_js__["a" /* default */])(dirtyDate);
+  var date = new Date(0);
+  date.setFullYear(cleanDate.getFullYear(), 0, 1);
+  date.setHours(0, 0, 0, 0);
+  return date;
+}
+
+/***/ }),
+/* 710 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Button = __webpack_require__(28);
+
+var _Button2 = _interopRequireDefault(_Button);
+
+var _styles = __webpack_require__(29);
+
+var _icons = __webpack_require__(84);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var AutomaticSystem = function AutomaticSystem(_ref) {
+    var classes = _ref.classes;
+
+    var searchClick = function searchClick() {
+        console.log("hi");
+    };
+
+    return _react2.default.createElement(
+        'div',
+        { className: classes.wrapper },
+        _react2.default.createElement(
+            'div',
+            { className: 'row valign-wrapper my-3' },
+            _react2.default.createElement(
+                'div',
+                { className: 'col s12 mb-2 mt-4' },
+                _react2.default.createElement(
+                    'div',
+                    { className: 'col s12 center-align' },
+                    _react2.default.createElement(
+                        _Button2.default,
+                        {
+                            variant: 'contained',
+                            color: 'primary' },
+                        _react2.default.createElement(_icons.CheckIcon, { className: 'white-text ' + classes.labelCheck }),
+                        _react2.default.createElement(
+                            'span',
+                            { className: classes.labelLogin },
+                            'Generar asignaci\xF3n autom\xE1tica'
+                        )
+                    )
+                )
+            )
+        )
+    );
+};
+
+var maxWidth = 1000;
+
+var styles = function styles(theme) {
+    return _defineProperty({
+
+        modalWrapper: {
+            padding: "25px !Important"
+        },
+
+        modalRoot: {
+            top: '20%'
+        },
+
+        title: {
+            fontSize: '30px',
+            fontWeight: 'bold'
+        },
+
+        icon: {
+            fontSize: '17px',
+            marginRight: '0.5rem'
+        },
+
+        labelText: {
+            fontSize: '14px',
+            color: '#000'
+        },
+
+        iconLabel: {
+            color: "#101010",
+            fontSize: '14px',
+            marginRight: '0.5rem'
+        },
+        iconEditLabel: {
+            color: "#223f93",
+            fontSize: '30px',
+            marginRight: '0.5rem'
+        },
+
+        iconSchool: {
+            color: "#101010",
+            fontSize: '18px',
+            marginRight: '0.5rem'
+        },
+
+        iconInfo: {
+            color: "#101010",
+            fontSize: '18px',
+            marginRight: '0.5rem'
+        },
+
+        closeIcon: {
+            cursor: 'pointer',
+            color: 'black',
+            position: 'absolute',
+            right: '12px',
+            top: '12px',
+            fontSize: '18px'
+        },
+
+        containerWidth: {
+            maxWidth: '40%'
+        },
+
+        labelSearch: {
+            fontSize: '15px',
+            marginRight: '0.5rem'
+        },
+
+        labelCheck: {
+            fontSize: '16px',
+            marginRight: '0.5rem'
+        },
+
+        labelLogin: {
+            fontFamily: 'Nunito',
+            fontSize: '20px'
+        },
+
+        labelUpload: {
+            fontFamily: 'Nunito',
+            fontSize: '15px'
+        },
+
+        labelLittle: {
+            fontFamily: 'Nunito',
+            fontSize: '15px'
+        },
+
+        wrapper: {
+            padding: '15px 50px'
+        }
+
+    }, '@media (max-width: ' + maxWidth + 'px)', {});
+};
+
+exports.default = (0, _styles.withStyles)(styles)(AutomaticSystem);
 
 /***/ })
 /******/ ]);

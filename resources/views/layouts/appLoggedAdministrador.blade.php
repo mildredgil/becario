@@ -19,12 +19,6 @@
             font-family: 'Nunito';
             height: 100%;
         }
-        #footer {
-          position: absolute;
-          left: 0;
-          right: 0;
-          bottom:0;
-        }
         
     </style>
     @yield('css')
