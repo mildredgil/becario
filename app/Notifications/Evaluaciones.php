@@ -7,7 +7,7 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class InicioPeriodo extends Notification
+class Evaluaciones extends Notification
 {
     use Queueable;
 
@@ -40,9 +40,7 @@ class InicioPeriodo extends Notification
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)
-          ->subject('Servicio Becario | Inicio de Periodo')
-          ->markdown('mail.inicioPeriodo', []);
+        return (new MailMessage)->markdown('mail.evaluaciones.estudiantes');
     }
 
     /**
