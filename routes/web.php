@@ -243,9 +243,9 @@ Route::get('/prueba', function() {
 Route::get('/colaboradorTest', function() {
   $estudiantes = Estudiante::where('asignable_sn', 1)
     ->where('estatus_assignable_sn', 0)
-    ->with('carrera.escuela')
-    ->orderBy('semestre_actual', 'desc')
-    ->get();
+    ->orderBy('semestre_actual', 'desc');
+    //->with('carrera.escuela')
+    //->get();
 
   //obtener a los profesores y tengan planta y requieren becarios
   $colaboradores = Colaborador::where('profesor_sn', 1)
@@ -255,31 +255,36 @@ Route::get('/colaboradorTest', function() {
     ->orderBy('requiere_becarios')
     ->get();
   
-  dd($colaboradores);
-
-  $count = 0;
   while($colaboradores != null ) {
     foreach($colaboradores as $colaborador) {
       if($colaborador->becarios_disponibles > 0) {
-        $estudiante = $estudiantes->first(function ($estudiante, $key) {
+        
+        /*$estudiante = $estudiantes->first(function ($estudiante, $key) use ($colaborador) {
           return $estudiante->carrera->escuela->id == $colaborador->departamento->escuela->id;
-        });
+        });*/
         
+        $estudiante = Estudiante::where('asignable_sn', 1)
+        ->where('estatus_assignable_sn', 0)
+        ->where('carrera.escuela', function($query, $colaborador) {
+          $query->where('id', $colaborador->departamento->escuela->id);
+        })
+        ->orderBy('semestre_actual', 'desc')
+        ->first();
         
-            /*$asignacion = Solicitud_Becaria::create([
-              'id_estudiante' => $estudiante->id,
-              'id_colaborador' => $colaborador->id,
-              'aprovada' => 1,
-              'fecha_asignacion' => new Carbon(),
-              'fecha_aceptacion' => new Carbon(),
-              'periodo' => Periodo::AGO_DIC
-            ]);*/
-        if($estudiante) {
-          echo($estudiante->matricula . ' ' . $colaborador->nomina);
-          echo('<br/>');
-          echo($colaborador->becarios_disponibles);
-          echo('<br/>');
-        }
+        $asignacion = Solicitud_Becaria::create([
+          'id_estudiante' => $estudiante->id,
+          'id_colaborador' => $colaborador->id,
+          'aprovada' => 1,
+          'fecha_asignacion' => new Carbon(),
+          'fecha_aceptacion' => new Carbon(),
+          'periodo' => Periodo::AGO_DIC
+        ]);
+          
+        $estudiante->estatus_assignable_sn = 1;
+        $estudiante->save();
+
+        echo($asignacion);
+        echo('<br/>');
       }
     }  
     
@@ -287,9 +292,6 @@ Route::get('/colaboradorTest', function() {
       ->with('asignaciones','departamento.escuela')
       ->where('tipo_contrato', Colaborador::PLANTA)
       ->where('requiere_becarios', '>', 0)
-      ->get();
-
-    $count = $count + 1;
-    
+      ->get();    
   }
 });

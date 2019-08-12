@@ -85,7 +85,7 @@ class ConfiguracionesController extends Controller
 
       fclose($file);  
     } else if($name == "colaborador") {
-      //nomina, nombre, profesor, oficina, departamento, tipo_contrato, requiere becarios
+      //nomina, nombre, profesor, oficina, departamento, tipo_contrato, requiere becarios, email
       $colaboradores =  collect([]);
 
       while ( ($data = fgetcsv($file, 200, ",")) !== FALSE ) {
@@ -102,7 +102,7 @@ class ConfiguracionesController extends Controller
             'tipo_contrato' => $data[5],
             'celular' => '',
             'contrasena' => '',
-            'email' => $data[0] . '@tec.mx',
+            'email' => $data[7],
             'requiere_becarios' => $data[6]
           ]);
         }
@@ -196,12 +196,6 @@ class ConfiguracionesController extends Controller
   }
 
   public function algorithm(Request $request) {
-    $estudiantes = Estudiante::where('asignable_sn', 1)
-    ->where('estatus_assignable_sn', 0)
-    ->with('carrera.escuela')
-    ->orderBy('semestre_actual', 'desc')
-    ->get();
-
     //obtener a los profesores y tengan planta y requieren becarios
     $colaboradores = Colaborador::where('profesor_sn', 1)
     ->with('asignaciones','departamento.escuela')
@@ -212,19 +206,36 @@ class ConfiguracionesController extends Controller
 
     while($colaboradores != null ) {
       foreach($colaboradores as $colaborador) {
-        foreach($estudiantes as $estudiante) {
-          if($colaborador->becarios_disponibles > 0) {
-            if($estudiante->carrera->escuela->id == $colaborador->departamento->escuela->id) {
-              $asignacion = Solicitud_Becaria::create([
-                'id_estudiante' => $estudiante->id,
-                'id_colaborador' => $colaborador->id,
-                'aprovada' => 1,
-                'fecha_asignacion' => new Carbon(),
-                'fecha_aceptacion' => new Carbon(),
-                'periodo' => Periodo::AGO_DIC
-              ]);
-            }
-          }
+        if($colaborador->becarios_disponibles > 0) {
+          
+          /*$estudiante = $estudiantes->first(function ($estudiante, $key) use ($colaborador) {
+            return $estudiante->carrera->escuela->id == $colaborador->departamento->escuela->id;
+          });*/
+          
+          $estudiante = Estudiante::where('asignable_sn', 1)
+          ->where('estatus_assignable_sn', 0)
+          ->where('carrera.escuela', function($query, $colaborador) {
+            $query->where('id', $colaborador->departamento->escuela->id);
+          })
+          ->orderBy('semestre_actual', 'desc')
+          ->first();
+          
+          $asignacion = Solicitud_Becaria::create([
+            'id_estudiante' => $estudiante->id,
+            'id_colaborador' => $colaborador->id,
+            'aprovada' => 1,
+            'fecha_asignacion' => new Carbon(),
+            'fecha_aceptacion' => new Carbon(),
+            'periodo' => Periodo::AGO_DIC
+          ]);
+            
+
+          $estudiante->estatus_assignable_sn = 1;
+          $estudiante->save();
+
+          //mandar correos.
+          echo($asignacion);
+          echo('<br/>');
         }
       }  
       
@@ -232,9 +243,107 @@ class ConfiguracionesController extends Controller
         ->with('asignaciones','departamento.escuela')
         ->where('tipo_contrato', Colaborador::PLANTA)
         ->where('requiere_becarios', '>', 0)
-        ->get();
+        ->get();    
     }
-    
-    return null;
+
+    //obtener a los profesores y tengan planta y requieren becarios
+    $colaboradores = Colaborador::where('profesor_sn', 1)
+    ->with('asignaciones','departamento.escuela')
+    ->where('tipo_contrato', Colaborador::ADMINISTRATIVO)
+    ->where('requiere_becarios', '>', 0)
+    ->orderBy('requiere_becarios')
+    ->get();
+
+    while($colaboradores != null ) {
+      foreach($colaboradores as $colaborador) {
+        if($colaborador->becarios_disponibles > 0) {
+          
+          /*$estudiante = $estudiantes->first(function ($estudiante, $key) use ($colaborador) {
+            return $estudiante->carrera->escuela->id == $colaborador->departamento->escuela->id;
+          });*/
+          
+          $estudiante = Estudiante::where('asignable_sn', 1)
+          ->where('estatus_assignable_sn', 0)
+          ->where('carrera.escuela', function($query, $colaborador) {
+            $query->where('id', $colaborador->departamento->escuela->id);
+          })
+          ->orderBy('semestre_actual', 'desc')
+          ->first();
+          
+          $asignacion = Solicitud_Becaria::create([
+            'id_estudiante' => $estudiante->id,
+            'id_colaborador' => $colaborador->id,
+            'aprovada' => 1,
+            'fecha_asignacion' => new Carbon(),
+            'fecha_aceptacion' => new Carbon(),
+            'periodo' => Periodo::AGO_DIC
+          ]);
+            
+
+          $estudiante->estatus_assignable_sn = 1;
+          $estudiante->save();
+
+          //mandar correos.
+          echo($asignacion);
+          echo('<br/>');
+        }
+      }  
+      
+      $colaboradores = Colaborador::where('profesor_sn', 1)
+        ->with('asignaciones','departamento.escuela')
+        ->where('tipo_contrato', Colaborador::ADMINISTRATIVO)
+        ->where('requiere_becarios', '>', 0)
+        ->get();    
+    }
+
+    //obtener a los profesores y tengan planta y requieren becarios
+    $colaboradores = Colaborador::where('profesor_sn', 1)
+    ->with('asignaciones','departamento.escuela')
+    ->where('tipo_contrato', Colaborador::CATEDRA)
+    ->where('requiere_becarios', '>', 0)
+    ->orderBy('requiere_becarios')
+    ->get();
+
+    while($colaboradores != null ) {
+      foreach($colaboradores as $colaborador) {
+        if($colaborador->becarios_disponibles > 0) {
+          
+          /*$estudiante = $estudiantes->first(function ($estudiante, $key) use ($colaborador) {
+            return $estudiante->carrera->escuela->id == $colaborador->departamento->escuela->id;
+          });*/
+          
+          $estudiante = Estudiante::where('asignable_sn', 1)
+          ->where('estatus_assignable_sn', 0)
+          ->where('carrera.escuela', function($query, $colaborador) {
+            $query->where('id', $colaborador->departamento->escuela->id);
+          })
+          ->orderBy('semestre_actual', 'desc')
+          ->first();
+          
+          $asignacion = Solicitud_Becaria::create([
+            'id_estudiante' => $estudiante->id,
+            'id_colaborador' => $colaborador->id,
+            'aprovada' => 1,
+            'fecha_asignacion' => new Carbon(),
+            'fecha_aceptacion' => new Carbon(),
+            'periodo' => Periodo::AGO_DIC
+          ]);
+            
+
+          $estudiante->estatus_assignable_sn = 1;
+          $estudiante->save();
+
+          //mandar correos.
+          echo($asignacion);
+          echo('<br/>');
+        }
+      }  
+      
+      $colaboradores = Colaborador::where('profesor_sn', 1)
+        ->with('asignaciones','departamento.escuela')
+        ->where('tipo_contrato', Colaborador::CATEDRA)
+        ->where('requiere_becarios', '>', 0)
+        ->get();    
+    }
   }
 }
