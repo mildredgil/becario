@@ -15,6 +15,20 @@ class Colaborador extends Model
   const CATEDRA        = 1;
   const PLANTA         = 2;
   const ADMINISTRATIVO = 3;
+  
+  protected $appends = array("becarios_disponibles");
+
+  protected $fillable = [
+    'nomina',
+    'nombre_completo',
+    'profesor_sn',
+    'oficina',
+    'id_departamento',
+    'tipo_contrato',
+    'celular',
+    'contrasena',
+    'email'
+  ];
 
   public function departamento() {
     return $this->belongsTo('App\Departamento', 'id_departamento');
@@ -23,8 +37,16 @@ class Colaborador extends Model
   public function solicitudesBecarias() {
 		return $this->hasMany('App\Solicitud_Becaria', 'id_colaborador')->where("aprovada", 1)->withTrashed()->orderBy('fecha_asignacion', 'desc');
   }
+
+  public function asignaciones() {
+		return $this->hasMany('App\Solicitud_Becaria', 'id_colaborador')->where("aprovada", 1)->withTrashed()->orderBy('fecha_asignacion', 'desc');
+  }
   
   public function user() {
     return $this->morphOne('App\User', 'assignable');
+  }
+   
+  public function getBecariosDisponiblesAttribute() {
+    return $this->requiere_becarios - $this->asignaciones->count();
   }
 }

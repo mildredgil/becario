@@ -3,9 +3,9 @@ Bienvenido al Nuevo perido Agosto-Diciembre 2019. Como parte de tu cumplimiento 
 se te realizará una asignación con un colaborador de la institución. Para ingresar al nuevo 
 sistema es requerido que ingreses tus datos con tu correo institucional.
 
-Si es la primera vez que ingresas, por favor haz click en Verificar
-@component('mail::button', ['url' => config('app.url') ])
-Verificar
+Si es la primera vez que ingresas a nuestro sistema, por favor haz click en Verificar Cuenta
+@component('mail::button', ['url' => $url ])
+Verificar Cuenta
 @endcomponent
 
 Es importante que estes al tanto de tu asignación. En cuanto seas asignado te llegará un 

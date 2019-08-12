@@ -10,6 +10,9 @@ class Estudiante extends Model {
   use SoftDeletes;
   protected $table = 'estudiante';
   protected $hidden = ['password', 'remember_token'];
+  protected $fillable = [
+    'matricula'
+  ];
   
   const HIJOPROFESOR  = 1;
   const ORQUESTA      = 2;

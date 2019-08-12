@@ -40,9 +40,11 @@ class InicioPeriodo extends Notification
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)
-          ->subject('Servicio Becario | Inicio de Periodo')
-          ->markdown('mail.inicioPeriodo', []);
+      $url = url('/verify/' . $notifiable->verification_code);
+
+      return (new MailMessage)
+        ->subject('Servicio Becario | Inicio de Periodo')
+        ->markdown('mail.inicioPeriodo', ['url' => $url]);
     }
 
     /**

@@ -42,7 +42,7 @@ class LoginController extends Controller {
    // Attempt to log the user in
    
    $credentials = $request->only('username', 'password');
-   
+   echo($request->path());
     if (Auth::attempt($credentials)) {
       $response['user']  = Auth::user();
       return response()->json($response);

@@ -1,101 +1,57 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
-
+import axios from 'axios'; 
 import {  DescriptionIcon } from '../../icons';
 
 const CSV = ({ classes }) => {
-    const searchClick = () => {
-      console.log("hi");
-    }
+  const [csvFile, setCsvFile] = React.useState(null);
+  const [fileName, setFileName] = React.useState(null);
+  
+  const changeFile = (e, name) => {
+    setCsvFile(e.target.files[0]);
+    setFileName(name);
+    console.log(e.target.files[0], name);
+  }
 
-    return (
-      <div className={classes.wrapper}>      
-        <div className={`row valign-wrapper my-3`}>
-          <div className="col s10 left-align">
-              <span className={classes.labelLogin}>Tabla colaboradores</span>
-          </div>
-          <div className="col s2 right-align">
-            <Button
-              fullWidth
-              variant="contained"
-              component="label"
-              onClick={searchClick}
-              variant="contained"
-              color="primary"
-            >
-              <DescriptionIcon className={`white-text ${classes.labelSearch}`}/>
-              <span className={classes.labelUpload}>Subir</span>
-              <input
-                type="file"
-                accept="image/*"
-                className={classes.input}
-                style={{ display: 'none' }}
-              />
-            </Button>
-          </div> 
-        </div>   
-        <div className="divider"></div>                        
-        <div className="row valign-wrapper my-3">
-          <div className="col s10 left-align">
-              <span className={classes.labelLogin}>Tabla estudiantes Inscritos</span>
-          </div>
-          <div className="col s2 right-align">
-            <Button
-              fullWidth
-              variant="contained"
-              component="label"
-              onClick={searchClick}
-              variant="contained"
-              color="primary"
-            >
-              <DescriptionIcon className={`white-text ${classes.labelSearch}`}/>
-              <span className={classes.labelUpload}>Subir</span>
-              <input
-                type="file"
-                accept="image/*"
-                className={classes.input}
-                style={{ display: 'none' }}
-              />
-            </Button>
-          </div>
+  React.useEffect(() => {
+    if(csvFile != null) {
+      
+      let data = new FormData();
+      data.append('file', csvFile);
+      data.append('name', fileName);
+      
+      axios({
+        method: 'post',
+        url: '/csv/file',
+        data: data,
+        dataType: "JSON",
+        processData: false,
+        contentType: false
+      })
+      .then(function (response) {
+        console.log(response);
+        alert("Archivo Guardado Exitosamente: " + csvFile.name);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+      setCsvFile(null);
+    }      
+  },[csvFile]);
+
+  return (
+    <div className={classes.wrapper}>      
+      <div className={`row valign-wrapper my-3`}>
+        <div className="col s10 left-align">
+            <span className={classes.labelLogin}>Tabla colaboradores</span>
         </div>
-        <div className="divider"></div>
-        <div className="row valign-wrapper my-3">
-          <div className="col s10 left-align">
-              <span className={classes.labelLogin}>Tabla estudiantes Becados</span>
-          </div>
-          <div className="col s2 right-align">
+        <div className="col s2 right-align">
           <Button
             fullWidth
             variant="contained"
             component="label"
-            onClick={searchClick}
-            variant="contained"
-            color="primary"
-          >
-              <DescriptionIcon className={`white-text ${classes.labelSearch}`}/>
-              <span className={classes.labelUpload}>Subir</span>
-              <input
-                type="file"
-                accept="image/*"
-                className={classes.input}
-                style={{ display: 'none' }}
-              />
-            </Button>
-          </div>
-        </div>
-        <div className="divider"></div>
-        <div className="row valign-wrapper my-3">
-          <div className="col s10 left-align">
-              <span className={classes.labelLogin}>Tabla carreras</span>
-          </div>
-          <div className="col s2 right-align">
-          <Button
-            fullWidth
-            variant="contained"
-            component="label"
-            onClick={searchClick}
             variant="contained"
             color="primary"
           >
@@ -103,57 +59,138 @@ const CSV = ({ classes }) => {
             <span className={classes.labelUpload}>Subir</span>
             <input
               type="file"
-              accept="image/*"
+              accept=".csv"
+              name="selected_file"
               className={classes.input}
               style={{ display: 'none' }}
+              onChange={(e) => changeFile(e, 'colaborador')}
             />
+          </Button>
+        </div> 
+      </div>   
+      <div className="divider"></div>                        
+      <div className="row valign-wrapper my-3">
+        <div className="col s10 left-align">
+            <span className={classes.labelLogin}>Tabla estudiantes Inscritos</span>
+        </div>
+        <div className="col s2 right-align">
+          <Button
+            fullWidth
+            variant="contained"
+            component="label"
+            variant="contained"
+            color="primary"
+          >
+            <DescriptionIcon className={`white-text ${classes.labelSearch}`}/>
+            <span className={classes.labelUpload}>Subir</span>
+            <input
+              type="file"
+              accept=".csv"
+              name="selected_file"
+              className={classes.input}
+              style={{ display: 'none' }}
+              onChange={(e) => changeFile(e, 'estudiantes_inscritos')}
+            />
+          </Button>
+        </div>
+      </div>
+      <div className="divider"></div>
+      <div className="row valign-wrapper my-3">
+        <div className="col s10 left-align">
+            <span className={classes.labelLogin}>Tabla estudiantes Becados</span>
+        </div>
+        <div className="col s2 right-align">
+        <Button
+          fullWidth
+          variant="contained"
+          component="label"
+          variant="contained"
+          color="primary"
+        >
+            <DescriptionIcon className={`white-text ${classes.labelSearch}`}/>
+            <span className={classes.labelUpload}>Subir</span>
+            <input
+              type="file"
+              accept=".csv"
+              name="selected_file"
+              className={classes.input}
+              style={{ display: 'none' }}
+              onChange={(e) => changeFile(e, 'estudiantes_becados')}
+            />
+          </Button>
+        </div>
+      </div>
+      <div className="divider"></div>
+      <div className="row valign-wrapper my-3">
+        <div className="col s10 left-align">
+            <span className={classes.labelLogin}>Tabla carreras</span>
+        </div>
+        <div className="col s2 right-align">
+        <Button
+          fullWidth
+          variant="contained"
+          component="label"
+          variant="contained"
+          color="primary"
+        >
+          <DescriptionIcon className={`white-text ${classes.labelSearch}`}/>
+          <span className={classes.labelUpload}>Subir</span>
+          <input
+            type="file"
+            accept=".csv"
+            name="selected_file"
+            className={classes.input}
+            style={{ display: 'none' }}
+            onChange={(e) => changeFile(e, 'carreras')}
+          />
+        </Button>
+        </div>
+      </div>
+      <div className="divider"></div>
+      <div className="row valign-wrapper my-3">
+        <div className="col s10 left-align">
+            <span className={classes.labelLogin}>Tabla asignaciones específicas</span>
+        </div>
+        <div className="col s2 right-align">
+          <Button
+            fullWidth
+            variant="contained"
+            component="label"
+            variant="contained"
+            color="primary"
+            >
+              <DescriptionIcon className={`white-text ${classes.labelSearch}`}/>
+              <span className={classes.labelUpload}>Subir</span>
+              <input
+                type="file"
+                accept=".csv"
+                name="selected_file"
+                className={classes.input}
+                style={{ display: 'none' }}
+                onChange={(e) => changeFile(e, 'especificas')}
+              />
+          </Button>
+        </div>
+      </div>
+      <div className="row valign-wrapper my-3">
+        <div className="col s12 right-align">
+          <label className={classes.labelLittle}>Nota: Los archivos deben ser tipo ".csv".</label>
+        </div> 
+      </div>
+      {/*<div className="row valign-wrapper my-3">
+        <div className="col s12 mb-2 mt-4">
+          <div className="col s12 center-align">
+          <Button
+              variant="contained"
+              color="primary">
+              <CheckIcon className={`white-text ${classes.labelCheck}`}/>
+              <span className={classes.labelLogin}>Generar asignación automática</span>
           </Button>
           </div>
         </div>
-        <div className="divider"></div>
-        <div className="row valign-wrapper my-3">
-          <div className="col s10 left-align">
-              <span className={classes.labelLogin}>Tabla asignaciones específicas</span>
-          </div>
-          <div className="col s2 right-align">
-            <Button
-              fullWidth
-              variant="contained"
-              component="label"
-              onClick={searchClick}
-              variant="contained"
-              color="primary"
-              >
-                <DescriptionIcon className={`white-text ${classes.labelSearch}`}/>
-                <span className={classes.labelUpload}>Subir</span>
-                <input
-                  type="file"
-                  accept="image/*"
-                  className={classes.input}
-                  style={{ display: 'none' }}
-                />
-            </Button>
-          </div>
-        </div>
-        <div className="row valign-wrapper my-3">
-          <div className="col s12 right-align">
-            <label className={classes.labelLittle}>Nota: Los archivos deben ser tipo ".csv".</label>
-          </div> 
-        </div>
-        {/*<div className="row valign-wrapper my-3">
-          <div className="col s12 mb-2 mt-4">
-            <div className="col s12 center-align">
-            <Button
-                variant="contained"
-                color="primary">
-                <CheckIcon className={`white-text ${classes.labelCheck}`}/>
-                <span className={classes.labelLogin}>Generar asignación automática</span>
-            </Button>
-            </div>
-          </div>
-        </div>*/}
-      </div> 
-    );
+      </div>*/}
+    </div> 
+  );
 }
 
 const maxWidth = 1000;

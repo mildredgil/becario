@@ -24,6 +24,7 @@ Route::get('/', function () {
 }); 
 
 //Route::get('/home', 'EstudianteController@index')->name('homeEstudiante');
+Route::get('/verify/{verification_code}', 'UserController@verifyView')->name('verify');		
 
 Route::get('/login', function () {
   if (Auth::check()) {
@@ -104,9 +105,10 @@ Route::get('/home', function () {
 
 Route::post('/logout', 'Auth\LoginController@logout');	
 Route::post('/get/login', 'Auth\LoginController@postLogin');	
-Route::post('/register', 'Auth\RegisterController@register');	
+Route::post('/register', 'Auth\RegisterController@register');
 
 Route::group(['middleware' => 'auth'], function () {
+  
   //vistas de los home de usuarios
   Route::get('/homeEstudiante',     'EstudianteController@index')->name('homeEstudiante');	
   Route::get('/homeColaborador',    'ColaboradorController@index')->name('homeColaborador');		
@@ -138,7 +140,8 @@ Route::group(['middleware' => 'auth'], function () {
 
   //admin only
   Route::post('/new/period',      'PeriodoController@store');
-  Route::post('/period',           'PeriodoController@getPeriod');
+  Route::post('/period',          'PeriodoController@getPeriod');
+  Route::post('/csv/file',        'ConfiguracionesController@csvFile');
 });
 
 Route::get('encrypt', function () {
@@ -230,6 +233,63 @@ Route::get('/user/admin', function () {
 });
 
 Route::get('/prueba', function() {
-  $user = Auth::user();
+  $user = User::where('username', 'A00820397')->first();
+  $user->verification_code = str_random(40);
+  $user->save();
+  
   $user->notify(new InicioPeriodo());
+});
+
+Route::get('/colaboradorTest', function() {
+  $estudiantes = Estudiante::where('asignable_sn', 1)
+    ->where('estatus_assignable_sn', 0)
+    ->with('carrera.escuela')
+    ->orderBy('semestre_actual', 'desc')
+    ->get();
+
+  //obtener a los profesores y tengan planta y requieren becarios
+  $colaboradores = Colaborador::where('profesor_sn', 1)
+    ->with('asignaciones','departamento.escuela')
+    ->where('tipo_contrato', Colaborador::PLANTA)
+    ->where('requiere_becarios', '>', 0)
+    ->orderBy('requiere_becarios')
+    ->get();
+  
+  dd($colaboradores);
+
+  $count = 0;
+  while($colaboradores != null ) {
+    foreach($colaboradores as $colaborador) {
+      if($colaborador->becarios_disponibles > 0) {
+        $estudiante = $estudiantes->first(function ($estudiante, $key) {
+          return $estudiante->carrera->escuela->id == $colaborador->departamento->escuela->id;
+        });
+        
+        
+            /*$asignacion = Solicitud_Becaria::create([
+              'id_estudiante' => $estudiante->id,
+              'id_colaborador' => $colaborador->id,
+              'aprovada' => 1,
+              'fecha_asignacion' => new Carbon(),
+              'fecha_aceptacion' => new Carbon(),
+              'periodo' => Periodo::AGO_DIC
+            ]);*/
+        if($estudiante) {
+          echo($estudiante->matricula . ' ' . $colaborador->nomina);
+          echo('<br/>');
+          echo($colaborador->becarios_disponibles);
+          echo('<br/>');
+        }
+      }
+    }  
+    
+    $colaboradores = Colaborador::where('profesor_sn', 1)
+      ->with('asignaciones','departamento.escuela')
+      ->where('tipo_contrato', Colaborador::PLANTA)
+      ->where('requiere_becarios', '>', 0)
+      ->get();
+
+    $count = $count + 1;
+    
+  }
 });

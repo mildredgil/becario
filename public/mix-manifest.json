@@ -17,5 +17,6 @@
   "/js/views/navbarLoggedEstudiante.js": "/js/views/navbarLoggedEstudiante.js",
   "/js/views/evaluacionEstudiante.js": "/js/views/evaluacionEstudiante.js",
   "/js/views/loginColaborador.js": "/js/views/loginColaborador.js",
-  "/js/views/configuraciones.js": "/js/views/configuraciones.js"
+  "/js/views/configuraciones.js": "/js/views/configuraciones.js",
+  "/js/views/verificacion.js": "/js/views/verificacion.js"
 }
