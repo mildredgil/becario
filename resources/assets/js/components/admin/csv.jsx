@@ -2,24 +2,15 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import axios from 'axios'; 
-import {  DescriptionIcon } from '../../icons';
+import {  DescriptionIcon, DeleteIcon } from '../../icons';
 
 const CSV = ({ classes }) => {
-  const [csvFile, setCsvFile] = React.useState(null);
-  const [fileName, setFileName] = React.useState(null);
-  
   const changeFile = (e, name) => {
-    setCsvFile(e.target.files[0]);
-    setFileName(name);
-    console.log(e.target.files[0], name);
-  }
-
-  React.useEffect(() => {
-    if(csvFile != null) {
-      
-      let data = new FormData();
+    let csvFile = e.target.files[0];
+    console.log(csvFile);
+    let data = new FormData();
       data.append('file', csvFile);
-      data.append('name', fileName);
+      data.append('name', name);
       
       axios({
         method: 'post',
@@ -31,20 +22,30 @@ const CSV = ({ classes }) => {
       })
       .then(function (response) {
         console.log(response);
-        alert("Archivo Guardado Exitosamente: " + csvFile.name);
+        alert("Archivo Guardado Exitosamente: " + name);
       })
       .catch(function (error) {
         console.log(error);
       });
+  }
 
-      setCsvFile(null);
-    }      
-  },[csvFile]);
+  const deleteTable = (name) => {
+    axios.post("/delete/period", {
+      table: name,
+    })
+    .then(function (response) {
+      console.log(response);
+      alert("Tabla borrada Exitosamente: " + name);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
 
   return (
     <div className={classes.wrapper}>      
       <div className={`row valign-wrapper my-3`}>
-        <div className="col s10 left-align">
+        <div className="col s8 left-align">
             <span className={classes.labelLogin}>Tabla colaboradores</span>
         </div>
         <div className="col s2 right-align">
@@ -67,12 +68,6 @@ const CSV = ({ classes }) => {
             />
           </Button>
         </div> 
-      </div>   
-      <div className="divider"></div>                        
-      <div className="row valign-wrapper my-3">
-        <div className="col s10 left-align">
-            <span className={classes.labelLogin}>Tabla estudiantes Inscritos</span>
-        </div>
         <div className="col s2 right-align">
           <Button
             fullWidth
@@ -80,23 +75,16 @@ const CSV = ({ classes }) => {
             component="label"
             variant="contained"
             color="primary"
+            onClick={() => deleteTable('colaboradores')}
           >
-            <DescriptionIcon className={`white-text ${classes.labelSearch}`}/>
-            <span className={classes.labelUpload}>Subir</span>
-            <input
-              type="file"
-              accept=".csv"
-              name="selected_file"
-              className={classes.input}
-              style={{ display: 'none' }}
-              onChange={(e) => changeFile(e, 'estudiantes_inscritos')}
-            />
+            <DeleteIcon className={`white-text ${classes.labelSearch}`}/>
+            <span className={classes.labelUpload}>Borrar</span>
           </Button>
-        </div>
-      </div>
-      <div className="divider"></div>
+        </div> 
+      </div>   
+      <div className="divider"></div>                        
       <div className="row valign-wrapper my-3">
-        <div className="col s10 left-align">
+        <div className="col s8 left-align">
             <span className={classes.labelLogin}>Tabla estudiantes Becados</span>
         </div>
         <div className="col s2 right-align">
@@ -119,10 +107,62 @@ const CSV = ({ classes }) => {
             />
           </Button>
         </div>
+        <div className="col s2 right-align">
+          <Button
+            fullWidth
+            variant="contained"
+            component="label"
+            variant="contained"
+            color="primary"
+            onClick={() => deleteTable('estudiantes')}
+          >
+            <DeleteIcon className={`white-text ${classes.labelSearch}`}/>
+            <span className={classes.labelUpload}>Borrar</span>
+          </Button>
+        </div> 
       </div>
       <div className="divider"></div>
       <div className="row valign-wrapper my-3">
-        <div className="col s10 left-align">
+        <div className="col s8 left-align">
+            <span className={classes.labelLogin}>Tabla estudiantes Inscritos</span>
+        </div>
+        <div className="col s2 right-align">
+          <Button
+            fullWidth
+            variant="contained"
+            component="label"
+            variant="contained"
+            color="primary"
+          >
+            <DescriptionIcon className={`white-text ${classes.labelSearch}`}/>
+            <span className={classes.labelUpload}>Subir</span>
+            <input
+              type="file"
+              accept=".csv"
+              name="selected_file"
+              className={classes.input}
+              style={{ display: 'none' }}
+              onChange={(e) => changeFile(e, 'estudiantes_inscritos')}
+            />
+          </Button>
+        </div>
+        <div className="col s2 right-align">
+          <Button
+            fullWidth
+            variant="contained"
+            component="label"
+            variant="contained"
+            color="primary"
+            onClick={() => deleteTable('estudiantes')}
+          >
+            <DeleteIcon className={`white-text ${classes.labelSearch}`}/>
+            <span className={classes.labelUpload}>Borrar</span>
+          </Button>
+        </div> 
+      </div>
+      <div className="divider"></div>
+      <div className="row valign-wrapper my-3">
+        <div className="col s8 left-align">
             <span className={classes.labelLogin}>Tabla carreras</span>
         </div>
         <div className="col s2 right-align">
@@ -145,10 +185,23 @@ const CSV = ({ classes }) => {
           />
         </Button>
         </div>
+        <div className="col s2 right-align">
+          <Button
+            fullWidth
+            variant="contained"
+            component="label"
+            variant="contained"
+            color="primary"
+            onClick={() => deleteTable('carreras')}
+          >
+            <DeleteIcon className={`white-text ${classes.labelSearch}`}/>
+            <span className={classes.labelUpload}>Borrar</span>
+          </Button>
+        </div> 
       </div>
       <div className="divider"></div>
       <div className="row valign-wrapper my-3">
-        <div className="col s10 left-align">
+        <div className="col s8 left-align">
             <span className={classes.labelLogin}>Tabla asignaciones específicas</span>
         </div>
         <div className="col s2 right-align">
@@ -171,6 +224,19 @@ const CSV = ({ classes }) => {
               />
           </Button>
         </div>
+        <div className="col s2 right-align">
+          <Button
+            fullWidth
+            variant="contained"
+            component="label"
+            variant="contained"
+            color="primary"
+            onClick={() => deleteTable('asignaciones')}
+          >
+            <DeleteIcon className={`white-text ${classes.labelSearch}`}/>
+            <span className={classes.labelUpload}>Borrar</span>
+          </Button>
+        </div> 
       </div>
       <div className="row valign-wrapper my-3">
         <div className="col s12 right-align">

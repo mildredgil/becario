@@ -142,6 +142,8 @@ Route::group(['middleware' => 'auth'], function () {
   Route::post('/new/period',      'PeriodoController@store');
   Route::post('/period',          'PeriodoController@getPeriod');
   Route::post('/csv/file',        'ConfiguracionesController@csvFile');
+
+  Route::post('/delete/period',   'ConfiguracionesController@deleteDB');
 });
 
 Route::get('encrypt', function () {
@@ -241,12 +243,6 @@ Route::get('/prueba', function() {
 });
 
 Route::get('/colaboradorTest', function() {
-  $estudiantes = Estudiante::where('asignable_sn', 1)
-    ->where('estatus_assignable_sn', 0)
-    ->orderBy('semestre_actual', 'desc');
-    //->with('carrera.escuela')
-    //->get();
-
   //obtener a los profesores y tengan planta y requieren becarios
   $colaboradores = Colaborador::where('profesor_sn', 1)
     ->with('asignaciones','departamento.escuela')
@@ -280,9 +276,11 @@ Route::get('/colaboradorTest', function() {
           'periodo' => Periodo::AGO_DIC
         ]);
           
+
         $estudiante->estatus_assignable_sn = 1;
         $estudiante->save();
 
+        //mandar correos.
         echo($asignacion);
         echo('<br/>');
       }

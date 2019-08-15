@@ -6,7 +6,10 @@ namespace App\Http\Controllers;
 use App;
 use App\User;
 use App\Estudiante;
+use App\Escuela;
 use App\Colaborador;
+use App\ColaboradorDepartamento;
+use App\Carrera;
 use App\Departamento;
 use App\Solicitud_Becaria;
 use \Carbon\Carbon;
@@ -66,16 +69,15 @@ class ConfiguracionesController extends Controller
     $file = fopen($file_n, "r");
     $all_data = array();
 
-    if($name == "carrera") {
-      //carrera_nombre, siglas, escuela
+    if($name == "carreras") {
+      //siglas, carrera_nombre, escuela
       $carreras =  collect([]);
 
       while ( ($data = fgetcsv($file, 200, ",")) !== FALSE ) {
-        $escuela = Escuela::where('nombre_escuela', $data[2]);
-        $carrera = Carrera::firstOrCreate(['siglas' => $data[0]]);
-
-        $carrera->siglas = $data[1];
-        $carrera->escuela = $escuela->id;
+        $escuela = Escuela::where('nombre_escuela', $data[2])->first();
+        $carrera = Carrera::firstOrCreate(['siglas_carrera' => $data[0]]);
+        $carrera->carrera_nombre = $data[1];
+        $carrera->id_escuela = $escuela->id;
         $carrera->save();
         
         $carreras->push($carrera);
@@ -85,10 +87,35 @@ class ConfiguracionesController extends Controller
 
       fclose($file);  
     } else if($name == "colaborador") {
-      //nomina, nombre, profesor, oficina, departamento, tipo_contrato, requiere becarios, email
+      //nomina, nombre, es profesor, departamento, tipo_contrato, requiere becarios, email
       $colaboradores =  collect([]);
 
       while ( ($data = fgetcsv($file, 200, ",")) !== FALSE ) {
+        $departamento = Departamento::where('nombre_departamento', $data[4])->first();
+        $new_colab = Colaborador::where('nomina', $data[0])->first();
+        dd($data);
+        if($new_colab == null) {
+          $new_colab = Colaborador::create([
+            'nomina' => $data[0],
+            'nombre_completo' => $data[1],
+            'profesor_sn' => $data[2],
+            'oficina' => '',
+            'tipo_contrato' => $data[5],
+            'id_departamento' => 0,
+            'celular' => '',
+            'contrasena' => '',
+            'email' => $data[6]
+          ]);
+
+          $colab_depto = ColaboradorDepartamento::create([
+            'id_departamento' => $departamento->id,
+            'id_colaborador' => $new_colab->id,
+            'requiere_becarios' => $data[6]
+          ]);
+        }
+        $colaboradores->push($new_colab);
+      }
+      /*while ( ($data = fgetcsv($file, 200, ",")) !== FALSE ) {
         $departamento = Departamento::where('nombre_departamento', $data[4])->first();
         $new_colab = Colaborador::where('nomina', $data[0])->first();
 
@@ -97,7 +124,7 @@ class ConfiguracionesController extends Controller
             'nomina' => $data[0],
             'nombre_completo' => $data[1],
             'profesor_sn' => $data[2],
-            'oficina' => $data[3],
+            'oficina' => '',
             'id_departamento' => $departamento->id,
             'tipo_contrato' => $data[5],
             'celular' => '',
@@ -107,17 +134,21 @@ class ConfiguracionesController extends Controller
           ]);
         }
         $colaboradores->push($new_colab);
-     }
+      }*/
      
      $response['collection']  = $colaboradores;
      $response['count']  = $colaboradores->count();
 
      fclose($file);  
+
     } else if($name == "estudiantes_becados") {
-      //matricula
+      //matricula, es asignable
       $estudiantes =  collect([]);
       while ( ($data = fgetcsv($file, 200, ",")) !== FALSE ) {
         $new_student = Estudiante::firstOrCreate(['matricula' => $data[0]]);
+        $new_student->asignable_sn = $data[1];
+        $new_student->save();
+
         $estudiantes->push($new_student);
       }
       
@@ -125,11 +156,11 @@ class ConfiguracionesController extends Controller
       $response['count']  = $estudiantes->count();
 
     } else if($name == "estudiantes_inscritos") {  
-      //matricula, nombre completo, semeestre actual, carrera, tipo_beca
+      //matricula, nombre completo, semestre actual, siglas carrera, tipo_beca
       $estudiantes =  collect([]);
       
       while ( ($data = fgetcsv($file, 200, ",")) !== FALSE ) {
-        $carrera = Carrera::where('carrera_nombre', $data[3])->first();
+        $carrera = Carrera::where('siglas_carrera', $data[3])->first();
         $student = Estudiante::where('matricula', $data[0])->first();
 
         if($student != null) {
@@ -144,13 +175,13 @@ class ConfiguracionesController extends Controller
           semestre 9
           tipo de beca: hijo de profesor | ...
           */
-          if($data[2] == 9 || $data[4] == Estudiante::HIJOPROFESOR) { //agregar los de mas tipos de beca que no son asignables.
+          /*if($data[2] == 9 || $data[4] == Estudiante::HIJOPROFESOR) { //agregar los de mas tipos de beca que no son asignables.
             $student->asignable_sn = 0;
             $student->estatus_assignable_sn = 0;
           } else {
             $student->asignable_sn = 1;
             $student->estatus_assignable_sn = 0;
-          }
+          }*/
 
           $student->save();
           $estudiantes->push($student);
@@ -211,6 +242,11 @@ class ConfiguracionesController extends Controller
           /*$estudiante = $estudiantes->first(function ($estudiante, $key) use ($colaborador) {
             return $estudiante->carrera->escuela->id == $colaborador->departamento->escuela->id;
           });*/
+
+          //get depto
+          /*
+          $departamento = Departamento::where()
+          */
           
           $estudiante = Estudiante::where('asignable_sn', 1)
           ->where('estatus_assignable_sn', 0)
@@ -345,5 +381,31 @@ class ConfiguracionesController extends Controller
         ->where('requiere_becarios', '>', 0)
         ->get();    
     }
+  }
+
+  public function deleteDB(Request $request) {
+
+    //borrar tablas de carrera
+    if($request->input('table') == 'carreras')
+      Carrera::truncate(); 
+
+    //borrar tabla de estudiantes
+    if($request->input('table') == 'estudiantes')
+      Estudiante::delete();
+
+    //borrar tabla de colaboradores
+    if($request->input('table') == 'colaboradores') {
+      Colaborador::truncate();
+      ColaboradorDepartamento::truncate();
+    }
+      
+
+    //borrar solicitud becaria
+    if($request->input('table') == 'asignaciones')
+      Solicitud_Becaria::delete();
+      
+    //borrar tabla departamento
+    if($request->input('table') == 'departamentos')
+      Departamento::delete();
   }
 }

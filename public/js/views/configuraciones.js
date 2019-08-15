@@ -71710,10 +71710,8 @@ if (document.getElementById('configuraciones')) {
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
-
-var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
 var _react = __webpack_require__(0);
 
@@ -71736,373 +71734,465 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 var CSV = function CSV(_ref) {
-    var _React$createElement, _React$createElement2, _React$createElement3, _React$createElement4, _React$createElement5;
+  var _React$createElement, _React$createElement2, _React$createElement3, _React$createElement4, _React$createElement5, _React$createElement6, _React$createElement7, _React$createElement8, _React$createElement9, _React$createElement10;
 
-    var classes = _ref.classes;
+  var classes = _ref.classes;
 
-    var _React$useState = _react2.default.useState(null),
-        _React$useState2 = _slicedToArray(_React$useState, 2),
-        csvFile = _React$useState2[0],
-        setCsvFile = _React$useState2[1];
+  var changeFile = function changeFile(e, name) {
+    var csvFile = e.target.files[0];
+    console.log(csvFile);
+    var data = new FormData();
+    data.append('file', csvFile);
+    data.append('name', name);
 
-    var _React$useState3 = _react2.default.useState(null),
-        _React$useState4 = _slicedToArray(_React$useState3, 2),
-        fileName = _React$useState4[0],
-        setFileName = _React$useState4[1];
+    (0, _axios2.default)({
+      method: 'post',
+      url: '/csv/file',
+      data: data,
+      dataType: "JSON",
+      processData: false,
+      contentType: false
+    }).then(function (response) {
+      console.log(response);
+      alert("Archivo Guardado Exitosamente: " + name);
+    }).catch(function (error) {
+      console.log(error);
+    });
+  };
 
-    var changeFile = function changeFile(e, name) {
-        setCsvFile(e.target.files[0]);
-        setFileName(name);
-        console.log(e.target.files[0], name);
-    };
+  var deleteTable = function deleteTable(name) {
+    _axios2.default.post("/delete/period", {
+      table: name
+    }).then(function (response) {
+      console.log(response);
+      alert("Tabla borrada Exitosamente: " + name);
+    }).catch(function (error) {
+      console.log(error);
+    });
+  };
 
-    _react2.default.useEffect(function () {
-        if (csvFile != null) {
-
-            var data = new FormData();
-            data.append('file', csvFile);
-            data.append('name', fileName);
-
-            (0, _axios2.default)({
-                method: 'post',
-                url: '/csv/file',
-                data: data,
-                dataType: "JSON",
-                processData: false,
-                contentType: false
-            }).then(function (response) {
-                console.log(response);
-                alert("Archivo Guardado Exitosamente: " + csvFile.name);
-            }).catch(function (error) {
-                console.log(error);
-            });
-
-            setCsvFile(null);
-        }
-    }, [csvFile]);
-
-    return _react2.default.createElement(
+  return _react2.default.createElement(
+    'div',
+    { className: classes.wrapper },
+    _react2.default.createElement(
+      'div',
+      { className: 'row valign-wrapper my-3' },
+      _react2.default.createElement(
         'div',
-        { className: classes.wrapper },
+        { className: 'col s8 left-align' },
         _react2.default.createElement(
-            'div',
-            { className: 'row valign-wrapper my-3' },
-            _react2.default.createElement(
-                'div',
-                { className: 'col s10 left-align' },
-                _react2.default.createElement(
-                    'span',
-                    { className: classes.labelLogin },
-                    'Tabla colaboradores'
-                )
-            ),
-            _react2.default.createElement(
-                'div',
-                { className: 'col s2 right-align' },
-                _react2.default.createElement(
-                    _Button2.default,
-                    (_React$createElement = {
-                        fullWidth: true,
-                        variant: 'contained',
-                        component: 'label'
-                    }, _defineProperty(_React$createElement, 'variant', 'contained'), _defineProperty(_React$createElement, 'color', 'primary'), _React$createElement),
-                    _react2.default.createElement(_icons.DescriptionIcon, { className: 'white-text ' + classes.labelSearch }),
-                    _react2.default.createElement(
-                        'span',
-                        { className: classes.labelUpload },
-                        'Subir'
-                    ),
-                    _react2.default.createElement('input', {
-                        type: 'file',
-                        accept: '.csv',
-                        name: 'selected_file',
-                        className: classes.input,
-                        style: { display: 'none' },
-                        onChange: function onChange(e) {
-                            return changeFile(e, 'colaborador');
-                        }
-                    })
-                )
-            )
-        ),
-        _react2.default.createElement('div', { className: 'divider' }),
-        _react2.default.createElement(
-            'div',
-            { className: 'row valign-wrapper my-3' },
-            _react2.default.createElement(
-                'div',
-                { className: 'col s10 left-align' },
-                _react2.default.createElement(
-                    'span',
-                    { className: classes.labelLogin },
-                    'Tabla estudiantes Inscritos'
-                )
-            ),
-            _react2.default.createElement(
-                'div',
-                { className: 'col s2 right-align' },
-                _react2.default.createElement(
-                    _Button2.default,
-                    (_React$createElement2 = {
-                        fullWidth: true,
-                        variant: 'contained',
-                        component: 'label'
-                    }, _defineProperty(_React$createElement2, 'variant', 'contained'), _defineProperty(_React$createElement2, 'color', 'primary'), _React$createElement2),
-                    _react2.default.createElement(_icons.DescriptionIcon, { className: 'white-text ' + classes.labelSearch }),
-                    _react2.default.createElement(
-                        'span',
-                        { className: classes.labelUpload },
-                        'Subir'
-                    ),
-                    _react2.default.createElement('input', {
-                        type: 'file',
-                        accept: '.csv',
-                        name: 'selected_file',
-                        className: classes.input,
-                        style: { display: 'none' },
-                        onChange: function onChange(e) {
-                            return changeFile(e, 'estudiantes_inscritos');
-                        }
-                    })
-                )
-            )
-        ),
-        _react2.default.createElement('div', { className: 'divider' }),
-        _react2.default.createElement(
-            'div',
-            { className: 'row valign-wrapper my-3' },
-            _react2.default.createElement(
-                'div',
-                { className: 'col s10 left-align' },
-                _react2.default.createElement(
-                    'span',
-                    { className: classes.labelLogin },
-                    'Tabla estudiantes Becados'
-                )
-            ),
-            _react2.default.createElement(
-                'div',
-                { className: 'col s2 right-align' },
-                _react2.default.createElement(
-                    _Button2.default,
-                    (_React$createElement3 = {
-                        fullWidth: true,
-                        variant: 'contained',
-                        component: 'label'
-                    }, _defineProperty(_React$createElement3, 'variant', 'contained'), _defineProperty(_React$createElement3, 'color', 'primary'), _React$createElement3),
-                    _react2.default.createElement(_icons.DescriptionIcon, { className: 'white-text ' + classes.labelSearch }),
-                    _react2.default.createElement(
-                        'span',
-                        { className: classes.labelUpload },
-                        'Subir'
-                    ),
-                    _react2.default.createElement('input', {
-                        type: 'file',
-                        accept: '.csv',
-                        name: 'selected_file',
-                        className: classes.input,
-                        style: { display: 'none' },
-                        onChange: function onChange(e) {
-                            return changeFile(e, 'estudiantes_becados');
-                        }
-                    })
-                )
-            )
-        ),
-        _react2.default.createElement('div', { className: 'divider' }),
-        _react2.default.createElement(
-            'div',
-            { className: 'row valign-wrapper my-3' },
-            _react2.default.createElement(
-                'div',
-                { className: 'col s10 left-align' },
-                _react2.default.createElement(
-                    'span',
-                    { className: classes.labelLogin },
-                    'Tabla carreras'
-                )
-            ),
-            _react2.default.createElement(
-                'div',
-                { className: 'col s2 right-align' },
-                _react2.default.createElement(
-                    _Button2.default,
-                    (_React$createElement4 = {
-                        fullWidth: true,
-                        variant: 'contained',
-                        component: 'label'
-                    }, _defineProperty(_React$createElement4, 'variant', 'contained'), _defineProperty(_React$createElement4, 'color', 'primary'), _React$createElement4),
-                    _react2.default.createElement(_icons.DescriptionIcon, { className: 'white-text ' + classes.labelSearch }),
-                    _react2.default.createElement(
-                        'span',
-                        { className: classes.labelUpload },
-                        'Subir'
-                    ),
-                    _react2.default.createElement('input', {
-                        type: 'file',
-                        accept: '.csv',
-                        name: 'selected_file',
-                        className: classes.input,
-                        style: { display: 'none' },
-                        onChange: function onChange(e) {
-                            return changeFile(e, 'carreras');
-                        }
-                    })
-                )
-            )
-        ),
-        _react2.default.createElement('div', { className: 'divider' }),
-        _react2.default.createElement(
-            'div',
-            { className: 'row valign-wrapper my-3' },
-            _react2.default.createElement(
-                'div',
-                { className: 'col s10 left-align' },
-                _react2.default.createElement(
-                    'span',
-                    { className: classes.labelLogin },
-                    'Tabla asignaciones espec\xEDficas'
-                )
-            ),
-            _react2.default.createElement(
-                'div',
-                { className: 'col s2 right-align' },
-                _react2.default.createElement(
-                    _Button2.default,
-                    (_React$createElement5 = {
-                        fullWidth: true,
-                        variant: 'contained',
-                        component: 'label'
-                    }, _defineProperty(_React$createElement5, 'variant', 'contained'), _defineProperty(_React$createElement5, 'color', 'primary'), _React$createElement5),
-                    _react2.default.createElement(_icons.DescriptionIcon, { className: 'white-text ' + classes.labelSearch }),
-                    _react2.default.createElement(
-                        'span',
-                        { className: classes.labelUpload },
-                        'Subir'
-                    ),
-                    _react2.default.createElement('input', {
-                        type: 'file',
-                        accept: '.csv',
-                        name: 'selected_file',
-                        className: classes.input,
-                        style: { display: 'none' },
-                        onChange: function onChange(e) {
-                            return changeFile(e, 'especificas');
-                        }
-                    })
-                )
-            )
-        ),
-        _react2.default.createElement(
-            'div',
-            { className: 'row valign-wrapper my-3' },
-            _react2.default.createElement(
-                'div',
-                { className: 'col s12 right-align' },
-                _react2.default.createElement(
-                    'label',
-                    { className: classes.labelLittle },
-                    'Nota: Los archivos deben ser tipo ".csv".'
-                )
-            )
+          'span',
+          { className: classes.labelLogin },
+          'Tabla colaboradores'
         )
-    );
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'col s2 right-align' },
+        _react2.default.createElement(
+          _Button2.default,
+          (_React$createElement = {
+            fullWidth: true,
+            variant: 'contained',
+            component: 'label'
+          }, _defineProperty(_React$createElement, 'variant', 'contained'), _defineProperty(_React$createElement, 'color', 'primary'), _React$createElement),
+          _react2.default.createElement(_icons.DescriptionIcon, { className: 'white-text ' + classes.labelSearch }),
+          _react2.default.createElement(
+            'span',
+            { className: classes.labelUpload },
+            'Subir'
+          ),
+          _react2.default.createElement('input', {
+            type: 'file',
+            accept: '.csv',
+            name: 'selected_file',
+            className: classes.input,
+            style: { display: 'none' },
+            onChange: function onChange(e) {
+              return changeFile(e, 'colaborador');
+            }
+          })
+        )
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'col s2 right-align' },
+        _react2.default.createElement(
+          _Button2.default,
+          (_React$createElement2 = {
+            fullWidth: true,
+            variant: 'contained',
+            component: 'label'
+          }, _defineProperty(_React$createElement2, 'variant', 'contained'), _defineProperty(_React$createElement2, 'color', 'primary'), _defineProperty(_React$createElement2, 'onClick', function onClick() {
+            return deleteTable('colaboradores');
+          }), _React$createElement2),
+          _react2.default.createElement(_icons.DeleteIcon, { className: 'white-text ' + classes.labelSearch }),
+          _react2.default.createElement(
+            'span',
+            { className: classes.labelUpload },
+            'Borrar'
+          )
+        )
+      )
+    ),
+    _react2.default.createElement('div', { className: 'divider' }),
+    _react2.default.createElement(
+      'div',
+      { className: 'row valign-wrapper my-3' },
+      _react2.default.createElement(
+        'div',
+        { className: 'col s8 left-align' },
+        _react2.default.createElement(
+          'span',
+          { className: classes.labelLogin },
+          'Tabla estudiantes Becados'
+        )
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'col s2 right-align' },
+        _react2.default.createElement(
+          _Button2.default,
+          (_React$createElement3 = {
+            fullWidth: true,
+            variant: 'contained',
+            component: 'label'
+          }, _defineProperty(_React$createElement3, 'variant', 'contained'), _defineProperty(_React$createElement3, 'color', 'primary'), _React$createElement3),
+          _react2.default.createElement(_icons.DescriptionIcon, { className: 'white-text ' + classes.labelSearch }),
+          _react2.default.createElement(
+            'span',
+            { className: classes.labelUpload },
+            'Subir'
+          ),
+          _react2.default.createElement('input', {
+            type: 'file',
+            accept: '.csv',
+            name: 'selected_file',
+            className: classes.input,
+            style: { display: 'none' },
+            onChange: function onChange(e) {
+              return changeFile(e, 'estudiantes_becados');
+            }
+          })
+        )
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'col s2 right-align' },
+        _react2.default.createElement(
+          _Button2.default,
+          (_React$createElement4 = {
+            fullWidth: true,
+            variant: 'contained',
+            component: 'label'
+          }, _defineProperty(_React$createElement4, 'variant', 'contained'), _defineProperty(_React$createElement4, 'color', 'primary'), _defineProperty(_React$createElement4, 'onClick', function onClick() {
+            return deleteTable('estudiantes');
+          }), _React$createElement4),
+          _react2.default.createElement(_icons.DeleteIcon, { className: 'white-text ' + classes.labelSearch }),
+          _react2.default.createElement(
+            'span',
+            { className: classes.labelUpload },
+            'Borrar'
+          )
+        )
+      )
+    ),
+    _react2.default.createElement('div', { className: 'divider' }),
+    _react2.default.createElement(
+      'div',
+      { className: 'row valign-wrapper my-3' },
+      _react2.default.createElement(
+        'div',
+        { className: 'col s8 left-align' },
+        _react2.default.createElement(
+          'span',
+          { className: classes.labelLogin },
+          'Tabla estudiantes Inscritos'
+        )
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'col s2 right-align' },
+        _react2.default.createElement(
+          _Button2.default,
+          (_React$createElement5 = {
+            fullWidth: true,
+            variant: 'contained',
+            component: 'label'
+          }, _defineProperty(_React$createElement5, 'variant', 'contained'), _defineProperty(_React$createElement5, 'color', 'primary'), _React$createElement5),
+          _react2.default.createElement(_icons.DescriptionIcon, { className: 'white-text ' + classes.labelSearch }),
+          _react2.default.createElement(
+            'span',
+            { className: classes.labelUpload },
+            'Subir'
+          ),
+          _react2.default.createElement('input', {
+            type: 'file',
+            accept: '.csv',
+            name: 'selected_file',
+            className: classes.input,
+            style: { display: 'none' },
+            onChange: function onChange(e) {
+              return changeFile(e, 'estudiantes_inscritos');
+            }
+          })
+        )
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'col s2 right-align' },
+        _react2.default.createElement(
+          _Button2.default,
+          (_React$createElement6 = {
+            fullWidth: true,
+            variant: 'contained',
+            component: 'label'
+          }, _defineProperty(_React$createElement6, 'variant', 'contained'), _defineProperty(_React$createElement6, 'color', 'primary'), _defineProperty(_React$createElement6, 'onClick', function onClick() {
+            return deleteTable('estudiantes');
+          }), _React$createElement6),
+          _react2.default.createElement(_icons.DeleteIcon, { className: 'white-text ' + classes.labelSearch }),
+          _react2.default.createElement(
+            'span',
+            { className: classes.labelUpload },
+            'Borrar'
+          )
+        )
+      )
+    ),
+    _react2.default.createElement('div', { className: 'divider' }),
+    _react2.default.createElement(
+      'div',
+      { className: 'row valign-wrapper my-3' },
+      _react2.default.createElement(
+        'div',
+        { className: 'col s8 left-align' },
+        _react2.default.createElement(
+          'span',
+          { className: classes.labelLogin },
+          'Tabla carreras'
+        )
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'col s2 right-align' },
+        _react2.default.createElement(
+          _Button2.default,
+          (_React$createElement7 = {
+            fullWidth: true,
+            variant: 'contained',
+            component: 'label'
+          }, _defineProperty(_React$createElement7, 'variant', 'contained'), _defineProperty(_React$createElement7, 'color', 'primary'), _React$createElement7),
+          _react2.default.createElement(_icons.DescriptionIcon, { className: 'white-text ' + classes.labelSearch }),
+          _react2.default.createElement(
+            'span',
+            { className: classes.labelUpload },
+            'Subir'
+          ),
+          _react2.default.createElement('input', {
+            type: 'file',
+            accept: '.csv',
+            name: 'selected_file',
+            className: classes.input,
+            style: { display: 'none' },
+            onChange: function onChange(e) {
+              return changeFile(e, 'carreras');
+            }
+          })
+        )
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'col s2 right-align' },
+        _react2.default.createElement(
+          _Button2.default,
+          (_React$createElement8 = {
+            fullWidth: true,
+            variant: 'contained',
+            component: 'label'
+          }, _defineProperty(_React$createElement8, 'variant', 'contained'), _defineProperty(_React$createElement8, 'color', 'primary'), _defineProperty(_React$createElement8, 'onClick', function onClick() {
+            return deleteTable('carreras');
+          }), _React$createElement8),
+          _react2.default.createElement(_icons.DeleteIcon, { className: 'white-text ' + classes.labelSearch }),
+          _react2.default.createElement(
+            'span',
+            { className: classes.labelUpload },
+            'Borrar'
+          )
+        )
+      )
+    ),
+    _react2.default.createElement('div', { className: 'divider' }),
+    _react2.default.createElement(
+      'div',
+      { className: 'row valign-wrapper my-3' },
+      _react2.default.createElement(
+        'div',
+        { className: 'col s8 left-align' },
+        _react2.default.createElement(
+          'span',
+          { className: classes.labelLogin },
+          'Tabla asignaciones espec\xEDficas'
+        )
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'col s2 right-align' },
+        _react2.default.createElement(
+          _Button2.default,
+          (_React$createElement9 = {
+            fullWidth: true,
+            variant: 'contained',
+            component: 'label'
+          }, _defineProperty(_React$createElement9, 'variant', 'contained'), _defineProperty(_React$createElement9, 'color', 'primary'), _React$createElement9),
+          _react2.default.createElement(_icons.DescriptionIcon, { className: 'white-text ' + classes.labelSearch }),
+          _react2.default.createElement(
+            'span',
+            { className: classes.labelUpload },
+            'Subir'
+          ),
+          _react2.default.createElement('input', {
+            type: 'file',
+            accept: '.csv',
+            name: 'selected_file',
+            className: classes.input,
+            style: { display: 'none' },
+            onChange: function onChange(e) {
+              return changeFile(e, 'especificas');
+            }
+          })
+        )
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'col s2 right-align' },
+        _react2.default.createElement(
+          _Button2.default,
+          (_React$createElement10 = {
+            fullWidth: true,
+            variant: 'contained',
+            component: 'label'
+          }, _defineProperty(_React$createElement10, 'variant', 'contained'), _defineProperty(_React$createElement10, 'color', 'primary'), _defineProperty(_React$createElement10, 'onClick', function onClick() {
+            return deleteTable('asignaciones');
+          }), _React$createElement10),
+          _react2.default.createElement(_icons.DeleteIcon, { className: 'white-text ' + classes.labelSearch }),
+          _react2.default.createElement(
+            'span',
+            { className: classes.labelUpload },
+            'Borrar'
+          )
+        )
+      )
+    ),
+    _react2.default.createElement(
+      'div',
+      { className: 'row valign-wrapper my-3' },
+      _react2.default.createElement(
+        'div',
+        { className: 'col s12 right-align' },
+        _react2.default.createElement(
+          'label',
+          { className: classes.labelLittle },
+          'Nota: Los archivos deben ser tipo ".csv".'
+        )
+      )
+    )
+  );
 };
 
 var maxWidth = 1000;
 
 var styles = function styles(theme) {
-    return _defineProperty({
+  return _defineProperty({
 
-        modalWrapper: {
-            padding: "25px !Important"
-        },
+    modalWrapper: {
+      padding: "25px !Important"
+    },
 
-        modalRoot: {
-            top: '20%'
-        },
+    modalRoot: {
+      top: '20%'
+    },
 
-        title: {
-            fontSize: '30px',
-            fontWeight: 'bold'
-        },
+    title: {
+      fontSize: '30px',
+      fontWeight: 'bold'
+    },
 
-        icon: {
-            fontSize: '17px',
-            marginRight: '0.5rem'
-        },
+    icon: {
+      fontSize: '17px',
+      marginRight: '0.5rem'
+    },
 
-        labelText: {
-            fontSize: '14px',
-            color: '#000'
-        },
+    labelText: {
+      fontSize: '14px',
+      color: '#000'
+    },
 
-        iconLabel: {
-            color: "#101010",
-            fontSize: '14px',
-            marginRight: '0.5rem'
-        },
-        iconEditLabel: {
-            color: "#223f93",
-            fontSize: '30px',
-            marginRight: '0.5rem'
-        },
+    iconLabel: {
+      color: "#101010",
+      fontSize: '14px',
+      marginRight: '0.5rem'
+    },
+    iconEditLabel: {
+      color: "#223f93",
+      fontSize: '30px',
+      marginRight: '0.5rem'
+    },
 
-        iconSchool: {
-            color: "#101010",
-            fontSize: '18px',
-            marginRight: '0.5rem'
-        },
+    iconSchool: {
+      color: "#101010",
+      fontSize: '18px',
+      marginRight: '0.5rem'
+    },
 
-        iconInfo: {
-            color: "#101010",
-            fontSize: '18px',
-            marginRight: '0.5rem'
-        },
+    iconInfo: {
+      color: "#101010",
+      fontSize: '18px',
+      marginRight: '0.5rem'
+    },
 
-        closeIcon: {
-            cursor: 'pointer',
-            color: 'black',
-            position: 'absolute',
-            right: '12px',
-            top: '12px',
-            fontSize: '18px'
-        },
+    closeIcon: {
+      cursor: 'pointer',
+      color: 'black',
+      position: 'absolute',
+      right: '12px',
+      top: '12px',
+      fontSize: '18px'
+    },
 
-        containerWidth: {
-            maxWidth: '40%'
-        },
+    containerWidth: {
+      maxWidth: '40%'
+    },
 
-        labelSearch: {
-            fontSize: '15px',
-            marginRight: '0.5rem'
-        },
+    labelSearch: {
+      fontSize: '15px',
+      marginRight: '0.5rem'
+    },
 
-        labelCheck: {
-            fontSize: '16px',
-            marginRight: '0.5rem'
-        },
+    labelCheck: {
+      fontSize: '16px',
+      marginRight: '0.5rem'
+    },
 
-        labelLogin: {
-            fontFamily: 'Nunito',
-            fontSize: '20px'
-        },
+    labelLogin: {
+      fontFamily: 'Nunito',
+      fontSize: '20px'
+    },
 
-        labelUpload: {
-            fontFamily: 'Nunito',
-            fontSize: '15px'
-        },
+    labelUpload: {
+      fontFamily: 'Nunito',
+      fontSize: '15px'
+    },
 
-        labelLittle: {
-            fontFamily: 'Nunito',
-            fontSize: '15px'
-        },
+    labelLittle: {
+      fontFamily: 'Nunito',
+      fontSize: '15px'
+    },
 
-        wrapper: {
-            padding: '15px 50px'
-        }
+    wrapper: {
+      padding: '15px 50px'
+    }
 
-    }, '@media (max-width: ' + maxWidth + 'px)', {});
+  }, '@media (max-width: ' + maxWidth + 'px)', {});
 };
 
 exports.default = (0, _styles.withStyles)(styles)(CSV);

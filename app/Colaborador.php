@@ -34,6 +34,10 @@ class Colaborador extends Model
     return $this->belongsTo('App\Departamento', 'id_departamento');
   }
 
+  public function departamentos() {
+    return $this->belongsToMany('App\Departamento', 'colaborador_departamento', 'id_departamento', 'id_colaborador');
+  }
+
   public function solicitudesBecarias() {
 		return $this->hasMany('App\Solicitud_Becaria', 'id_colaborador')->where("aprovada", 1)->withTrashed()->orderBy('fecha_asignacion', 'desc');
   }
