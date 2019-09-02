@@ -14,9 +14,13 @@ use App\User;
 use App\Estudiante;
 use App\Administrador;
 use App\Colaborador;
+use App\ColaboradorDepartamento;
 use App\Departamento;
+use App\Solicitud_Becaria;
 use Illuminate\Http\Request;
 use App\Notifications\InicioPeriodo;
+use App\Notifications\estudianteAsignacion;
+use App\Notifications\colaboradorAsignacion;
 
 Route::get('/', function () {
   error_log("INFO: get /");
@@ -213,6 +217,18 @@ Route::get('/colaboradores/admin', function () {
   }
 });
 
+Route::get('/new/admin', function() {
+  $user = User::create([
+    'assignable_id' => 1, 
+    'username' => 'admin',
+    'password' => bcrypt('admin'),
+    'assignable_type' => User::ADMINISTRADOR,
+    'verification_code' => '',
+    'verified' => 1,
+  ]); 
+
+} );
+
 Route::get('/user/admin', function () {
   $administradores = User::whereIn('id', [48])->get();
 
@@ -234,12 +250,52 @@ Route::get('/user/admin', function () {
   dd($administradores);*/
 });
 
-Route::get('/prueba', function() {
+Route::get('/prueba/verificacion', function() {
   $user = User::where('username', 'A00820397')->first();
   $user->verification_code = str_random(40);
   $user->save();
   
   $user->notify(new InicioPeriodo());
+});
+
+Route::get('/prueba/mail', function() {
+  $user = User::where('username', 'A00820397')->with('assignable')->first();
+  $user->notify(new estudianteAsignacion());
+  //$user->notify(new colaboradorAsignacion());
+  
+  /*$user = User::where('username', 'A00820397')->with('assignable')->first();
+  $colaborador = Colaborador::where('nomina', 'L00820397')->first();
+  */
+});
+
+Route::get('/delete/tables', function() {
+  Solicitud_Becaria::truncate();
+  Estudiante::truncate();
+  Colaborador::truncate();
+  ColaboradorDepartamento::truncate();
+});
+
+Route::get('/prueba/mails/colabs', function() {
+  $colaboradores = Colaborador::
+    where('id', '>', 0)
+    ->with('user', 'asignaciones.estudiante')
+    ->get();
+
+  foreach($colaboradores as $colaborador) {
+    $colaborador->user->notify(new ColaboradorAsignacion());
+  }
+});
+
+Route::get("/mail/alumnos", function() {
+  $asignaciones = Solicitud_Becaria::
+    where("aprovada", 1)
+    ->where("mail", "=", 0)
+    ->with("estudiante.user", "colaborador")
+    ->get();
+  
+  foreach($asignaciones as $asignacion) {
+    $asignacion->estudiante->user->notify(new estudianteAsignacion($asignacion->colaborador));
+  }
 });
 
 Route::get('/colaboradorTest', function() {

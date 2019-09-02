@@ -56,8 +56,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'mi.mitel@hotmail.com'),
-        'name' => env('MAIL_FROM_NAME', 'Becas'),
+        'address' => env('MAIL_FROM_ADDRESS', 'becarios.mty@servicios.itesm.mx'),
+        'name' => env('MAIL_FROM_NAME', 'Dirección de Becas y Apoyos Educativos'),
     ],
 
     /*

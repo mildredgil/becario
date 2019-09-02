@@ -15,14 +15,9 @@ class Solicitud_Becaria extends Model
   const AGO_DIC  = 4;
   
   protected $fillable = [
-    'aprovada',
     'id_colaborador',
-    'id_estudiante',
-    'periodo',
-    'fecha',
-    'fecha_asignacion',
-    'fecha_aceptacion',
-    'evaluacion'
+    'id_estudiante', 
+    'periodo'
   ];            
 
   public function estudiante() {

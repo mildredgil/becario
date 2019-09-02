@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 /** Facades **/
 use App;
 use App\User;
+use App\Periodo;
 use App\Estudiante;
 use App\Escuela;
 use App\Colaborador;
@@ -13,6 +14,8 @@ use App\Carrera;
 use App\Departamento;
 use App\Solicitud_Becaria;
 use \Carbon\Carbon;
+use App\Notifications\estudianteAsignacion;
+use App\Notifications\colaboradorAsignacion;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -91,26 +94,35 @@ class ConfiguracionesController extends Controller
       $colaboradores =  collect([]);
 
       while ( ($data = fgetcsv($file, 200, ",")) !== FALSE ) {
-        $departamento = Departamento::where('nombre_departamento', $data[4])->first();
+        $departamento = Departamento::where('nombre_departamento', $data[3])->first();
         $new_colab = Colaborador::where('nomina', $data[0])->first();
-        dd($data);
+        
         if($new_colab == null) {
           $new_colab = Colaborador::create([
             'nomina' => $data[0],
             'nombre_completo' => $data[1],
             'profesor_sn' => $data[2],
             'oficina' => '',
-            'tipo_contrato' => $data[5],
+            'tipo_contrato' => $data[4],
             'id_departamento' => 0,
             'celular' => '',
             'contrasena' => '',
             'email' => $data[6]
           ]);
 
+          $registerUser = User::create([
+            'username' => $data[0],
+            'password' => bcrypt($data[0]),
+            'assignable_type' => USER::COLABORADOR,
+            'assignable_id' => $new_colab->id,
+            'verification_code' => '',
+            'verified' => 0
+          ]); 
+
           $colab_depto = ColaboradorDepartamento::create([
             'id_departamento' => $departamento->id,
             'id_colaborador' => $new_colab->id,
-            'requiere_becarios' => $data[6]
+            'requiere_becarios' => $data[5]
           ]);
         }
         $colaboradores->push($new_colab);
@@ -142,13 +154,32 @@ class ConfiguracionesController extends Controller
      fclose($file);  
 
     } else if($name == "estudiantes_becados") {
-      //matricula, es asignable
+      //matricula, nombre completo, semestre actual, siglas carrera, tipo_beca, es asignable
       $estudiantes =  collect([]);
       while ( ($data = fgetcsv($file, 200, ",")) !== FALSE ) {
         $new_student = Estudiante::firstOrCreate(['matricula' => $data[0]]);
-        $new_student->asignable_sn = $data[1];
-        $new_student->save();
+        $carrera = Carrera::where('siglas_carrera', $data[3])->first();
+        
+        if($new_student != null) {
+          $new_student->nombre_completo = $data[1];
+          $new_student->semestre_actual = $data[2];
+          $new_student->id_carrera = $carrera->id;
+          $new_student->email = $new_student->matricula . '@itesm.mx';
+          $new_student->tipo_beca = $data[4];
+          $new_student->asignable_sn = $data[5];
+          $new_student->estatus_assignable_sn = 0;
 
+          $new_student->save();
+
+          $registerUser = User::create([
+            'username' => $data[0],
+            'password' => bcrypt($data[0]),
+            'assignable_type' => USER::ESTUDIANTE,
+            'assignable_id' => $new_student->id,
+            'verification_code' => '',
+            'verified' => 0
+          ]); 
+        }
         $estudiantes->push($new_student);
       }
       
@@ -157,7 +188,7 @@ class ConfiguracionesController extends Controller
 
     } else if($name == "estudiantes_inscritos") {  
       //matricula, nombre completo, semestre actual, siglas carrera, tipo_beca
-      $estudiantes =  collect([]);
+     /* $estudiantes =  collect([]);
       
       while ( ($data = fgetcsv($file, 200, ",")) !== FALSE ) {
         $carrera = Carrera::where('siglas_carrera', $data[3])->first();
@@ -182,7 +213,7 @@ class ConfiguracionesController extends Controller
             $student->asignable_sn = 1;
             $student->estatus_assignable_sn = 0;
           }*/
-
+          /*
           $student->save();
           $estudiantes->push($student);
         }
@@ -190,27 +221,83 @@ class ConfiguracionesController extends Controller
      
      $response['collection']  = $estudiantes;
      $response['count']  = $estudiantes->count();    
-
+     */
      fclose($file);  
     } else if($name == "especificas") {  
+      ini_set('max_execution_time', 1000);
       //matricula, nomina
       $asignaciones =  collect([]);
+      //$colaboradoresId = [];
       
       while ( ($data = fgetcsv($file, 200, ",")) !== FALSE ) {
-        $student = Estudiante::where('matricula', $data[0])->first();
-        $colaborador = Colaborador::where('nomina', $data[1])->first();
+        //$student = Estudiante::where('matricula', $data[0])->first();
+        //$colaborador = Colaborador::where('nomina', $data[1])->first();
+
+        //Nombre, nomina, correo, matricula, nombre
+        $new_colab = Colaborador::firstOrCreate(['nomina' => $data[1]]);
+        $new_colab->nombre_completo = $data[0];
+        $new_colab->email = $data[2];
+        $new_colab->save();
+
+        $registerUserColab = User::where('username', $data[1])->first();
+        if(!$registerUserColab) {
+          $registerUserColab = User::create([
+            'username' => $data[1],
+            'password' => bcrypt($data[1]),
+            'assignable_type' => USER::COLABORADOR,
+            'assignable_id' => $new_colab->id,
+            'verification_code' => '',
+            'verified' => 0
+          ]);   
+        }
         
-        if($student != null && $colaborador != null) {
-          $asignacion = Solicitud_Becaria::firstOrCreate(
-            ['id_matricula' => $student->id],
-            ['id_colaborador' => $colaborador->id],
-            ['periodo' => Periodo::AGO_DIC]
-          );
+        $student = Estudiante::firstOrCreate(['matricula' => $data[3]]);
+        
+        if($student != null) {
+          if(count($data) >  4) {
+            $student->nombre_completo = $data[4];
+          } else {
+            $student->nombre_completo = "Estimado Alumno";
+          }
+          
+          $student->email = $student->matricula . '@itesm.mx';
+          $student->asignable_sn = 1;
+          $student->save();
+          
+          $userStudent = User::where("username", $student->matricula)->first();
+          $registerUserStudent = $userStudent;
+          
+          if(!$userStudent) {
+            $registerUserStudent = User::create([
+              'username' => $data[3],
+              'password' => bcrypt($data[3]),
+              'assignable_type' => USER::ESTUDIANTE,
+              'assignable_id' => $student->id,
+              'verification_code' => '',
+              'verified' => 0
+            ]);
+          } 
+        }
+        
+        if($student != null && 
+        $new_colab != null) {
+          $asignacion = Solicitud_Becaria::create([
+            'id_estudiante' => $student->id,
+            'id_colaborador' => $new_colab->id,
+            'periodo' => Periodo::AGO_DIC
+          ]);
 
           $asignacion->aprovada = 1;
           $asignacion->fecha_asignacion = new Carbon();
           $asignacion->fecha_aceptacion = new Carbon();
+          $asignacion->mail = 0;
           $asignacion->save();
+
+          $student->estatus_assignable_sn = 1;
+          $student->save();
+          
+          //mandar correo a alumno.
+          //$registerUserStudent->notify(new estudianteAsignacion($new_colab));
 
           $asignaciones->push($asignacion);
         }
@@ -390,22 +477,61 @@ class ConfiguracionesController extends Controller
       Carrera::truncate(); 
 
     //borrar tabla de estudiantes
-    if($request->input('table') == 'estudiantes')
-      Estudiante::delete();
+    if($request->input('table') == 'estudiantes') {
+      $estudiantes = Estudiante::where('id', '>', 0)->get();
 
+      foreach($estudiantes as $estudiante) {
+        $estudiante->matricula = '_' . $estudiante->matricula;
+        $estudiante->save();
+        $estudiante->delete();
+      }
+
+      $users = User::where('assignable_type', 'App\Estudiante')->get();
+
+      foreach($users as $user) {
+        $user->delete();
+      } 
+    }      
+      
     //borrar tabla de colaboradores
     if($request->input('table') == 'colaboradores') {
-      Colaborador::truncate();
-      ColaboradorDepartamento::truncate();
+      $colabs = Colaborador::where('id', '>', 0)->get();
+
+      foreach($colabs as $colab) {
+        $colab->nomina = '_' . $colab->nomina;
+        $colab->save();
+        $colab->delete();
+      }
+
+      $colabDeptos = ColaboradorDepartamento::where('id', '>', 0)->get();
+
+      foreach($colabDeptos as $colabDepto) {
+        $colabDepto->delete();
+      }
+
+      $users = User::where('assignable_type', 'App\Colaborador')->get();
+
+      foreach($users as $user) {
+        $user->delete();
+      } 
     }
-      
 
     //borrar solicitud becaria
-    if($request->input('table') == 'asignaciones')
-      Solicitud_Becaria::delete();
+    if($request->input('table') == 'asignaciones') {
+      $solicitudBecarias = Solicitud_Becaria::where('id', '>', 0)->get();
+
+      foreach($solicitudBecarias as $solicitudBecaria) {
+        $solicitudBecaria->delete();
+      } 
+    }
       
     //borrar tabla departamento
-    if($request->input('table') == 'departamentos')
-      Departamento::delete();
+    if($request->input('table') == 'departamentos') {
+      $departamentos = Departamento::where('id', '>', 0)->get();
+
+      foreach($departamentos as $departamento) {
+        $departamento->delete();
+      }
+    }
   }
 }

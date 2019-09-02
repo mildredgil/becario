@@ -19,15 +19,7 @@ class Colaborador extends Model
   protected $appends = array("becarios_disponibles");
 
   protected $fillable = [
-    'nomina',
-    'nombre_completo',
-    'profesor_sn',
-    'oficina',
-    'id_departamento',
-    'tipo_contrato',
-    'celular',
-    'contrasena',
-    'email'
+    'nomina'
   ];
 
   public function departamento() {

@@ -4,8 +4,10 @@ namespace App;
 
 use App\Solitud_Becaria;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Administrador extends Model {
+  use SoftDeletes;
   protected $table = 'administrador';
   protected $hidden = ['password'];
   protected $appends = array("solicitudes");
