@@ -61,6 +61,6 @@
         "react-swipeable-views-utils": "^0.13.3",
         "simple-react-validator": "^1.2.0",
         "socket.io": "*",
-        "validator": "^11.0.0"
+        "validator": "^13.7.0"
     }
 }
